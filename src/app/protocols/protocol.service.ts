@@ -8,4 +8,11 @@ export class ProtocolService {
   getProtocols(): Promise<Protocol[]> {
     return Promise.resolve(PROTOCOLS);
   }
+
+  getProtocolsSlowly(): Promise<Protocol[]> {
+  return new Promise(resolve => {
+    // Simulate server latency with 2 second delay
+    setTimeout(() => resolve(this.getProtocols()), 2000);
+  });
+}
 }
