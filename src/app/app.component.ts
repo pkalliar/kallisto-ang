@@ -1,38 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Protocol } from './protocol';
 import { ProtocolDetailComponent } from './protocol-detail.component';
+import { ProtocolService } from './protocols/protocol.service';
 
-const PROTOCOLS: Protocol[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' }
-];
-
+// my comment on Monday morning
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ProtocolService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Angular pankal app';
   selectedProtocol: Protocol;
 
-  protocols = PROTOCOLS;
+  protocols: Protocol[];
+
+  constructor(private protocolService: ProtocolService) { }
+
+  getProtocols(): void {
+    this.protocolService.getProtocols().then(protocols => this.protocols = protocols);
+  }
+
+  ngOnInit(): void {
+    this.getProtocols();
+  }
 
   onSelect(protocol: Protocol): void {
     this.selectedProtocol = protocol;
   }
 
-  
 }
-
 
 
 
