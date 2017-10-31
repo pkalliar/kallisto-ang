@@ -4,12 +4,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
+import { HttpModule }    from '@angular/http';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProtocolsComponent } from './protocols/protocols.component';
 import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
 import { ProtocolService } from './protocols/protocol.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 
 @NgModule({
@@ -22,6 +25,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     AppRoutingModule
   ],
   providers: [ProtocolService],

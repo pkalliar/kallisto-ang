@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Protocol } from './protocol';
 import { ProtocolDetailComponent } from './protocol-detail.component';
 import { ProtocolService } from '../protocols/protocol.service';
@@ -15,7 +16,9 @@ export class ProtocolsComponent implements OnInit {
 
   protocols: Protocol[];
 
-  constructor(private protocolService: ProtocolService) { }
+  constructor(
+    private router: Router,
+    private protocolService: ProtocolService) { }
 
   getProtocols(): void {
     this.protocolService.getProtocolsSlowly().then(protocols => this.protocols = protocols);
@@ -27,6 +30,10 @@ export class ProtocolsComponent implements OnInit {
 
   onSelect(protocol: Protocol): void {
     this.selectedProtocol = protocol;
+  }
+
+  gotoDetail(): void {
+    this.router.navigate(['/detail', this.selectedProtocol.id]);
   }
 
 }

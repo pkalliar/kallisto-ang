@@ -29,4 +29,8 @@ export class ProtocolDetailComponent implements OnInit{
         .subscribe(protocol => this.protocol = protocol);
     }
 
+    goBack(): void {
+      this.location.back();
+    }
+
 }
