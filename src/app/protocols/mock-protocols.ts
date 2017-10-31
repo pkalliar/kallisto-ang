@@ -1,4 +1,4 @@
-import { Protocol } from '../protocol';
+import { Protocol } from './protocol';
 
 export const PROTOCOLS: Protocol[] = [
   { id: 11, name: 'Mr. Nice' },

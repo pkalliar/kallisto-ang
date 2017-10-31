@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Protocol } from '../protocol';
-import { ProtocolDetailComponent } from '../protocol-detail.component';
-import { ProtocolService } from '../protocols/protocol.service';
+import { Protocol } from './protocol';
+import { ProtocolDetailComponent } from './protocol-detail.component';
+import { ProtocolService } from './protocol.service';
 
 // my comment on Monday morning
 @Component({

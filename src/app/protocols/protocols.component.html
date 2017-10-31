@@ -1,0 +1,22 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+
+  <protocol-detail [protocol]="selectedProtocol"></protocol-detail>
+  <!-- <div *ngIf="selectedHero">
+    <h2>{{selectedHero.name}} details!</h2>
+    <div><label>id: </label>{{selectedHero.id}}</div>
+    <div>
+      <label>name: </label>
+      <input [(ngModel)]="selectedProtocol.name" placeholder="name"/>
+    </div>
+  </div> -->
+
+  <ul class="heroes">
+    <li *ngFor="let protocol of protocols" (click)="onSelect(protocol)" 
+          [class.selected]="protocol === selectedProtocol">
+      <span class="badge">{{protocol.id}}</span> {{protocol.name}}
+    </li> 
+  </ul>
+</div>
+
+

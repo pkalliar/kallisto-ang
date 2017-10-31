@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Protocol } from '../protocol';
+import { Protocol } from './protocol';
 import { PROTOCOLS } from './mock-protocols';
 
 @Injectable()
@@ -9,10 +9,15 @@ export class ProtocolService {
     return Promise.resolve(PROTOCOLS);
   }
 
-  getProtocolsSlowly(): Promise<Protocol[]> {
-  return new Promise(resolve => {
-    // Simulate server latency with 2 second delay
-    setTimeout(() => resolve(this.getProtocols()), 2000);
-  });
-}
+    getProtocolsSlowly(): Promise<Protocol[]> {
+        return new Promise(resolve => {
+            // Simulate server latency with 2 second delay
+            setTimeout(() => resolve(this.getProtocols()), 2000);
+        });
+    }
+
+    getProtocol(id: number): Promise<Protocol> {
+        return this.getProtocols()
+             .then(protocols => protocols.find(protocol => protocol.id === id));
+    }
 }

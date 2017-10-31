@@ -3,22 +3,11 @@
   <h1>
     Welcome to {{title}}!
   </h1>
-  <protocol-detail [protocol]="selectedProtocol"></protocol-detail>
-  <!-- <div *ngIf="selectedHero">
-    <h2>{{selectedHero.name}} details!</h2>
-    <div><label>id: </label>{{selectedHero.id}}</div>
-    <div>
-      <label>name: </label>
-      <input [(ngModel)]="selectedProtocol.name" placeholder="name"/>
-    </div>
-  </div> -->
+  <a routerLink="/protocols">Protocols</a>
+  <a routerLink="/dashboard">Control Panel</a>
+   <router-outlet></router-outlet>
 
-  <ul class="heroes">
-    <li *ngFor="let protocol of protocols" (click)="onSelect(protocol)" 
-          [class.selected]="protocol === selectedProtocol">
-      <span class="badge">{{protocol.id}}</span> {{protocol.name}}
-    </li> 
-  </ul>
+  <!-- <app-protocols></app-protocols> -->
 </div>
 
 

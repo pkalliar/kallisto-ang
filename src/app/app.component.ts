@@ -1,34 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Protocol } from './protocol';
-import { ProtocolDetailComponent } from './protocol-detail.component';
-import { ProtocolService } from './protocols/protocol.service';
+import { Protocol } from './protocols/protocol';
+import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
+
 
 // my comment on Monday morning
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ProtocolService]
+  providers: []
 })
 export class AppComponent implements OnInit {
   title = 'Angular pankal app';
-  selectedProtocol: Protocol;
 
-  protocols: Protocol[];
-
-  constructor(private protocolService: ProtocolService) { }
-
-  getProtocols(): void {
-    this.protocolService.getProtocolsSlowly().then(protocols => this.protocols = protocols);
-  }
 
   ngOnInit(): void {
-    this.getProtocols();
+    console.log('initializing app..');
   }
 
-  onSelect(protocol: Protocol): void {
-    this.selectedProtocol = protocol;
-  }
+
 
 }
 
