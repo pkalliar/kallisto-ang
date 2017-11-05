@@ -2,14 +2,7 @@
 <div style="text-align:center">
 
   <protocol-detail [protocol]="selectedProtocol"></protocol-detail>
-  <!-- <div *ngIf="selectedHero">
-    <h2>{{selectedHero.name}} details!</h2>
-    <div><label>id: </label>{{selectedHero.id}}</div>
-    <div>
-      <label>name: </label>
-      <input [(ngModel)]="selectedProtocol.name" placeholder="name"/>
-    </div>
-  </div> -->
+
 
   <ul class="heroes">
     <li *ngFor="let protocol of protocols" (click)="onSelect(protocol)" 
@@ -22,7 +15,8 @@
     <h2>
       {{selectedProtocol.name | uppercase}} is the selected protocol
     </h2>
-    <button (click)="gotoDetail()">View Details</button>
+    <button mat-raised-button (click)="gotoDetail()">View Details</button>
+    
   </div>
 </div>
 

@@ -1,10 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <a routerLink="/protocols">Protocols</a>
-  <a routerLink="/dashboard">Control Panel</a>
+  <mat-toolbar color="primary">
+  <button mat-button routerLink="/">{{title}}</button>
+  <button mat-button routerLink="/protocols">Protocols</button>
+  <button mat-button>
+    <mat-icon class="example-icon" routerLink="/dashboard">settings</mat-icon>
+  </button>
+  <button mat-button>
+    <mat-icon class="example-icon" routerLink="/contacts">contacts</mat-icon>
+  </button>
+  <!-- <button mat-button routerLink="/dashboard">Control Panel</button> -->
+  <span class="example-spacer"></span>
+  <mat-icon class="example-icon">favorite</mat-icon>
+  <mat-icon class="example-icon">delete</mat-icon>
+</mat-toolbar>
+
    <router-outlet></router-outlet>
 
   <!-- <app-protocols></app-protocols> -->

@@ -14,6 +14,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.protocolService.getProtocols()
-      .then(protocols => this.protocols = protocols.slice(1, 5));
+      .then(protocols => this.protocols = protocols.slice(1, 3));
   }
 }

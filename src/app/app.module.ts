@@ -4,7 +4,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpModule } from '@angular/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule, MatToolbarModule,
+  MatIconModule, MatInputModule, MatSortModule, MatTableModule} from '@angular/material';
+import {CdkTableModule} from '@angular/cdk/table';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +16,9 @@ import { ProtocolsComponent } from './protocols/protocols.component';
 import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
 import { ProtocolService } from './protocols/protocol.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ContactComponent } from './entities/contact.component';
+import { ContactDetailComponent } from './entities/contact-detail.component';
+import { ContactService } from './entities/contact.service';
 
 
 
@@ -20,15 +27,21 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppComponent,
     ProtocolsComponent,
     ProtocolDetailComponent,
-    DashboardComponent
+    DashboardComponent,
+    ContactComponent, ContactDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule, MatCheckboxModule, MatToolbarModule, CdkTableModule,
+    MatIconModule, MatInputModule, MatSortModule, MatTableModule
   ],
-  providers: [ProtocolService],
+  exports: [
+    CdkTableModule],
+  providers: [ProtocolService, ContactService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,14 @@
     background-color: #CFD8DC !important;
     color: white;
   }
+
+  .example-icon {
+    padding: 0 14px;
+  }
+
+  .example-spacer {
+    flex: 1 1 auto;
+  }
   .heroes {
     margin: 0 0 2em 0;
     list-style-type: none;

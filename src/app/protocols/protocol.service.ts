@@ -10,7 +10,7 @@ import { PROTOCOLS } from './mock-protocols';
 @Injectable()
 export class ProtocolService {
 
-    private heroesUrl = 'api/heroes';  // URL to web api
+    private protocolsUrl = 'http://127.0.0.1:8080/api/protocols1234';  // URL to web api
     constructor(private http: Http) { }
 
     // getProtocols(): Promise<Protocol[]> {
@@ -30,9 +30,9 @@ export class ProtocolService {
     }
 
     getProtocols(): Promise<Protocol[]> {
-     return this.http.get(this.heroesUrl)
+     return this.http.get(this.protocolsUrl)
                 .toPromise()
-                .then(response => response.json().data as Protocol[])
+                .then(response => response.json() as Protocol[])
                 .catch(this.handleError);
    }
     

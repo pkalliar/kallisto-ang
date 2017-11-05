@@ -1,0 +1,60 @@
+<div>
+  <div class="example-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <!-- <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container> -->
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="code">
+        <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-button routerLink="/contacts/{{element.id}}" >{{element.code}}</button>
+            </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="legal_name">
+        <mat-header-cell *matHeaderCellDef> Πλήρες όνομα </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.legal_name}} </mat-cell>
+      </ng-container>
+
+      <!-- Color Column -->
+      <ng-container matColumnDef="enabled">
+        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.enabled}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+
+
+  <contact-detail [contact]="selectedContact"></contact-detail>
+
+
+  <ul class="heroes">
+    <li *ngFor="let contact of contacts" (click)="onSelect(contact)" 
+          [class.selected]="protocol === selectedContact">
+      <span class="badge">{{contact.id}}</span> {{contact.code}}
+    </li> 
+  </ul>
+
+  <div *ngIf="selectedContact">
+    <h2>
+      {{selectedContact.code | uppercase}} is the selected Contact
+    </h2>
+    <button mat-raised-button (click)="gotoDetail()">View Details</button>
+    
+  </div>
+</div>
+
+
