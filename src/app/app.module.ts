@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactComponent } from './entities/contact.component';
 import { ContactDetailComponent } from './entities/contact-detail.component';
 import { ContactService } from './entities/contact.service';
+import { LoginComponent } from './login.component';
 
 
 
@@ -27,7 +28,7 @@ import { ContactService } from './entities/contact.service';
     AppComponent,
     ProtocolsComponent,
     ProtocolDetailComponent,
-    DashboardComponent,
+    DashboardComponent, LoginComponent,
     ContactComponent, ContactDetailComponent
   ],
   imports: [

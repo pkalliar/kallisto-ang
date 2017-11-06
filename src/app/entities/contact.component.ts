@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contact } from './contact';
 import { ContactDetailComponent } from './contact-detail.component';
 import { ContactService } from './contact.service';
 
 import {DataSource} from '@angular/cdk/collections';
+import {MatSort} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/map';
 
 
 // my comment on Monday morning
@@ -30,6 +34,7 @@ export class ContactComponent implements OnInit {
 
   contactDatabase = new ContactDatabase();
   dataSource: ContactDataSource | null;
+  @ViewChild(MatSort) sort: MatSort;
 
 
   constructor(
@@ -52,7 +57,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContacts();
-    this.dataSource = new ContactDataSource(this.contactDatabase);
+    this.dataSource = new ContactDataSource(this.contactDatabase, this.sort);
   }
 
   onSelect(contact: Contact): void {
@@ -104,14 +109,44 @@ export class ContactDatabase {
  * should be rendered.
  */
 export class ContactDataSource extends DataSource<any> {
-  constructor(private _cDatabase: ContactDatabase) {
+  constructor(private _cDatabase: ContactDatabase, private _sort: MatSort) {
     super();
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Contact[]> {
-    return this._cDatabase.dataChange;
+    // return this._cDatabase.dataChange;
+    const displayDataChanges = [
+      this._cDatabase.dataChange,
+      this._sort.sortChange,
+    ];
+
+    return Observable.merge(...displayDataChanges).map(() => {
+      return this.getSortedData();
+    });
   }
 
   disconnect() {}
+
+    /** Returns a sorted copy of the database data. */
+    getSortedData(): Contact[] {
+      const data = this._cDatabase.data.slice();
+      if (!this._sort.active || this._sort.direction == '') { return data; }
+  
+      return data.sort((a, b) => {
+        let propertyA: number|string = '';
+        let propertyB: number|string = '';
+  
+        switch (this._sort.active) {
+          case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
+          case 'code': [propertyA, propertyB] = [a.code, b.code]; break;
+          case 'legal_name': [propertyA, propertyB] = [a.legal_name, b.legal_name]; break;
+        }
+  
+        let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+        let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+  
+        return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
+      });
+    }
 }

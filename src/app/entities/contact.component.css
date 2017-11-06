@@ -2,12 +2,23 @@
   .selected {
     background-color: #CFD8DC !important;
     color: white;
+
   }
 
+  .mat-column-code {
+    flex: 0 0 150px;
+  }
 
+  .mat-column-legal_name {
+    flex: 0 0 750px;
+  }
 
 .example-container > * {
-  width: 100%;
+  width: 80%;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  text-align: left;
 }
   
 .example-container {
@@ -20,4 +31,5 @@
 .mat-table {
   overflow: auto;
   max-height: 500px;
+
 }

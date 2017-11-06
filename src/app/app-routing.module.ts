@@ -6,10 +6,12 @@ import { ContactComponent } from './entities/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
 import { ContactDetailComponent } from './entities/contact-detail.component';
+import { LoginComponent } from './login.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'login',  component: LoginComponent },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: ProtocolDetailComponent },
   { path: 'protocols',     component: ProtocolsComponent },

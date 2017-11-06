@@ -1,6 +1,6 @@
 <div>
   <div class="example-container mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -12,22 +12,22 @@
       </ng-container> -->
 
       <!-- Name Column -->
-      <ng-container matColumnDef="code">
-        <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+      <ng-container matColumnDef="code" flex="20">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Κωδικός </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-button routerLink="/contacts/{{element.id}}" >{{element.code}}</button>
             </mat-cell>
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="legal_name">
-        <mat-header-cell *matHeaderCellDef> Πλήρες όνομα </mat-header-cell>
+      <ng-container matColumnDef="legal_name" flex="60">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Πλήρες όνομα </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.legal_name}} </mat-cell>
       </ng-container>
 
       <!-- Color Column -->
-      <ng-container matColumnDef="enabled">
-        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+      <ng-container matColumnDef="enabled" flex="20">
+        <mat-header-cell *matHeaderCellDef > Ενεργό </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.enabled}} </mat-cell>
       </ng-container>
 
@@ -38,7 +38,7 @@
 
 
 
-  <contact-detail [contact]="selectedContact"></contact-detail>
+  <!-- <contact-detail [contact]="selectedContact"></contact-detail>
 
 
   <ul class="heroes">
@@ -54,7 +54,7 @@
     </h2>
     <button mat-raised-button (click)="gotoDetail()">View Details</button>
     
-  </div>
+  </div> -->
 </div>
 
 
