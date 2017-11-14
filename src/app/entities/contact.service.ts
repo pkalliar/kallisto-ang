@@ -9,7 +9,7 @@ import { Contact } from './contact';
 @Injectable()
 export class ContactService {
 
-    private contactsUrl = 'http://127.0.0.1:8080/api/contacts';  // URL to web api
+    private contactsUrl = 'http://127.0.0.1:8090/api/contacts';  // URL to web api
     constructor(private http: Http) { }
 
 

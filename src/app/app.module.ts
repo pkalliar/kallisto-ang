@@ -6,9 +6,10 @@ import { RouterModule } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatToolbarModule,
+import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatGridListModule,
   MatIconModule, MatInputModule, MatSortModule, MatTableModule} from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +37,7 @@ import { LoginComponent } from './login.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule,
+    AppRoutingModule, MatGridListModule,
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, MatToolbarModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule
