@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
+import { Headers, Http } from '@angular/http';
 
 
 @Component({
@@ -18,9 +19,12 @@ export class LoginComponent implements OnInit{
     username = new FormControl('', [Validators.required]);
     password = new FormControl('', [Validators.required]);
 
+    private loginUrl = 'http://localhost:8090/login';
+
     constructor(
       private route: ActivatedRoute,
-      private location: Location
+      private location: Location,
+      private http: Http
     ) {}
 
     ngOnInit(): void {
@@ -42,6 +46,16 @@ export class LoginComponent implements OnInit{
       login.username = this.username.value;
       login.password = this.password.value;
       console.log('do the login thing..' + JSON.stringify(login));
+      var response = this.http.get(this.loginUrl)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+      console.log('response is ..' + JSON.stringify(response));
+    }
+
+    private handleError(error: any): Promise<any> {
+      console.error('An error occurred', error); // for demo purposes only
+      return Promise.reject(error.message || error);
     }
 
 }
