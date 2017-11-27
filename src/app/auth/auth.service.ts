@@ -9,7 +9,8 @@ export const TOKEN_NAME: string = 'jwt_token';
 @Injectable()
 export class AuthService {
 
-  private url: string = 'api/auth';
+  //private contactsUrl = 'http://127.0.0.1:8090/api/contacts';  // URL to web api
+  private url: string = 'http://127.0.0.1:8090/api/babadoo';
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
   jwtHelper: JwtHelper = new JwtHelper();
@@ -45,7 +46,7 @@ export class AuthService {
 
   login(user): Promise<string> {
     return this.http
-      .post(`${this.url}/login`, JSON.stringify(user), { headers: this.headers })
+      .post(`${this.url}`, JSON.stringify(user), { headers: this.headers })
       .toPromise()
       .then(res => res.text());
   }

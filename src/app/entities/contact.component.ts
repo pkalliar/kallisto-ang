@@ -6,12 +6,14 @@ import { ContactService } from './contact.service';
 
 import {DataSource} from '@angular/cdk/collections';
 import {MatSort} from '@angular/material';
+import {MatChipsModule} from '@angular/material/chips';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
+
 
 
 // my comment on Monday morning
@@ -25,6 +27,11 @@ import 'rxjs/add/operator/map';
 
 
 export class ContactComponent implements OnInit {
+
+
+
+
+
   selectedContact: Contact;
 
   contacts: Contact[];

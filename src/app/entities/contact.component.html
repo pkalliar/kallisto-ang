@@ -1,5 +1,18 @@
 <div>
   <div class="example-container mat-elevation-z8">
+    <mat-grid-list cols="16" rowHeight="65px">
+        <mat-grid-tile colspan="14">
+          <mat-form-field style="width:100%">
+            <input matInput placeholder="Αναζήτηση επαφής.." value="">            
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+          <button mat-button><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+          <button mat-button (click)="newContact()"><i class="fa fa-plus-square-o fa-lg" aria-hidden="true"></i></button>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+
     <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
 
       <!--- Note that these columns can be defined in any order.

@@ -19,19 +19,25 @@ export class ContactDetailComponent implements OnInit{
     @Input() contact: Contact;
 
     constructor(
-      private protocolService: ContactService,
       private route: ActivatedRoute,
-      private location: Location
+      private location: Location,
+      private contactService: ContactService
     ) {}
+
+
 
     ngOnInit(): void {
       this.route.paramMap
-        .switchMap((params: ParamMap) => this.protocolService.getContact(params.get('id')))
+        .switchMap((params: ParamMap) => this.contactService.getContact(params.get('id')))
         .subscribe(contact => this.contact = contact);
     }
 
     goBack(): void {
       this.location.back();
+    }
+
+    saveContact(contact): void {
+      this.contactService.saveContact(contact)
     }
 
 }

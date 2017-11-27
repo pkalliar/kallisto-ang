@@ -1,13 +1,48 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+
+
 import { RouterModule } from '@angular/router';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatGridListModule,
-  MatIconModule, MatInputModule, MatSortModule, MatTableModule} from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatStepperModule,
+} from '@angular/material';
+import {MatChipsModule} from '@angular/material/chips';
 import {CdkTableModule} from '@angular/cdk/table';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
@@ -21,6 +56,7 @@ import { ContactComponent } from './entities/contact.component';
 import { ContactDetailComponent } from './entities/contact-detail.component';
 import { ContactService } from './entities/contact.service';
 import { LoginComponent } from './login.component';
+import { AuthService } from './auth/auth.service';
 
 
 
@@ -39,12 +75,49 @@ import { LoginComponent } from './login.component';
     HttpModule,
     AppRoutingModule, MatGridListModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
     MatButtonModule, MatCheckboxModule, MatToolbarModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule
   ],
   exports: [
-    CdkTableModule],
-  providers: [ProtocolService, ContactService],
+    CdkTableModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule],
+  providers: [ProtocolService, ContactService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
