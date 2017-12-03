@@ -38,18 +38,18 @@ export class LoginComponent implements OnInit{
     }
 
     getErrorMessage( owner) {
-      return  owner == 'username' && this.username.hasError('required') ? 'You must enter your username' :
-              owner == 'password' && this.password.hasError('required') ? 'You must enter your password' :
+      return  owner === 'username' && this.username.hasError('required') ? 'You must enter your username' :
+              owner === 'password' && this.password.hasError('required') ? 'You must enter your password' :
               '';
     }
 
     logmein() {
-      var login = new Login();
+      const login = new Login();
       login.username = this.username.value;
       login.password = this.password.value;
       console.log('do the login thing..' + JSON.stringify(login));
 
-      this.authService.login(login).then( response => console.log('response is ..' + response))
+      this.authService.login(login).then( response => console.log('response is ..' + response));
 
     }
 

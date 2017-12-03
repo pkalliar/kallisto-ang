@@ -29,9 +29,6 @@ import 'rxjs/add/operator/map';
 export class ContactComponent implements OnInit {
 
 
-
-
-
   selectedContact: Contact;
 
   contacts: Contact[];
@@ -60,6 +57,12 @@ export class ContactComponent implements OnInit {
     }
 
     return contacts;
+  }
+
+  newContact(): void {
+    console.log('new contact: ');
+    this.contactService.newContact().then(
+      contact => this.router.navigate(['/contacts/' + 'new']));
   }
 
   ngOnInit(): void {

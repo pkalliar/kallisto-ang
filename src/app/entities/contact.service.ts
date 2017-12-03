@@ -16,7 +16,7 @@ export class ContactService {
     getContact(id: string): Promise<Contact> {
         // return this.getContacts()
         //      .then(contacts => contacts.find(contact => contact.id === id));
-        return this.http.get(this.contactsUrl + "/" + id)
+        return this.http.get(this.contactsUrl + '/' + id)
              .toPromise()
              .then(response => response.json())
              .catch(this.handleError);
@@ -30,7 +30,21 @@ export class ContactService {
     }
 
     saveContact(contact: Contact): Promise<Contact> {
-      return this.http.post(this.contactsUrl, contact)
+      return this.http.put(this.contactsUrl + '/' + contact.id, contact)
+      .toPromise()
+      .then(response => response.json() as Contact)
+      .catch(this.handleError);
+    }
+
+    deleteContact(contact: Contact): Promise<Contact> {
+      return this.http.delete(this.contactsUrl + '/' + contact.id)
+      .toPromise()
+      .then(response => response.json() as Contact)
+      .catch(this.handleError);
+    }
+
+    newContact(): Promise<Contact> {
+      return this.http.post(this.contactsUrl, {})
       .toPromise()
       .then(response => response.json() as Contact)
       .catch(this.handleError);

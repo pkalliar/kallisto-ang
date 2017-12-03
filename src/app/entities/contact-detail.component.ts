@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
@@ -15,12 +15,13 @@ import { Contact } from './contact';
 
 
 
-export class ContactDetailComponent implements OnInit{
+export class ContactDetailComponent implements OnInit {
     @Input() contact: Contact;
 
     constructor(
       private route: ActivatedRoute,
       private location: Location,
+      private router: Router,
       private contactService: ContactService
     ) {}
 
@@ -37,7 +38,11 @@ export class ContactDetailComponent implements OnInit{
     }
 
     saveContact(contact): void {
-      this.contactService.saveContact(contact)
+      this.contactService.saveContact(contact).then( response => this.router.navigate(['/contacts/' + response.id]));
+    }
+
+    deleteContact(contact): void {
+      this.contactService.deleteContact(contact).then( response => this.router.navigate(['/contacts']));
     }
 
 }
