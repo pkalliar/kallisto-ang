@@ -4,3 +4,7 @@ export class Contact {
     legal_name: string;
     enabled: boolean;
 }
+
+export class ContactCategory {
+    constructor(public id: string, public label: string) { }
+}

@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
@@ -16,6 +17,7 @@ import {
   MatButtonToggleModule,
   MatCardModule,
   MatCheckboxModule,
+  MatChipsModule,
   MatDatepickerModule,
   MatDialogModule,
   MatExpansionModule,
@@ -42,7 +44,6 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
-import {MatChipsModule} from '@angular/material/chips';
 import {CdkTableModule} from '@angular/cdk/table';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
@@ -55,6 +56,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactComponent } from './entities/contact.component';
 import { ContactDetailComponent } from './entities/contact-detail.component';
 import { ContactService } from './entities/contact.service';
+import { PriorityService } from './entities/priority.service';
 import { LoginComponent } from './login.component';
 import { AuthService } from './auth/auth.service';
 
@@ -78,11 +80,12 @@ import { AuthService } from './auth/auth.service';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpModule,
+    HttpModule, HttpClientModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
-    MatButtonModule, MatCheckboxModule, MatToolbarModule, CdkTableModule,
-    MatIconModule, MatInputModule, MatSortModule, MatTableModule
+    ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
+    MatButtonModule, MatCheckboxModule, MatSliderModule,
+    MatSlideToggleModule, MatToolbarModule, CdkTableModule,
+    MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule
   ],
   exports: [
     CdkTableModule,
@@ -117,7 +120,7 @@ import { AuthService } from './auth/auth.service';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule],
-  providers: [ProtocolService, ContactService, AuthService],
+  providers: [ProtocolService, ContactService, AuthService, PriorityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,19 +1,36 @@
-<div>
-  <div class="example-container mat-elevation-z8">
-    <mat-grid-list cols="16" rowHeight="65px">
-        <mat-grid-tile colspan="14">
-          <mat-form-field style="width:100%">
-            <input matInput placeholder="Αναζήτηση επαφής.." value="">            
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2">
+  <!-- <mat-slide-toggle [(ngModel)]="isExpanded" [checked]="isExpanded">Slide me!</mat-slide-toggle> {{isExpanded}} -->
+  <mat-grid-list cols="16" rowHeight="80px">
+      <mat-grid-tile colspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="13">
+          <form class="search-form">
+              <mat-form-field class="example-full-width" style="width:100%">
+                <input type="text" placeholder="search word" aria-label="Number" matInput (keyup)="handleKeyPress($event)"
+                      [formControl]="searchTerm" [matAutocomplete]="auto" (ngModelChange)="dataChanged($event)">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedFn" [displayWith]="displayFn">
+                  <mat-option *ngFor="let item of searchResult" [value]="item">
+                    {{ item.legal_name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
           <button mat-button><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
           <button mat-button (click)="newContact()"><i class="fa fa-plus-square-o fa-lg" aria-hidden="true"></i></button>
+
         </mat-grid-tile>
-    </mat-grid-list>
+  </mat-grid-list>
+  <mat-expansion-panel [expanded]="isExpanded">
 
-
-
+      
+      <mat-chip-list>
+          <mat-chip *ngFor="let cc of criteria" [selectable]="selectable"
+                    [removable]="removable" (remove)="remove(cc)">
+            {{cc.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>          
+      </mat-chip-list>
+    </mat-expansion-panel>
 
     <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
 
@@ -49,27 +66,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-  </div>
+  <!-- </div> -->
 
-
-
-  <!-- <contact-detail [contact]="selectedContact"></contact-detail>
-
-
-  <ul class="heroes">
-    <li *ngFor="let contact of contacts" (click)="onSelect(contact)" 
-          [class.selected]="protocol === selectedContact">
-      <span class="badge">{{contact.id}}</span> {{contact.code}}
-    </li> 
-  </ul>
-
-  <div *ngIf="selectedContact">
-    <h2>
-      {{selectedContact.code | uppercase}} is the selected Contact
-    </h2>
-    <button mat-raised-button (click)="gotoDetail()">View Details</button>
-    
-  </div> -->
-</div>
 
 

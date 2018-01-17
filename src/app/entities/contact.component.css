@@ -25,11 +25,15 @@
   align-self: center;
   text-align: left;
 }
+
+.search-form {
+  width:100%;
+}
   
 .example-container {
   display: flex;
   flex-direction: column;
-  max-height: 500px;
+  /* max-height: 95%; */
   min-width: 800px;
 }
 

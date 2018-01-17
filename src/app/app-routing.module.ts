@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'detail/:id', component: ProtocolDetailComponent },
   { path: 'protocols',     component: ProtocolsComponent },
   { path: 'contacts',     component: ContactComponent },
-  { path: 'contacts/:id',     component: ContactDetailComponent }
+  { path: 'contacts/:id',     component: ContactDetailComponent },
+  { path: 'contacts/:id/edit',     component: ContactDetailComponent }
 ];
 
 @NgModule({

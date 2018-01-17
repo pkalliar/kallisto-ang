@@ -11,7 +11,7 @@ import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
   providers: []
 })
 export class AppComponent implements OnInit {
-  title = 'Angular pankal app';
+  title = 'F-SHMA';
 
 
   ngOnInit(): void {
