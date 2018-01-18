@@ -36,7 +36,8 @@
     "systemjs": "0.19.43",
     "tsickle": "^0.24.x",
     "tslib": "^1.8.1",
-    "zone.js": "^0.8.12"
+    "zone.js": "^0.8.12",
+    "hammerjs": "^2.0.8"
   },
   "devDependencies": {
     "@angular/cli": "1.4.9",
