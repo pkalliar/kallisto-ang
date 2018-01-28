@@ -1,0 +1,23 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+
+  <protocol-detail [protocol]="selectedProtocol"></protocol-detail>
+αντικείμενα εδώ
+
+  <ul class="heroes">
+    <li *ngFor="let item of items" (click)="onSelect(item)" 
+          [class.selected]="item === selectedProtocol">
+      <span class="badge">{{item.id}}</span> {{item.name}}
+    </li> 
+  </ul>
+
+  <div *ngIf="selectedProtocol">
+    <h2>
+      {{selectedProtocol.name | uppercase}} is the selected protocol
+    </h2>
+    <button mat-raised-button (click)="gotoDetail()">View Details</button>
+    
+  </div>
+</div>
+
+

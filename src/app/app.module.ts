@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-
+import { environment } from '../environments/environment';
 
 import { RouterModule } from '@angular/router';
 
@@ -59,14 +59,17 @@ import { ContactService } from './entities/contact.service';
 import { PriorityService } from './entities/priority.service';
 import { LoginComponent } from './login.component';
 import { AuthService } from './auth/auth.service';
+import { ItemsComponent } from './inventory/items';
+import { ItemService } from './inventory/item.service';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, 
     ProtocolsComponent,
     ProtocolDetailComponent,
+    ItemsComponent,
     DashboardComponent, LoginComponent,
     ContactComponent, ContactDetailComponent
   ],
@@ -120,7 +123,7 @@ import { AuthService } from './auth/auth.service';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule],
-  providers: [ProtocolService, ContactService, AuthService, PriorityService],
+  providers: [ProtocolService, ContactService, AuthService, PriorityService, ItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
