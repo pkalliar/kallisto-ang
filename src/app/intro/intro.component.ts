@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Protocol } from './protocols/protocol';
-import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
+
 
 
 // my comment on Monday morning
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-intro',
+  templateUrl: './intro.component.html',
+  styleUrls: ['./intro.component.css'],
   providers: []
 })
-export class AppComponent implements OnInit {
+export class IntroComponent implements OnInit {
   title = 'PKENERGY';
-
 
   ngOnInit(): void {
     console.log('initializing app..');

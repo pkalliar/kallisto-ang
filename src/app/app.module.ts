@@ -58,6 +58,7 @@ import { ContactDetailComponent } from './entities/contact-detail.component';
 import { ContactService } from './entities/contact.service';
 import { PriorityService } from './entities/priority.service';
 import { LoginComponent } from './login.component';
+import { IntroComponent } from './intro/intro.component';
 import { AuthService } from './auth/auth.service';
 import { ItemsComponent } from './inventory/items';
 import { ItemService } from './inventory/item.service';
@@ -66,11 +67,11 @@ import { ItemService } from './inventory/item.service';
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
     ProtocolsComponent,
     ProtocolDetailComponent,
     ItemsComponent,
-    DashboardComponent, LoginComponent,
+    DashboardComponent, LoginComponent, IntroComponent,
     ContactComponent, ContactDetailComponent
   ],
   imports: [
@@ -86,7 +87,7 @@ import { ItemService } from './inventory/item.service';
     HttpModule, HttpClientModule,
     MatNativeDateModule,
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
-    MatButtonModule, MatCheckboxModule, MatSliderModule,
+    MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule
   ],

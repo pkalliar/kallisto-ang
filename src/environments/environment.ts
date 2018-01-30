@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   apiurl : 'https://kallisto-backend.herokuapp.com'
+  // apiurl : 'http://127.0.0.1:8090'
 
 };

@@ -5,6 +5,7 @@
 αντικείμενα εδώ
 
   <ul class="heroes">
+
     <li *ngFor="let item of items" (click)="onSelect(item)" 
           [class.selected]="item === selectedProtocol">
       <span class="badge">{{item.id}}</span> {{item.name}}

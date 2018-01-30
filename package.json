@@ -30,7 +30,7 @@
     "web-animations-js": "^2.2.2",
     "angular2-jwt": "^0.2.3",
     "core-js": "^2.5.2",
-    "font-awesome": "^4.7.0",
+    "font-awesome": "latest",
     "material-design-icons": "^3.0.1",
     "rxjs": "^5.5.5",
     "systemjs": "0.19.43",
