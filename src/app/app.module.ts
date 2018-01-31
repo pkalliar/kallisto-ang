@@ -46,6 +46,7 @@ import {
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { NgbModule, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -89,7 +90,8 @@ import { ItemService } from './inventory/item.service';
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, CdkTableModule,
-    MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule
+    MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
+    NgbModule.forRoot()
   ],
   exports: [
     CdkTableModule,
@@ -123,7 +125,8 @@ import { ItemService } from './inventory/item.service';
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule],
+    MatTooltipModule,
+    NgbModule],
   providers: [ProtocolService, ContactService, AuthService, PriorityService, ItemService],
   bootstrap: [AppComponent]
 })

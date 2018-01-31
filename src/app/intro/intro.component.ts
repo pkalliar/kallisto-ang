@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 // my comment on Monday morning
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-intro',
   templateUrl: './intro.component.html',
   styleUrls: ['./intro.component.css'],
-  providers: []
+  providers: [IntroComponent]
 })
 export class IntroComponent implements OnInit {
   title = 'PKENERGY';
