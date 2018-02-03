@@ -40,6 +40,7 @@ import {
   MatSortModule,
   MatTableModule,
   MatTabsModule,
+  MatDividerModule,
   MatToolbarModule,
   MatTooltipModule,
   MatStepperModule,
@@ -86,7 +87,7 @@ import { ItemService } from './inventory/item.service';
     BrowserAnimationsModule,
     FormsModule,
     HttpModule, HttpClientModule,
-    MatNativeDateModule,
+    MatNativeDateModule, MatDividerModule, MatListModule,
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, CdkTableModule,
@@ -125,8 +126,7 @@ import { ItemService } from './inventory/item.service';
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule,
-    NgbModule],
+    MatTooltipModule, MatDividerModule],
   providers: [ProtocolService, ContactService, AuthService, PriorityService, ItemService],
   bootstrap: [AppComponent]
 })

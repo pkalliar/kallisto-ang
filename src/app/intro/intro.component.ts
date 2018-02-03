@@ -14,6 +14,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 })
 export class IntroComponent implements OnInit {
   title = 'PKENERGY';
+  intViewportWidth = document.documentElement.clientWidth;
 
   ngOnInit(): void {
     console.log('initializing app..');
