@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { Protocol } from './protocols/protocol';
 import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
-
+import { Headers, Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 // my comment on Monday morning
 @Component({
@@ -10,13 +11,25 @@ import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
   styleUrls: ['./app.component.css'],
   providers: []
 })
+
+@Injectable()
 export class AppComponent implements OnInit {
   title = 'PKENERGY';
+
+  constructor(private http: Http, private httpClient: HttpClient) {
+    this.http = http;
+  }
 
 
   ngOnInit(): void {
     console.log('initializing app..');
+
+    setInterval(function() {
+        this.http.get('http://kallisto-backend.herokuapp.com/');
+    }, 300000); // every 5 minutes (300000)
   }
+
+
 
 
   countdownToLogout = function(){
@@ -29,7 +42,7 @@ export class AppComponent implements OnInit {
       // $scope.authExpiration = moment(localStorageService.get('apikey_expires'));
       // $scope.previousPollTime = moment();
 
-      // $interval(function(){
+      // interval(function(){
       //   $scope.authExpiration = moment(localStorageService.get('apikey_expires'));
       //   var pollInnterval = 5;
 

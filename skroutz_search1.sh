@@ -1,3 +1,3 @@
 curl -XGET https://api.skroutz.gr/api/search\?q\=dji \
   -H 'Accept: application/vnd.skroutz+json; version=3' \
-  -H 'Authorization: Bearer AjyGOoMd2_3vaeNcGwcNw20qYxKAP6kdoW_Mb7vqZ5xw0DnRlYqOAGEZ4hTWthaXQRJDe3MHRB08CTq54-XJtQ==' >> se1.json
+  -H 'Authorization: Bearer o6h9k-txp-YKy7-rIMTJmcVPad16a-aS6C_pmySghriSN4ne6boaKTr4ngUkt7Y-GhCy_iz7DPfXjX7obDMdfA==' >> se1.json

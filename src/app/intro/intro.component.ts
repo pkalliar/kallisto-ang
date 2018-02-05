@@ -10,7 +10,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-intro',
   templateUrl: './intro.component.html',
   styleUrls: ['./intro.component.css'],
-  providers: [IntroComponent]
+  providers: []
 })
 export class IntroComponent implements OnInit {
   title = 'PKENERGY';
