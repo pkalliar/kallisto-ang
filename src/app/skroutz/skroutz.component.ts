@@ -19,6 +19,7 @@ export class SkroutzComponent implements OnInit {
   title = 'PKENERGY';
   intViewportWidth = document.documentElement.clientWidth;
   searchResult = [];
+  categories = [];
 
   searchTerm: FormControl = new FormControl();
 
@@ -36,6 +37,7 @@ export class SkroutzComponent implements OnInit {
       console.log(' enter pressed ' + this.searchTerm.value);
       this.skroutzService.search_word(this.searchTerm.value).then(response => {
             this.searchResult = response;
+            this.categories = response.categories;
         });
 
       }

@@ -8,7 +8,7 @@
           <form class="search-form">
               <mat-form-field class="example-full-width" style="width:100%">
                 <input type="text" placeholder="Αναζήτηση Skroutz" aria-label="Number" matInput #searchinp
-                      [(ngModel)]="value" [formControl]="searchTerm" (keyup)="handleKeyPress($event)">
+                       [formControl]="searchTerm" (keyup)="handleKeyPress($event)">
               </mat-form-field>
             </form>
        </mat-grid-tile>
@@ -24,7 +24,7 @@
   </li> -->
 
   <div class="row">
-    <div class="col-4" *ngFor="let obj of searchResult.categories" >
+    <div class="col-4" *ngFor="let obj of categories" >
       <div class=" flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{obj.name}}</h5>
