@@ -21,13 +21,19 @@ export class AppComponent implements OnInit {
   }
 
 
+
+
   ngOnInit(): void {
     console.log('initializing app..');
 
-    setInterval(function() {
-        this.http.get('http://kallisto-backend.herokuapp.com/');
-    }, 300000); // every 5 minutes (300000)
+    // setInterval(this.pingHeroku(this.http), 30000); // every 5 minutes (300000)
+
   }
+
+    pingHeroku = function(http) {
+      console.log('pinging..');
+      // http.get('https://kallisto-backend.herokuapp.com/');
+    };
 
 
 

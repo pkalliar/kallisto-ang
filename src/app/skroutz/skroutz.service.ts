@@ -5,24 +5,29 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
-
+import { environment } from '../../environments/environment';
 
 @Injectable()
-export class ContactService {
+export class SkroutzService {
 
-    private contactsUrl = 'http://192.168.100.128:8090/api/skroutz';  // URL to web api
+    private baseUrl = environment.apiurl  + '/api/skroutz';  // URL to web api
     url: string;
     constructor(private http: Http, private httpClient: HttpClient) {
       this.url  = 'https://api.datamuse.com/words?ml=';
 
     }
 
-    search_word(term) {
-        return this.http.get(this.contactsUrl + '/search/' + term).map(res => {
-            return res.json().map(item => {
-                return item;
-            });
-        });
+    search_word(keyword) {
+      console.log('in search word..');
+      return this.http.get(this.baseUrl + '/search/' + keyword)
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+        // return this.http.get(this.baseUrl + '/search/' + term).map(res => {
+        //     return res.json().map(item => {
+        //         return item;
+        //     });
+        // });
     }
 
 

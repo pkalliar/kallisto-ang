@@ -65,6 +65,7 @@ import { AuthService } from './auth/auth.service';
 import { ItemsComponent } from './inventory/items';
 import { ItemService } from './inventory/item.service';
 import { SkroutzComponent } from './skroutz/skroutz.component';
+import { SkroutzService } from './skroutz/skroutz.service';
 
 
 
