@@ -66,6 +66,8 @@ import { ItemsComponent } from './inventory/items';
 import { ItemService } from './inventory/item.service';
 import { SkroutzComponent } from './skroutz/skroutz.component';
 import { SkroutzService } from './skroutz/skroutz.service';
+import { AggeliesComponent } from './entities/classified-ads/classified-ads.component';
+import { AggeliaDetailComponent} from './entities/classified-ads/ad-detail.component';
 
 
 
@@ -76,7 +78,8 @@ import { SkroutzService } from './skroutz/skroutz.service';
     ProtocolDetailComponent,
     ItemsComponent,
     DashboardComponent, LoginComponent, IntroComponent,
-    ContactComponent, ContactDetailComponent, SkroutzComponent
+    ContactComponent, ContactDetailComponent, SkroutzComponent,
+    AggeliesComponent, AggeliaDetailComponent
   ],
   imports: [
     BrowserModule,

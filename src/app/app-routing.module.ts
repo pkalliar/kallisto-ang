@@ -10,6 +10,7 @@ import { LoginComponent } from './login.component';
 import { IntroComponent } from './intro/intro.component';
 import { ItemsComponent } from './inventory/items';
 import { SkroutzComponent } from './skroutz/skroutz.component';
+import { AggeliesComponent } from './entities/classified-ads/classified-ads.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'contacts/:id',     component: ContactDetailComponent },
   { path: 'contacts/:id/edit',     component: ContactDetailComponent },
   { path: 'skroutz',     component: SkroutzComponent },
+  { path: 'aggelies', component: AggeliesComponent}
 ];
 
 @NgModule({

@@ -1,0 +1,11 @@
+.example-container > * {
+  width: 60%;
+  align-self: center;
+}
+  
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 800px;
+}

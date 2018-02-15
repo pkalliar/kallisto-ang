@@ -5,16 +5,15 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
-// import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class SkroutzService {
+export class AggeliesService {
 
-    url  = 'https://api.datamuse.com/words?ml=';
-    private baseUrl = this.url  + '/api/skroutz';  // URL to web api
-
+    private baseUrl = environment.apiurl  + '/api/skroutz';  // URL to web api
+    url: string;
     constructor(private http: Http, private httpClient: HttpClient) {
-
+      this.url  = 'https://api.datamuse.com/words?ml=';
 
     }
 
