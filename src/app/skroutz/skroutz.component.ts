@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SkroutzService } from './skroutz.service';
+import { AuthService } from '../services/auth.service';
 
 
 
@@ -25,7 +26,8 @@ export class SkroutzComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private skroutzService: SkroutzService) { }
+    private skroutzService: SkroutzService,
+    public authService: AuthService) { }
 
   searchContact(toSearch: String): void {
     console.log('searching for ' + toSearch);

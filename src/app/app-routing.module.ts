@@ -6,11 +6,15 @@ import { ContactComponent } from './entities/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
 import { ContactDetailComponent } from './entities/contact-detail.component';
-import { LoginComponent } from './login.component';
+import { LoginComponent } from './security/login/login.component';
 import { IntroComponent } from './intro/intro.component';
 import { ItemsComponent } from './inventory/items';
 import { SkroutzComponent } from './skroutz/skroutz.component';
 import { AggeliesComponent } from './entities/classified-ads/classified-ads.component';
+import { UserComponent } from './security/users/users.component';
+import { UserDetailComponent} from './security/users/user-detail.component';
+import { PersonComponent } from './security/persons/persons.component';
+import { PersonDetailComponent} from './security/persons/person-detail.component';
 
 
 const routes: Routes = [
@@ -25,7 +29,13 @@ const routes: Routes = [
   { path: 'contacts/:id',     component: ContactDetailComponent },
   { path: 'contacts/:id/edit',     component: ContactDetailComponent },
   { path: 'skroutz',     component: SkroutzComponent },
-  { path: 'aggelies', component: AggeliesComponent}
+  { path: 'aggelies', component: AggeliesComponent},
+  { path: 'users',     component: UserComponent },
+  { path: 'users/:id',     component: UserDetailComponent },
+  { path: 'users/:id/edit',     component: UserDetailComponent },
+  { path: 'persons',     component: PersonComponent },
+  { path: 'persons/:id',     component: PersonDetailComponent },
+  { path: 'persons/:id/edit',     component: PersonDetailComponent },
 ];
 
 @NgModule({

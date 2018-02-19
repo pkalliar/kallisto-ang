@@ -46,8 +46,12 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { NgbModule, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+// import { AuthHttp, AuthConfig } from 'angular2-jwt';
+// import { NgbModule, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -59,17 +63,25 @@ import { ContactComponent } from './entities/contact.component';
 import { ContactDetailComponent } from './entities/contact-detail.component';
 import { ContactService } from './entities/contact.service';
 import { PriorityService } from './entities/priority.service';
-import { LoginComponent } from './login.component';
+// import { LoginComponent } from './login.component';
+import { LoginComponent } from './security/login/login.component';
 import { IntroComponent } from './intro/intro.component';
-import { AuthService } from './auth/auth.service';
+// import { AuthService } from './auth/auth.service';
 import { ItemsComponent } from './inventory/items';
 import { ItemService } from './inventory/item.service';
 import { SkroutzComponent } from './skroutz/skroutz.component';
 import { SkroutzService } from './skroutz/skroutz.service';
 import { AggeliesComponent } from './entities/classified-ads/classified-ads.component';
 import { AggeliaDetailComponent} from './entities/classified-ads/ad-detail.component';
-
-
+import { UserComponent } from './security/users/users.component';
+import { UserDetailComponent} from './security/users/user-detail.component';
+import { UserService} from './security/users/user.service';
+import { PersonComponent } from './security/persons/persons.component';
+import { PersonDetailComponent} from './security/persons/person-detail.component';
+import { PersonService} from './security/persons/person.service';
+import { PublicDealsComponent } from './public-deals/public-deals.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -79,7 +91,8 @@ import { AggeliaDetailComponent} from './entities/classified-ads/ad-detail.compo
     ItemsComponent,
     DashboardComponent, LoginComponent, IntroComponent,
     ContactComponent, ContactDetailComponent, SkroutzComponent,
-    AggeliesComponent, AggeliaDetailComponent
+    AggeliesComponent, AggeliaDetailComponent,
+    UserComponent, UserDetailComponent, PersonComponent, PersonDetailComponent, PublicDealsComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +110,10 @@ import { AggeliaDetailComponent} from './entities/classified-ads/ad-detail.compo
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
-    NgbModule.forRoot()
+    AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
+    // NgbModule.forRoot()
   ],
   exports: [
     CdkTableModule,
@@ -132,7 +148,8 @@ import { AggeliaDetailComponent} from './entities/classified-ads/ad-detail.compo
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule, MatDividerModule],
-  providers: [ProtocolService, ContactService, AuthService, PriorityService, ItemService],
+  providers: [ProtocolService, ContactService, PriorityService,
+    ItemService, UserService, PersonService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

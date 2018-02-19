@@ -4,6 +4,8 @@ import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
 import { Headers, Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
+import { AuthService } from './services/auth.service';
+
 // my comment on Monday morning
 @Component({
   selector: 'app-root',
@@ -16,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent implements OnInit {
   title = 'PKENERGY';
 
-  constructor(private http: Http, private httpClient: HttpClient) {
+  constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService) {
     this.http = http;
   }
 

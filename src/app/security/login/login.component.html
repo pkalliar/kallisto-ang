@@ -1,0 +1,66 @@
+<div class="main__body">
+  <div class="container">
+
+    <div class="login__page">
+      <div class="row justify-content-center">
+          <!-- <div class="card col-md-4"></div> -->
+          <div class="card col-md-4">
+            <div class="login__card">
+              <div class="card-block">
+
+
+                  <form name="userform" method="post" #formCtrl="ngForm">
+                    <h3 align="center">Login Form</h3>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" name="exampleInputEmail1" class="form-control" [(ngModel)]="user.email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" name="exampleInputPassword1" class="form-control" [(ngModel)]="user.password" placeholder="Password" required>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="buton" class="btn btn-primary btn-block" 
+                        style="margin-bottom: 20px" (click)="signInWithEmail()" 
+                        [disabled]="formCtrl.form.invalid">
+                        Login with Email
+                      </button>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <button type="buton" class="btn btn-outline-dark btn-block"
+                        (click)="signInWithFacebook()">
+                          <i class="fab fa-facebook-f" aria-hidden="true"></i> 
+                          Login with Facebook
+                        </button>
+
+                        <button type="button" class="btn btn-outline-dark btn-block" 
+                        (click)="signInWithTwitter()">
+                          <i class="fab fa-twitter" aria-hidden="true"></i>
+                          Login with Twitter
+                        </button>
+
+                        <button type="button" class="btn btn-outline-dark btn-block">
+                          <i class="fab fa-github" aria-hidden="true"></i>
+                          Login with Github
+                        </button>
+
+                        <button type="button" class="btn btn-outline-dark btn-block">
+                          <i class="fab fa-google" aria-hidden="true"></i>
+                          Login with Google
+                        </button>
+                    </div>                  
+                  </form>
+                  
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </div> <!-- end card -->
+
+  </div>  <!-- end container -->
+</div> 

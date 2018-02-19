@@ -1,1 +1,71 @@
-{"categories":[{"id":25,"name":"Laptops","children_count":0,"image_url":"https://c.scdn.gr/ds/categories/25/20171113120919_c484838d.jpeg","parent_id":769,"fashion":false,"layout_mode":"list","web_uri":"https://skroutz.gr/c/25/laptop.html","code":"laptop","family_id":1269,"show_manufacturers_filter":true,"adult":false,"onclick_behaviour":"onclick_to_sku_page","show_spec_summary":false,"reviewable":true,"comparable":true,"path":"76,1269,22,769,25","show_specifications":true,"manufacturer_title":"Κατασκευαστές"}],"meta":{"q":"Lenovo ThinkPad 13 2nd Gen i5-7200U/8GB/256GB/FHD/W10","alternatives":[],"strong_matches":{"sku":{"id":11493301,"ean":"","pn":"20J1S00D00 20J1S04Y00","name":"ThinkPad 13 2nd Gen (i5-7200U/8GB/256GB/FHD/W10)","display_name":"Lenovo ThinkPad 13 2nd Gen (i5-7200U/8GB/256GB/FHD/W10)","category_id":25,"first_product_shop_info":null,"click_url":null,"price_max":1078.4,"price_min":935.0,"reviewscore":0.0,"shop_count":14,"plain_spec_summary":"Notebook, Οθόνη: 13.3\" Full HD, 1920x1080, CPU: Intel Core i5 7200U 2.5GHz, RAM: 8GB, GPU: Intel HD Graphics 620, Σκληρός Δίσκος: 256GB SSD, Windows 10, 1.44kg","manufacturer_id":288,"future":false,"reviews_count":0,"virtual":false,"images":{"main":"https://b.scdn.gr/images/sku_main_images/011493/11493301/medium_20170412132327_lenovo_thinkpad_13_2nd_gen_i5_7200u_8gb_256gb_fhd_w10.jpeg","alternatives":["https://d.scdn.gr/images/sku_images/017027/17027991/20170412132312_585edc0a.jpeg","https://d.scdn.gr/images/sku_images/017027/17027992/20170412132313_310ef392.jpeg","https://c.scdn.gr/images/sku_images/017027/17027995/20170412132318_01008048.jpeg","https://c.scdn.gr/images/sku_images/017027/17027996/20170412132318_902dd1a8.jpeg","https://b.scdn.gr/images/sku_images/017027/17027997/20170412132319_2cbf1c1d.jpeg","https://b.scdn.gr/images/sku_images/017027/17027998/20170412132323_3c1e3f4f.jpeg"]},"web_uri":"http://skroutz.gr/s/11493301/Lenovo-ThinkPad-13-2nd-Gen-i5-7200U-8GB-256GB-FHD-W10.html","comparable":true,"reviewable":true,"name_source":"display_name"}},"pagination":{"total_results":1,"total_pages":1,"page":1,"per":25}}}
+{
+    "categories": [
+        {
+            "id": 25,
+            "name": "Laptops",
+            "children_count": 0,
+            "image_url": "https://c.scdn.gr/ds/categories/25/20171113120919_c484838d.jpeg",
+            "parent_id": 769,
+            "fashion": false,
+            "layout_mode": "list",
+            "web_uri": "https://skroutz.gr/c/25/laptop.html",
+            "code": "laptop",
+            "family_id": 1269,
+            "show_manufacturers_filter": true,
+            "adult": false,
+            "onclick_behaviour": "onclick_to_sku_page",
+            "show_spec_summary": false,
+            "reviewable": true,
+            "comparable": true,
+            "path": "76,1269,22,769,25",
+            "show_specifications": true,
+            "manufacturer_title": "Κατασκευαστές"
+        }
+    ],
+    "meta": {
+        "q": "Lenovo ThinkPad 13 2nd Gen i5-7200U/8GB/256GB/FHD/W10",
+        "alternatives": [],
+        "strong_matches": {
+            "sku": {
+                "id": 11493301,
+                "ean": "",
+                "pn": "20J1S00D00 20J1S04Y00",
+                "name": "ThinkPad 13 2nd Gen (i5-7200U/8GB/256GB/FHD/W10)",
+                "display_name": "Lenovo ThinkPad 13 2nd Gen (i5-7200U/8GB/256GB/FHD/W10)",
+                "category_id": 25,
+                "first_product_shop_info": null,
+                "click_url": null,
+                "price_max": 1078.4,
+                "price_min": 935.0,
+                "reviewscore": 0.0,
+                "shop_count": 14,
+                "plain_spec_summary": "Notebook, Οθόνη: 13.3\" Full HD, 1920x1080, CPU: Intel Core i5 7200U 2.5GHz, RAM: 8GB, GPU: Intel HD Graphics 620, Σκληρός Δίσκος: 256GB SSD, Windows 10, 1.44kg",
+                "manufacturer_id": 288,
+                "future": false,
+                "reviews_count": 0,
+                "virtual": false,
+                "images": {
+                    "main": "https://b.scdn.gr/images/sku_main_images/011493/11493301/medium_20170412132327_lenovo_thinkpad_13_2nd_gen_i5_7200u_8gb_256gb_fhd_w10.jpeg",
+                    "alternatives": [
+                        "https://d.scdn.gr/images/sku_images/017027/17027991/20170412132312_585edc0a.jpeg",
+                        "https://d.scdn.gr/images/sku_images/017027/17027992/20170412132313_310ef392.jpeg",
+                        "https://c.scdn.gr/images/sku_images/017027/17027995/20170412132318_01008048.jpeg",
+                        "https://c.scdn.gr/images/sku_images/017027/17027996/20170412132318_902dd1a8.jpeg",
+                        "https://b.scdn.gr/images/sku_images/017027/17027997/20170412132319_2cbf1c1d.jpeg",
+                        "https://b.scdn.gr/images/sku_images/017027/17027998/20170412132323_3c1e3f4f.jpeg"
+                    ]
+                },
+                "web_uri": "http://skroutz.gr/s/11493301/Lenovo-ThinkPad-13-2nd-Gen-i5-7200U-8GB-256GB-FHD-W10.html",
+                "comparable": true,
+                "reviewable": true,
+                "name_source": "display_name"
+            }
+        },
+        "pagination": {
+            "total_results": 1,
+            "total_pages": 1,
+            "page": 1,
+            "per": 25
+        }
+    }
+}
