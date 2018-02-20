@@ -4,13 +4,17 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
+import { Headers, Http } from '@angular/http';
+
+import 'rxjs/add/operator/toPromise';
+
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) { 
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private http: Http) {
       this.user = _firebaseAuth.authState;
 
       this.user.subscribe(
@@ -43,9 +47,18 @@ export class AuthService {
     );
   }
 
-  signInRegular(email, password) {
+  signInEmail(email, password) {
     const credential = firebase.auth.EmailAuthProvider.credential( email, password );
-    return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+    return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  signInUsername(user) {
+    // const credential = firebase.auth.EmailAuthProvider.credential( email, password );
+    // return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+    return this.http.post('http://127.0.0.1:9000/api/login', user)
+    .toPromise()
+    .then(response => response.json());
+    // .catch(this.handleError);
   }
 
    isLoggedIn() {

@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
 
   constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService) {
     this.http = http;
+    this.authService = authService;
   }
 
 
@@ -37,8 +38,9 @@ export class AppComponent implements OnInit {
       // http.get('https://kallisto-backend.herokuapp.com/');
     };
 
-
-
+    logout = function(){
+      this.authService.logout();
+    };
 
   countdownToLogout = function(){
 

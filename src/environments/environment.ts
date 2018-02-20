@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  // apiurl : 'https://kallisto-backend.herokuapp.com'
-  apiurl : 'http://127.0.0.1:8090',
+  // apiurl : 'https://kallisto-backend.herokuapp.com',
+  apiurl : 'http://127.0.0.1:9000',
   firebase: {
     apiKey: 'AIzaSyBJ0SwPMbbakEGHG1YV1xKb9q_gjxpVkog',
     authDomain: 'pankal-e7786.firebaseapp.com',

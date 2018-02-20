@@ -42,10 +42,19 @@ export class LoginComponent implements OnInit {
     }
 
     signInWithEmail() {
-      this.authService.signInRegular(this.user.email, this.user.password)
+      this.authService.signInEmail(this.user.email, this.user.password)
           .then((res) => {
             console.log(res);
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['skroutz']);
+          })
+          .catch((err) => console.log('error: ' + err));
+    }
+
+    signInWithUsername() {
+      this.authService.signInUsername(this.user)
+          .then((res) => {
+            console.log(res);
+            this.router.navigate(['skroutz']);
           })
           .catch((err) => console.log('error: ' + err));
     }
