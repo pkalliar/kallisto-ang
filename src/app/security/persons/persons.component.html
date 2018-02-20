@@ -1,0 +1,72 @@
+  <!-- <mat-slide-toggle [(ngModel)]="isExpanded" [checked]="isExpanded">Slide me!</mat-slide-toggle> {{isExpanded}} -->
+  <mat-grid-list cols="16" rowHeight="80px">
+      <mat-grid-tile colspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="13">
+          <form class="search-form">
+              <mat-form-field class="example-full-width" style="width:100%">
+                <input type="text" placeholder="Αναζήτηση" aria-label="Number" matInput (keyup)="handleKeyPress($event)"
+                      [formControl]="searchTerm" [matAutocomplete]="auto" (ngModelChange)="dataChanged($event)">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedFn" [displayWith]="displayFn">
+                  <mat-option *ngFor="let item of searchResult" [value]="item">
+                    {{ item.legal_name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+          <button mat-button><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+          <button mat-button (click)="new()"><i class="far fa-plus-square fa-lg" aria-hidden="true"></i></button>
+
+        </mat-grid-tile>
+  </mat-grid-list>
+  <mat-expansion-panel [expanded]="isExpanded">
+
+      
+      <mat-chip-list>
+          <mat-chip *ngFor="let cc of criteria" [selectable]="selectable"
+                    [removable]="removable" (remove)="remove(cc)">
+            {{cc.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>          
+      </mat-chip-list>
+    </mat-expansion-panel>
+
+    <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <!-- <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container> -->
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="firstname" flex="20">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> firstname </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-button routerLink="/persons/{{element.id}}" >{{element.firstname}}</button>
+            </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="lastname" flex="60">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> lastname </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.lastname}} </mat-cell>
+      </ng-container>
+
+      <!-- Color Column -->
+      <ng-container matColumnDef="mobile" flex="20">
+        <mat-header-cell *matHeaderCellDef > mobile </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.mobile}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  <!-- </div> -->
+
+
+

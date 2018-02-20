@@ -1,0 +1,21 @@
+.example-card {
+  width: 400px;
+  min-height: 500px;
+}
+
+.example-header-image {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/pankal-e7786.appspot.com/o/pkenergy_images%2Flogo.gif?alt=media&token=a4e5e664-13fb-4017-a802-147832300a4a');
+  background-size: cover;
+}
+
+.carousel {
+  /* max-height: 600px;  */
+  overflow: scroll;
+
+}
+
+.carusel-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,43 +1,24 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { Protocol } from './protocols/protocol';
-import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
-import { Headers, Http } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from './services/auth.service';
+// import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+
 
 // my comment on Monday morning
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-intro',
+  templateUrl: './intro.component.html',
+  styleUrls: ['./intro.component.css'],
   providers: []
 })
-
-@Injectable()
-export class AppComponent implements OnInit {
+export class IntroComponent implements OnInit {
   title = 'PKENERGY';
-
-  constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService) {
-    this.http = http;
-  }
-
-
-
+  intViewportWidth = document.documentElement.clientWidth;
 
   ngOnInit(): void {
     console.log('initializing app..');
-
-    // setInterval(this.pingHeroku(this.http), 30000); // every 5 minutes (300000)
-
   }
-
-    pingHeroku = function(http) {
-      console.log('pinging..');
-      // http.get('https://kallisto-backend.herokuapp.com/');
-    };
-
-
 
 
   countdownToLogout = function(){
@@ -50,7 +31,7 @@ export class AppComponent implements OnInit {
       // $scope.authExpiration = moment(localStorageService.get('apikey_expires'));
       // $scope.previousPollTime = moment();
 
-      // interval(function(){
+      // $interval(function(){
       //   $scope.authExpiration = moment(localStorageService.get('apikey_expires'));
       //   var pollInnterval = 5;
 
