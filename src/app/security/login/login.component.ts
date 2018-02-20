@@ -44,10 +44,19 @@ export class LoginComponent implements OnInit {
     signInWithEmail() {
       this.authService.signInEmail(this.user.email, this.user.password)
           .then((res) => {
-            console.log(res);
+            console.log('res:' + res);
             this.router.navigate(['skroutz']);
           })
           .catch((err) => console.log('error: ' + err));
+    }
+
+    signInWithGoogle() {
+      this.authService.signInWithGoogle()
+      .then((res) => {
+         console.log('res:' + JSON.stringify(res));
+          this.router.navigate(['skroutz']);
+        })
+      .catch((err) => console.log(err));
     }
 
     signInWithUsername() {
