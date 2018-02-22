@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../../services/auth.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -67,7 +69,7 @@ export class LoginComponent implements OnInit {
           .then((res) => {
             console.log(res);
             localStorage.apikey = res.apikey;
-            let a = moment(res.apikey_expires);
+            const a = moment(res.apikey_expires);
             localStorage.apikey_expires = res.apikey_expires;
             localStorage.username = res.username;
             this.router.navigate(['skroutz']);
