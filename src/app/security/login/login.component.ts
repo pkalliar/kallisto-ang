@@ -36,6 +36,9 @@ export class LoginComponent implements OnInit {
     signInWithFacebook() {
       this.authService.signInWithFacebook()
       .then((res) => {
+          console.log('FB user: ' + JSON.stringify(res));
+          console.log('displayName: ' + res.user.displayName);
+
           this.router.navigate(['skroutz']);
         })
       .catch((err) => console.log(err));
@@ -63,6 +66,10 @@ export class LoginComponent implements OnInit {
       this.authService.signInUsername(this.user)
           .then((res) => {
             console.log(res);
+            localStorage.apikey = res.apikey;
+            let a = moment(res.apikey_expires);
+            localStorage.apikey_expires = res.apikey_expires;
+            localStorage.username = res.username;
             this.router.navigate(['skroutz']);
           })
           .catch((err) => console.log('error: ' + err));
