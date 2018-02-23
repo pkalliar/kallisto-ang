@@ -5,6 +5,7 @@ import { Headers, Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthService } from './services/auth.service';
+import * as moment from 'moment';
 
 // my comment on Monday morning
 @Component({
@@ -17,6 +18,7 @@ import { AuthService } from './services/auth.service';
 @Injectable()
 export class AppComponent implements OnInit {
   title = 'PKENERGY';
+  countdown = '...';
 
   constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService) {
     this.http = http;
@@ -29,12 +31,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     console.log('initializing app..');
 
-    // setInterval(this.pingHeroku(this.http), 30000); // every 5 minutes (300000)
+    moment.locale('el');
+
+    // setInterval(this.countdownToLogout(), 30); // every 5 minutes (300000)
+    setInterval(() => this.countdownToLogout(), 1 * 1000);
+    // setInterval(() => this.pingHeroku(this.http), 5 * 1000);
 
   }
 
     pingHeroku = function(http) {
-      console.log('pinging..');
+      console.log('pinging.. pingHeroku');
       // http.get('https://kallisto-backend.herokuapp.com/');
     };
 
@@ -44,40 +50,41 @@ export class AppComponent implements OnInit {
 
   countdownToLogout = function(){
 
-      const interval = 1000;
-      // moment.locale('el');
-
       // var datePattern = "YYYY-MM-DD HH:mm:ss Z";
 
-      // $scope.authExpiration = moment(localStorageService.get('apikey_expires'));
-      // $scope.previousPollTime = moment();
+      const authExpiration = moment(localStorage.apikey_expires);
+      const previousPollTime = moment();
 
-      // interval(function(){
-      //   $scope.authExpiration = moment(localStorageService.get('apikey_expires'));
-      //   var pollInnterval = 5;
+      const pollInnterval = 5;
 
-      //   var b = moment();
-      //   var diffSec = $scope.authExpiration.diff(b, 'seconds');
-      //   var diffMin = $scope.authExpiration.diff(b, 'minutes');
-      //   var diffSec2 = diffSec - diffMin*60;
-      //   if (diffSec2 < 10) {diffSec2 = "0"+diffSec2;}
+      const b = moment();
+      const diffSec = authExpiration.diff(b, 'seconds');
+      const diffMin = authExpiration.diff(b, 'minutes');
+      const diffSec2 = diffSec - diffMin * 60;
 
-      //   if(diffSec >= 45 && diffSec > 0){
-      //       $scope.countdown = diffMin + ":" + diffSec2;
-      //   }else if(diffSec <= 0 && diffSec < -2){
-      //       console.log("Αποσυνδέεστε.." );
-      //       $scope.countdown = 'Αποσυνδέεστε..1';
-      //       $scope.logout();
-      //   }else{
-      //       console.log("Αποσυνδέεστε..2" );
-      //       // $scope.logout();
-      //   }
+      // console.log('authExpiration: ' + authExpiration.format());
+      // console.log('b: ' + b.format());
+      // if (diffSec2 < 10) {diffSec2 = '0' + diffSec2;}
+
+        if (diffSec >= 45 && diffSec > 0) {
+            let divider = ':', frontDiv = '';
+            if (diffSec2 < 10) {frontDiv = '0' + frontDiv; }
+            if (diffSec2 < 10) {divider = divider + '0'; }
+            this.countdown = diffMin + divider + diffSec2;
+        }else if (diffSec <= 0 && diffSec < -2) {
+            console.log('Αποσυνδέεστε..' );
+            this.countdown = 'Αποσυνδέεστε..1';
+            // logout();
+        }else {
+            console.log('Αποσυνδέεστε..2' );
+            // $scope.logout();
+        }
+
+        // console.log('pinging.. countdownToLogout ' + this.countdown);
       //   var diffPollingSec = b.diff($scope.previousPollTime, 'seconds');
       //   if(diffPollingSec >= pollInnterval){
       //     //$scope.getServerEvents();
-      //   }
-
-      // }, interval);
+        // }
     };
 }
 

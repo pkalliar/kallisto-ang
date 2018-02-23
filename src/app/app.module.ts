@@ -82,6 +82,7 @@ import { PersonService} from './security/persons/person.service';
 import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
+import { UtilitiesService } from './services/utilities.service';
 
 @NgModule({
   declarations: [
@@ -149,7 +150,7 @@ import { AuthGuard } from './services/auth-guard.service';
     MatToolbarModule,
     MatTooltipModule, MatDividerModule],
   providers: [ProtocolService, ContactService, PriorityService,
-    ItemService, UserService, PersonService, AuthService, AuthGuard],
+    ItemService, UserService, PersonService, AuthService, AuthGuard, UtilitiesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

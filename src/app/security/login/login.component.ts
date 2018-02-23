@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../../services/auth.service';
 
+import { UtilitiesService } from '../../services/utilities.service';
+
 import * as moment from 'moment';
 
 @Component({
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   user = null;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private utils: UtilitiesService) { }
 
   ngOnInit() {
     this.user = {
@@ -69,8 +71,7 @@ export class LoginComponent implements OnInit {
           .then((res) => {
             console.log(res);
             localStorage.apikey = res.apikey;
-            const a = moment(res.apikey_expires);
-            localStorage.apikey_expires = res.apikey_expires;
+            localStorage.apikey_expires = this.utils.parseJavaDate2ISO(res.apikey_expires);
             localStorage.username = res.username;
             this.router.navigate(['skroutz']);
           })
