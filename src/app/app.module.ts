@@ -55,6 +55,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { TopNavComponent } from './topnav/topnav.component';
 import { ProtocolsComponent } from './protocols/protocols.component';
 import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
 import { ProtocolService } from './protocols/protocol.service';
@@ -86,7 +87,7 @@ import { UtilitiesService } from './services/utilities.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, TopNavComponent,
     ProtocolsComponent,
     ProtocolDetailComponent,
     ItemsComponent,

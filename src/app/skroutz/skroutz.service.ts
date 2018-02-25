@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
-// import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SkroutzService {

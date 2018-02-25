@@ -1,30 +1,7 @@
 
-<!--The content below is only a placeholder and can be replaced.-->
-<!-- <div style="text-align:center"> -->
-  <mat-toolbar color="primary" style="height: 40px;">
-  <button mat-button routerLink="/">{{title}}</button>
-  <a mat-button href="intro#divider2">Εταιρεία</a>
-  <a mat-button href="intro#divider3">Ενδεικτικά Έργα
-    <!-- <mat-icon class="example-icon" routerLink="/dashboard">settings</mat-icon> -->
-  </a>
-  <a mat-button href="skroutz">Αναζήτηση Skroutz
-    <!-- <mat-icon class="example-icon" routerLink="/contacts">contacts</mat-icon> -->
-  </a>
-  <a mat-button href="aggelies">Αγγελίες
-    <!-- <mat-icon class="example-icon" routerLink="/contacts">contacts</mat-icon> -->
-  </a>
-  <!-- <button mat-button routerLink="/dashboard">Control Panel</button> -->
-  <span class="example-spacer"></span>
-  {{countdown}}
-  <mat-icon class="example-icon">favorite</mat-icon>
-  <mat-icon class="example-icon">delete</mat-icon>
-  
-  <button mat-button (click)="logout()">         
-       <i class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i> 
-    </button>
-  </mat-toolbar>
+<app-topnav></app-topnav>
 
-   <router-outlet></router-outlet>
+<router-outlet></router-outlet>
 
   <!-- <app-protocols></app-protocols> -->
 <!-- </div> -->

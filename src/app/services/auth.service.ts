@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -55,7 +56,7 @@ export class AuthService {
   signInUsername(user) {
     // const credential = firebase.auth.EmailAuthProvider.credential( email, password );
     // return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
-    return this.http.post('http://127.0.0.1:9000/api/login', user)
+    return this.http.post(environment.apiurl + '/api/login', user)
     .toPromise()
     .then(response => response.json());
     // .catch(this.handleError);
@@ -73,6 +74,10 @@ export class AuthService {
   logout() {
     this._firebaseAuth.auth.signOut()
     .then((res) => this.router.navigate(['/']));
+  }
+
+  refresh() {
+
   }
 
 
