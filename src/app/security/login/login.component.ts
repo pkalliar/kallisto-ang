@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
             localStorage.apikey = res.apikey;
             localStorage.apikey_expires = this.utils.parseJavaDate2ISO(res.apikey_expires);
             localStorage.username = res.username;
+            localStorage.isLoggedIn = true;
             this.router.navigate(['skroutz']);
           })
           .catch((err) => console.log('error: ' + err));
