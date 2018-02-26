@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/intro', pathMatch: 'full' },
   { path: 'intro',  component: IntroComponent },
   { path: 'login',  component: LoginComponent },
+  { path: 'login/:goto',  component: LoginComponent },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'items',     component: ItemsComponent },
   { path: 'detail/:id', component: ProtocolDetailComponent },

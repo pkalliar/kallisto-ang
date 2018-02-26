@@ -1,7 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpUrlEncodingCodec } from '@angular/common/http';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import * as moment from 'moment';
 
@@ -19,7 +19,8 @@ export class TopNavComponent implements OnInit {
   countdown = '';
   isLoggedIn = true;
 
-  constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService) {
+  constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService
+    , private router: Router, private route: ActivatedRoute) {
     this.http = http;
     this.authService = authService;
   }
@@ -46,6 +47,16 @@ export class TopNavComponent implements OnInit {
     logout = function(){
       this.authService.logout();
     };
+
+    login() {
+      this.route.paramMap.subscribe((params: ParamMap) => console.log(params.get('id')));
+
+      console.log('current path: ' + location.pathname);
+      console.log('current path: ' + encodeURIComponent(location.pathname));
+      // if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
+
+      this.router.navigate(['/login', { then: location.pathname }]);
+    }
 
   countdownToLogout = function(){
 

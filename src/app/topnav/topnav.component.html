@@ -22,13 +22,10 @@
   <button mat-button (click)="login()" *ngIf="isLoggedIn">         
       <i class="fas fa-sign-in-alt fa-lg" aria-hidden="true"></i> login
   </button>
-  <button mat-button (click)="logout()" *ngIf="!isLoggedIn">         
+  <button mat-button (click)="logout()" *ngIf="isLoggedIn">         
       <i class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i> logout
   </button>
   </mat-toolbar>
 
-
-  <!-- <app-protocols></app-protocols> -->
-<!-- </div> -->
 
 

@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpUrlEncodingCodec} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
