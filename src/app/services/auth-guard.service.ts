@@ -23,13 +23,13 @@ export class AuthGuard implements CanActivate {
 
     prepareReq() {
         let server_url = '';
-        const myheaders = new Headers({ 'apikey': localStorage.get('apikey') });
+        const myheaders = new Headers({ 'apikey': localStorage.apikey });
         if (localStorage['server_url'] !== undefined) { server_url = localStorage['server_url']; }
     }
 
     get(url) {
         let server_url = '';
-        const myheaders = new Headers({ 'apikey': localStorage.get('apikey') });
+        const myheaders = new Headers({ 'apikey': localStorage.apikey });
         if (localStorage['server_url'] !== undefined) { server_url = localStorage['server_url']; }
         return this.http.get(server_url + url, {headers: myheaders}).
           subscribe(
@@ -39,11 +39,13 @@ export class AuthGuard implements CanActivate {
 
     delete(url) {
         let server_url = '';
-        const myheaders = new Headers({ 'apikey': localStorage.get('apikey') });
+        const myheaders = new Headers({ 'apikey': localStorage.apikey });
         if (localStorage['server_url'] !== undefined) { server_url = localStorage['server_url']; }
         return this.http.delete(server_url + url, {headers: myheaders}).
           subscribe(
             error => this.handleError(error) // error path
         );
     }
+
+
 }

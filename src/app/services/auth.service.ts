@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { Headers, Http } from '@angular/http';
 
+import { AuthGuard } from './auth-guard.service';
+
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 
@@ -56,7 +58,7 @@ export class AuthService {
   signInUsername(user) {
     // const credential = firebase.auth.EmailAuthProvider.credential( email, password );
     // return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
-    return this.http.post(environment.apiurl + '/api/login', user)
+    return this.http.post(environment.apiurl + '/api/authenticate/login', user)
     .toPromise()
     .then(response => response.json());
     // .catch(this.handleError);
@@ -76,9 +78,7 @@ export class AuthService {
     .then((res) => this.router.navigate(['/']));
   }
 
-  refresh() {
 
-  }
 
 
 

@@ -110,7 +110,7 @@ import { UtilitiesService } from './services/utilities.service';
     MatNativeDateModule, MatDividerModule, MatListModule,
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
-    MatSlideToggleModule, MatToolbarModule, CdkTableModule,
+    MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
     AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireDatabaseModule,

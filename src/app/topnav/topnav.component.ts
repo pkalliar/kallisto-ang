@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { HttpClient, HttpUrlEncodingCodec } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { AuthGuard } from '../services/auth-guard.service';
 import * as moment from 'moment';
 
 // my comment on Monday morning
@@ -18,9 +19,11 @@ export class TopNavComponent implements OnInit {
   title = 'PKENERGY';
   countdown = '';
   isLoggedIn = true;
+  ttposition = 'below';
+
 
   constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService
-    , private router: Router, private route: ActivatedRoute) {
+    , private router: Router, private route: ActivatedRoute, private authGuard: AuthGuard) {
     this.http = http;
     this.authService = authService;
   }
@@ -58,11 +61,15 @@ export class TopNavComponent implements OnInit {
       this.router.navigate(['/login', { then: location.pathname }]);
     }
 
+    refresh = function(){
+      this.authGuard.get('/api/refresh');
+    };
+
   countdownToLogout = function(){
 
       // var datePattern = "YYYY-MM-DD HH:mm:ss Z";
       this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
-      // if (localStorage.isLoggedIn === true) {
+      if (this.isLoggedIn === true) {
         const authExpiration = moment(localStorage.apikey_expires);
         const previousPollTime = moment();
 
@@ -85,13 +92,7 @@ export class TopNavComponent implements OnInit {
             // $scope.logout();
         }
         this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
-      // }
-
-        // console.log('pinging.. countdownToLogout ' + this.countdown);
-      //   var diffPollingSec = b.diff($scope.previousPollTime, 'seconds');
-      //   if(diffPollingSec >= pollInnterval){
-      //     //$scope.getServerEvents();
-        // }
+      }
     };
 }
 

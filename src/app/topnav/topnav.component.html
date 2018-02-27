@@ -15,16 +15,20 @@
   </a>
   <!-- <button mat-button routerLink="/dashboard">Control Panel</button> -->
   <span class="example-spacer"></span>
-  {{countdown}}--{{isLoggedIn}}
-  <mat-icon class="example-icon" (click)="refresh()">refresh</mat-icon>
-  <mat-icon class="example-icon">delete</mat-icon>
+  {{countdown}}
+
+  <button mat-icon-button (click)="refresh()" matTooltip="Refresh time to logout" [matTooltipPosition]="ttposition">
+      <i class="fas fa-sync-alt"></i>
+    <!-- <mat-icon class="example-icon">refresh</mat-icon> -->
+  </button>
+  <!-- <mat-icon class="example-icon">delete</mat-icon> -->
   
 
-  <button mat-button (click)="logout()" [hidden]="!isLoggedIn">   
-      <i class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i> logout         
+  <button mat-icon-button (click)="logout()" [hidden]="!isLoggedIn" matTooltip="Logout!" [matTooltipPosition]="ttposition">   
+      <i class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i>         
   </button>
-  <button mat-button (click)="login()" [hidden]="isLoggedIn">         
-          <i class="fas fa-sign-in-alt fa-lg" aria-hidden="true"></i> login
+  <button mat-icon-button (click)="login()" [hidden]="isLoggedIn" matTooltip="Login!" [matTooltipPosition]="ttposition">      
+      <i class="fas fa-sign-in-alt fa-lg" aria-hidden="true"></i> 
   </button>
 
   </mat-toolbar>
