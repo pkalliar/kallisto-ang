@@ -2,6 +2,9 @@ import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { Headers, Http } from '@angular/http';
+import { environment } from '../../environments/environment';
+
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -28,10 +31,10 @@ export class AuthGuard implements CanActivate {
     }
 
     get(url) {
-        let server_url = '';
+        // let server_url = '';
         const myheaders = new Headers({ 'apikey': localStorage.apikey });
-        if (localStorage['server_url'] !== undefined) { server_url = localStorage['server_url']; }
-        return this.http.get(server_url + url, {headers: myheaders}).
+        // if (localStorage['server_url'] !== undefined) { server_url = localStorage['server_url']; }
+        return this.http.get(environment.apiurl + url, {headers: myheaders}).
           subscribe(
             error => this.handleError(error) // error path
         );

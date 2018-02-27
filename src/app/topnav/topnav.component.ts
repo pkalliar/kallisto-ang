@@ -62,7 +62,7 @@ export class TopNavComponent implements OnInit {
     }
 
     refresh = function(){
-      this.authGuard.get('/api/refresh');
+      this.authGuard.get('/api/authenticate/refresh');
     };
 
   countdownToLogout = function(){
