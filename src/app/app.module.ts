@@ -84,6 +84,8 @@ import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { UtilitiesService } from './services/utilities.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -151,7 +153,9 @@ import { UtilitiesService } from './services/utilities.service';
     MatToolbarModule,
     MatTooltipModule, MatDividerModule],
   providers: [ProtocolService, ContactService, PriorityService,
-    ItemService, UserService, PersonService, AuthService, AuthGuard, UtilitiesService],
+    ItemService, UserService, PersonService, AuthService, AuthGuard, UtilitiesService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,  multi: true  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

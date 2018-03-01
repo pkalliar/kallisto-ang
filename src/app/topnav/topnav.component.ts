@@ -20,6 +20,7 @@ export class TopNavComponent implements OnInit {
   countdown = '';
   isLoggedIn = true;
   ttposition = 'below';
+  username = '';
 
 
   constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService
@@ -35,6 +36,10 @@ export class TopNavComponent implements OnInit {
     console.log('initializing app..');
 
     moment.locale('el');
+    this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
+    if (this.isLoggedIn === true) {
+      this.username = localStorage.username;
+    }
 
     // setInterval(this.countdownToLogout(), 30); // every 5 minutes (300000)
     setInterval(() => this.countdownToLogout(), 1 * 1000);
@@ -63,6 +68,10 @@ export class TopNavComponent implements OnInit {
 
     refresh = function(){
       this.authGuard.get('/api/authenticate/refresh');
+      // .then(function(resp: any) {
+      //   const response = resp;
+      //   console.log('response : ' + JSON.stringify(response) );
+      // });
     };
 
   countdownToLogout = function(){
