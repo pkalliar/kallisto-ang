@@ -5,7 +5,9 @@ import { Headers, Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -49,21 +51,35 @@ export class AuthGuard implements CanActivate {
     //     );
     // }
 
-    get(url) {
-        const myheaders = new Headers({ 'apikey': localStorage.apikey });
+    getConfigResponse(url): Observable<HttpResponse<any>> {
+        const params = new HttpHeaders().set('apikey', localStorage.apikey);
+        return this.http.get<any>(
+          environment.apiurl + url, { headers : params, observe: 'response' });
+      }
 
-        return this.http.get<any>(environment.apiurl + url, this.httpOptions)
-        .subscribe(
-            // headers => console.log(headers),
-            data => console.log(data),
-            err => console.log(err)
-          );
-                //    .toPromise()
-                //    .then(function(response: any) {
-                //         console.log('response: ' + JSON.stringify(response));
-                //         return response;
-                //    })
-                //    .catch(this.handleError);
+    get(url) {
+
+        // return this.http.get<any>(environment.apiurl + url, this.httpOptions)
+        return this.getConfigResponse(url)
+        // .subscribe(
+        //     resp => function (
+        //         const result: string = resp.headers.get('result');
+        //         console.log('result: ' + result);
+        //         console.log(resp);
+        //     ),
+        //     // data => console.log(data),
+        //     err => console.log(err)
+        //   );
+                   .toPromise()
+                   .then(function(response: any) {
+                        const result: string = response.headers.get('result');
+                        console.log('result: ' + result);
+                        const apikey_expires: string = response.headers.get('apikey_expires');
+                        console.log('apikey_expires: ' + apikey_expires);
+                        console.log('response: ' + JSON.stringify(response));
+                        return response;
+                   })
+                   .catch(this.handleError);
     }
 
     delete(url) {
