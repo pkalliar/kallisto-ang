@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AuthGuard } from '../services/auth-guard.service';
 import * as moment from 'moment';
+import { environment } from '../../environments/environment';
 
 // my comment on Monday morning
 @Component({
@@ -21,11 +22,12 @@ export class TopNavComponent implements OnInit {
   isLoggedIn = true;
   ttposition = 'below';
   username = '';
+  nowDate = '';
 
 
-  constructor(private http: Http, private httpClient: HttpClient, private authService: AuthService
+
+  constructor(private httpClient: HttpClient, private authService: AuthService
     , private router: Router, private route: ActivatedRoute, private authGuard: AuthGuard) {
-    this.http = http;
     this.authService = authService;
   }
 
@@ -52,10 +54,6 @@ export class TopNavComponent implements OnInit {
       // http.get('https://kallisto-backend.herokuapp.com/');
     };
 
-    logout = function(){
-      this.authService.logout();
-    };
-
     login() {
       this.route.paramMap.subscribe((params: ParamMap) => console.log(params.get('id')));
 
@@ -66,21 +64,43 @@ export class TopNavComponent implements OnInit {
       this.router.navigate(['/login', { then: location.pathname }]);
     }
 
-    refresh = function(){
-      this.authGuard.get('/api/authenticate/refresh');
+    refresh = function() {
+      this.httpClient.get(environment.apiurl + '/api/authenticate/refresh')
+      // .toPromise()
       // .then(function(resp: any) {
-      //   const response = resp;
-      //   console.log('response : ' + JSON.stringify(response) );
-      // });
+      //   console.log('refreshing : ' + JSON.stringify(resp) );
+      // })
+      // .catch(this.handleError);
+      .subscribe(
+        resp => {
+          console.log('1 ' + resp);
+        },
+        err => console.log('2 ' + err)
+      );
     };
 
-  countdownToLogout = function(){
+    private handleError(error: any): Promise<any> {
+      console.error('An error occurred', error); // for demo purposes only
+      return Promise.reject(error.message || error);
+    }
+
+    logout = function() {
+      this.httpClient.get(environment.apiurl + '/api/authenticate/logout').toPromise()
+      .then(function(resp: any) {
+        console.log('refreshing : ' + JSON.stringify(resp) );
+      });
+      this.authService.logout();
+    };
+
+  countdownToLogout = function() {
 
       // var datePattern = "YYYY-MM-DD HH:mm:ss Z";
       this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
       if (this.isLoggedIn === true) {
         const authExpiration = moment(localStorage.apikey_expires);
         const previousPollTime = moment();
+
+        this.nowDate = previousPollTime.format('LLLL');
 
         const pollInnterval = 5;
 
@@ -95,8 +115,10 @@ export class TopNavComponent implements OnInit {
             if (diffSec2 < 10) {divider = divider + '0'; }
             this.countdown = diffMin + divider + diffSec2;
             localStorage.isLoggedIn = true;
-        }else {
+            this.username = localStorage.username;
+        } else {
           this.countdown = '';
+          this.username = '';
           localStorage.isLoggedIn = false;
             // $scope.logout();
         }
