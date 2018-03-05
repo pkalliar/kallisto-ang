@@ -17,8 +17,8 @@
   <span class="example-spacer">{{nowDate}}</span>
   {{countdown}}
 
-  <button mat-icon-button (click)="refresh()" matTooltip="Refresh time to logout" [matTooltipPosition]="ttposition">
-      <i class="fas fa-sync-alt"></i>
+  <button mat-icon-button (click)="refresh()" [hidden]="!isLoggedIn" matTooltip="Refresh time to logout" [matTooltipPosition]="ttposition">
+      <i class="fas fa-sync-alt" aria-hidden="true"></i>
     <!-- <mat-icon class="example-icon">refresh</mat-icon> -->
   </button>
   <!-- <mat-icon class="example-icon">delete</mat-icon> -->
