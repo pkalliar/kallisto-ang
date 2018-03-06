@@ -58,12 +58,26 @@ export class LoginComponent implements OnInit {
     }
 
     signInWithGoogle() {
-      this.authService.signInWithGoogle()
-      .then((res) => {
-         console.log('res:' + JSON.stringify(res));
-          this.router.navigate(['skroutz']);
-        })
-      .catch((err) => console.log(err));
+      this.authService.signInWithGoogle();
+      // .then(function(result) {
+      //   // This gives you a Google Access Token. You can use it to access the Google API.
+      //   const token = result.credential.accessToken;
+      //   // The signed-in user info.
+      //   this.user = result.user;
+      //   console.log('user ' + JSON.stringify(this.user));
+      //   console.log('expirationTime: ' + moment(this.user.expirationTime).format());
+      //   // ...
+      // }).catch(function(error) {
+      //   // Handle Errors here.
+      //   const errorCode = error.code;
+      //   const errorMessage = error.message;
+      //   // The email of the user's account used.
+      //   const email = error.email;
+      //   // The firebase.auth.AuthCredential type that was used.
+      //   const credential = error.credential;
+      //   // ...
+      // });
+
     }
 
     signInWithUsername() {
