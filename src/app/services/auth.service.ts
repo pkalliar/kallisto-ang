@@ -56,8 +56,8 @@ export class AuthService {
       const token = result.credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      console.log(user);
-      console.log('expirationTime: ' + moment(user.stsTokenManager.expirationTime).format());
+      // console.log(user);
+      console.log('expirationTime: ' + JSON.stringify(result));
       // ...
     }).catch(function(error) {
       // Handle Errors here.

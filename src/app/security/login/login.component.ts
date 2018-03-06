@@ -42,6 +42,9 @@ export class LoginComponent implements OnInit {
       .then((res) => {
           console.log('FB user: ' + JSON.stringify(res));
           console.log('displayName: ' + res.user.displayName);
+          localStorage.username = res.user.displayName;
+
+          localStorage.apikey_expires = res.user.stsTokenManager.expirationTime;
 
           this.router.navigate(['skroutz']);
         })
