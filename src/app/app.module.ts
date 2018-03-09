@@ -65,7 +65,17 @@ import { ContactDetailComponent } from './entities/contact-detail.component';
 import { ContactService } from './entities/contact.service';
 import { PriorityService } from './entities/priority.service';
 // import { LoginComponent } from './login.component';
+
+// SECURITY MODULES
 import { LoginComponent } from './security/login/login.component';
+import { UserComponent } from './security/users/users.component';
+import { UserDetailComponent} from './security/users/user-detail.component';
+import { UserService} from './security/users/user.service';
+import { PersonComponent } from './security/persons/persons.component';
+import { PersonDetailComponent} from './security/persons/person-detail.component';
+import { PersonService} from './security/persons/person.service';
+
+
 import { IntroComponent } from './intro/intro.component';
 // import { AuthService } from './auth/auth.service';
 import { ItemsComponent } from './inventory/items';
@@ -74,12 +84,7 @@ import { SkroutzComponent } from './skroutz/skroutz.component';
 import { SkroutzService } from './skroutz/skroutz.service';
 import { AggeliesComponent } from './entities/classified-ads/classified-ads.component';
 import { AggeliaDetailComponent} from './entities/classified-ads/ad-detail.component';
-import { UserComponent } from './security/users/users.component';
-import { UserDetailComponent} from './security/users/user-detail.component';
-import { UserService} from './security/users/user.service';
-import { PersonComponent } from './security/persons/persons.component';
-import { PersonDetailComponent} from './security/persons/person-detail.component';
-import { PersonService} from './security/persons/person.service';
+
 import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';

@@ -1,1 +1,66 @@
-{"user":{"uid":"DJtKva4xwoM7V4HS3YiQVIUGrNu1","displayName":"Παναγιώτης Καλλιάρας","photoURL":"https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/13882392_10208075732865951_6774321604123699541_n.jpg?oh=0bfacb9119188f37b52e07842845423b&oe=5B04B28F","email":"pkalliar@yahoo.com","emailVerified":false,"phoneNumber":null,"isAnonymous":false,"providerData":[{"uid":"10212566736138226","displayName":"Παναγιώτης Καλλιάρας","photoURL":"https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/13882392_10208075732865951_6774321604123699541_n.jpg?oh=0bfacb9119188f37b52e07842845423b&oe=5B04B28F","email":"pkalliar@yahoo.com","phoneNumber":null,"providerId":"facebook.com"}],"apiKey":"AIzaSyBJ0SwPMbbakEGHG1YV1xKb9q_gjxpVkog","appName":"angular-auth-firebase","authDomain":"pankal-e7786.firebaseapp.com","stsTokenManager":{"apiKey":"AIzaSyBJ0SwPMbbakEGHG1YV1xKb9q_gjxpVkog","refreshToken":"APyOXy0cW4gpH60Ib81FcAtkqcnVuxRwN1-qmSkgxVOfoXloiJla0yIoWVmC4n04WgR5fc7q0GXAWlRPWWDm-s7_DCoSlydSqmItRsWPtKKp_H-DX5PSdtJSgzVoCsFpRfVD4O8cZ5fdKwkgSWFmNrgOMn0un5kTis40W9xToboe3fecqTYux9zVYjTBYoHESNALxn6d7SyGGw_aWbaw_OfAAKZjuOioy24torIT5YviBoMoZEyR0LPAENJzGHA8WMLDz7Oqxv18xaaQH6H98P8EVzNUGP6L3RRCv0Q6n86unNHeb3jYq9LbfoHpZVmiqptC1EmQgkWm8JhVMKwKlOEVCVSlGPkG7_HiXTyUn1nAY5v9_W58rl-S2ZRZmEF_TFurYKjrD-Ao0fdJdd3DcRjxBxE_M-Rx3bdDAnMwT_h5eFew2M2ZLnMfMfIxtv9sgsWuKZvM-NsT-MdtDWE8aKlub_gWIdwB8g","accessToken":"eyJhbGciOiJSUzI1NiIsImtpZCI6ImNhODIyODEyOGQ1Njk4ZDRlNDQyM2NmYWI2MWEyODM3YjY4YzdkMDcifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFua2FsLWU3Nzg2IiwibmFtZSI6Is6gzrHOvc6xzrPOuc-Oz4TOt8-CIM6azrHOu867zrnOrM-BzrHPgiIsInBpY3R1cmUiOiJodHRwczovL3Njb250ZW50Lnh4LmZiY2RuLm5ldC92L3QxLjAtMS9wMTAweDEwMC8xMzg4MjM5Ml8xMDIwODA3NTczMjg2NTk1MV82Nzc0MzIxNjA0MTIzNjk5NTQxX24uanBnP29oPTBiZmFjYjkxMTkxODhmMzdiNTJlMDc4NDI4NDU0MjNiJm9lPTVCMDRCMjhGIiwiYXVkIjoicGFua2FsLWU3Nzg2IiwiYXV0aF90aW1lIjoxNTIwMzQ2MTI5LCJ1c2VyX2lkIjoiREp0S3ZhNHh3b003VjRIUzNZaVFWSVVHck51MSIsInN1YiI6IkRKdEt2YTR4d29NN1Y0SFMzWWlRVklVR3JOdTEiLCJpYXQiOjE1MjAzNDYxMjksImV4cCI6MTUyMDM0OTcyOSwiZW1haWwiOiJwa2FsbGlhckB5YWhvby5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZmFjZWJvb2suY29tIjpbIjEwMjEyNTY2NzM2MTM4MjI2Il0sImVtYWlsIjpbInBrYWxsaWFyQHlhaG9vLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6ImZhY2Vib29rLmNvbSJ9fQ.a9RLMh2Cv_P3eeG2e6njiYYyX7UaT7UwdOkIYP8PcJpZvGlxp-k9jYhYkmzHu_ENyWPd8ijV54mrX8e3vXVyzheBAUbykRjGsbY29p0HZ-GG5cWeKYL7_vjUXbZnJhZpwbgvO_zO0gkk2LoJioHsKxaWw8VGdKEG_Iy2106cevRfllzWSCkhpCc9MjYonaJMMBtEIW8F3OVypbd9n6feDDN2ypqoiji72-sTovTVImsRMCs0tlX-qae_J7gN3w2Ak5toOu5QKDUb6wroMrcc8rTPyb1JZnIFT1v5P4mX1nPjpexTnriZH2KiMmtjlAZlx5jEL5c9lMHm7x3bQuC-bA","expirationTime":1520349730055},"redirectEventId":null,"lastLoginAt":"1520346129000","createdAt":"1519064900000"},"credential":{"accessToken":"EAAWQv0zlF5oBAF8VJyfbxnqRpl2bCqy4gYd5qTutX7OZCUXSr5s5XnolNGEqEcXkIjrx5FluJQQzMG1jSUXt5CZCDIUcUt7JCAXNTebwYa4NqoRQeLRpPCc8ZBHCwnJd5ZChjJ1DXvNsbqfpGtCeaxjPHWjK0TwZD","providerId":"facebook.com"},"additionalUserInfo":{"providerId":"facebook.com","isNewUser":false,"profile":{"updated_time":"2017-10-25T08:42:55+0000","gender":"male","timezone":2,"link":"https://www.facebook.com/app_scoped_user_id/10212566736138226/","verified":true,"last_name":"Καλλιάρας","locale":"el_GR","picture":{"data":{"is_silhouette":false,"width":100,"url":"https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/13882392_10208075732865951_6774321604123699541_n.jpg?oh=0bfacb9119188f37b52e07842845423b&oe=5B04B28F","height":100}},"age_range":{"min":21},"name":"Παναγιώτης Καλλιάρας","id":"10212566736138226","first_name":"Παναγιώτης","email":"pkalliar@yahoo.com"}},"operationType":"signIn"}
+{
+    "user": {
+        "uid": "DJtKva4xwoM7V4HS3YiQVIUGrNu1",
+        "displayName": "Παναγιώτης Καλλιάρας",
+        "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/13882392_10208075732865951_6774321604123699541_n.jpg?oh=0bfacb9119188f37b52e07842845423b&oe=5B04B28F",
+        "email": "pkalliar@yahoo.com",
+        "emailVerified": false,
+        "phoneNumber": null,
+        "isAnonymous": false,
+        "providerData": [
+            {
+                "uid": "10212566736138226",
+                "displayName": "Παναγιώτης Καλλιάρας",
+                "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/13882392_10208075732865951_6774321604123699541_n.jpg?oh=0bfacb9119188f37b52e07842845423b&oe=5B04B28F",
+                "email": "pkalliar@yahoo.com",
+                "phoneNumber": null,
+                "providerId": "facebook.com"
+            }
+        ],
+        "apiKey": "AIzaSyBJ0SwPMbbakEGHG1YV1xKb9q_gjxpVkog",
+        "appName": "angular-auth-firebase",
+        "authDomain": "pankal-e7786.firebaseapp.com",
+        "stsTokenManager": {
+            "apiKey": "AIzaSyBJ0SwPMbbakEGHG1YV1xKb9q_gjxpVkog",
+            "refreshToken": "APyOXy0cW4gpH60Ib81FcAtkqcnVuxRwN1-qmSkgxVOfoXloiJla0yIoWVmC4n04WgR5fc7q0GXAWlRPWWDm-s7_DCoSlydSqmItRsWPtKKp_H-DX5PSdtJSgzVoCsFpRfVD4O8cZ5fdKwkgSWFmNrgOMn0un5kTis40W9xToboe3fecqTYux9zVYjTBYoHESNALxn6d7SyGGw_aWbaw_OfAAKZjuOioy24torIT5YviBoMoZEyR0LPAENJzGHA8WMLDz7Oqxv18xaaQH6H98P8EVzNUGP6L3RRCv0Q6n86unNHeb3jYq9LbfoHpZVmiqptC1EmQgkWm8JhVMKwKlOEVCVSlGPkG7_HiXTyUn1nAY5v9_W58rl-S2ZRZmEF_TFurYKjrD-Ao0fdJdd3DcRjxBxE_M-Rx3bdDAnMwT_h5eFew2M2ZLnMfMfIxtv9sgsWuKZvM-NsT-MdtDWE8aKlub_gWIdwB8g",
+            "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImNhODIyODEyOGQ1Njk4ZDRlNDQyM2NmYWI2MWEyODM3YjY4YzdkMDcifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFua2FsLWU3Nzg2IiwibmFtZSI6Is6gzrHOvc6xzrPOuc-Oz4TOt8-CIM6azrHOu867zrnOrM-BzrHPgiIsInBpY3R1cmUiOiJodHRwczovL3Njb250ZW50Lnh4LmZiY2RuLm5ldC92L3QxLjAtMS9wMTAweDEwMC8xMzg4MjM5Ml8xMDIwODA3NTczMjg2NTk1MV82Nzc0MzIxNjA0MTIzNjk5NTQxX24uanBnP29oPTBiZmFjYjkxMTkxODhmMzdiNTJlMDc4NDI4NDU0MjNiJm9lPTVCMDRCMjhGIiwiYXVkIjoicGFua2FsLWU3Nzg2IiwiYXV0aF90aW1lIjoxNTIwMzQ2MTI5LCJ1c2VyX2lkIjoiREp0S3ZhNHh3b003VjRIUzNZaVFWSVVHck51MSIsInN1YiI6IkRKdEt2YTR4d29NN1Y0SFMzWWlRVklVR3JOdTEiLCJpYXQiOjE1MjAzNDYxMjksImV4cCI6MTUyMDM0OTcyOSwiZW1haWwiOiJwa2FsbGlhckB5YWhvby5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZmFjZWJvb2suY29tIjpbIjEwMjEyNTY2NzM2MTM4MjI2Il0sImVtYWlsIjpbInBrYWxsaWFyQHlhaG9vLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6ImZhY2Vib29rLmNvbSJ9fQ.a9RLMh2Cv_P3eeG2e6njiYYyX7UaT7UwdOkIYP8PcJpZvGlxp-k9jYhYkmzHu_ENyWPd8ijV54mrX8e3vXVyzheBAUbykRjGsbY29p0HZ-GG5cWeKYL7_vjUXbZnJhZpwbgvO_zO0gkk2LoJioHsKxaWw8VGdKEG_Iy2106cevRfllzWSCkhpCc9MjYonaJMMBtEIW8F3OVypbd9n6feDDN2ypqoiji72-sTovTVImsRMCs0tlX-qae_J7gN3w2Ak5toOu5QKDUb6wroMrcc8rTPyb1JZnIFT1v5P4mX1nPjpexTnriZH2KiMmtjlAZlx5jEL5c9lMHm7x3bQuC-bA",
+            "expirationTime": 1520349730055
+        },
+        "redirectEventId": null,
+        "lastLoginAt": "1520346129000",
+        "createdAt": "1519064900000"
+    },
+    "credential": {
+        "accessToken": "EAAWQv0zlF5oBAF8VJyfbxnqRpl2bCqy4gYd5qTutX7OZCUXSr5s5XnolNGEqEcXkIjrx5FluJQQzMG1jSUXt5CZCDIUcUt7JCAXNTebwYa4NqoRQeLRpPCc8ZBHCwnJd5ZChjJ1DXvNsbqfpGtCeaxjPHWjK0TwZD",
+        "providerId": "facebook.com"
+    },
+    "additionalUserInfo": {
+        "providerId": "facebook.com",
+        "isNewUser": false,
+        "profile": {
+            "updated_time": "2017-10-25T08:42:55+0000",
+            "gender": "male",
+            "timezone": 2,
+            "link": "https://www.facebook.com/app_scoped_user_id/10212566736138226/",
+            "verified": true,
+            "last_name": "Καλλιάρας",
+            "locale": "el_GR",
+            "picture": {
+                "data": {
+                    "is_silhouette": false,
+                    "width": 100,
+                    "url": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/13882392_10208075732865951_6774321604123699541_n.jpg?oh=0bfacb9119188f37b52e07842845423b&oe=5B04B28F",
+                    "height": 100
+                }
+            },
+            "age_range": {
+                "min": 21
+            },
+            "name": "Παναγιώτης Καλλιάρας",
+            "id": "10212566736138226",
+            "first_name": "Παναγιώτης",
+            "email": "pkalliar@yahoo.com"
+        }
+    },
+    "operationType": "signIn"
+}
