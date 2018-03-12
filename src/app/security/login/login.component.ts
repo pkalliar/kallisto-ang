@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   signInWithTwitter() {
       this.authService.signInWithTwitter()
       .then((res) => {
-          this.router.navigate(['skroutz']);
+          this.router.navigate(['']);
         })
       .catch((err) => console.log(err));
     }
@@ -40,13 +40,26 @@ export class LoginComponent implements OnInit {
     signInWithFacebook() {
       this.authService.signInWithFacebook()
       .then((res) => {
+        const token = res.credential.accessToken;
           console.log('FB user: ' + JSON.stringify(res));
           console.log('displayName: ' + res.user.displayName);
+          console.log('apiKey: ' + res.user.apiKey);
+
+          const foo = Object.keys(res.user);
+          for (const key of foo) {
+            console.log('key: ' + key);
+            const foo2 = Object.keys(res.user[key]);
+            for (const key2 of foo2) {
+              console.log('---key2: ' + key2);
+            }
+          }
+
           localStorage.username = res.user.displayName;
+          localStorage.apikey = res.user.apiKey;
 
-          localStorage.apikey_expires = res.user.stsTokenManager.expirationTime;
+          // localStorage.apikey_expires = res.user.stsTokenManager.expirationTime;
 
-          this.router.navigate(['skroutz']);
+          this.router.navigate(['']);
         })
       .catch((err) => console.log(err));
     }
@@ -55,7 +68,7 @@ export class LoginComponent implements OnInit {
       this.authService.signInEmail(this.user.email, this.user.password)
           .then((res) => {
             console.log('res:' + res);
-            this.router.navigate(['skroutz']);
+            this.router.navigate(['']);
           })
           .catch((err) => console.log('error: ' + err));
     }
@@ -92,7 +105,7 @@ export class LoginComponent implements OnInit {
             localStorage.apikey_expires = res.apikey_expires;
             localStorage.username = res.username;
             localStorage.isLoggedIn = true;
-            this.router.navigate(['skroutz']);
+            this.router.navigate(['']);
           })
           .catch((err) => console.log('error: ' + err));
     }

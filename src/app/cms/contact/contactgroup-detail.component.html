@@ -1,0 +1,38 @@
+<div *ngIf="contactgroup" class="example-container">
+  <h2 [hidden]="isEdit">Ομάδα επαφών - Λεπτομέρειες</h2>
+  <h2 [hidden]="!isEdit">Επεξεργασία ομάδας επαφών</h2>
+
+    <mat-form-field class="example-full-width" *ngIf="false" >
+      <input matInput [(ngModel)]="contactgroup.id" placeholder="UUID ομάδας επαφών" [readonly]="isEdit">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="contactgroup.code" placeholder="Κωδικός ομάδας επαφών" [readonly]="!isEdit">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="contactgroup.name" placeholder="Όνομα ομάδας επαφών" [readonly]="!isEdit">
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-button (click)="goBack()"><i class="material-icons">keyboard_backspace</i></button>
+      <button mat-button color="primary" [disabled]="isEdit" (click)="edit()"><i class="material-icons">mode_edit</i></button>
+      <button mat-button color="primary" [disabled]="!isEdit" (click)="save(contactgroup)"><i class="material-icons">save</i></button>
+      <button mat-button color="warn" [disabled]="!isEdit" (click)="delete(contactgroup)"><i class="material-icons">delete</i></button>
+    </div>
+    <!-- <mat-slide-toggle
+      class="example-margin"
+      [(ngModel)]="checked">
+    Επαφές {{checked}}
+  </mat-slide-toggle><span *ngIf="checked">checked</span> -->
+  
+</div>
+<div  style="width:70%; margin: auto;">
+    <app-contact *ngIf="showContacts" [showSearchBar]="checked" [criteria]="contactsCriteria"></app-contact>
+</div>
+<mat-grid-list cols="16">
+  <mat-grid-tile colspan="2"></mat-grid-tile>
+  <mat-grid-tile colspan="12">
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2"></mat-grid-tile>
+</mat-grid-list>
+
+

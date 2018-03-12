@@ -1,0 +1,25 @@
+<div *ngIf="affair" class="example-container">
+  <h2 [hidden]="isEdit">Λεπτομέρειες υπόθεσης</h2>
+  <h2 [hidden]="!isEdit">Επεξεργασία υπόθεσης</h2>
+
+    <mat-form-field class="example-full-width" *ngIf="false" >
+      <input matInput [(ngModel)]="affair.id" placeholder="UUID υπόθεσης" [readonly]="isEdit">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="affair.code" placeholder="Κωδικός υπόθεσης" [readonly]="!isEdit">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="affair.display_name" placeholder="Όνομα υπόθεσης" [readonly]="!isEdit">
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-button (click)="goBack()"><i class="material-icons">keyboard_backspace</i></button>
+      <button mat-button color="primary" [disabled]="isEdit" (click)="edit()"><i class="material-icons">mode_edit</i></button>
+      <button mat-button color="primary" [disabled]="!isEdit" (click)="save(affair)"><i class="material-icons">save</i></button>
+      <button mat-button color="warn" [disabled]="!isEdit" (click)="delete(affair)"><i class="material-icons">delete</i></button>
+    </div>
+
+  
+</div>
+
+

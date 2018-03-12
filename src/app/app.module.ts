@@ -56,14 +56,17 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TopNavComponent } from './topnav/topnav.component';
-import { ProtocolsComponent } from './protocols/protocols.component';
-import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
-import { ProtocolService } from './protocols/protocol.service';
+
+import { EshopRoutingModule } from './eshop/eshop-routing.module';
+import { CmsRoutingModule } from './cms/cms-routing.module';
+// import { ProtocolsComponent } from './protocols/protocols.component';
+// import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
+// import { ProtocolService } from './protocols/protocol.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ContactComponent } from './entities/contact.component';
-import { ContactDetailComponent } from './entities/contact-detail.component';
-import { ContactService } from './entities/contact.service';
-import { PriorityService } from './entities/priority.service';
+// import { ContactComponent } from './entities/contact.component';
+// import { ContactDetailComponent } from './entities/contact-detail.component';
+// import { ContactService } from './entities/contact.service';
+// import { PriorityService } from './entities/priority.service';
 // import { LoginComponent } from './login.component';
 
 // SECURITY MODULES
@@ -78,14 +81,14 @@ import { PersonService} from './security/persons/person.service';
 
 import { IntroComponent } from './intro/intro.component';
 // import { AuthService } from './auth/auth.service';
-import { ItemsComponent } from './inventory/items';
-import { ItemService } from './inventory/item.service';
-import { SkroutzComponent } from './skroutz/skroutz.component';
-import { SkroutzService } from './skroutz/skroutz.service';
-import { AggeliesComponent } from './entities/classified-ads/classified-ads.component';
-import { AggeliaDetailComponent} from './entities/classified-ads/ad-detail.component';
+// import { ItemsComponent } from './inventory/items';
+// import { ItemService } from './inventory/item.service';
+// import { SkroutzComponent } from './skroutz/skroutz.component';
+// import { SkroutzService } from './skroutz/skroutz.service';
+// import { AggeliesComponent } from './entities/classified-ads/classified-ads.component';
+// import { AggeliaDetailComponent} from './entities/classified-ads/ad-detail.component';
 
-import { PublicDealsComponent } from './public-deals/public-deals.component';
+// import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { UtilitiesService } from './services/utilities.service';
@@ -95,13 +98,13 @@ import { AuthInterceptor } from './services/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent, TopNavComponent,
-    ProtocolsComponent,
-    ProtocolDetailComponent,
-    ItemsComponent,
     DashboardComponent, LoginComponent, IntroComponent,
-    ContactComponent, ContactDetailComponent, SkroutzComponent,
-    AggeliesComponent, AggeliaDetailComponent,
-    UserComponent, UserDetailComponent, PersonComponent, PersonDetailComponent, PublicDealsComponent
+    // ProtocolsComponent,
+    // ProtocolDetailComponent,
+    // ItemsComponent,
+    // ContactComponent, ContactDetailComponent, SkroutzComponent,
+    // AggeliesComponent, AggeliaDetailComponent,
+    UserComponent, UserDetailComponent, PersonComponent, PersonDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -119,6 +122,10 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
+
+    // applications
+    EshopRoutingModule, CmsRoutingModule,
+
     AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireDatabaseModule,
     AngularFireAuthModule
@@ -157,8 +164,9 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule, MatDividerModule],
-  providers: [ProtocolService, ContactService, PriorityService,
-    ItemService, UserService, PersonService, AuthService, AuthGuard, UtilitiesService,
+  providers: [
+    // ProtocolService, ContactService, PriorityService, ItemService,
+    UserService, PersonService, AuthService, AuthGuard, UtilitiesService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,  multi: true  }
   ],
   bootstrap: [AppComponent]
