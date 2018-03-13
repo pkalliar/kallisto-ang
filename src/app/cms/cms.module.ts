@@ -104,6 +104,7 @@ import { ContactGroupService } from './contact/contactgroup.service';
   ],
   providers: [
     AffairService, FolderService, ContactService, ContactGroupService
-  ]
+  ],
+  bootstrap: [CmsComponent]
 })
 export class CmsModule {}

@@ -6,6 +6,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { environment } from '../environments/environment';
 
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -57,11 +58,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TopNavComponent } from './topnav/topnav.component';
 
+import { EshopModule } from './eshop/eshop.module';
 import { EshopRoutingModule } from './eshop/eshop-routing.module';
+import { CmsModule } from './cms/cms.module';
 import { CmsRoutingModule } from './cms/cms-routing.module';
-// import { ProtocolsComponent } from './protocols/protocols.component';
-// import { ProtocolDetailComponent } from './protocols/protocol-detail.component';
-// import { ProtocolService } from './protocols/protocol.service';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 // import { ContactComponent } from './entities/contact.component';
 // import { ContactDetailComponent } from './entities/contact-detail.component';
@@ -124,7 +125,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
 
     // applications
-    EshopRoutingModule, CmsRoutingModule,
+    EshopModule, EshopRoutingModule, CmsModule, CmsRoutingModule,
 
     AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireDatabaseModule,
@@ -171,4 +172,9 @@ import { AuthInterceptor } from './services/auth.interceptor';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    // Diagnostic only: inspect router configuration
+    constructor(router: Router) {
+      console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+    }
+}

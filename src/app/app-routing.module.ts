@@ -16,10 +16,14 @@ import { CmsComponent } from './cms/cms.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/intro', pathMatch: 'full' },
+  // {
+  //   path: 'cms',
+  //   loadChildren: 'app/cms/cms.module#CmsModule',
+  //   data: { preload: true }
+  // },
   {
     path: 'cms',
-    loadChildren: 'app/cms/cms.module#CmsModule',
-    data: { preload: true }
+    component: CmsComponent
   },
   // { path: 'crisis-center', component: CmsComponent },
   { path: 'intro',  component: IntroComponent },
