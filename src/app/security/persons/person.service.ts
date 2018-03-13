@@ -40,9 +40,9 @@ export class PersonService {
     }
 
     get(filter: any): Promise<Person[]> {
-     return this.http.get(this.baseUrl + '/filter/' + filter)
+     return this.httpClient.get(this.baseUrl + '/filter/' + filter)
                 .toPromise()
-                .then(response => response.json() as Person[])
+                .then(response => response as Person[])
                 .catch(this.handleError);
     }
 

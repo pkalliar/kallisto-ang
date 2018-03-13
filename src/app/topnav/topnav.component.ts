@@ -19,7 +19,7 @@ import { environment } from '../../environments/environment';
 export class TopNavComponent implements OnInit {
   title = 'PKENERGY';
   countdown = '';
-  isLoggedIn = true;
+  isLoggedIn = false;
   ttposition = 'below';
   username = '';
   nowDate = '';

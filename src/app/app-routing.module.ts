@@ -21,10 +21,10 @@ const routes: Routes = [
   //   loadChildren: 'app/cms/cms.module#CmsModule',
   //   data: { preload: true }
   // },
-  {
-    path: 'cms',
-    component: CmsComponent
-  },
+  // {
+  //   path: 'cms',
+  //   component: CmsComponent
+  // },
   // { path: 'crisis-center', component: CmsComponent },
   { path: 'intro',  component: IntroComponent },
   { path: 'login',  component: LoginComponent },
