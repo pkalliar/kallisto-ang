@@ -14,16 +14,14 @@ export class UserService {
 
     private baseUrl = environment.apiurl + '/api/users';  // URL to web api
     url: string;
-    constructor(private http: Http, private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient) {
       this.url  = 'https://api.datamuse.com/words?ml=';
 
     }
 
     search_word(term) {
-        return this.http.get(this.baseUrl + '/search/' + term).map(res => {
-            return res.json().map(item => {
-                return item;
-            });
+        return this.httpClient.get(this.baseUrl + '/search/' + term).map(res => {
+            return res as User[];
         });
     }
 
@@ -31,23 +29,23 @@ export class UserService {
     getOne(id: string): Promise<User> {
         // return this.getContacts()
         //      .then(contacts => contacts.find(contact => contact.id === id));
-        return this.http.get(this.baseUrl + '/' + id)
+        return this.httpClient.get(this.baseUrl + '/' + id)
              .toPromise()
-             .then(response => response.json())
+             .then(response => response)
              .catch(this.handleError);
     }
 
     get(filter: any): Promise<User[]> {
-     return this.http.get(this.baseUrl + '/filter/' + filter)
+     return this.httpClient.get(this.baseUrl + '/filter/' + filter)
                 .toPromise()
-                .then(response => response.json() as User[])
+                .then(response => response as User[])
                 .catch(this.handleError);
     }
 
     search(keyword: string): Promise<User[]> {
-      return this.http.get(this.baseUrl + '/search/' + keyword)
+      return this.httpClient.get(this.baseUrl + '/search/' + keyword)
                  .toPromise()
-                 .then(response => response.json() as User[])
+                 .then(response => response as User[])
                  .catch(this.handleError);
      }
 
@@ -57,23 +55,23 @@ export class UserService {
      }
 
     save(contact: User): Promise<User> {
-      return this.http.put(this.baseUrl + '/' + contact.id, contact)
+      return this.httpClient.put(this.baseUrl + '/' + contact.id, contact)
       .toPromise()
-      .then(response => response.json() as User)
+      .then(response => response as User)
       .catch(this.handleError);
     }
 
     delete(contact: User): Promise<User> {
-      return this.http.delete(this.baseUrl + '/' + contact.id)
+      return this.httpClient.delete(this.baseUrl + '/' + contact.id)
       .toPromise()
-      .then(response => response.json() as User)
+      .then(response => response as User)
       .catch(this.handleError);
     }
 
     new(): Promise<User> {
-      return this.http.post(this.baseUrl, {})
+      return this.httpClient.post(this.baseUrl, {})
       .toPromise()
-      .then(response => response.json() as User)
+      .then(response => response as User)
       .catch(this.handleError);
     }
 
