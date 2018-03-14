@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
 
   user = null;
 
-  constructor(private authService: AuthService, private router: Router, private utils: UtilitiesService) { }
+  constructor(private authService: AuthService, private router: Router,
+    private utils: UtilitiesService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.user = {
@@ -100,12 +102,17 @@ export class LoginComponent implements OnInit {
       this.authService.signInUsername(this.user)
           .then((res) => {
             console.log(res);
-            localStorage.apikey = res.apikey;
-            // localStorage.apikey_expires = this.utils.parseJavaDate2ISO(res.apikey_expires);
-            localStorage.apikey_expires = res.apikey_expires;
-            localStorage.username = res.username;
-            localStorage.isLoggedIn = true;
-            this.router.navigate(['']);
+            if (res.result !== undefined) {
+              const snackBarRef = this.snackBar.open(res.result, 'x', { duration: 2000 });
+            } else {
+              localStorage.apikey = res.apikey;
+              // localStorage.apikey_expires = this.utils.parseJavaDate2ISO(res.apikey_expires);
+              localStorage.apikey_expires = res.apikey_expires;
+              localStorage.username = res.username;
+              localStorage.isLoggedIn = true;
+              this.router.navigate(['']);
+            }
+
           })
           .catch((err) => console.log('error: ' + err));
     }
