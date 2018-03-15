@@ -13,8 +13,6 @@ export class AdsService {
     private baseUrl = environment.apiurl  + '/api/skroutz';  // URL to web api
     url: string;
     constructor(private http: Http, private httpClient: HttpClient) {
-      this.url  = 'https://api.datamuse.com/words?ml=';
-
     }
 
     search_word(keyword) {
