@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
+import { Advertisement } from './advertisement';
 import { AdsService } from './advertisements.service';
 
 
@@ -15,7 +16,7 @@ import { AdsService } from './advertisements.service';
 
 
 export class AdDetailComponent implements OnInit {
-    // @Input() contact: Contact;
+    @Input() contact: Advertisement;
     isEdit = false;
 
     constructor(
@@ -41,12 +42,12 @@ export class AdDetailComponent implements OnInit {
       this.router.navigate([location.pathname, 'edit']);
     }
 
-    saveContact(contact): void {
+    save(contact): void {
       console.log('loc: ' + location.pathname);
     }
 
-    deleteContact(contact): void {
-      console.log('delete contact: ' + contact.id);
+    delete(item): void {
+      console.log('delete contact: ' + item.id);
     }
 
 }

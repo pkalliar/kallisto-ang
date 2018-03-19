@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ItemsComponent } from './inventory/items';
 import { SkroutzComponent } from './skroutz/skroutz.component';
 import { AdsComponent } from './advertisement/advertisements.component';
+import { AdDetailComponent } from './advertisement/ad-detail.component';
 import { EshopComponent } from './eshop.component';
 
 const routes: Routes = [
@@ -12,6 +13,8 @@ const routes: Routes = [
 
   { path: 'skroutz', component: SkroutzComponent },
   { path: 'aggelies', component: AdsComponent},
+  { path: 'aggelies/:id',     component: AdDetailComponent },
+  { path: 'aggelies/:id/edit',     component: AdDetailComponent },
 
 ];
 

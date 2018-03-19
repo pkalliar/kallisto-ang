@@ -15,8 +15,8 @@
     <div class="button-row">
       <button mat-button (click)="goBack()"><i class="material-icons">keyboard_backspace</i></button>
       <button mat-button color="primary" [disabled]="isEdit" (click)="edit()"><i class="material-icons">mode_edit</i></button>
-      <button mat-button color="primary" [disabled]="!isEdit" (click)="saveContact(contact)"><i class="material-icons">save</i></button>
-      <button mat-button color="warn" [disabled]="!isEdit" (click)="deleteContact(contact)"><i class="material-icons">delete</i></button>
+      <button mat-button color="primary" [disabled]="!isEdit" (click)="save(contact)"><i class="material-icons">save</i></button>
+      <button mat-button color="warn" [disabled]="!isEdit" (click)="delete(contact)"><i class="material-icons">delete</i></button>
     </div>
 
   

@@ -45,12 +45,12 @@ export class ContactDetailComponent implements OnInit {
       this.router.navigate([location.pathname, 'edit']);
     }
 
-    saveContact(contact): void {
+    save(contact): void {
       console.log('loc: ' + location.pathname);
       this.contactService.saveContact(contact);
     }
 
-    deleteContact(contact): void {
+    delete(contact): void {
       console.log('delete contact: ' + contact.id);
       this.contactService.deleteContact(contact);
     }
