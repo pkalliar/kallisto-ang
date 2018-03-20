@@ -16,7 +16,7 @@ import { AdsService } from './advertisements.service';
 
 
 export class AdDetailComponent implements OnInit {
-    @Input() contact: Advertisement;
+    @Input() item: Advertisement;
     isEdit = false;
 
     constructor(
@@ -42,12 +42,12 @@ export class AdDetailComponent implements OnInit {
       this.router.navigate([location.pathname, 'edit']);
     }
 
-    save(contact): void {
+    save(): void {
       console.log('loc: ' + location.pathname);
     }
 
-    delete(item): void {
-      console.log('delete contact: ' + item.id);
+    delete(): void {
+      console.log('delete contact: ' + location.pathname);
     }
 
 }

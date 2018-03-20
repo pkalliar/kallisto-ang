@@ -1,6 +1,6 @@
 export class Advertisement {
     id: string;
-    firstname: string;
+    name: string;
     lastname: string;
     mobile: string;
 }

@@ -3,20 +3,18 @@
   <h2 [hidden]="!isEdit">Επεξεργασία αγγελίας</h2>
 
     <mat-form-field class="example-full-width" *ngIf="false" >
-      <input matInput [(ngModel)]="contact.id" placeholder="UUID επαφής" [readonly]="isEdit">
+      <input matInput [(ngModel)]="item.id" placeholder="UUID επαφής" [readonly]="isEdit">
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <input matInput [(ngModel)]="contact.code" placeholder="Κωδικός επαφής" [readonly]="!isEdit">
+      <input matInput [(ngModel)]="item.name" placeholder="Κωδικός επαφής" [readonly]="!isEdit">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input matInput [(ngModel)]="contact.legal_name" placeholder="Όνομα επαφής" [readonly]="!isEdit">
-    </mat-form-field>
+
 
     <div class="button-row">
       <button mat-button (click)="goBack()"><i class="material-icons">keyboard_backspace</i></button>
       <button mat-button color="primary" [disabled]="isEdit" (click)="edit()"><i class="material-icons">mode_edit</i></button>
-      <button mat-button color="primary" [disabled]="!isEdit" (click)="save(contact)"><i class="material-icons">save</i></button>
-      <button mat-button color="warn" [disabled]="!isEdit" (click)="delete(contact)"><i class="material-icons">delete</i></button>
+      <button mat-button color="primary" [disabled]="!isEdit" (click)="save()"><i class="material-icons">save</i></button>
+      <button mat-button color="warn" [disabled]="!isEdit" (click)="delete()"><i class="material-icons">delete</i></button>
     </div>
 
   
