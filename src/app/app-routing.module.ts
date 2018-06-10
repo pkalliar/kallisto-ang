@@ -15,7 +15,7 @@ import { CmsComponent } from './cms/cms.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/intro', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   // {
   //   path: 'cms',
   //   loadChildren: 'app/cms/cms.module#CmsModule',
@@ -36,6 +36,7 @@ const routes: Routes = [
   { path: 'persons',     component: PersonComponent },
   { path: 'persons/:id',     component: PersonDetailComponent },
   { path: 'persons/:id/edit',     component: PersonDetailComponent },
+  { path: 'testfb',  component: LoginComponent },
 ];
 
 @NgModule({

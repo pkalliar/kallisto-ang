@@ -50,28 +50,16 @@ import {
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 
-// import { CrisisService }        from './crisis.service';
 
-// import { CrisisCenterComponent }     from './crisis-center.component';
-// import { CrisisListComponent }       from './crisis-list.component';
-// import { CrisisCenterHomeComponent } from './crisis-center-home.component';
-// import { CrisisDetailComponent }     from './crisis-detail.component';
-import { CmsComponent } from './cms.component';
-import { CmsRoutingModule } from './cms-routing.module';
-import { AffairComponent } from './affair/affair.component';
-import { AffairDetailComponent } from './affair/affair-detail.component';
-import { AffairService } from './affair/affair.service';
-import { FolderComponent } from './folder/folder.component';
-import { FolderDetailComponent } from './folder/folder-detail.component';
-import { FolderService } from './folder/folder.service';
-import { ContactComponent } from './contact/contact.component';
-import { ContactDetailComponent } from './contact/contact-detail.component';
-import { ContactService } from './contact/contact.service';
-import { ContactGroupDetailComponent } from './contact/contactgroup-detail.component';
-import { ContactGroupService } from './contact/contactgroup.service';
-import { ProtocolComponent } from './protocol/protocol.component';
-import { ProtocolDetailComponent } from './protocol/protocol-detail.component';
-import { ProtocolService } from './protocol/protocol.service';
+import { LoginComponent } from './login/login.component';
+
+import { PersonComponent } from './persons/persons.component';
+import { PersonDetailComponent} from './persons/person-detail.component';
+import { PersonService} from './persons/person.service';
+import { UserComponent } from './users/users.component';
+// import { RoutingModule } from './cms-routing.module';
+import { UserDetailComponent } from './users/user-detail.component';
+import { UserService } from './users/user.service';
 
 @NgModule({
   imports: [
@@ -90,25 +78,23 @@ import { ProtocolService } from './protocol/protocol.service';
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
-
+    RouterModule,
     CommonModule,
     FormsModule,
-    CmsRoutingModule
+    // CmsRoutingModule
   ],
   declarations: [
-    CmsComponent,
-    AffairComponent, AffairDetailComponent,
-    FolderComponent, FolderDetailComponent,
-    ContactComponent, ContactDetailComponent, ContactGroupDetailComponent, ProtocolComponent, ProtocolDetailComponent
-    // CrisisCenterComponent,
-    // CrisisListComponent,
-    // CrisisCenterHomeComponent,
-    // CrisisDetailComponent
+    UserComponent, LoginComponent, UserDetailComponent,
+    PersonComponent, PersonDetailComponent
+    // AffairComponent, AffairDetailComponent,
+    // FolderComponent, FolderDetailComponent,
+    // ContactComponent, ContactDetailComponent, ContactGroupDetailComponent, ProtocolComponent, ProtocolDetailComponent
+
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'el' },
-    AffairService, FolderService, ContactService, ContactGroupService, ProtocolService
+    // AffairService, FolderService, ContactService, ContactGroupService, ProtocolService
   ],
-  bootstrap: [CmsComponent]
+  bootstrap: [UserComponent]
 })
-export class CmsModule {}
+export class SecurityModule {}

@@ -1,0 +1,62 @@
+
+  .selected {
+    background-color: #CFD8DC !important;
+    color: white;
+
+  }
+
+  .mat-column-code {
+    flex: 0 0 150px;
+  }
+
+  .mat-column-legal_name {
+    flex: 0 0 750px;
+  }
+
+.searchbar-container {
+  width: 80%;
+  display: flex;
+}
+
+.example-container > * {
+  width: 80%;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  text-align: left;
+}
+
+.search-form {
+  width:100%;
+}
+  
+.example-container {
+  display: flex;
+  flex-direction: column;
+  /* max-height: 95%; */
+  min-width: 800px;
+}
+
+.mat-card {
+    padding: 12px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+
+}
+
+.mat-column-prot_num {
+    max-width: 80px;
+  }
+
+.mat-column-prot_date {
+    max-width: 140px;
+}
+
+.mat-column-actions {
+    max-width: 120px;
+}
+
+  

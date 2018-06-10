@@ -12,7 +12,7 @@ import {environment} from '../../../environments/environment';
 @Injectable()
 export class ContactGroupService {
 
-    private contactsUrl = 'http://' +  environment.apiurl + '/api/contact-groups';  // URL to web api
+    private contactsUrl = environment.apiurl + '/apiV2/contact-groups';  // URL to web api
     url: string;
     constructor(private http: Http, private httpClient: HttpClient) {
     }

@@ -54,6 +54,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+// import { Firebase } from 'firebase';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TopNavComponent } from './topnav/topnav.component';
@@ -71,13 +73,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 // import { LoginComponent } from './login.component';
 
 // SECURITY MODULES
-import { LoginComponent } from './security/login/login.component';
-import { UserComponent } from './security/users/users.component';
-import { UserDetailComponent} from './security/users/user-detail.component';
-import { UserService} from './security/users/user.service';
-import { PersonComponent } from './security/persons/persons.component';
-import { PersonDetailComponent} from './security/persons/person-detail.component';
-import { PersonService} from './security/persons/person.service';
+import { SecurityModule } from './security/security.module';
+// import { LoginComponent } from './security/login/login.component';
+// import { UserComponent } from './security/users/users.component';
+// import { UserDetailComponent} from './security/users/user-detail.component';
+// import { UserService} from './security/users/user.service';
+// import { PersonComponent } from './security/persons/persons.component';
+// import { PersonDetailComponent} from './security/persons/person-detail.component';
+// import { PersonService} from './security/persons/person.service';
 
 
 import { IntroComponent } from './intro/intro.component';
@@ -99,13 +102,13 @@ import { AuthInterceptor } from './services/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent, TopNavComponent,
-    DashboardComponent, LoginComponent, IntroComponent,
+    DashboardComponent, IntroComponent,
     // ProtocolsComponent,
     // ProtocolDetailComponent,
     // ItemsComponent,
     // ContactComponent, ContactDetailComponent, SkroutzComponent,
     // AggeliesComponent, AggeliaDetailComponent,
-    UserComponent, UserDetailComponent, PersonComponent, PersonDetailComponent
+    // LoginComponent, UserComponent, UserDetailComponent, PersonComponent, PersonDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +128,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
 
     // applications
-    EshopModule, EshopRoutingModule, CmsModule, CmsRoutingModule,
+    SecurityModule, EshopModule, EshopRoutingModule, CmsModule, CmsRoutingModule,
 
     AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireDatabaseModule,
@@ -167,7 +170,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatTooltipModule, MatDividerModule],
   providers: [
     // ProtocolService, ContactService, PriorityService, ItemService,
-    UserService, PersonService, AuthService, AuthGuard, UtilitiesService,
+    // UserService, PersonService,
+    AuthService, AuthGuard, UtilitiesService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,  multi: true  }
   ],
   bootstrap: [AppComponent]

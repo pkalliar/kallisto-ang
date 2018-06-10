@@ -81,7 +81,10 @@ export class AuthService {
   signInUsername(user) {
     // const credential = firebase.auth.EmailAuthProvider.credential( email, password );
     // return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
-    return this.http.post(environment.apiurl + '/api/authenticate/login', user)
+    // return this.http.post(environment.apiurl + '/api/authenticate/login', user)
+    // return this.http.post(environment.apiurl + '/api/login/json', user)
+    // return this.http.post(environment.apiurl + '/apiV2/users/login', user)
+    return this.http.post(environment.apiurl + '/sec/users/login', user)
     .toPromise()
     .then(response => response.json());
     // .catch(this.handleError);

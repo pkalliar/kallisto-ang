@@ -40,7 +40,7 @@ export class AuthInterceptor implements HttpInterceptor {
         const result: string = event.headers.get('result');
         console.log('result: ' + result);
         const apikey_expires: string = event.headers.get('apikey_expires');
-        // console.log('apikey_expires: ' + apikey_expires);
+        console.log('apikey_expires: ' + apikey_expires);
         if (apikey_expires.length > 1) {
           localStorage.apikey_expires =  apikey_expires;
         }

@@ -17,7 +17,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class TopNavComponent implements OnInit {
-  title = 'PKENERGY';
+  title = 'kallisto';
   countdown = '';
   isLoggedIn = false;
   ttposition = 'below';
@@ -38,10 +38,15 @@ export class TopNavComponent implements OnInit {
     console.log('initializing app..');
 
     moment.locale('el');
-    this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
-    if (this.isLoggedIn === true) {
-      this.username = localStorage.username;
+    if (localStorage.isLoggedIn) {
+      this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
+      if (this.isLoggedIn === true) {
+        this.username = localStorage.username;
+      } else {
+        this.isLoggedIn = false;
+      }
     }
+
 
     // setInterval(this.countdownToLogout(), 30); // every 5 minutes (300000)
     setInterval(() => this.countdownToLogout(), 1 * 1000);
@@ -65,7 +70,7 @@ export class TopNavComponent implements OnInit {
     }
 
     refresh = function() {
-      this.httpClient.get(environment.apiurl + '/api/authenticate/refresh')
+      this.httpClient.get(environment.apiurl + '/api/refresh')
       // .toPromise()
       // .then(function(resp: any) {
       //   console.log('refreshing : ' + JSON.stringify(resp) );
@@ -97,10 +102,14 @@ export class TopNavComponent implements OnInit {
       // var datePattern = "YYYY-MM-DD HH:mm:ss Z";
       this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
       if (this.isLoggedIn === true) {
-        const authExpiration = moment(localStorage.apikey_expires);
+        const d = new Date(JSON.parse(localStorage.apikey_expires));
+        const authExpiration = moment(d);
         const previousPollTime = moment();
 
         this.nowDate = previousPollTime.format('LLLL');
+        this.timeoutDate = authExpiration.format('LLLL');
+
+        console.log('this.timeoutDate ' + this.timeoutDate);
 
         const pollInnterval = 5;
 

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Person } from './person';
+import { Router } from '@angular/router';
+import { Protocol } from './protocol';
 // import { ContactDetailComponent } from './contact-detail.component';
-import { PersonService } from './person.service';
+import { ProtocolService } from './protocol.service';
 import {FormControl} from '@angular/forms';
 
 import {DataSource} from '@angular/cdk/collections';
@@ -23,24 +23,19 @@ import { TableDatabase, TableDataSource } from '../../utilities';
 
 const COMMA = 188;
 
-// my comment on Monday morning
 @Component({
-  selector: 'app-person',
-  templateUrl: './persons.component.html',
-  styleUrls: ['./persons.component.css'],
-  providers: []
+  selector: 'pk-protocol',
+  templateUrl: './protocol.component.html',
+  styleUrls: ['./protocol.component.css']
 })
+export class ProtocolComponent implements OnInit {
 
+  selected: Protocol;
 
-
-export class PersonComponent implements OnInit {
-
-  selected: Person;
-
-  entlist: Person[];
+  entlist: Protocol[];
 
   currentFilter = '';
-  displayedColumns = ['firstname', 'lastname', 'mobile'];
+  displayedColumns = ['prot_num', 'prot_date', 'theme', 'actions'];
 
   tableDatabase = new TableDatabase();
   dataSource: TableDataSource | null;
@@ -52,7 +47,7 @@ export class PersonComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private service: PersonService) { }
+    private service: ProtocolService) { }
 
     // Enter, comma
     separatorKeysCodes = [ENTER, COMMA];
@@ -116,14 +111,14 @@ export class PersonComponent implements OnInit {
     // }
   }
 
-  displayFn = (cc: Person): string => {
+  displayFn = (cc: Protocol): string => {
     if ( cc != null && this.currentFilter.length > 0) {
       // console.log(cc);
       this.remove({name : this.currentFilter});
-      console.log(this.currentFilter + ' 456' + JSON.stringify(cc) + ' - ' + cc.lastname);
-      this.router.navigate(['/affairs/', cc.id]);
+      console.log(this.currentFilter + ' 456' + JSON.stringify(cc) + ' - ' + cc.id);
+      this.router.navigate(['/protocols/', cc.id]);
 
-      return cc ? cc.lastname : cc.id;
+      return cc ? cc.id : cc.id;
     }
 
   }
@@ -134,22 +129,22 @@ export class PersonComponent implements OnInit {
 
   getWithFilter(filter: any): void {
     this.service.get(JSON.stringify(filter)).then(
-      folders => this.entlist = this.prepare(folders));
+      items => this.entlist = this.prepare(items));
   }
 
-  prepare(entList: Person[]): Person[] {
-    for (const ent of entList) {
-      // console.log('contact: ' + contact);
-      this.tableDatabase.addLine(ent);
+  prepare(items: Protocol[]): Protocol[] {
+    for (const item of items) {
+      // console.log('entities: ' + contact);
+      this.tableDatabase.addLine(item);
     }
 
-    return entList;
+    return items;
   }
 
   new(): void {
     console.log('new line: ');
     this.service.new().then(
-      contact => this.router.navigate(['/persons/' + 'new']));
+      contact => this.router.navigate(['/protocols/' + 'new']));
   }
 
   ngOnInit(): void {
@@ -168,13 +163,16 @@ export class PersonComponent implements OnInit {
 
   }
 
-  onSelect(folder: Person): void {
-    this.selected = folder;
+  onSelect(item: Protocol): void {
+    this.selected = item;
   }
 
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selected.id]);
   }
 
+  searchContact(toSearch: String): void {
+    console.log('searching for ' + toSearch);
+  }
 
 }

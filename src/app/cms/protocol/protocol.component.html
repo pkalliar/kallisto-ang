@@ -8,7 +8,7 @@
                       [formControl]="searchTerm" [matAutocomplete]="auto" (ngModelChange)="dataChanged($event)">
                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedFn" [displayWith]="displayFn">
                   <mat-option *ngFor="let item of searchResult" [value]="item">
-                    {{ item.legal_name }}
+                    {{ item.id }}
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
@@ -16,13 +16,10 @@
       </mat-grid-tile>
       <mat-grid-tile colspan="2">
           <button mat-button><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
-          <button mat-button (click)="new()"><i class="far fa-plus-square fa-lg" aria-hidden="true"></i></button>
-
+          <button mat-button (click)="new()"><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i></button>
         </mat-grid-tile>
   </mat-grid-list>
   <mat-expansion-panel [expanded]="isExpanded">
-
-      
       <mat-chip-list>
           <mat-chip *ngFor="let cc of criteria" [selectable]="selectable"
                     [removable]="removable" (remove)="remove(cc)">
@@ -34,39 +31,38 @@
 
     <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
 
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
-      <!-- <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-      </ng-container> -->
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="id" flex="20">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Κωδικός </mat-header-cell>
+      <ng-container matColumnDef="prot_num" flex="20">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Α.Π. </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-button >{{element.username}}</button>
-            </mat-cell>
+          <button mat-button routerLink="/protocols/{{element.id}}" >{{element.prot_num}}</button>
+        </mat-cell>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="username" flex="60">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Πλήρες όνομα </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+      <ng-container matColumnDef="prot_date" flex="20">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.protdate | date:'yyyy-MM-dd HH:mm':'' }}</mat-cell>
       </ng-container>
 
-      <!-- Color Column -->
-      <ng-container matColumnDef="password" flex="20">
-        <mat-header-cell *matHeaderCellDef > Ενεργό </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+      <ng-container matColumnDef="theme" flex="60">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Θέμα </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <mat-card>
+                <mat-card-subtitle>{{element.prot_num}}</mat-card-subtitle>
+                <mat-card-content>{{element.theme}}</mat-card-content>
+            </mat-card>
+        </mat-cell>
       </ng-container>
+
+      <ng-container matColumnDef="actions" flex="60">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ενέργειες </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+              <button mat-button>LIKE</button>
+          </mat-cell>
+        </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-  <!-- </div> -->
 
 
 

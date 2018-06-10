@@ -12,7 +12,7 @@ import {environment} from '../../../environments/environment';
 @Injectable()
 export class ContactService {
 
-    private contactsUrl = 'http://' +  environment.apiurl + '/api/contacts';  // URL to web api
+    private contactsUrl = environment.apiurl + '/apiV2/contacts';  // URL to web api
     url: string;
     constructor(private http: Http, private httpClient: HttpClient) {
       this.url  = 'https://api.datamuse.com/words?ml=';

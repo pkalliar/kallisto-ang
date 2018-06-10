@@ -12,7 +12,7 @@ import {environment} from '../../../environments/environment';
 @Injectable()
 export class FolderService {
 
-    private baseUrl = 'http://' +  environment.apiurl + '/api/folders';  // URL to web api
+    private baseUrl = environment.apiurl + '/apiV2/folders';  // URL to web api
     url: string;
     constructor(private http: Http, private httpClient: HttpClient) {
       this.url  = 'https://api.datamuse.com/words?ml=';

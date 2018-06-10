@@ -2,19 +2,32 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <!-- <div style="text-align:center"> -->
   <mat-toolbar color="primary" style="height: 40px;">
+      <a href="/main"><img class="" src="assets/eldim.png" height="40px"></a>
   <button mat-button routerLink="/">{{title}}</button>
-  <a mat-button href="intro#divider2">Εταιρεία--</a>
+  <!-- <a mat-button href="intro#divider2">Εταιρεία--</a>
   <a mat-button href="intro#divider3">Ενδεικτικά Έργα
-    <!-- <mat-icon class="example-icon" routerLink="/dashboard">settings</mat-icon> -->
   </a>
   <a mat-button href="skroutz">Αναζήτηση Skroutz
-    <!-- <mat-icon class="example-icon" routerLink="/contacts">contacts</mat-icon> -->
-  </a>
-  <a mat-button href="aggelies">Αγγελίες
-    <!-- <mat-icon class="example-icon" routerLink="/contacts">contacts</mat-icon> -->
-  </a>
+  </a> -->
+  <button mat-icon-button routerLink="/protocols" matTooltip="Incoming" [matTooltipPosition]="ttposition">
+    <mat-icon class="material-icons md-48">inbox</mat-icon>
+  </button>
+  <button mat-icon-button routerLink="/protocols" matTooltip="Outgoing" [matTooltipPosition]="ttposition">
+    <mat-icon class="material-icons md-48">all_out</mat-icon>
+  </button>
+  <a mat-button><mat-icon class="example-icon" routerLink="/contacts">contacts</mat-icon></a>
+  <button mat-icon-button routerLink="/testfb" matTooltip="test firebase" [matTooltipPosition]="ttposition">
+    <mat-icon class="material-icons md-48">pregnant_woman</mat-icon></button>
+
   <!-- <button mat-button routerLink="/dashboard">Control Panel</button> -->
   <span class="example-spacer">{{nowDate}}</span>
+
+  <div *ngIf="authService.user | async as user;">
+    <h2>{{ user.displayName }}</h2>
+  </div>
+
+  <!-- <label for="file">File:</label>
+  <input type="file" (change)="upload($event)" accept=".png,.jpg" /> -->
   
 
   <span [hidden]="!isLoggedIn" matTooltip="{{username}}" [matTooltipPosition]="ttposition">
