@@ -23,12 +23,28 @@ export class TopNavComponent implements OnInit {
   ttposition = 'below';
   username = '';
   nowDate = '';
+  authDomain = '';
 
 
 
   constructor(private httpClient: HttpClient, private authService: AuthService
     , private router: Router, private route: ActivatedRoute, private authGuard: AuthGuard) {
     this.authService = authService;
+
+    authService.user.subscribe(
+      (user) => {
+        if (user) {
+
+          console.log(JSON.stringify(user));
+          user.getIdTokenResult().then((res) => {
+            console.log('Write succeeded!' + res.expirationTime);
+          }
+
+          );
+        } else {
+        }
+      }
+    );
   }
 
 
@@ -90,17 +106,21 @@ export class TopNavComponent implements OnInit {
     }
 
     logout = function() {
-      this.httpClient.get(environment.apiurl + '/api/authenticate/logout').toPromise()
-      .then(function(resp: any) {
-        console.log('refreshing : ' + JSON.stringify(resp) );
-      });
+      // this.httpClient.get(environment.apiurl + '/api/authenticate/logout').toPromise()
+      // .then(function(resp: any) {
+      //   console.log('refreshing : ' + JSON.stringify(resp) );
+      // });
       this.authService.logout();
     };
 
   countdownToLogout = function() {
 
+    // console.log(this.authService.user);
+
       // var datePattern = "YYYY-MM-DD HH:mm:ss Z";
-      this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
+      if (localStorage.isLoggedIn) {
+        this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
+      }
       if (this.isLoggedIn === true) {
         const d = new Date(JSON.parse(localStorage.apikey_expires));
         const authExpiration = moment(d);

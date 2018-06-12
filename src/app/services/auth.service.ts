@@ -14,7 +14,8 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
-  private user: Observable<firebase.User>;
+  public user: Observable<firebase.User>;
+  private app: firebase.app.App;
   private userDetails: firebase.User = null;
 
 
@@ -25,6 +26,7 @@ export class AuthService {
         (user) => {
           if (user) {
             this.userDetails = user;
+            this.app = this._firebaseAuth.auth.app;
             console.log(this.userDetails);
           } else {
             this.userDetails = null;
