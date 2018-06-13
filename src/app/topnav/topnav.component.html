@@ -35,11 +35,11 @@
   <input type="file" (change)="upload($event)" accept=".png,.jpg" /> -->
   
 
-  <span [hidden]="!isLoggedIn" matTooltip="{{username}}" [matTooltipPosition]="ttposition">
+  <span [hidden]="!authService.isLoggedIn()" matTooltip="{{username}}" [matTooltipPosition]="ttposition">
       <i class="fas fa-user-circle" aria-hidden="true"></i>
   </span>
 
-  <button mat-icon-button (click)="refresh()" [hidden]="!isLoggedIn" matTooltip="Refresh time to logout" [matTooltipPosition]="ttposition">
+  <button mat-icon-button (click)="refresh()" [hidden]="!authService.isLoggedIn()" matTooltip="Refresh time to logout" [matTooltipPosition]="ttposition">
       {{countdown}}
       <!-- <i class="fas fa-sync-alt" aria-hidden="true"></i> -->
   </button>
@@ -47,10 +47,10 @@
 
   
   
-  <button mat-icon-button (click)="logout()" [hidden]="!isLoggedIn" matTooltip="Logout!" [matTooltipPosition]="ttposition">   
+  <button mat-icon-button (click)="logout()" [hidden]="!authService.isLoggedIn()" matTooltip="Logout!" [matTooltipPosition]="ttposition">   
       <i class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i>         
   </button>
-  <button mat-icon-button (click)="login()" [hidden]="isLoggedIn" matTooltip="Login!" [matTooltipPosition]="ttposition">      
+  <button mat-icon-button (click)="login()" [hidden]="authService.isLoggedIn()" matTooltip="Login!" [matTooltipPosition]="ttposition">      
       <i class="fas fa-sign-in-alt fa-lg" aria-hidden="true"></i> 
   </button>
 

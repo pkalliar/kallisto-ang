@@ -19,7 +19,7 @@ import { environment } from '../../environments/environment';
 export class TopNavComponent implements OnInit {
   title = 'kallisto';
   countdown = '';
-  isLoggedIn = false;
+  // isLoggedIn = false;
   ttposition = 'below';
   username = '';
   nowDate = '';
@@ -37,7 +37,8 @@ export class TopNavComponent implements OnInit {
 
           console.log(JSON.stringify(user));
           user.getIdTokenResult().then((res) => {
-            console.log('Write succeeded!' + res.expirationTime);
+            console.log(this.authService.isLoggedIn() + ' Write succeeded!' + res.expirationTime);
+            console.log(res.issuedAtTime + '..' + res.authTime);
           }
 
           );
@@ -54,14 +55,6 @@ export class TopNavComponent implements OnInit {
     console.log('initializing app..');
 
     moment.locale('el');
-    if (localStorage.isLoggedIn) {
-      this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
-      if (this.isLoggedIn === true) {
-        this.username = localStorage.username;
-      } else {
-        this.isLoggedIn = false;
-      }
-    }
 
 
     // setInterval(this.countdownToLogout(), 30); // every 5 minutes (300000)
@@ -118,10 +111,8 @@ export class TopNavComponent implements OnInit {
     // console.log(this.authService.user);
 
       // var datePattern = "YYYY-MM-DD HH:mm:ss Z";
-      if (localStorage.isLoggedIn) {
-        this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
-      }
-      if (this.isLoggedIn === true) {
+
+      if (this.authService.isLoggedIn === true) {
         const d = new Date(JSON.parse(localStorage.apikey_expires));
         const authExpiration = moment(d);
         const previousPollTime = moment();
