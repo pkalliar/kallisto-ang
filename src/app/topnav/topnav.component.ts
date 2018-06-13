@@ -112,38 +112,50 @@ export class TopNavComponent implements OnInit {
 
       // var datePattern = "YYYY-MM-DD HH:mm:ss Z";
 
-      if (this.authService.isLoggedIn === true) {
-        const d = new Date(JSON.parse(localStorage.apikey_expires));
-        const authExpiration = moment(d);
-        const previousPollTime = moment();
+      const tr = this.authService.idTokenResult;
+      if (tr) {
+        tr.then((res) => {
+            if (this.authService.isLoggedIn() === true) {
+              // console.log(this.authService.isLoggedIn() + ' Write succeeded!' + res.expirationTime);
+              // console.log(res.issuedAtTime + '..' + res.authTime);
+              // const d = new Date(JSON.parse(localStorage.apikey_expires));
+              const authExpiration = moment(res.expirationTime);
+              const previousPollTime = moment();
 
-        this.nowDate = previousPollTime.format('LLLL');
-        this.timeoutDate = authExpiration.format('LLLL');
+              this.nowDate = previousPollTime.format('LLLL');
+              this.timeoutDate = authExpiration.format('LLLL');
 
-        console.log('this.timeoutDate ' + this.timeoutDate);
+              // console.log('this.timeoutDate ' + this.timeoutDate);
 
-        const pollInnterval = 5;
+              const pollInnterval = 5;
 
-        const b = moment();
-        const diffSec = authExpiration.diff(b, 'seconds');
-        const diffMin = authExpiration.diff(b, 'minutes');
-        const diffSec2 = diffSec - diffMin * 60;
+              const b = moment();
+              const diffSec = authExpiration.diff(b, 'seconds');
+              const diffMin = authExpiration.diff(b, 'minutes');
+              const diffSec2 = diffSec - diffMin * 60;
 
-        if (diffSec > 0) {
-            let divider = ':', frontDiv = '';
-            if (diffSec2 < 10) {frontDiv = '0' + frontDiv; }
-            if (diffSec2 < 10) {divider = divider + '0'; }
-            this.countdown = diffMin + divider + diffSec2;
-            localStorage.isLoggedIn = true;
-            this.username = localStorage.username;
-        } else {
-          this.countdown = '';
-          this.username = '';
-          localStorage.isLoggedIn = false;
-            // $scope.logout();
-        }
-        this.isLoggedIn = JSON.parse(localStorage.isLoggedIn);
+              if (diffSec > 0) {
+                  let divider = ':', frontDiv = '';
+                  if (diffSec2 < 10) {frontDiv = '0' + frontDiv; }
+                  if (diffSec2 < 10) {divider = divider + '0'; }
+                  this.countdown = diffMin + divider + diffSec2;
+                  // localStorage.isLoggedIn = true;
+                  this.username = localStorage.username;
+              } else {
+                this.countdown = '';
+                this.username = '';
+                // localStorage.isLoggedIn = false;
+                  // $scope.logout();
+              }
+            }
+
+          }
+        );
       }
+
+
+
+
     };
 }
 

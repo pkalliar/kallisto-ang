@@ -17,6 +17,7 @@ export class AuthService {
   public user: Observable<firebase.User>;
   private app: firebase.app.App;
   private userDetails: firebase.User = null;
+  public idTokenResult: Promise<firebase.auth.IdTokenResult>;
 
 
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private http: Http) {
@@ -27,6 +28,7 @@ export class AuthService {
           if (user) {
             this.userDetails = user;
             this.app = this._firebaseAuth.auth.app;
+            this.idTokenResult = user.getIdTokenResult();
             console.log(this.userDetails);
           } else {
             this.userDetails = null;
@@ -92,7 +94,7 @@ export class AuthService {
     // .catch(this.handleError);
   }
 
-   isLoggedIn() {
+  isLoggedIn() {
   if (this.userDetails == null ) {
       return false;
     } else {
