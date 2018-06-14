@@ -50,6 +50,12 @@ export class AuthService {
   }
 
   signInWithGoogle() {
+    return this._firebaseAuth.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
+  }
+
+  signInWithGoogle2() {
     // return this._firebaseAuth.auth.signInWithPopup(
     //   new firebase.auth.GoogleAuthProvider()
     // );
@@ -61,9 +67,12 @@ export class AuthService {
       // The signed-in user info.
       const user = result.user;
       // console.log(user);
-      console.log('expirationTime: ' + JSON.stringify(result));
+      console.log('expirationTime: ' + token);
+
+      // this.router.navigate(['/intro']);
       // ...
     }).catch(function(error) {
+      console.log('auth error: ' + JSON.stringify(error));
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -72,6 +81,7 @@ export class AuthService {
       // The firebase.auth.AuthCredential type that was used.
       const credential = error.credential;
       // ...
+      console.log('error errorCode: ' + errorCode + ' ' + errorMessage);
     });
   }
 
