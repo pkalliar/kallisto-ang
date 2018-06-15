@@ -53,6 +53,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 // import { Firebase } from 'firebase';
 
@@ -131,6 +132,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
     SecurityModule, EshopModule, EshopRoutingModule, CmsModule, CmsRoutingModule,
 
     AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
+    AngularFireStorageModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule
     // NgbModule.forRoot()

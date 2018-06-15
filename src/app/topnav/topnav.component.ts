@@ -34,6 +34,7 @@ export class TopNavComponent implements OnInit {
     authService.user.subscribe(
       (user) => {
         if (user) {
+          console.log( 'user.uid ' + user.uid );
 
           console.log(JSON.stringify(user));
           user.getIdTokenResult().then((res) => {

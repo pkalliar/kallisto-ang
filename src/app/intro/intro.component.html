@@ -30,6 +30,13 @@
 
 <mat-divider id="divider1"></mat-divider>
 
+<div class="form-group">
+  <label for="file">Choose File</label>
+  <input type="file"
+         id="file" accept=".png,.jpg"
+         (change)="upload($event)">
+</div>
+
 <mat-grid-list cols="2">
   <mat-grid-tile>
     <mat-card class="example-card">
