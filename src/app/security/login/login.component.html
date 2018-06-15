@@ -37,6 +37,11 @@
                       </button>
                     </div>                    
                     <div class="form-group">
+                        <button type="button" class="btn btn-outline-dark btn-block"
+                        (click)="signInWithGoogle()">
+                         <i class="fab fa-google" aria-hidden="true"></i>
+                         Login with Google
+                       </button>
                         <button type="buton" class="btn btn-outline-dark btn-block"
                         (click)="signInWithFacebook()">
                           <i class="fab fa-facebook-f" aria-hidden="true"></i> 
@@ -49,16 +54,12 @@
                           Login with Twitter
                         </button>
 
-                        <button type="button" class="btn btn-outline-dark btn-block">
+                        <button type="button" class="btn btn-outline-dark btn-block" >
                           <i class="fab fa-github" aria-hidden="true"></i>
                           Login with Github
                         </button>
 
-                        <button type="button" class="btn btn-outline-dark btn-block"
-                         (click)="signInWithGoogle()">
-                          <i class="fab fa-google" aria-hidden="true"></i>
-                          Login with Google
-                        </button>
+
                     </div>                  
                   </form>
                   

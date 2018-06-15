@@ -27,7 +27,7 @@ export class TopNavComponent implements OnInit {
 
 
 
-  constructor(private httpClient: HttpClient, private authService: AuthService
+  constructor(private httpClient: HttpClient, public authService: AuthService
     , private router: Router, private route: ActivatedRoute, private authGuard: AuthGuard) {
     this.authService = authService;
 

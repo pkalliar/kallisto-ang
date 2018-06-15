@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth.service';
 
 import { UtilitiesService } from '../../services/utilities.service';
 
+
 import * as moment from 'moment';
 
 @Component({
@@ -42,29 +43,28 @@ export class LoginComponent implements OnInit {
 
     signInWithFacebook() {
       this.authService.signInWithFacebook()
-      .then((res) => {
-        const token = res.credential.accessToken;
-          console.log('FB user: ' + JSON.stringify(res));
-          console.log('displayName: ' + res.user.displayName);
-          console.log('apiKey: ' + res.user.apiKey);
+      .then(result => { // Success
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const token = result.credential.accessToken;
+        // The signed-in user info.
+        // this.user = result.user;
+        console.log('user ' + JSON.stringify(this.test));
+        // console.log('expirationTime: ' + moment(this.user.expirationTime).format());
+        this.router.navigate(['/intro']);
 
-          const foo = Object.keys(res.user);
-          for (const key of foo) {
-            console.log('key: ' + key);
-            const foo2 = Object.keys(res.user[key]);
-            for (const key2 of foo2) {
-              console.log('---key2: ' + key2);
-            }
-          }
+        },
+        error => { // Error
+                  // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-          localStorage.username = res.user.displayName;
-          localStorage.apikey = res.user.apiKey;
-
-          // localStorage.apikey_expires = res.user.stsTokenManager.expirationTime;
-
-          this.router.navigate(['']);
-        })
-      .catch((err) => console.log(err));
+        console.log('errorMessage: ' + errorMessage);
+        // The email of the user's account used.
+        const email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        const credential = error.credential;
+        }
+      );
     }
 
     signInWithEmail() {
@@ -78,17 +78,18 @@ export class LoginComponent implements OnInit {
 
     signInWithGoogle() {
       this.authService.signInWithGoogle()
-      .then(function(result) {
+      .then(result => { // Success
         // This gives you a Google Access Token. You can use it to access the Google API.
         const token = result.credential.accessToken;
         // The signed-in user info.
         // this.user = result.user;
         console.log('user ' + JSON.stringify(this.test));
         // console.log('expirationTime: ' + moment(this.user.expirationTime).format());
-        // this.router.navigate(['/intro']);
-        // ...
-      }).catch(function(error) {
-        // Handle Errors here.
+        this.router.navigate(['/intro']);
+
+        },
+        error => { // Error
+                  // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
 
@@ -97,8 +98,8 @@ export class LoginComponent implements OnInit {
         const email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         const credential = error.credential;
-        // ...
-      });
+        }
+      );
 
     }
 

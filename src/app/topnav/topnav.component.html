@@ -4,9 +4,9 @@
   <mat-toolbar color="primary" style="height: 40px;">
       <a href="/main"><img class="" src="assets/eldim.png" height="40px"></a>
   <button mat-button routerLink="/">{{title}}</button>
-  <div *ngIf="authService.app as app;">
+  <!-- <div *ngIf="authService.app as app;">
     <h2>{{ app.name }}</h2>
-  </div>
+  </div> -->
   <!-- <a mat-button href="intro#divider2">Εταιρεία--</a>
   <a mat-button href="intro#divider3">Ενδεικτικά Έργα
   </a>
@@ -27,17 +27,18 @@
 
   <div *ngIf="authService.user | async as user;">
     <!-- <span>{{ user.authDomain }}</span> -->
-    <div mat-card-avatar class="example-header-image"><img src="{{ user.photoURL }}" alt="Smiley face" 
-        width="35" height="35" matTooltip="{{ user.displayName }}" [matTooltipPosition]="ttposition"></div>
+    <div mat-card-avatar class="example-header-image">
+        <img src="{{ user.photoURL }}" alt="" onError="this.src='assets/baseline_person_outline_white_24dp.png';" 
+        width="35" height="35" matTooltip="{{ user.displayName }}" [matTooltipPosition]="ttposition">
+    </div>
   </div>
 
   <!-- <label for="file">File:</label>
   <input type="file" (change)="upload($event)" accept=".png,.jpg" /> -->
   
-
-  <span [hidden]="!authService.isLoggedIn()" matTooltip="{{username}}" [matTooltipPosition]="ttposition">
+  <!-- <span [hidden]="!authService.isLoggedIn()" matTooltip="{{username}}" [matTooltipPosition]="ttposition">
       <i class="fas fa-user-circle" aria-hidden="true"></i>
-  </span>
+  </span> -->
 
   <button mat-icon-button (click)="refresh()" [hidden]="!authService.isLoggedIn()" matTooltip="Refresh time to logout" [matTooltipPosition]="ttposition">
       {{countdown}}
