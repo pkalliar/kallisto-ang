@@ -52,6 +52,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 
@@ -134,7 +135,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule
     // NgbModule.forRoot()
   ],
   exports: [
@@ -181,6 +183,6 @@ import { AuthInterceptor } from './services/auth.interceptor';
 export class AppModule {
     // Diagnostic only: inspect router configuration
     constructor(router: Router) {
-      console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+      // console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
     }
 }
