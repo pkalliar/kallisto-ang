@@ -69,9 +69,8 @@ export class LoginComponent implements OnInit {
 
     signInWithEmail() {
       this.authService.signInEmail(this.user.email, this.user.password)
-          .then((res) => {
-            console.log('res:' + res);
-            this.router.navigate(['']);
+          .then(result => { // Success
+            this.router.navigate(['/intro']);
           })
           .catch((err) => console.log('error: ' + err));
     }
@@ -79,25 +78,25 @@ export class LoginComponent implements OnInit {
     signInWithGoogle() {
       this.authService.signInWithGoogle()
       .then(result => { // Success
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const token = result.credential.accessToken;
-        // The signed-in user info.
-        // this.user = result.user;
-        console.log('user ' + JSON.stringify(this.test));
-        // console.log('expirationTime: ' + moment(this.user.expirationTime).format());
-        this.router.navigate(['/intro']);
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const token = result.credential.accessToken;
+            // The signed-in user info.
+            // this.user = result.user;
+            console.log('user ' + JSON.stringify(this.test));
+            // console.log('expirationTime: ' + moment(this.user.expirationTime).format());
+            this.router.navigate(['/intro']);
 
         },
         error => { // Error
-                  // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
 
-        console.log('errorMessage: ' + errorMessage);
-        // The email of the user's account used.
-        const email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        const credential = error.credential;
+            console.log('errorMessage: ' + errorMessage);
+            // The email of the user's account used.
+            const email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            const credential = error.credential;
         }
       );
 

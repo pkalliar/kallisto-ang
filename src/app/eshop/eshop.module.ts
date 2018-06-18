@@ -66,6 +66,7 @@ import {AdsService} from './advertisement/advertisements.service';
 // import { CrisisDetailComponent }     from './crisis-detail.component';
 
 import { EshopRoutingModule } from './eshop-routing.module';
+import { CreateAdComponent } from './advertisement/create-ad/create-ad.component';
 
 @NgModule({
   imports: [
@@ -93,7 +94,7 @@ import { EshopRoutingModule } from './eshop-routing.module';
     EshopComponent,
     SkroutzComponent,
     ItemsComponent,
-    AdsComponent, AdDetailComponent
+    AdsComponent, AdDetailComponent, CreateAdComponent
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,

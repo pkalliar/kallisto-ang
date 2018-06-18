@@ -6,12 +6,14 @@ import { SkroutzComponent } from './skroutz/skroutz.component';
 import { AdsComponent } from './advertisement/advertisements.component';
 import { AdDetailComponent } from './advertisement/ad-detail.component';
 import { EshopComponent } from './eshop.component';
+import { CreateAdComponent } from './advertisement/create-ad/create-ad.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/intro', pathMatch: 'full' },
   { path: 'eshop', component: EshopComponent },
 
   { path: 'skroutz', component: SkroutzComponent },
+  { path: 'create-ad', component: CreateAdComponent },
   { path: 'aggelies', component: AdsComponent},
   { path: 'aggelies/:id',     component: AdDetailComponent },
   { path: 'aggelies/:id/edit',     component: AdDetailComponent },
