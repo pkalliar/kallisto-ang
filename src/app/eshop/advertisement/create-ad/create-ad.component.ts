@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateAdComponent implements OnInit {
 
+  ad = null;
+
   constructor() { }
 
   ngOnInit() {
+    this.ad = {};
+  }
+
+  createAd() {
+    console.log('ad is ' + JSON.stringify(this.ad));
   }
 
 }

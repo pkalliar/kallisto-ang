@@ -80,7 +80,7 @@ import { CreateAdComponent } from './advertisement/create-ad/create-ad.component
     BrowserAnimationsModule,
     FormsModule,
     HttpModule, HttpClientModule,
-    MatNativeDateModule, MatDividerModule, MatListModule,
+    MatNativeDateModule, MatDividerModule, MatListModule, MatSelectModule,
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,

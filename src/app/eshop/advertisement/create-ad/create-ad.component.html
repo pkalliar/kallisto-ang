@@ -1,3 +1,38 @@
 <p>
   create-ad works!
 </p>
+
+
+<div class="row justify-content-center">
+  <!-- <div class="card col-md-4"></div> -->
+  <div class="card col-md-4">
+      <form name="userform" method="post" #formCtrl="ngForm">
+      <div class="card-block">
+          <div class="example-container">
+
+              <mat-form-field>
+                <input matInput placeholder="Input" name="email" [(ngModel)]="ad.email" >
+              </mat-form-field>
+            
+              <mat-form-field>
+                <textarea matInput placeholder="Textarea" name="email" [(ngModel)]="ad.body" ></textarea>
+              </mat-form-field>
+            
+              <mat-form-field>
+                <mat-select placeholder="Select" name="cat">
+                  <mat-option value="option">Option</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button type="buton" class="btn btn-outline-dark btn-block" 
+                style="margin-bottom: 20px" (click)="createAd()" 
+                [disabled]="formCtrl.form.invalid">
+                Create ad
+              </button>
+
+            </div>
+      </div>
+    </form>
+  </div>
+</div>  
+
