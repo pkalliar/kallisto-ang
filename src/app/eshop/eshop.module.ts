@@ -13,6 +13,9 @@ import { HttpModule } from '@angular/http';
 import {HttpClientModule, HttpUrlEncodingCodec} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 
 import {
   MatAutocompleteModule,
@@ -85,6 +88,7 @@ import { CreateAdComponent } from './advertisement/create-ad/create-ad.component
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
+    AngularFirestoreModule, AngularFireAuthModule,
 
     CommonModule,
     FormsModule,

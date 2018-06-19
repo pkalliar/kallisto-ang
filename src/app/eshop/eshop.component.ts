@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  template:  `
-    <h2>ESHOP CENTER</h2>
-    <router-outlet></router-outlet>
-  `
+  templateUrl: './eshop.component.html',
+  styleUrls: ['./eshop.component.css']
 })
 export class EshopComponent { }

@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
             // this.user = result.user;
             console.log('user ' + JSON.stringify(this.test));
             // console.log('expirationTime: ' + moment(this.user.expirationTime).format());
-            this.router.navigate(['/intro']);
+            this.router.navigate(['/eshop']);
 
         },
         error => { // Error
