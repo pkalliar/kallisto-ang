@@ -1,6 +1,7 @@
 export class Advertisement {
-    id: string;
-    name: string;
-    lastname: string;
-    mobile: string;
+    id: String;
+    user_uid: String;
+    body: string;
+    category: string;
+    phone: string;
 }
