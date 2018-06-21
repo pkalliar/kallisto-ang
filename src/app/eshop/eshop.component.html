@@ -44,7 +44,8 @@
 
 <p>Simple datepicker</p>
 
-<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" 
+[displayMonths]="3" [dayTemplate]="customDay"></ngb-datepicker>
 
 <hr/>
 
@@ -56,3 +57,10 @@
 
 <pre>Month: {{ date.month }}.{{ date.year }}</pre>
 <pre>Model: {{ model | json }}</pre>
+
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
+    <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused"
+          [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth" [class.text-muted]="disabled">
+      {{ date.day }}
+    </span>
+  </ng-template>
