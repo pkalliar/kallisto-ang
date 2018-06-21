@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEl from '@angular/common/locales/el';
+registerLocaleData(localeEl, 'el');
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
@@ -49,7 +52,7 @@ import {
   MatDividerModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatStepperModule,
+  MatStepperModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 
@@ -71,6 +74,9 @@ import {AdsService} from './advertisement/advertisements.service';
 import { EshopRoutingModule } from './eshop-routing.module';
 import { CreateAdComponent } from './advertisement/create-ad/create-ad.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -88,11 +94,13 @@ import { CreateAdComponent } from './advertisement/create-ad/create-ad.component
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
+    MatDatepickerModule,
     AngularFirestoreModule, AngularFireAuthModule,
 
     CommonModule,
     FormsModule,
-    EshopRoutingModule
+    EshopRoutingModule,
+    NgbModule.forRoot()
   ],
   declarations: [
     EshopComponent,
@@ -105,7 +113,10 @@ import { CreateAdComponent } from './advertisement/create-ad/create-ad.component
     // CrisisDetailComponent
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'el' },
     AdsService, SkroutzService
   ]
 })
-export class EshopModule {}
+export class EshopModule {
+
+}

@@ -42,7 +42,9 @@
     "tsickle": "^0.29.0",
     "tslib": "latest",
     "typescript": "^2.7.2",
-    "web-animations-js": "latest"
+    "web-animations-js": "latest",
+    "@ng-bootstrap/ng-bootstrap": "latest",
+    "angular-calendar": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.6",
