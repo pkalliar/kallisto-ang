@@ -17,10 +17,10 @@ const now = new Date();
 })
 export class EshopComponent implements OnInit {
 
-  @ViewChild(MatCalendar) _datePicker: MatCalendar<Date>;
-
   model: NgbDateStruct;
   date: {year: number, month: number};
+  typesOfShoes = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+
 
   selectToday() {
     this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
@@ -36,10 +36,10 @@ export class EshopComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this._datePicker.selectedChange.subscribe(x => {
-    //   console.log(x);
-    // });
+
   }
+
+
 
 
 }

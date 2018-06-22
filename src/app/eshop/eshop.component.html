@@ -40,20 +40,39 @@
     </div>
 </div>
 
-<!-- <mat-calendar style="width: 600px; height: 400px;"></mat-calendar> -->
+<!-- <mat-calendar id="1" style="width: 300px; height: 300px;"></mat-calendar> -->
 
+<mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-tile><b>Από: </b>
+        <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+    </mat-grid-tile>
+    <mat-grid-tile><span>Εώς: </span>
+        <ngb-timepicker [(ngModel)]="time2"></ngb-timepicker>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<hr>
+<pre>Selected time: {{time | json}}</pre>
 <p>Simple datepicker</p>
 
-<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" 
-[displayMonths]="3" [dayTemplate]="customDay"></ngb-datepicker>
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+        <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" 
+        [displayMonths]="2" [dayTemplate]="customDay"></ngb-datepicker>
 
-<hr/>
-
-<button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>
+        <!-- <button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>
 <button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo()">To current month</button>
-<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button> -->
+    </mat-grid-tile>
+    <mat-grid-tile>
+            <mat-selection-list #shoes>
+                    <mat-list-option *ngFor="let shoe of typesOfShoes">
+                      {{shoe}}
+                    </mat-list-option>
+                  </mat-selection-list>
+    </mat-grid-tile>
+</mat-grid-list>
 
-<hr/>
 
 <pre>Month: {{ date.month }}.{{ date.year }}</pre>
 <pre>Model: {{ model | json }}</pre>
