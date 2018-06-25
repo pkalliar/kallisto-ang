@@ -1,0 +1,38 @@
+<p>
+  appointment works!
+</p>
+
+<mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
+
+  <ng-container matColumnDef="name" flex="20">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Α.Π. </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-button routerLink="/protocols/{{element.id}}" >{{element.name}}</button>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="start_time" flex="20">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.start_time | date:'yyyy-MM-dd HH:mm':'' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="end_time" flex="60">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Θέμα </mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+        <mat-card>
+            <mat-card-subtitle>{{ element.end_time | date:'yyyy-MM-dd HH:mm':'' }}</mat-card-subtitle>
+        </mat-card>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions" flex="60">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ενέργειες </mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+          <button mat-button>LIKE</button>
+      </mat-cell>
+    </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+

@@ -75,6 +75,8 @@ import { EshopRoutingModule } from './eshop-routing.module';
 import { CreateAdComponent } from './advertisement/create-ad/create-ad.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppointmentsComponent } from './appointment/appointments/appointments.component';
+import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
 
 
 @NgModule({
@@ -106,7 +108,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EshopComponent,
     SkroutzComponent,
     ItemsComponent,
-    AdsComponent, AdDetailComponent, CreateAdComponent
+    AdsComponent, AdDetailComponent, CreateAdComponent, AppointmentsComponent, AppointmentDetailComponent
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,

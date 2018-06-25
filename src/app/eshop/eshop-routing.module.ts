@@ -7,6 +7,7 @@ import { AdsComponent } from './advertisement/advertisements.component';
 import { AdDetailComponent } from './advertisement/ad-detail.component';
 import { EshopComponent } from './eshop.component';
 import { CreateAdComponent } from './advertisement/create-ad/create-ad.component';
+import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 
 const routes: Routes = [
   { path: 'eshop', component: EshopComponent },
@@ -16,7 +17,7 @@ const routes: Routes = [
   { path: 'eshop/aggelies', component: AdsComponent},
   { path: 'eshop/aggelies/:id',     component: AdDetailComponent },
   { path: 'eshop/aggelies/:id/edit',     component: AdDetailComponent },
-
+  { path: 'eshop/appointments', component: AppointmentsComponent },
 ];
 
 @NgModule({
