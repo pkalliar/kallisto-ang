@@ -20,7 +20,7 @@ export class AppointmentsComponent implements OnInit {
   searchTerm: FormControl = new FormControl();
 
   currentFilter = '';
-  displayedColumns = ['name', 'start_time', 'end_time'];
+  displayedColumns = ['name', 'start_time', 'end_time', 'actions'];
 
   tableDatabase = new TableDatabase();
   dataSource: TableDataSource | null;
@@ -36,8 +36,9 @@ export class AppointmentsComponent implements OnInit {
 
         a.id = doc.id;
         a.name = doc.get('name');
-        a.start_time = doc.get('start_time');
-        a.end_time = doc.get('end_time');
+        console.log(new Date((doc.get('start_time').seconds * 1000)));
+        a.start_time = new Date((doc.get('start_time').seconds * 1000));
+        a.end_time = new Date((doc.get('end_time').seconds * 1000));
 
         this.aps.push(a);
         this.tableDatabase.addLine(a);

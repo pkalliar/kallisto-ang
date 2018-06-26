@@ -16,16 +16,14 @@
       <mat-cell *matCellDef="let element">{{ element.start_time | date:'yyyy-MM-dd HH:mm':'' }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="end_time" flex="60">
+  <ng-container matColumnDef="end_time" flex="40">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Θέμα </mat-header-cell>
     <mat-cell *matCellDef="let element"> 
-        <mat-card>
-            <mat-card-subtitle>{{ element.end_time | date:'yyyy-MM-dd HH:mm':'' }}</mat-card-subtitle>
-        </mat-card>
+        {{ element.end_time | date:'yyyy-MM-dd HH:mm':''}}
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="actions" flex="60">
+  <ng-container matColumnDef="actions" flex="20">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Ενέργειες </mat-header-cell>
       <mat-cell *matCellDef="let element"> 
           <button mat-button>LIKE</button>
