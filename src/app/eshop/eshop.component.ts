@@ -6,9 +6,8 @@ import {
   CalendarEventTimesChangedEvent
 } from 'angular-calendar';
 
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
-const now = new Date();
+
 
 @Component({
   templateUrl: './eshop.component.html',
@@ -17,23 +16,11 @@ const now = new Date();
 })
 export class EshopComponent implements OnInit {
 
-  model: NgbDateStruct;
-  date: {year: number, month: number};
-  typesOfShoes = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+
+ 
 
 
-  selectToday() {
-    this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-  }
 
-  isWeekend(date: NgbDateStruct) {
-    const d = new Date(date.year, date.month - 1, date.day);
-    return d.getDay() === 0 || d.getDay() === 6;
-  }
-
-  isDisabled(date: NgbDateStruct, current: {month: number}) {
-    return date.month !== current.month;
-  }
 
   ngOnInit() {
 

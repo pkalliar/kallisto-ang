@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { Appointment } from './appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,4 +16,10 @@ export class AppointmentService {
     );
   }
 
+  get(id) {
+    console.log('in get..');
+
+    return this.afs.firestore.collection('appointments').doc(id).get();
+
+  }
 }
