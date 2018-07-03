@@ -1,6 +1,67 @@
-<p>
-  appointment works!
-</p>
+<!-- <mat-calendar id="1" style="width: 300px; height: 300px;"></mat-calendar> -->
+
+<mat-grid-list cols="3" >
+  <mat-grid-tile [colspan]=2>
+      <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" 
+      [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
+
+      <!-- <button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo()">To current month</button>
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button> -->
+  </mat-grid-tile>
+  <mat-grid-tile>
+      <table class="table">
+          <tbody>
+              <tr>
+                <td><span>Από: </span></td>
+                <td><ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker></td>
+              </tr>
+              <tr>
+                <td><span>Εώς: </span></td>
+                <td><ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker></td>
+              </tr>
+              <tr>
+                <td><span>Αναζήτηση: </span></td>
+                <td><button mat-raised-button><i class="fas fa-play"></i></button></td>
+              </tr>
+      </table>
+
+
+      <!-- <mat-list role="list">
+          <mat-list-item role="listitem">
+              <div><span>Από: </span><ngb-timepicker [(ngModel)]="time"></ngb-timepicker></div>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+              <div><span>Εώς: </span><ngb-timepicker [(ngModel)]="time2"></ngb-timepicker></div>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <button mat-raised-button>Basic</button>
+          </mat-list-item>
+        </mat-list> -->
+
+    <!-- <pre>Selected time: {{time | json}}</pre> -->
+  </mat-grid-tile>
+</mat-grid-list>
+
+<!-- 
+<pre>Month: {{ date.month }}.{{ date.year }}</pre>
+<pre>Model: {{ model | json }}</pre> -->
+
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
+  <div class="custom-day" [class.weekend]="isWeekend(date)" 
+        [class.focused]="focused"
+        [class.bg-primary]="selected" 
+        [class.hidden]="date.month !== currentMonth" 
+        [class.text-muted]="disabled"
+        [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+        [class.faded]="isHovered(date) || isInside(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null"
+  >
+    {{ date.day }}
+</div>
+  <!-- <button>b1</button> -->
+</ng-template>
 
 <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
 
@@ -34,3 +95,16 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 
+
+
+
+<ng-template #t let-date="date" let-focused="focused">
+  <span class="custom-day"
+        [class.focused]="focused"
+        [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+        [class.faded]="isHovered(date) || isInside(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+  </span>
+</ng-template>

@@ -1,9 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Appointment } from '../appointment';
 import { TableDatabase, TableDataSource } from '../../../utilities';
 import { MatSort } from '@angular/material';
 import { AppointmentService } from '../appointment.service';
 import { FormControl } from '@angular/forms';
+import { NgbDateStruct, NgbCalendar, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+
+const now = new Date();
+const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
+  one && two && two.year === one.year && two.month === one.month && two.day === one.day;
+
+const before = (one: NgbDateStruct, two: NgbDateStruct) =>
+  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
+    ? false : one.day < two.day : one.month < two.month : one.year < two.year;
+
+const after = (one: NgbDateStruct, two: NgbDateStruct) =>
+  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
+    ? false : one.day > two.day : one.month > two.month : one.year > two.year;
+
 
 @Component({
   selector: 'app-appointments',
@@ -27,7 +41,20 @@ export class AppointmentsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private service: AppointmentService) { }
+  hoveredDate: NgbDateStruct;
+
+  fromDate: NgbDateStruct;
+  toDate: NgbDateStruct;
+  model: NgbDateStruct;
+  date: {year: number, month: number};
+  fromTime: NgbTimeStruct;
+  toTime: NgbTimeStruct;
+
+  constructor(private service: AppointmentService, calendar: NgbCalendar) {
+
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+  }
 
   ngOnInit() {
     this.service.search_firestore(this.searchTerm.value).then(response => {
@@ -48,6 +75,37 @@ export class AppointmentsComponent implements OnInit {
       });
     });
     this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
+
   }
+
+  selectToday() {
+    this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+  }
+
+  onDateSelection(date: NgbDateStruct) {
+    console.log('selected ' + JSON.stringify(this.model));
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  isWeekend(date: NgbDateStruct) {
+    const d = new Date(date.year, date.month - 1, date.day);
+    return d.getDay() === 0 || d.getDay() === 6;
+  }
+
+  isDisabled(date: NgbDateStruct, current: {month: number}) {
+    return date.month !== current.month || this.isWeekend(date);
+  }
+
+  isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
+  isInside = date => after(date, this.fromDate) && before(date, this.toDate);
+  isFrom = date => equals(date, this.fromDate);
+  isTo = date => equals(date, this.toDate);
 
 }
