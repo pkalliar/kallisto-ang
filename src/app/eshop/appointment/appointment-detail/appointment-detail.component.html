@@ -1,24 +1,60 @@
-<p>
-  appointment-detail works!
-</p>
 
-
-
-
-<mat-form-field class="example-full-width" *ngIf="false" >
+<!-- <mat-form-field class="example-full-width" *ngIf="false" >
   <input matInput [(ngModel)]="token.id" placeholder="UUID επαφής" [readonly]="isEdit">
 </mat-form-field>
 <mat-form-field class="example-full-width">
-  <input matInput [(ngModel)]="token.name" placeholder="Κωδικός επαφής" [readonly]="!isEdit">
+  <input matInput [(ngModel)]="token.name" placeholder="Ονοματεπώνυμο" [readonly]="!isEdit">
 </mat-form-field>
+<br/>
 <mat-form-field>
-    <input matInput [matDatepicker]="picker1" placeholder="start_time" [value]="token.start_time">
+    <input matInput [matDatepicker]="picker1" placeholder="Ημερομηνία" [value]="token.start_time">
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
 </mat-form-field>
-<div>
-    <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
-</div>
+<div *ngIf="isEdit">
+    <ngb-timepicker [(ngModel)]="time1"></ngb-timepicker>
+    <ngb-timepicker [(ngModel)]="time2"></ngb-timepicker>
+</div> -->
+
+<table class="table" style="max-width: 500px;" *ngIf="isEdit">
+    <tbody>
+        <tr>
+          <td><span>Ονοματεπώνυμο: </span></td>
+          <td>
+            <mat-form-field class="example-full-width">
+                <input matInput [(ngModel)]="token.name" placeholder="Ονοματεπώνυμο" [readonly]="!isEdit">
+              </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td><span>Ημερομηνία: </span></td>
+          <td>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker1" placeholder="Ημερομηνία" [(ngModel)]="token.start_time">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td><span>Από: </span></td>
+          <td><ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker></td>
+        </tr>
+        <tr>
+          <td><span>Εώς: </span></td>
+          <td><ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <!-- <span>Αποθήκευση: </span> -->
+            <button mat-raised-button (click)="save()"><i class="fas fa-save"></i></button>
+            <!-- <span>Ακύρωση: </span> -->
+            <button mat-raised-button><i class="fas fa-ban"></i></button>
+            <button mat-raised-button><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>
+</table>
 
 
 

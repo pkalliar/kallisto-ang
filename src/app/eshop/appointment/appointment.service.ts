@@ -22,4 +22,18 @@ export class AppointmentService {
     return this.afs.firestore.collection('appointments').doc(id).get();
 
   }
+
+  update(id, token) {
+    console.log('in save..');
+
+    return this.afs.firestore.collection('appointments').doc(id).update(token);
+
+  }
+
+  save(token) {
+    console.log('in save..');
+
+    return this.afs.firestore.collection('appointments').add(token);
+
+  }
 }
