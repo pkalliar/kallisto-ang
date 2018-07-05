@@ -46,13 +46,13 @@ import {
   MatSliderModule,
   MatSlideToggleModule,
   MatSnackBarModule,
+  MatStepperModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule,
   MatDividerModule,
   MatToolbarModule,
-  MatTooltipModule,
-  MatStepperModule
+  MatTooltipModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 
@@ -95,7 +95,7 @@ import { AppointmentDetailComponent } from './appointment/appointment-detail/app
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
-    MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
+    MatIconModule, MatInputModule, MatSortModule, MatStepperModule, MatTableModule, MatChipsModule,
     MatDatepickerModule,
     AngularFirestoreModule, AngularFireAuthModule,
 

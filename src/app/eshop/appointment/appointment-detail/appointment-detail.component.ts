@@ -45,6 +45,7 @@ export class AppointmentDetailComponent implements OnInit {
     if (this.id === 'new') {
       this.service.save(toSave).then(doc => {
         console.log('id = ' + doc.id);
+        this.router.navigate(['/eshop/appointments/' + doc.id + '/edit']);
       });
     } else {
       this.service.update(this.id, toSave);
