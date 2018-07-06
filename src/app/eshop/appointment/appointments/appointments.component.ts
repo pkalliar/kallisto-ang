@@ -41,6 +41,9 @@ export class AppointmentsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
+  date1 = new FormControl(new Date());
+  date2 = new FormControl(new Date());
+
   hoveredDate: NgbDateStruct;
 
   fromDate: NgbDateStruct;

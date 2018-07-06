@@ -1,88 +1,93 @@
 <!-- <mat-calendar id="1" style="width: 300px; height: 300px;"></mat-calendar> -->
-<div>
-    <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" style="width:100%"
-    [displayMonths]="1" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
+<div style="max-width:800px; margin: auto;">
+    <!-- <div style="overflow: auto; margin: auto;">
+        <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" style="width: 100%;"
+        [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
+    </div> -->
+    <mat-accordion>
+        <mat-expansion-panel >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                  Από: 
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker1" placeholder="Από:" [formControl]="date1">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              <br/>
+              <mat-form-field>
+                  <input matInput [matDatepicker]="picker2" placeholder="Εώς:" [formControl]="date2">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+          </mat-expansion-panel>
+      <mat-expansion-panel ng-if="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              Ημερομηνία: 
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div style="overflow: auto; margin: auto;">
+            <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" style="width:100%"
+            [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              Από: 
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                            (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              Εώς:
+          </mat-panel-title>
+          <mat-panel-description>
+            Currently I am {{panelOpenState ? 'open' : 'closed'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
+        <button mat-raised-button><i class="fas fa-play"></i></button>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
+      <ng-container matColumnDef="name" flex="20">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Α.Π. </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-button routerLink="/protocols/{{element.id}}" >{{element.name}}</button>
+        </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="start_time" flex="20">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.start_time | date:'yyyy-MM-dd HH:mm':'' }}</mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="end_time" flex="40">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Θέμα </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            {{ element.end_time | date:'yyyy-MM-dd HH:mm':''}}
+        </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="actions" flex="20">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ενέργειες </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+              <button mat-button>LIKE</button>
+          </mat-cell>
+        </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 </div>
-<mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Personal data
-        </mat-panel-title>
-        <mat-panel-description>
 
-        </mat-panel-description>
-
-      </mat-expansion-panel-header>
-  
-      <mat-form-field>
-        <input matInput placeholder="First name">
-      </mat-form-field>
-  
-      <mat-form-field>
-        <input matInput placeholder="Age">
-      </mat-form-field>
-    </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Self aware panel
-        </mat-panel-title>
-        <mat-panel-description>
-          Currently I am {{panelOpenState ? 'open' : 'closed'}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
-    </mat-expansion-panel>
-  </mat-accordion>
-
-
-<mat-grid-list cols="3" >
-  <mat-grid-tile [colspan]=2>
-
-
-      <!-- <button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>
-<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo()">To current month</button>
-<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button> -->
-  </mat-grid-tile>
-  <mat-grid-tile>
-      <table class="table">
-          <tbody>
-              <tr>
-                <td><span>Από: </span></td>
-                <td><ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker></td>
-              </tr>
-              <tr>
-                <td><span>Εώς: </span></td>
-                <td><ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker></td>
-              </tr>
-              <tr>
-                <td><span>Αναζήτηση: </span></td>
-                <td><button mat-raised-button><i class="fas fa-play"></i></button></td>
-              </tr>
-      </table>
-
-
-      <!-- <mat-list role="list">
-          <mat-list-item role="listitem">
-              <div><span>Από: </span><ngb-timepicker [(ngModel)]="time"></ngb-timepicker></div>
-          </mat-list-item>
-          <mat-list-item role="listitem">
-              <div><span>Εώς: </span><ngb-timepicker [(ngModel)]="time2"></ngb-timepicker></div>
-          </mat-list-item>
-          <mat-list-item role="listitem">
-            <button mat-raised-button>Basic</button>
-          </mat-list-item>
-        </mat-list> -->
-
-    <!-- <pre>Selected time: {{time | json}}</pre> -->
-  </mat-grid-tile>
-</mat-grid-list>
-
-<!-- 
-<pre>Month: {{ date.month }}.{{ date.year }}</pre>
-<pre>Model: {{ model | json }}</pre> -->
 
 <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
   <div class="custom-day" [class.weekend]="isWeekend(date)" 
@@ -100,37 +105,7 @@
   <!-- <button>b1</button> -->
 </ng-template>
 
-<mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
 
-  <ng-container matColumnDef="name" flex="20">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Α.Π. </mat-header-cell>
-    <mat-cell *matCellDef="let element">
-      <button mat-button routerLink="/protocols/{{element.id}}" >{{element.name}}</button>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="start_time" flex="20">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.start_time | date:'yyyy-MM-dd HH:mm':'' }}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="end_time" flex="40">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Θέμα </mat-header-cell>
-    <mat-cell *matCellDef="let element"> 
-        {{ element.end_time | date:'yyyy-MM-dd HH:mm':''}}
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="actions" flex="20">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Ενέργειες </mat-header-cell>
-      <mat-cell *matCellDef="let element"> 
-          <button mat-button>LIKE</button>
-      </mat-cell>
-    </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
 
 
 
