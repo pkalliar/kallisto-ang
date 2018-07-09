@@ -1,10 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { Appointment } from '../appointment';
+import { Appointment, ApptCat } from '../appointment';
 import { AppointmentService } from '../appointment.service';
 import { Location } from '@angular/common';
 
 import {NgbDateStruct, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 
 
@@ -22,6 +25,12 @@ export class AppointmentDetailComponent implements OnInit {
   id = '';
   fromTime: NgbTimeStruct;
   toTime: NgbTimeStruct;
+
+  categories: Array<ApptCat> = [];
+
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +68,16 @@ export class AppointmentDetailComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
 
+      this.service.get_categories().then(response => {
+        response.forEach((doc) => {
+          console.log(doc.id + ' : ' + doc.get('name'));
+          const a = new ApptCat();
+          a.id = doc.id;
+          a.name = doc.get('name');
+          this.categories.push(a);
+        });
+      });
+
       if (this.id === 'new') {
         console.log('preparing new appointment');
         this.token.start_time = new Date();
@@ -89,6 +108,13 @@ export class AppointmentDetailComponent implements OnInit {
 
 
     });
+
+    this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+
     // this.route.paramMap
     // .switchMap((params: ParamMap) => this.service.get(params.get('id')))
     // .subscribe(token => {
@@ -101,6 +127,14 @@ export class AppointmentDetailComponent implements OnInit {
 
     if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
 
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.categories.map((category: ApptCat) => category.name).filter(name => name.includes(filterValue));
+
+    // return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 }

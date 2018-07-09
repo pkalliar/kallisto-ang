@@ -16,7 +16,8 @@
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
-              <br/>
+              <!-- <br/> -->
+              <span class="example-spacer"></span>
               <mat-form-field>
                   <input matInput [matDatepicker]="picker2" placeholder="Εώς:" [formControl]="date2">
                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -34,33 +35,26 @@
             [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
         </div>
       </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-              Από: 
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
-      </mat-expansion-panel>
       <mat-expansion-panel (opened)="panelOpenState = true"
                             (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-              Εώς:
+              Ώρα συνάντησης:
           </mat-panel-title>
           <mat-panel-description>
             Currently I am {{panelOpenState ? 'open' : 'closed'}}
           </mat-panel-description>
         </mat-expansion-panel-header>
+        <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
         <ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
         <button mat-raised-button><i class="fas fa-play"></i></button>
       </mat-expansion-panel>
     </mat-accordion>
     <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
       <ng-container matColumnDef="name" flex="20">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Α.Π. </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ονοματεπώνυμο </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-button routerLink="/protocols/{{element.id}}" >{{element.name}}</button>
+          <button mat-button routerLink="{{element.id}}" >{{element.name}}/edit</button>
         </mat-cell>
       </ng-container>
     
@@ -70,7 +64,7 @@
       </ng-container>
     
       <ng-container matColumnDef="end_time" flex="40">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Θέμα </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία-Ώρα συνάντησης </mat-header-cell>
         <mat-cell *matCellDef="let element"> 
             {{ element.end_time | date:'yyyy-MM-dd HH:mm':''}}
         </mat-cell>
@@ -79,7 +73,7 @@
       <ng-container matColumnDef="actions" flex="20">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Ενέργειες </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-              <button mat-button>LIKE</button>
+              <button mat-button><i class="fas fa-edit"></i></button>
           </mat-cell>
         </ng-container>
     

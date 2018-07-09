@@ -7,3 +7,8 @@ export class Appointment {
 
 }
 
+export class ApptCat {
+    id: string;
+    name: string;
+}
+

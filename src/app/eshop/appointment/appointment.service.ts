@@ -16,6 +16,11 @@ export class AppointmentService {
     );
   }
 
+  get_categories() {
+    return this.afs.firestore.collection('appointment_categories').get().then(querySnapshot => querySnapshot.docs
+    );
+  }
+
   get(id) {
     console.log('in get..');
 
