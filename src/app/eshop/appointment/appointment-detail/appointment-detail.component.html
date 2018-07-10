@@ -39,14 +39,16 @@
                 </mat-autocomplete>
               </mat-form-field>
             </form> -->
-            <mat-form-field>
-              <mat-select placeholder="Επιλέξτε κατηγορία" [(ngModel)]="selectedCategory">
-                <mat-option *ngFor="let category of categories" [value]="category">
+
+            <!-- [(ngModel)]="token.category" -->
+            <mat-form-field *ngIf="token.category">
+              <mat-select placeholder="Επιλέξτε κατηγορία" [(value)]="token.category.name" >
+                <mat-option *ngFor="let category of categories" [value]="category.name">
                   {{category.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- <p>You selected: {{token}}</p> -->
+            <!-- <p>You selected: {{selectedCategory}}</p> -->
           </td>
         </tr>
         <tr>

@@ -63,11 +63,11 @@ export class AuthService {
       new firebase.auth.GoogleAuthProvider())
       .then(function(result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = result.credential.accessToken;
+      // const token = result.credential.accessToken;
       // The signed-in user info.
       const user = result.user;
       // console.log(user);
-      console.log('expirationTime: ' + token);
+      // console.log('expirationTime: ' + token);
 
       // this.router.navigate(['/intro']);
       // ...

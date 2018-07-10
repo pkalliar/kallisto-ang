@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.authService.signInWithFacebook()
       .then(result => { // Success
         // This gives you a Google Access Token. You can use it to access the Google API.
-        const token = result.credential.accessToken;
+        // const token = result.credential.accessToken;
         // The signed-in user info.
         // this.user = result.user;
         console.log('user ' + JSON.stringify(this.test));
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
       this.authService.signInWithGoogle()
       .then(result => { // Success
             // This gives you a Google Access Token. You can use it to access the Google API.
-            const token = result.credential.accessToken;
+            // const token = result.credential.accessToken;
             // The signed-in user info.
             // this.user = result.user;
             console.log('user ' + JSON.stringify(this.test));
