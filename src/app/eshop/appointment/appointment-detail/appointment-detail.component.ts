@@ -27,10 +27,10 @@ export class AppointmentDetailComponent implements OnInit {
   toTime: NgbTimeStruct;
 
   categories: Array<ApptCat> = [];
+  selectedCategory: String;
 
-  myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
+  // myControl = new FormControl();
+  // filteredOptions: Observable<string[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +41,7 @@ export class AppointmentDetailComponent implements OnInit {
 
   save() {
     console.log('saving app..');
+    console.log(JSON.stringify(this.token));
 
       this.token.start_time.setHours(this.fromTime.hour);
       this.token.start_time.setMinutes(this.fromTime.minute);
@@ -49,7 +50,8 @@ export class AppointmentDetailComponent implements OnInit {
     const toSave = {
       name: this.token.name,
       start_time: this.token.start_time,
-      end_time: this.token.end_time
+      end_time: this.token.end_time,
+      category: JSON.parse(JSON.stringify(this.token.category))
     };
     if (this.id === 'new') {
       this.service.save(toSave).then(doc => {
@@ -71,11 +73,12 @@ export class AppointmentDetailComponent implements OnInit {
       this.service.get_categories().then(response => {
         response.forEach((doc) => {
           console.log(doc.id + ' : ' + doc.get('name'));
-          const a = new ApptCat();
-          a.id = doc.id;
-          a.name = doc.get('name');
+          const a = new ApptCat(doc.id, doc.get('name'));
+          // a.id = doc.id;
+          // a.name = doc.get('name');
           this.categories.push(a);
         });
+        this.selectedCategory = this.categories[0].name;
       });
 
       if (this.id === 'new') {
@@ -88,6 +91,8 @@ export class AppointmentDetailComponent implements OnInit {
           this.token.name = token.get('name');
           this.token.start_time = new Date((token.get('start_time').seconds * 1000));
           this.token.end_time = new Date((token.get('end_time').seconds * 1000));
+          this.token.category = new ApptCat(token.get('category').id, token.get('category').id.name);
+          this.selectedCategory = this.token.category.name;
 
 
           // this.time.hour = this.token.start_time.getHours();
@@ -109,32 +114,22 @@ export class AppointmentDetailComponent implements OnInit {
 
     });
 
-    this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-
-    // this.route.paramMap
-    // .switchMap((params: ParamMap) => this.service.get(params.get('id')))
-    // .subscribe(token => {
-    //   this.token.id = token.id;
-    //   this.token.name = token.get('name');
-    //   this.token.start_time = new Date((token.get('start_time').seconds * 1000));
-    //   this.token.end_time = new Date((token.get('end_time').seconds * 1000));
-    //   console.log(JSON.stringify(this.token));
-    // });
+    // this.filteredOptions = this.myControl.valueChanges
+    // .pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value))
+    // );
 
     if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
 
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
 
-    return this.categories.map((category: ApptCat) => category.name).filter(name => name.includes(filterValue));
+  //   console.log(filterValue);
 
-    // return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
+  //   return this.categories.map((category: ApptCat) => category.name).filter(name => name.includes(filterValue));
+  // }
 
 }

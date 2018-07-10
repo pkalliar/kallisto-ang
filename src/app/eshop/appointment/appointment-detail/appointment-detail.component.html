@@ -29,16 +29,24 @@
         <tr>
           <td><span>Κατηγορία: </span></td>
           <td>
-            <form class="example-form">
+            <!-- <form class="example-form">
               <mat-form-field class="example-full-width">
-                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                <input type="text" placeholder="Επιλέξτε κατηγορία" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
                   <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                     {{option}}
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
-            </form>
+            </form> -->
+            <mat-form-field>
+              <mat-select placeholder="Επιλέξτε κατηγορία" [(ngModel)]="selectedCategory">
+                <mat-option *ngFor="let category of categories" [value]="category">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <p>You selected: {{token}}</p> -->
           </td>
         </tr>
         <tr>
