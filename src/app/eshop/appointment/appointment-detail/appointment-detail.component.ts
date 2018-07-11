@@ -90,9 +90,9 @@ export class AppointmentDetailComponent implements OnInit {
           this.token.name = token.get('name');
           this.token.start_time = new Date((token.get('start_time').seconds * 1000));
           this.token.end_time = new Date((token.get('end_time').seconds * 1000));
-          // if (token.get('category') !== undefined) {
+          if (token.get('category') !== undefined) {
             this.token.category = new ApptCat(token.get('category').id, token.get('category').name);
-          // }
+          }
 
 
           this.fromTime = {

@@ -100,6 +100,8 @@ import { AuthGuard } from './services/auth-guard.service';
 import { UtilitiesService } from './services/utilities.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { UserService } from './security/users/user.service';
+import { PersonService } from './security/persons/person.service';
 
 @NgModule({
   declarations: [
@@ -174,7 +176,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatTooltipModule, MatDividerModule],
   providers: [
     // ProtocolService, ContactService, PriorityService, ItemService,
-    // UserService, PersonService,
+    UserService, PersonService,
     AuthService, AuthGuard, UtilitiesService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,  multi: true  }
   ],

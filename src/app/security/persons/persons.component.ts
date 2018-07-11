@@ -133,13 +133,15 @@ export class PersonComponent implements OnInit {
   }
 
   getWithFilter(filter: any): void {
-    this.service.get(JSON.stringify(filter)).then(
+    // this.service.get(JSON.stringify(filter)).then(
+    //   folders => this.entlist = this.prepare(folders));
+    this.service.getFB(JSON.stringify(filter)).then(
       folders => this.entlist = this.prepare(folders));
   }
 
   prepare(entList: Person[]): Person[] {
     for (const ent of entList) {
-      // console.log('contact: ' + contact);
+      console.log('contact: ' + JSON.stringify(ent));
       this.tableDatabase.addLine(ent);
     }
 

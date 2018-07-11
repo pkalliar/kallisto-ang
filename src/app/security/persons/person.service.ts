@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
+import { AngularFirestore } from 'angularfire2/firestore';
+
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
 
@@ -14,7 +16,7 @@ export class PersonService {
 
     private baseUrl = environment.apiurl + '/api/persons';  // URL to web api
     url: string;
-    constructor(private http: Http, private httpClient: HttpClient) {
+    constructor(private http: Http, private httpClient: HttpClient, private afs: AngularFirestore) {
       this.url  = 'https://api.datamuse.com/words?ml=';
 
     }
@@ -44,6 +46,24 @@ export class PersonService {
                 .toPromise()
                 .then(response => response as Person[])
                 .catch(this.handleError);
+    }
+
+    getFB(filter: any) {
+      return this.afs.firestore.collection('persons').get().then(querySnapshot => {
+
+        return querySnapshot.docs.map
+        ((doc) => {
+            const a = new Person();
+            a.id = doc.id;
+            a.firstname = doc.get('firstname');
+            a.lastname = doc.get('lastname');
+            a.mobile = doc.get('mobile');
+            return a;
+        });
+
+
+      });
+
     }
 
     search(keyword: string): Promise<Person[]> {
