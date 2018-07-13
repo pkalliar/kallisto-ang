@@ -4,12 +4,21 @@
         <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" style="width: 100%;"
         [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
     </div> -->
+    <mat-toolbar>
+      <span>Προγραμματισμός ραντεβού</span>
+      <span class="example-spacer"></span>
+      <button mat-button routerLink="new/edit"><i class="fas fa-plus"></i></button>
+      <button mat-button (click)="filter()"><i class="fas fa-play"></i></button>
+    </mat-toolbar>
     <mat-accordion>
         <mat-expansion-panel >
             <mat-expansion-panel-header>
               <mat-panel-title>
-                  Από: 
+                  Ημερομηνία
               </mat-panel-title>
+              <mat-panel-description>
+                Από {{date1.value | date:'dd-MM-yyyy':''}} εώς {{date2.value | date:'dd-MM-yyyy':''}}
+              </mat-panel-description>
             </mat-expansion-panel-header>
               <mat-form-field>
                 <input matInput [matDatepicker]="picker1" placeholder="Από:" [formControl]="date1">
@@ -24,10 +33,10 @@
                   <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
           </mat-expansion-panel>
-      <mat-expansion-panel ng-if="false">
+      <mat-expansion-panel ng-show="false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-              Ημερομηνία: 
+              Προβολή διαθεσιμότητας: 
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div style="overflow: auto; margin: auto;">
@@ -35,26 +44,24 @@
             [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
         </div>
       </mat-expansion-panel>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                            (closed)="panelOpenState = false">
+      <!-- <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
               Ώρα συνάντησης:
           </mat-panel-title>
           <mat-panel-description>
-            Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            Από {{fromTime.hour | number:'2.0-1'}}:{{fromTime.minute | number:'2.0-1'}} εώς {{toTime.hour | number:'2.0-1'}}:{{toTime.minute | number:'2.0-1'}}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
-        <ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
-        <button mat-raised-button><i class="fas fa-play"></i></button>
-      </mat-expansion-panel>
+        <ngb-timepicker [(ngModel)]="fromTime" [hourStep]="hourStep" [minuteStep]="minuteStep" ></ngb-timepicker>
+        <ngb-timepicker [(ngModel)]="toTime" [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker>
+      </mat-expansion-panel> -->
     </mat-accordion>
     <mat-table #table [dataSource]="dataSource" matSort layout-align="center center">
       <ng-container matColumnDef="name" flex="20">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Ονοματεπώνυμο </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-button routerLink="{{element.id}}" >{{element.name}}/edit</button>
+          <button mat-button routerLink="{{element.id}}/edit" >{{element.name}}</button>
         </mat-cell>
       </ng-container>
     
@@ -80,6 +87,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
+
 </div>
 
 
@@ -98,9 +106,6 @@
 </div>
   <!-- <button>b1</button> -->
 </ng-template>
-
-
-
 
 
 

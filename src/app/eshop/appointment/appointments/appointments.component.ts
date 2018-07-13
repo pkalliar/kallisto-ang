@@ -50,33 +50,30 @@ export class AppointmentsComponent implements OnInit {
   toDate: NgbDateStruct;
   model: NgbDateStruct;
   date: {year: number, month: number};
-  fromTime: NgbTimeStruct;
-  toTime: NgbTimeStruct;
+  // fromTime: NgbTimeStruct;
+  // toTime: NgbTimeStruct;
+  fromTime = {hour: 9, minute: 0};
+  toTime = {hour: 9, minute: 30};
+  minuteStep = 15;
+  hourStep = 1;
 
   constructor(private service: AppointmentService, calendar: NgbCalendar) {
 
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+
+    const d = new Date();
+    d.setDate(d.getDate() + 30);
+    this.date2 = new FormControl(d);
+
+
+
+    // this.date1 = new FormControl(calendar.getToday());
+    // this.date2 = new FormControl(calendar.getNext(calendar.getToday(), 'd', 10));
   }
 
   ngOnInit() {
-    this.service.search_firestore(this.searchTerm.value).then(response => {
-      response.forEach((doc) => {
-        const a = new Appointment();
-
-        a.id = doc.id;
-        a.name = doc.get('name');
-        console.log(new Date((doc.get('start_time').seconds * 1000)));
-        a.start_time = new Date((doc.get('start_time').seconds * 1000));
-        a.end_time = new Date((doc.get('end_time').seconds * 1000));
-
-        this.aps.push(a);
-        this.tableDatabase.addLine(a);
-
-        console.log(doc.get('body'));
-            console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
-      });
-    });
+    this.filter();
     this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
 
   }
@@ -104,6 +101,41 @@ export class AppointmentsComponent implements OnInit {
 
   isDisabled(date: NgbDateStruct, current: {month: number}) {
     return date.month !== current.month || this.isWeekend(date);
+  }
+
+  filter() {
+    console.log('filtering with parameters: ' + JSON.stringify(this.fromTime) + JSON.stringify(this.toTime));
+    // let d1: Date;
+    const d1: Date = this.date1.value;
+    d1.setHours(this.fromTime.hour);
+    d1.setMinutes(this.fromTime.minute);
+    d1.setSeconds(0);
+    const d2: Date = this.date2.value;
+    d2.setHours(this.toTime.hour);
+    d2.setMinutes(this.toTime.minute);
+    d2.setSeconds(0);
+    console.log('filtering with date: ' + d1 + '' + d2);
+
+
+    this.service.search_firestore(this.searchTerm.value, d1, d2).then(response => {
+      this.aps  = [];
+      this.tableDatabase.clear();
+      response.forEach((doc) => {
+        const a = new Appointment();
+
+        a.id = doc.id;
+        a.name = doc.get('name');
+        console.log(new Date((doc.get('start_time').seconds * 1000)));
+        a.start_time = new Date((doc.get('start_time').seconds * 1000));
+        a.end_time = new Date((doc.get('end_time').seconds * 1000));
+
+        this.aps.push(a);
+        this.tableDatabase.addLine(a);
+
+        console.log(doc.get('body'));
+            console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
+      });
+    });
   }
 
   isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
