@@ -70,10 +70,17 @@
           <mat-cell *matCellDef="let element">{{ element.start_time | date:'yyyy-MM-dd HH:mm':'' }}</mat-cell>
       </ng-container>
     
-      <ng-container matColumnDef="end_time" flex="40">
+      <!-- <ng-container matColumnDef="end_time" flex="40">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Ημερομηνία-Ώρα συνάντησης </mat-header-cell>
         <mat-cell *matCellDef="let element"> 
             {{ element.end_time | date:'yyyy-MM-dd HH:mm':''}}
+        </mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="category" flex="20">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Κατηγορία </mat-header-cell>
+        <mat-cell *matCellDef="let element" ng-if="element.category !== undefined"> 
+          {{ element.category.name }}
         </mat-cell>
       </ng-container>
     

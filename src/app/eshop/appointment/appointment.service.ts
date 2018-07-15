@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Appointment } from './appointment';
+import { Appointment, ApptCat } from './appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +33,19 @@ export class AppointmentService {
     return this.afs.firestore.collection('appointments').doc(id).get();
   }
 
-  getApptFromToken(): AppointmentService {
-    
+  getApptFromToken(token): Appointment {
+    const appt: Appointment = new Appointment();
+    appt.id = token.id;
+    appt.name = token.get('name');
+    appt.start_time = new Date((token.get('start_time').seconds * 1000));
+    appt.end_time = new Date((token.get('end_time').seconds * 1000));
+    if (token.get('category') !== undefined) {
+      appt.category = new ApptCat(token.get('category').id, token.get('category').name);
+    } else {
+      appt.category = new ApptCat('', '');
+    }
+    console.log(JSON.stringify(appt));
+    return appt;
   }
 
   update(id, token) {

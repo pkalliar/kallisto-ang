@@ -5,6 +5,8 @@ import { MatSort } from '@angular/material';
 import { AppointmentService } from '../appointment.service';
 import { FormControl } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 const now = new Date();
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
@@ -34,7 +36,7 @@ export class AppointmentsComponent implements OnInit {
   searchTerm: FormControl = new FormControl();
 
   currentFilter = '';
-  displayedColumns = ['name', 'start_time', 'end_time', 'actions'];
+  displayedColumns = ['name', 'start_time', 'category', 'actions'];
 
   tableDatabase = new TableDatabase();
   dataSource: TableDataSource | null;
@@ -57,14 +59,13 @@ export class AppointmentsComponent implements OnInit {
   minuteStep = 15;
   hourStep = 1;
 
-  constructor(private service: AppointmentService, calendar: NgbCalendar) {
+  constructor(private service: AppointmentService, calendar: NgbCalendar, 
+    private router: Router, private route: ActivatedRoute) {
 
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
 
-    const d = new Date();
-    d.setDate(d.getDate() + 30);
-    this.date2 = new FormControl(d);
+
 
 
 
@@ -73,8 +74,29 @@ export class AppointmentsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    let d = this.route.snapshot.queryParamMap.get('d1');
+    console.log('firstParam ' + d);
+    if (d !== null) {
+      this.date1 = new FormControl(new Date(d));
+    } else {
+      this.date1 = new FormControl(new Date());
+    }
+
+    d = this.route.snapshot.queryParamMap.get('d2');
+    if (d !== null) {
+      this.date2 = new FormControl(new Date(d));
+    } else {
+      const d2: Date = new Date();
+      d2.setDate(new Date().getDate() + 10);
+      this.date2 = new FormControl(d2);
+    }
+
+
     this.filter();
     this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
+
+
 
   }
 
@@ -116,18 +138,26 @@ export class AppointmentsComponent implements OnInit {
     d2.setSeconds(0);
     console.log('filtering with date: ' + d1 + '' + d2);
 
+  //   const params = new HttpParams()
+  // .set('page', '2')
+  // .set('sort', '32');
+
+  const q = {
+    ID: 'id',
+    d1 : d1.toISOString(),
+    d2 : d2.toISOString()
+};
+
+    this.router.navigate(['/eshop/appointments'], {queryParams: q});
+
 
     this.service.search_firestore(this.searchTerm.value, d1, d2).then(response => {
       this.aps  = [];
       this.tableDatabase.clear();
       response.forEach((doc) => {
-        const a = new Appointment();
 
-        a.id = doc.id;
-        a.name = doc.get('name');
-        console.log(new Date((doc.get('start_time').seconds * 1000)));
-        a.start_time = new Date((doc.get('start_time').seconds * 1000));
-        a.end_time = new Date((doc.get('end_time').seconds * 1000));
+        const a: Appointment = this.service.getApptFromToken(doc);
+
 
         this.aps.push(a);
         this.tableDatabase.addLine(a);
