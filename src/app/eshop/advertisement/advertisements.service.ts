@@ -63,6 +63,11 @@ export class AdsService {
       //       .catch(this.handleError);
     }
 
+    get_categories() {
+      return this.afs.firestore.collection('ads_categories').get().then(querySnapshot => querySnapshot.docs
+      );
+    }
+
 
    private handleError(error: any): Promise<any> {
      console.error('An error occurred', error); // for demo purposes only

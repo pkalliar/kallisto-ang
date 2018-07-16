@@ -5,3 +5,13 @@ export class Advertisement {
     category: string;
     phone: string;
 }
+
+export class AdvCat {
+    id: string;
+    name: string;
+
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+}
