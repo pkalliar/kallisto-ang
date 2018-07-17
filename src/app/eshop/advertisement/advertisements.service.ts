@@ -9,6 +9,8 @@ import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 
+import { Advertisement } from './advertisement';
+
 @Injectable()
 export class AdsService {
 
@@ -66,6 +68,25 @@ export class AdsService {
     get_categories() {
       return this.afs.firestore.collection('ads_categories').get().then(querySnapshot => querySnapshot.docs
       );
+    }
+
+    getApptFromToken(token): Advertisement {
+
+      const ad = new Advertisement();
+
+      ad.id = token.id;
+      ad.body = token.get('body');
+      ad.category = token.get('category');
+      ad.phone = token.get('phone');
+      ad.user_uid = token.get('user_uid');
+
+      // if (token.get('category') !== undefined) {
+      //   appt.category = new ApptCat(token.get('category').id, token.get('category').name);
+      // } else {
+      //   appt.category = new ApptCat('', '');
+      // }
+      // console.log(JSON.stringify(appt));
+      return ad;
     }
 
 
