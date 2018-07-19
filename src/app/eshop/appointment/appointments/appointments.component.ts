@@ -59,7 +59,7 @@ export class AppointmentsComponent implements OnInit {
   minuteStep = 15;
   hourStep = 1;
 
-  constructor(private service: AppointmentService, calendar: NgbCalendar, 
+  constructor(private service: AppointmentService, calendar: NgbCalendar,
     private router: Router, private route: ActivatedRoute) {
 
     this.fromDate = calendar.getToday();
@@ -142,11 +142,11 @@ export class AppointmentsComponent implements OnInit {
   // .set('page', '2')
   // .set('sort', '32');
 
-  const q = {
-    ID: 'id',
-    d1 : d1.toISOString(),
-    d2 : d2.toISOString()
-};
+    const q = {
+      ID: 'id',
+      d1 : d1.toISOString(),
+      d2 : d2.toISOString()
+    };
 
     this.router.navigate(['/eshop/appointments'], {queryParams: q});
 
