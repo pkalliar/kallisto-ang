@@ -61,7 +61,7 @@ import { SkroutzComponent } from './skroutz/skroutz.component';
 import { SkroutzService } from './skroutz/skroutz.service';
 import { ItemsComponent } from './inventory/items';
 import { AdDetailComponent } from './advertisement/ad-detail.component';
-import { AdsComponent} from './advertisement/advertisements.component';
+import { AdsComponent} from './advertisement/advertisements/advertisements.component';
 import {AdsService} from './advertisement/advertisements.service';
 
 // import { CrisisService }        from './crisis.service';

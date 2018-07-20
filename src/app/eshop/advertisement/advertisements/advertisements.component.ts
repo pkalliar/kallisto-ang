@@ -4,9 +4,9 @@ import { Component, OnInit } from '@angular/core';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AdsService } from './advertisements.service';
-import { AdDetailComponent} from './ad-detail.component';
-import { Advertisement } from './advertisement';
+import { AdsService } from '../advertisements.service';
+import { AdDetailComponent} from '../ad-detail.component';
+import { Advertisement } from '../advertisement';
 
 
 
