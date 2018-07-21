@@ -10,13 +10,17 @@ import {Observable} from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 
 import { Advertisement } from './advertisement';
+import { AuthService } from '../../services/auth.service';
 
 @Injectable()
 export class AdsService {
 
     private baseUrl = environment.apiurl  + '/api/skroutz';  // URL to web api
     url: string;
-    constructor(private http: Http, private httpClient: HttpClient, private afs: AngularFirestore) {
+    authService: AuthService;
+    constructor(private http: Http, private httpClient: HttpClient,
+      private afs: AngularFirestore, authService: AuthService) {
+        this.authService = authService;
     }
 
     search_word(keyword) {
@@ -30,6 +34,26 @@ export class AdsService {
         //         return item;
         //     });
         // });
+    }
+
+    upload(event) {
+      let uid = '';
+      this.authService.user.subscribe(
+        (user) => {
+          if (user) {
+            uid = user.uid;
+          }
+        });
+      const f = event.target.files[0];
+      // console.log( 'user.uid ' + this.uid  + ' read file ' + f.name);
+      // if (window.FileReader) {
+        // FileReader are supported.
+        // this.getAsText(f);
+    // } else {
+        // alert('FileReader are not supported in this browser.');
+    // }
+
+      // this.afStorage.upload('user/' + this.uid + '/' + event.target.files[0].name, event.target.files[0]);
     }
 
     search_firestore(keyword) {
