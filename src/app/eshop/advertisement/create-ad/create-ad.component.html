@@ -20,6 +20,13 @@
                 </mat-select>
               </mat-form-field>
 
+              <div class="form-group">
+                <!-- <label for="file">Choose File</label> -->
+                <input type="file"
+                       id="file" accept=".png,.jpg,.csv"
+                       (change)="upload($event)">
+              </div>
+
               <button type="buton" class="btn btn-outline-dark btn-block" 
                 style="margin-bottom: 20px" (click)="createAd()" 
                 [disabled]="formCtrl.form.invalid">

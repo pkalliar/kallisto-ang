@@ -2,7 +2,7 @@
  
 
 <div style="max-width:800px; margin: auto;">
-    <mat-grid-list cols="16" rowHeight="80px">
+    <mat-grid-list cols="16" >
         <mat-grid-tile colspan="1"></mat-grid-tile>
         <mat-grid-tile colspan="13"> 
             <form class="search-form">
@@ -15,12 +15,27 @@
         <mat-grid-tile colspan="2">
             <button mat-button><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
         </mat-grid-tile>
-    </mat-grid-list> 
-    <div class="row justify-content-center">
-        <div class="col-md-3" *ngFor="let obj of ads">
-            <mat-card class="example-card">
+    </mat-grid-list>
+    <!-- <mat-grid-list cols="8" >
+        <mat-grid-tile *ngFor="let obj of ads" [colspan]="2" [rowspan]="1">
+                <mat-card class="ad-card">
+                    <mat-card-header>
+                        <mat-card-title>{{obj.user_id}}</mat-card-title>
+                        <mat-card-subtitle>{{obj.phone}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>    
+                        
+                        <p>{{obj.body}}</p>                   
+                    </mat-card-content>                  
+                </mat-card>
+
+        </mat-grid-tile>
+     </mat-grid-list> -->
+
+    <div class="row justify-content-left">
+        <div class="col-md-6" *ngFor="let obj of ads">
+            <mat-card class="ad-card">
               <mat-card-header>
-                  <div mat-card-avatar class="example-header-image"></div>
                   <mat-card-title>{{obj.user_id}}</mat-card-title>
                   <mat-card-subtitle>{{obj.phone}}</mat-card-subtitle>
                 </mat-card-header>

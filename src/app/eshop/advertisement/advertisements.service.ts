@@ -11,6 +11,8 @@ import { environment } from '../../../environments/environment';
 
 import { Advertisement } from './advertisement';
 import { AuthService } from '../../services/auth.service';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { Reference } from 'angularfire2/storage/interfaces';
 
 @Injectable()
 export class AdsService {
@@ -18,9 +20,13 @@ export class AdsService {
     private baseUrl = environment.apiurl  + '/api/skroutz';  // URL to web api
     url: string;
     authService: AuthService;
+    storageRef: Reference;
+
     constructor(private http: Http, private httpClient: HttpClient,
-      private afs: AngularFirestore, authService: AuthService) {
+      private afs: AngularFirestore, authService: AuthService,
+      private afStorage: AngularFireStorage) {
         this.authService = authService;
+        this.storageRef = this.afStorage.storage.ref();
     }
 
     search_word(keyword) {
@@ -36,7 +42,7 @@ export class AdsService {
         // });
     }
 
-    upload(event) {
+    upload(user_uid: String, adv_id: String, f: File) {
       let uid = '';
       this.authService.user.subscribe(
         (user) => {
@@ -44,7 +50,27 @@ export class AdsService {
             uid = user.uid;
           }
         });
-      const f = event.target.files[0];
+
+        const metadata = {
+          'contentType': f.type
+        };
+
+        this.storageRef.child('images/' + f.name).put(f, metadata).then(function(snapshot) {
+          console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+          console.log('File metadata:', snapshot.metadata);
+          // Let's get a download URL for the file.
+          snapshot.ref.getDownloadURL().then(function(url) {
+            console.log('File available at', url);
+            // [START_EXCLUDE]
+            document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
+            // [END_EXCLUDE]
+          });
+        }).catch(function(error) {
+          // [START onfailure]
+          console.error('Upload failed:', error);
+          // [END onfailure]
+        });
+
       // console.log( 'user.uid ' + this.uid  + ' read file ' + f.name);
       // if (window.FileReader) {
         // FileReader are supported.
@@ -53,7 +79,9 @@ export class AdsService {
         // alert('FileReader are not supported in this browser.');
     // }
 
-      // this.afStorage.upload('user/' + this.uid + '/' + event.target.files[0].name, event.target.files[0]);
+      console.log( user_uid + ' adv_id ' + adv_id);
+
+      this.afStorage.upload('user/' + user_uid + '/advertisements/' + adv_id + '/' + f.name, f);
     }
 
     search_firestore(keyword) {

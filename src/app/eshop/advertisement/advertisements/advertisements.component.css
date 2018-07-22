@@ -1,8 +1,15 @@
 
 .example-card {
-  min-width: 100px;
-  min-height: 300px;
+  /* min-width: 100px;
+  min-height: 200px; */
 }
+
+.ad-card {
+  min-width: 100%;
+  min-height: 200px;
+  height: 95%; 
+}
+
 
 .example-header-image {
   background-image: url('https://firebasestorage.googleapis.com/v0/b/pankal-e7786.appspot.com/o/pkenergy_images%2Flogo.gif?alt=media&token=a4e5e664-13fb-4017-a802-147832300a4a');
