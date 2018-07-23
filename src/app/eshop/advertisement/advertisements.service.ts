@@ -42,7 +42,7 @@ export class AdsService {
         // });
     }
 
-    upload(user_uid: String, adv_id: String, f: File) {
+    upload(user_uid: String, adv_id: String, f: File, main: boolean) {
       let uid = '';
       this.authService.user.subscribe(
         (user) => {
@@ -51,11 +51,14 @@ export class AdsService {
           }
         });
 
+        const fpath = 'user/' + user_uid + '/advertisements/' + adv_id + '/' + f.name;
+
         const metadata = {
-          'contentType': f.type
+          'contentType': f.type,
+          'adv': adv_id
         };
 
-        this.storageRef.child('images/' + f.name).put(f, metadata).then(function(snapshot) {
+        this.storageRef.child(fpath).put(f, metadata).then(function(snapshot) {
           console.log('Uploaded', snapshot.totalBytes, 'bytes.');
           console.log('File metadata:', snapshot.metadata);
           // Let's get a download URL for the file.
@@ -81,7 +84,7 @@ export class AdsService {
 
       console.log( user_uid + ' adv_id ' + adv_id);
 
-      this.afStorage.upload('user/' + user_uid + '/advertisements/' + adv_id + '/' + f.name, f);
+      // this.afStorage.upload(fpath, f);
     }
 
     search_firestore(keyword) {

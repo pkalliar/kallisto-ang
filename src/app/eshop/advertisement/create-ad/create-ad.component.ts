@@ -33,7 +33,7 @@ export class CreateAdComponent implements OnInit {
     console.log('ad is ' + JSON.stringify(this.ad));
     this.ad.user_uid = this.user_uid;
     const id = this.afs.createId();
-    this.service.upload(this.user_uid, id, this.f);
+    this.service.upload(this.user_uid, id, this.f, true);
     this.afs.collection('advertisements').doc(id).set(Object.assign({}, this.ad))
     .then(function() {
       console.log('Document successfully written!');
