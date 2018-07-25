@@ -64,9 +64,7 @@ export class AdsService {
           // Let's get a download URL for the file.
           snapshot.ref.getDownloadURL().then(function(url) {
             console.log('File available at', url);
-            // [START_EXCLUDE]
-            document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
-            // [END_EXCLUDE]
+
           });
         }).catch(function(error) {
           // [START onfailure]
@@ -125,7 +123,11 @@ export class AdsService {
       );
     }
 
-    getApptFromToken(token): Advertisement {
+    get(id) {
+      return this.afs.firestore.collection('advertisements').doc(id).get();
+    }
+
+    getAdvFromToken(token): Advertisement {
 
       const ad = new Advertisement();
 

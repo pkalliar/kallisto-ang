@@ -14,6 +14,7 @@ export class CreateAdComponent implements OnInit {
   @Input() ad: Advertisement;
   f: File;
   user_uid: String;
+  adv_id: string;
 
   constructor(private afs: AngularFirestore,
     private _firebaseAuth: AngularFireAuth, private service: AdsService) {
@@ -27,14 +28,16 @@ export class CreateAdComponent implements OnInit {
 
   upload(event) {
     this.f = event.target.files[0];
+
+    this.service.upload(this.user_uid, this.adv_id, this.f, true);
   }
 
   createAd() {
     console.log('ad is ' + JSON.stringify(this.ad));
     this.ad.user_uid = this.user_uid;
-    const id = this.afs.createId();
-    this.service.upload(this.user_uid, id, this.f, true);
-    this.afs.collection('advertisements').doc(id).set(Object.assign({}, this.ad))
+    this.adv_id = this.afs.createId();
+
+    this.afs.collection('advertisements').doc(this.adv_id).set(Object.assign({}, this.ad))
     .then(function() {
       console.log('Document successfully written!');
 

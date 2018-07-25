@@ -4,6 +4,7 @@ export class Advertisement {
     body: string;
     category: string;
     phone: string;
+    images: Array<String>;
 }
 
 export class AdvCat {
