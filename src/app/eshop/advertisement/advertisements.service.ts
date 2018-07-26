@@ -136,6 +136,7 @@ export class AdsService {
       ad.category = token.get('category');
       ad.phone = token.get('phone');
       ad.user_uid = token.get('user_uid');
+      ad.images = token.get('images');
 
       // if (token.get('category') !== undefined) {
       //   appt.category = new ApptCat(token.get('category').id, token.get('category').name);

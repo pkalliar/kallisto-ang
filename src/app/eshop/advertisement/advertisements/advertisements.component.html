@@ -40,7 +40,7 @@
                   <mat-card-subtitle>{{obj.phone}}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>    
-                    <!-- <img src="{{obj.image_url}}" alt="Card image cap"> -->
+                    <img src="{{obj}}" *ngFor="let obj of obj.images" alt="Card image cap" height="80" width="80">
                     <p>
                         {{obj.body}}
                     </p>                   

@@ -51,13 +51,8 @@ export class AdsComponent implements OnInit {
 
     this.service.search_firestore(this.searchTerm.value).then(response => {
       response.forEach((doc) => {
-        const ad = new Advertisement();
 
-        ad.id = doc.id;
-        ad.body = doc.get('body');
-        ad.category = doc.get('category');
-        ad.phone = doc.get('phone');
-        ad.user_uid = doc.get('user_uid');
+        const ad: Advertisement = this.service.getAdvFromToken(doc);
 
         this.ads.push(ad);
 
