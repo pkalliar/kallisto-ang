@@ -78,6 +78,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
 
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
 
 @NgModule({
   imports: [
@@ -102,7 +104,8 @@ import { AppointmentDetailComponent } from './appointment/appointment-detail/app
     CommonModule,
     FormsModule,
     EshopRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'pkenergy'})
   ],
   declarations: [
     EshopComponent,

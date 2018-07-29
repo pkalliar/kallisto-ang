@@ -1,41 +1,63 @@
-
 <div class="row justify-content-center">
-  <!-- <div class="card col-md-4"></div> -->
-  <div class="card col-md-4">
-      <form name="userform" method="post" #formCtrl="ngForm">
-      <div class="card-block">
-          <div class="example-container">
-
+      <mat-vertical-stepper  [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Βασικά στοιχεία αγγελίας</ng-template>
               <mat-form-field>
-                <input matInput placeholder="Input" name="phone" [(ngModel)]="ad.phone" >
+                <input  matInput 
+                placeholder="Τηλέφωνο" name="phone" formControlName="phone">
               </mat-form-field>
-            
+              <br/>
               <mat-form-field>
-                <textarea matInput placeholder="Textarea" name="email" [(ngModel)]="ad.body" ></textarea>
+                <textarea   matInput placeholder="Κείμενο αγγελίας" formControlName="body" ></textarea>
               </mat-form-field>
-            
+              <br/>
               <mat-form-field>
-                <mat-select placeholder="Select" name="cat" [(ngModel)]="ad.category">
-                  <mat-option value="option">Option</mat-option>
+                <mat-select placeholder="Επιλέξτε κατηγορία" formControlName="category">
+                    <mat-option *ngFor="let category of categories" [value]="category">
+                        {{category.name}}
+                      </mat-option>
                 </mat-select>
               </mat-form-field>
 
-              <div class="form-group">
-                <!-- <label for="file">Choose File</label> -->
-                <input type="file"
-                       id="file" accept=".png,.jpg,.csv"
-                       (change)="upload($event)">
-              </div>
 
-              <button type="buton" class="btn btn-outline-dark btn-block" 
-                style="margin-bottom: 20px" (click)="createAd()" 
-                [disabled]="formCtrl.form.invalid">
-                Create ad
-              </button>
-
+            <div>
+              <button mat-button matStepperNext>Συνέχεια</button>
             </div>
-      </div>
-    </form>
-  </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Τοποθετείστε φωτογραφία</ng-template>
+              <!-- <input  type="file" formControlName="secondCtrl"
+                id="file" accept=".png,.jpg,.csv"
+                (change)="upload($event)">   -->
+                <input 
+                  style="display: none" id="file" accept=".png,.jpg,.csv"
+                  type="file" (change)="onFileChanged($event)" 
+                  #fileInput formControlName="secondCtrl">
+                <button mat-button (click)="fileInput.click()">Επιλέξτε φωτογραφία</button>  
+                <img id="img_1" alt="" width="100px" height="100px" name="img_1">    
+
+            <div>
+              <button mat-button matStepperPrevious>Πίσω</button>
+              <button mat-button matStepperNext>Συνέχεια</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Τέλος</ng-template>
+          Μπορείτε πλέον να δημοσιεύσετε την αγγελία σας.
+          <div>
+            <button mat-button (click)="createAd()">
+              Δημιουργία αγγελίας
+            </button>
+            <button mat-button matStepperPrevious>Πίσω</button>
+            <button mat-button (click)="stepper.reset()">Επαναφορά</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+  <!-- <div class="card col-md-4"></div> -->
+
 </div>  
 
