@@ -37,7 +37,9 @@
                   type="file" (change)="onFileChanged($event)" 
                   #fileInput formControlName="secondCtrl">
                 <button mat-button (click)="fileInput.click()">Επιλέξτε φωτογραφία</button>  
-                <img id="img_1" alt="" width="100px" height="100px" name="img_1">    
+                <img id="img_1" alt="" width="100px" height="100px" name="img_1">  
+                
+                <photo-list></photo-list>
 
             <div>
               <button mat-button matStepperPrevious>Πίσω</button>

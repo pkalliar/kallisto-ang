@@ -56,6 +56,8 @@ import {
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 
+import {FileUploadModule} from 'ng2-file-upload';
+
 import { EshopComponent } from './eshop.component';
 import { SkroutzComponent } from './skroutz/skroutz.component';
 import { SkroutzService } from './skroutz/skroutz.service';
@@ -80,6 +82,7 @@ import { AppointmentDetailComponent } from './appointment/appointment-detail/app
 
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import * as  Cloudinary from 'cloudinary-core';
+import { PhotoUploadComponent } from './advertisement/photo-album/photo-upload.component';
 
 @NgModule({
   imports: [
@@ -100,7 +103,7 @@ import * as  Cloudinary from 'cloudinary-core';
     MatIconModule, MatInputModule, MatSortModule, MatStepperModule, MatTableModule, MatChipsModule,
     MatDatepickerModule,
     AngularFirestoreModule, AngularFireAuthModule,
-
+    FileUploadModule,
     CommonModule,
     FormsModule,
     EshopRoutingModule,
@@ -109,7 +112,7 @@ import * as  Cloudinary from 'cloudinary-core';
   ],
   declarations: [
     EshopComponent,
-    SkroutzComponent,
+    SkroutzComponent, PhotoUploadComponent,
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent, AppointmentsComponent, AppointmentDetailComponent
     // CrisisCenterComponent,

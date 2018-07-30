@@ -56,7 +56,7 @@ export class CreateAdComponent implements OnInit {
       });
     });
 
-    console.log(this.cloudinary.cloudinaryInstance.image('spices'));
+    console.log(this.cloudinary.cloudinaryInstance.image('samples/food/spices'));
   }
 
   upload(event) {
