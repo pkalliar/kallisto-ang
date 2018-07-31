@@ -18,7 +18,26 @@ export class PhotoListComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+
+        console.log('1111111111111111111');
         this.photos = this.photoAlbum.getPhotos();
+        console.log('222222222222222222');
+        this.photos.subscribe(
+            x => { console.log('Observer got a next value: ' + JSON.stringify(x)); }
+        );
+
+        // if (this.photos === undefined) {
+        //     this.photos = new Observable((observer) => {
+        //         // observable execution
+        //         observer.next([]);
+        //         observer.complete();
+        //     });
+        // }
+    }
+
+    getAlbum() {
+        console.log('getAlbum: ');
+        const photos2 = this.photoAlbum.getPhotos();
     }
 
     changePublicId() {

@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log(request.method + '-INTERCEPT request headers: ' + JSON.stringify(event));
+    // console.log(request.method + '-INTERCEPT request headers: ' + JSON.stringify(event));
 
     // const headers = new HttpHeaders().set('intercept', localStorage.apikey);
 
@@ -28,11 +28,13 @@ export class AuthInterceptor implements HttpInterceptor {
       'Content-Type': 'application/json'
     });
 
-
+    console.log('intercept ' + request.url);
 
     const cloneReq = request.clone({headers});
 
     return next.handle(cloneReq).do((event: HttpEvent<any>) => {
+
+      console.log('event: ' + event);
 
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
@@ -51,6 +53,7 @@ export class AuthInterceptor implements HttpInterceptor {
         console.log('response: ' + JSON.stringify(event));
       }
     }, (err: any) => {
+      console.log(err);
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
           // redirect to the login route

@@ -22,6 +22,7 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router, private authService: AuthService, private http: HttpClient) { }
 
     canActivate() {
+
         if ( this.authService.isLoggedIn() ) {
             return true;
         }
@@ -36,6 +37,7 @@ export class AuthGuard implements CanActivate {
 
     prepareReq() {
         let server_url = '';
+
         const myheaders = new Headers({ 'apikey': localStorage.apikey });
         if (localStorage['server_url'] !== undefined) { server_url = localStorage['server_url']; }
     }

@@ -29,7 +29,7 @@ export class AuthService {
             this.userDetails = user;
             this.app = this._firebaseAuth.auth.app;
             this.idTokenResult = user.getIdTokenResult();
-            console.log(this.userDetails);
+            // console.log(this.userDetails);
           } else {
             this.userDetails = null;
           }

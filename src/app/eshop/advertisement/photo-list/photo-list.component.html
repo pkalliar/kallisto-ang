@@ -10,17 +10,17 @@
                   crop="scale"
                   [public-id]="publicId"
                   type="facebook"
-                  angle="20"
+                  angle="0"
                   (onLoad)="onLoadImage($event)"
           >
               <cl-transformation effect="art:hokusai"></cl-transformation>
               <cl-transformation border="3px_solid_rgb:00390b" radius="20"></cl-transformation>
           </cl-image>
-          <cl-image
+          <!-- <cl-image
                   public-id="non-existing"
                   (onError)="onErrorImage($event)"
           >
-          </cl-image>
+          </cl-image> -->
         </a>
     </div>
 
@@ -54,13 +54,15 @@
 
     <h1>Your Photos</h1>
 
+    <button mat-button (click)="getAlbum()">φωτογραφία</button> 
+
     <div class="actions">
         <a class="upload_link" routerLink="new">Add photo with Angular File upload</a>
     </div>
 
     <div class="photos">
         <p *ngIf="errorOccurred">No photos were added yet.</p>
-        <p *ngIf="photos.length === 0 | async">No photos were added yet.</p>
+        <!-- <p *ngIf="photos === undefined || photos.length === 0 | async">No photos were added yet.</p> -->
         <div class="photo" *ngFor="let photo of photos | async">
             <!-- | orderBy:'version':true -->
             <h2 *ngIf="photo.context">{{photo.context.custom.photo}}</h2>
