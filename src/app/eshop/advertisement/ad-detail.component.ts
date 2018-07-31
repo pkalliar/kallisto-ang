@@ -14,7 +14,6 @@ import { AdsService } from './advertisements.service';
 })
 
 
-
 export class AdDetailComponent implements OnInit {
     @Input() item: Advertisement;
     isEdit = false;

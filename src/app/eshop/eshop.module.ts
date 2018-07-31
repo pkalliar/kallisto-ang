@@ -82,7 +82,10 @@ import { AppointmentDetailComponent } from './appointment/appointment-detail/app
 
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import * as  Cloudinary from 'cloudinary-core';
+import cloudinaryConfiguration from './config';
 import { PhotoUploadComponent } from './advertisement/photo-album/photo-upload.component';
+import { PhotoListComponent } from './advertisement/photo-list/photo-list.component';
+import {PhotoAlbum} from './advertisement/photo-album.service';
 
 @NgModule({
   imports: [
@@ -108,11 +111,11 @@ import { PhotoUploadComponent } from './advertisement/photo-album/photo-upload.c
     FormsModule,
     EshopRoutingModule,
     NgbModule.forRoot(),
-    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'pkenergy'})
+    CloudinaryModule.forRoot(Cloudinary, cloudinaryConfiguration)
   ],
   declarations: [
     EshopComponent,
-    SkroutzComponent, PhotoUploadComponent,
+    SkroutzComponent, PhotoUploadComponent, PhotoListComponent,
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent, AppointmentsComponent, AppointmentDetailComponent
     // CrisisCenterComponent,
@@ -122,7 +125,7 @@ import { PhotoUploadComponent } from './advertisement/photo-album/photo-upload.c
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'el' },
-    AdsService, SkroutzService
+    AdsService, SkroutzService, PhotoAlbum,
   ]
 })
 export class EshopModule {

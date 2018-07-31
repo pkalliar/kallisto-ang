@@ -4,7 +4,7 @@ import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-fi
 import { Cloudinary } from '@cloudinary/angular-5.x';
 
 @Component({
-  selector: 'photo-list',
+  selector: 'photo-upload',
   templateUrl: 'photo-upload.component.html'
 })
 export class PhotoUploadComponent implements OnInit {
