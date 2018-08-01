@@ -178,7 +178,7 @@ import { PersonService } from './security/persons/person.service';
     // ProtocolService, ContactService, PriorityService, ItemService,
     UserService, PersonService,
     AuthService, AuthGuard, UtilitiesService,
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,  multi: true  }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,  multi: true  }
   ],
   bootstrap: [AppComponent]
 })

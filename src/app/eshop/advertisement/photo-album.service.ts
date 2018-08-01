@@ -14,11 +14,11 @@ export class PhotoAlbum {
     constructor(private http: HttpClient, private cloudinary: Cloudinary) {
     }
 
-    getPhotos(): Observable<Photo[]> {
+    getPhotos(tag: string): Observable<Photo[]> {
         // instead of maintaining the list of images, we rely on the 'myphotoalbum' tag
         // and simply retrieve a list of all images with that tag.
 
-        const url = this.cloudinary.url('samples', {
+        const url = this.cloudinary.url(tag, {
             format: 'json',
             type: 'list',
             // cache bust (lists are cached by the CDN for 1 minute)
@@ -31,7 +31,6 @@ export class PhotoAlbum {
 
         console.log('url: ' + url);
 
-        this.doGET();
 
         return this.http
             .get(url)

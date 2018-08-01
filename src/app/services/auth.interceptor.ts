@@ -22,45 +22,56 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // const headers = new HttpHeaders().set('intercept', localStorage.apikey);
 
-    const headers = new HttpHeaders({
-      'intercept': 'token 123',
-      'apikey': localStorage.apikey,
-      'Content-Type': 'application/json'
-    });
+
 
     console.log('intercept ' + request.url);
 
-    const cloneReq = request.clone({headers});
+    if (request.url.startsWith('http://res.cloudinary.com/')) {
+      return next.handle(request);
+    } else {
+      const headers = new HttpHeaders({
+        'intercept': 'token 123',
+        'apikey': localStorage.apikey,
+        'Content-Type': 'application/json'
+      });
 
-    return next.handle(cloneReq).do((event: HttpEvent<any>) => {
+      const cloneReq = request.clone({headers});
 
-      console.log('event: ' + event);
+      return next.handle(cloneReq).do((event: HttpEvent<any>) => {
 
-      if (event instanceof HttpResponse) {
-        // do stuff with response if you want
-        // console.log('INTERCEPT headers: ' + JSON.stringify(event));
-        const result: string = event.headers.get('result');
-        console.log('result: ' + result);
-        const apikey_expires: string = event.headers.get('apikey_expires');
-        console.log('apikey_expires: ' + apikey_expires);
-        if (apikey_expires.length > 1) {
-          localStorage.apikey_expires =  apikey_expires;
+        console.log('event: ' + event);
+
+        if (event instanceof HttpResponse) {
+          // do stuff with response if you want
+          // console.log('INTERCEPT headers: ' + JSON.stringify(event));
+          const result: string = event.headers.get('result');
+          console.log('result: ' + result);
+          const apikey_expires: string = event.headers.get('apikey_expires');
+          console.log('apikey_expires: ' + apikey_expires);
+          if (apikey_expires.length > 1) {
+            localStorage.apikey_expires =  apikey_expires;
+          }
+          const apikey: string = event.headers.get('apikey');
+          if (apikey !== null) {
+            localStorage.apikey =  apikey;
+          }
+          console.log('response: ' + JSON.stringify(event));
         }
-        const apikey: string = event.headers.get('apikey');
-        if (apikey !== null) {
-          localStorage.apikey =  apikey;
-        }
-        console.log('response: ' + JSON.stringify(event));
-      }
-    }, (err: any) => {
-      console.log(err);
-      if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {
-          // redirect to the login route
-          // or show a modal
-        }
+      }, (err: any) => {
+        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            // redirect to the login route
+            // or show a modal
+          }
 
-      }
-    });
+        }
+      });
+
+    }
+
+
+
+
   }
 }

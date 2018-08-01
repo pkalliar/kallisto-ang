@@ -19,9 +19,8 @@ export class PhotoListComponent implements OnInit {
 
     ngOnInit(): void {
 
-        console.log('1111111111111111111');
-        this.photos = this.photoAlbum.getPhotos();
-        console.log('222222222222222222');
+        this.photos = this.photoAlbum.getPhotos('samples');
+
         this.photos.subscribe(
             x => { console.log('Observer got a next value: ' + JSON.stringify(x)); }
         );
@@ -37,7 +36,7 @@ export class PhotoListComponent implements OnInit {
 
     getAlbum() {
         console.log('getAlbum: ');
-        const photos2 = this.photoAlbum.getPhotos();
+        const photos2 = this.photoAlbum.getPhotos('samples');
     }
 
     changePublicId() {
