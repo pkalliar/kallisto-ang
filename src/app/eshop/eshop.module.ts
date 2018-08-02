@@ -81,11 +81,16 @@ import { AppointmentsComponent } from './appointment/appointments/appointments.c
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
 
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
-import * as  Cloudinary from 'cloudinary-core';
+// import * as  Cloudinary from 'cloudinary-core';
+import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
 import cloudinaryConfiguration from './config';
 import { PhotoUploadComponent } from './advertisement/photo-album/photo-upload.component';
 import { PhotoListComponent } from './advertisement/photo-list/photo-list.component';
 import {PhotoAlbum} from './advertisement/photo-album.service';
+
+export const cloudinary = {
+  Cloudinary: CloudinaryCore
+};
 
 @NgModule({
   imports: [
@@ -111,7 +116,7 @@ import {PhotoAlbum} from './advertisement/photo-album.service';
     FormsModule,
     EshopRoutingModule,
     NgbModule.forRoot(),
-    CloudinaryModule.forRoot(Cloudinary, cloudinaryConfiguration)
+    CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration)
   ],
   declarations: [
     EshopComponent,
