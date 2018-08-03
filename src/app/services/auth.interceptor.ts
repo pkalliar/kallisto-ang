@@ -26,7 +26,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
     console.log('intercept ' + request.url);
 
-    if (request.url.startsWith('http://res.cloudinary.com/')) {
+    if (request.url.startsWith('http://res.cloudinary.com/')
+    || request.url.startsWith('https://api.cloudinary.com/')
+    || request.url.startsWith('https://res.cloudinary.com/')) {
       return next.handle(request);
     } else {
       const headers = new HttpHeaders({

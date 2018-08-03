@@ -106,6 +106,7 @@ export class PhotoUploadComponent implements OnInit {
         }
       );
 
+
     // Update model on upload progress event
     this.uploader.onProgressItem = (fileItem: any, progress: any) =>
       upsertResponse(
@@ -147,6 +148,11 @@ export class PhotoUploadComponent implements OnInit {
     if (!fileProperties) {
       return null;
     }
+
+    if (fileProperties['secure_url']) {
+        document.getElementById('img_1').setAttribute('src', fileProperties['secure_url']);
+    }
+
     return Object.keys(fileProperties)
       .map((key) => ({ 'key': key, 'value': fileProperties[key] }));
   }
