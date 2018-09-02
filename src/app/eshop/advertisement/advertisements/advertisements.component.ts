@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdsService } from '../advertisements.service';
-import { AdDetailComponent} from '../ad-detail.component';
+import { AdDetailComponent} from '../advertisement-detail/ad-detail.component';
 import { Advertisement } from '../advertisement';
 
 

@@ -62,7 +62,7 @@ import { EshopComponent } from './eshop.component';
 import { SkroutzComponent } from './skroutz/skroutz.component';
 import { SkroutzService } from './skroutz/skroutz.service';
 import { ItemsComponent } from './inventory/items';
-import { AdDetailComponent } from './advertisement/ad-detail.component';
+import { AdDetailComponent } from './advertisement/advertisement-detail/ad-detail.component';
 import { AdsComponent} from './advertisement/advertisements/advertisements.component';
 import {AdsService} from './advertisement/advertisements.service';
 
@@ -87,6 +87,7 @@ import cloudinaryConfiguration from './config';
 import { PhotoUploadComponent } from './advertisement/photo-album/photo-upload.component';
 import { PhotoListComponent } from './advertisement/photo-list/photo-list.component';
 import {PhotoAlbum} from './advertisement/photo-album.service';
+import {MapLocatorComponent} from './advertisement/map-locator/map-locator.component';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -116,11 +117,15 @@ export const cloudinary = {
     FormsModule,
     EshopRoutingModule,
     NgbModule.forRoot(),
-    CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration)
+    // CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
+    CloudinaryModule.forRoot(cloudinary, {
+      cloud_name: 'pkenergy',
+      upload_preset: 'ecnvvbwv'
+  }),
   ],
   declarations: [
     EshopComponent,
-    SkroutzComponent, PhotoUploadComponent, PhotoListComponent,
+    SkroutzComponent, PhotoUploadComponent, PhotoListComponent, MapLocatorComponent,
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent, AppointmentsComponent, AppointmentDetailComponent
     // CrisisCenterComponent,
@@ -134,5 +139,6 @@ export const cloudinary = {
   ]
 })
 export class EshopModule {
+
 
 }

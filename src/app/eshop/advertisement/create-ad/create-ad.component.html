@@ -19,8 +19,7 @@
                       </mat-option>
                 </mat-select>
               </mat-form-field>
-
-
+              <app-map-locator (positioned)="onPositioned($event)"></app-map-locator>
             <div>
               <button mat-button matStepperNext>Συνέχεια</button>
             </div>
@@ -29,17 +28,8 @@
         <mat-step [stepControl]="secondFormGroup">
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Τοποθετείστε φωτογραφία</ng-template>
-              <!-- <input  type="file" formControlName="secondCtrl"
-                id="file" accept=".png,.jpg,.csv"
-                (change)="upload($event)">   -->
-                <input 
-                  style="display: none" id="file" accept=".png,.jpg,.csv"
-                  type="file" (change)="onFileChanged($event)" 
-                  #fileInput formControlName="secondCtrl">
-                <button mat-button (click)="fileInput.click()">Επιλέξτε φωτογραφία</button>  
-                <img id="img_1" alt="" width="100px" height="100px" name="img_1">  
-                
-                <photo-upload></photo-upload>
+              
+                <photo-upload [uploadPath]="adv_id" (uploaded)="onUploaded($event)"></photo-upload>
 
             <div>
               <button mat-button matStepperPrevious>Πίσω</button>

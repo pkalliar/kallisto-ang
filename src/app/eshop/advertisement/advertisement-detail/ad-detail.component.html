@@ -1,0 +1,42 @@
+<div>
+
+  <table class="table" style="max-width: 500px;">
+    <tbody>
+        <tr>
+          <td><span>Κείμενο: </span></td>
+          <td> 
+            {{token.body}}
+          </td>
+        </tr>
+        <tr *ngIf="token.category">
+          <td><span>Κατηγορία: </span></td>
+          <td>
+              {{token.category.name}}
+          </td>
+        </tr>
+        <tr>
+          <td><span>Ημερομηνία: </span></td>
+          <td>
+              {{token.created_on | date:'dd-MM-yyyy':''}}
+          </td>
+        </tr>
+        <!-- <tr >
+          <td></td>
+          <td>
+            
+          </td>
+        </tr> -->
+    </table>
+    <app-map-locator (positioned)="onPositioned($event)"></app-map-locator>
+    <app-photo-list *ngIf="token.id" [imgPath]="token.id"></app-photo-list>
+
+    <div class="button-row">
+      <button mat-button (click)="goBack()"><i class="material-icons">keyboard_backspace</i></button>
+      <button mat-button color="primary" [disabled]="isEdit" (click)="edit()"><i class="material-icons">mode_edit</i></button>
+      <button mat-button color="primary" [disabled]="!isEdit" (click)="save()"><i class="material-icons">save</i></button>
+      <button mat-button color="warn" [disabled]="!isEdit" (click)="delete()"><i class="material-icons">delete</i></button>
+    </div>
+
+</div>
+
+

@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ItemsComponent } from './inventory/items';
 import { SkroutzComponent } from './skroutz/skroutz.component';
 import { AdsComponent } from './advertisement/advertisements/advertisements.component';
-import { AdDetailComponent } from './advertisement/ad-detail.component';
+import { AdDetailComponent } from './advertisement/advertisement-detail/ad-detail.component';
 import { EshopComponent } from './eshop.component';
 import { CreateAdComponent } from './advertisement/create-ad/create-ad.component';
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';

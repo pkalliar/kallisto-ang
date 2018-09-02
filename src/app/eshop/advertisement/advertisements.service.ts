@@ -42,6 +42,21 @@ export class AdsService {
         // });
     }
 
+    uploadImage(user_uid: String, adv_id: String, f: File, main: boolean) {
+
+      const fpath = 'user/' + user_uid + '/advertisements/' + adv_id + '/' + f.name;
+      const metadata = {
+        'contentType': f.type,
+        'adv': adv_id
+      };
+
+      return this.storageRef.child(fpath).put(f, metadata)
+      .then(function(snapshot) {
+        return snapshot.ref.getDownloadURL().then(url => url); })
+      .catch(this.handleError);
+
+    }
+
     upload(user_uid: String, adv_id: String, f: File, main: boolean) {
       let uid = '';
       this.authService.user.subscribe(
@@ -136,6 +151,7 @@ export class AdsService {
       ad.category = token.get('category');
       ad.phone = token.get('phone');
       ad.user_uid = token.get('user_uid');
+      ad.created_on = new Date((token.get('created_on').seconds * 1000));
       ad.images = token.get('images');
 
       // if (token.get('category') !== undefined) {

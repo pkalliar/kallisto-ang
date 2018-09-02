@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Component, OnInit, Input, NgZone, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import { Cloudinary } from '@cloudinary/angular-5.x';
@@ -12,6 +12,10 @@ export class PhotoUploadComponent implements OnInit {
 
   @Input()
   responses: Array<any>;
+
+  @Input() uploadPath = true;
+
+  @Output() uploaded = new EventEmitter<Object>();
 
   public hasBaseDropZoneOver = false;
   public uploader: FileUploader;
@@ -50,28 +54,41 @@ export class PhotoUploadComponent implements OnInit {
       // Add Cloudinary's unsigned upload preset to the upload form
       form.append('upload_preset', this.cloudinary.config().upload_preset);
       // Add built-in and custom tags for displaying the uploaded photo in the list
-      let tags = 'myphotoalbum';
+      let tags = `advertisements,${this.uploadPath}`;
       if (this.title) {
         form.append('context', `photo=${this.title}`);
-        tags = `myphotoalbum,${this.title}`;
+        tags = `advertisements,${this.uploadPath},${this.title}`;
       }
       // Upload to a custom folder
       // Note that by default, when uploading via the API, folders are not automatically created in your Media Library.
       // In order to automatically create the folders based on the API requests,
       // please go to your account upload settings and set the 'Auto-create folders' option to enabled.
-      form.append('folder', 'angular_sample');
+      form.append('folder', 'advertisements/' + this.uploadPath );
       // Add custom tags
       form.append('tags', tags);
       // Add file to upload
       form.append('file', fileItem);
 
+      // const eager =  [
+      //   { width: 400, height: 300,
+      //       crop: 'pad' },
+      //   { width: 260, height: 200,
+      //           crop: 'crop', gravity: 'north'} ];
+
+      // form.append('eager', JSON.stringify(eager));
+
+
+
       // Use default "withCredentials" value for CORS requests
       fileItem.withCredentials = false;
+
       return { fileItem, form };
     };
 
     // Insert or update an entry in the responses array
     const upsertResponse = fileItem => {
+
+
 
       // Run the update in a custom zone since for some reason change detection isn't performed
       // as part of the XHR request to upload the files.
@@ -93,22 +110,31 @@ export class PhotoUploadComponent implements OnInit {
           // Create new response
           this.responses.push(fileItem);
         }
+        this.uploaded.emit(this.responses);
       });
-    };
+
+     };
 
     // Update model on completion of uploading a file
-    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) =>
+    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) =>{
+
+      const resp = JSON.parse(response);
       upsertResponse(
         {
           file: item.file,
           status,
-          data: JSON.parse(response)
+          data: resp
         }
       );
+      console.log(resp);
+      // document.getElementById('img_1').setAttribute('src', resp.secure_url);
+
+    };
+
 
 
     // Update model on upload progress event
-    this.uploader.onProgressItem = (fileItem: any, progress: any) =>
+    this.uploader.onProgressItem = (fileItem: any, progress: any) => {
       upsertResponse(
         {
           file: fileItem.file,
@@ -116,6 +142,7 @@ export class PhotoUploadComponent implements OnInit {
           data: {}
         }
       );
+    };
   }
 
   updateTitle(value: string) {
@@ -150,6 +177,7 @@ export class PhotoUploadComponent implements OnInit {
     }
 
     if (fileProperties['secure_url']) {
+      console.log('the download url is ' + fileProperties['secure_url']);
         document.getElementById('img_1').setAttribute('src', fileProperties['secure_url']);
     }
 

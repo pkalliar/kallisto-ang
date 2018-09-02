@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Observable} from 'rxjs';
 import {PhotoAlbum} from '../photo-album.service';
 import {Photo} from '../photo';
 
 @Component({
-    selector: 'photo-list',
+    selector: 'app-photo-list',
     templateUrl: 'photo-list.component.html',
     styleUrls: ['photo-list.component.css']
 })
@@ -13,13 +13,15 @@ export class PhotoListComponent implements OnInit {
     public photos: Observable<Photo[]>;
     public publicId = 'officialchucknorrispage';
 
+    @Input() imgPath: string;
+
     constructor(
         private photoAlbum: PhotoAlbum
     ) { }
 
     ngOnInit(): void {
 
-        this.photos = this.photoAlbum.getPhotos('samples');
+        this.photos = this.photoAlbum.getPhotos( this.imgPath );
 
         this.photos.subscribe(
             x => { console.log('Observer got a next value: ' + JSON.stringify(x)); }

@@ -3,7 +3,8 @@
 	<form>
         <mat-form-field>
                 <input  matInput placeholder="Τίτλος:" name="phone" #title (keyup.enter)="updateTitle(title.value)" (blur)="updateTitle(title.value)">
-        </mat-form-field>
+		</mat-form-field>
+		<!-- <img id="img_1" alt="" width="100px" height="100px" name="img_1"> -->
 		<!-- <div class="form_line">
 			<label path="title">Title:</label>
 			<div class="form_controls">
@@ -28,8 +29,22 @@
 			</div>
 		</div>
 	</form>
-	<h2>Status</h2>
-	<div class="file" *ngFor="let response of responses; let i = index">
+	<!-- <h2>Status {{uploadPath}}</h2> -->
+	   <div class="container">
+			<div class="row">
+				<div class="col-4" *ngFor="let response of responses; let i = index">
+					<mat-card class="example-card">					
+						<img height="60%" width="70%" *ngIf="!!response.data.secure_url" mat-card-image [src]="response.data.secure_url" alt="Photo of a Shiba Inu">
+						<mat-card-actions>
+							<button mat-button>LIKE</button>
+							<button mat-button *ngIf="!!response.data.delete_token" (click)="deleteImage(response.data, i)">DELETE</button>
+						</mat-card-actions>
+					</mat-card>	
+				</div>
+			</div>
+		</div>			
+
+	<!-- <div class="file" *ngFor="let response of responses; let i = index">
 		<h3>{{response.file.name}}</h3>
     <button class="delete-image" *ngIf="!!response.data.delete_token" (click)="deleteImage(response.data, i)">Delete image</button>
 		<div class="status">
@@ -43,21 +58,18 @@
 		<div class="form_line">
 			<div class="form_controls">
 				<div class="preview">
-                    <!-- Consider using https://github.com/valor-software/ng2-file-upload/issues/461 for image preview -->
-                    <img id="img_1" alt="" width="100px" height="100px" name="img_1" src="">  
+					<img *ngIf="!!response.data.secure_url" alt="" width="100px" height="100px" name="img_1" [src]="response.data.secure_url"> 
 				</div>
 			</div>
 		</div>
-		<!-- <div class="info">
+		<div class="info">
 			<table>
 				<tr *ngFor="let property of getFileProperties(response.data)">
 					<td> {{ property.key }} </td>
 					<td> {{ property.value | json}} </td>
 				</tr>
 			</table>
-		</div> -->
-	</div>
+		</div>
+	</div> -->
 
 </div>
-
-<a routerLink="" class="back_link">Back to list</a>

@@ -33,16 +33,16 @@
      </mat-grid-list> -->
 
     <div class="row justify-content-left">
-        <div class="col-md-6" *ngFor="let obj of ads">
+        <div class="col-md-6" *ngFor="let token of ads">
             <mat-card class="ad-card">
               <mat-card-header>
-                  <mat-card-title>{{obj.user_id}}</mat-card-title>
-                  <mat-card-subtitle>{{obj.phone}}</mat-card-subtitle>
+                  <mat-card-title>{{token.id}}</mat-card-title>
+                  <mat-card-subtitle>{{token.phone}} - {{token.created_on | date:'dd-MM-yyyy':''}}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>    
-                    <img src="{{obj}}" *ngFor="let obj of obj.images" alt="Card image cap" height="80" width="80">
+                    <img src="{{token}}" *ngFor="let token of token.images" alt="Card image cap" height="80" width="80">
                     <p>
-                        {{obj.body}}
+                        {{token.body}}
                     </p>                   
                 </mat-card-content>
             </mat-card>
