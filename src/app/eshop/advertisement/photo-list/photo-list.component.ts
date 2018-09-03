@@ -11,7 +11,6 @@ import {Photo} from '../photo';
 export class PhotoListComponent implements OnInit {
 
     public photos: Observable<Photo[]>;
-    public publicId = 'officialchucknorrispage';
 
     @Input() imgPath: string;
 
@@ -39,10 +38,6 @@ export class PhotoListComponent implements OnInit {
     getAlbum() {
         console.log('getAlbum: ');
         const photos2 = this.photoAlbum.getPhotos('samples');
-    }
-
-    changePublicId() {
-        this.publicId = (this.publicId === 'officialchucknorrispage') ? 'billclinton' : 'officialchucknorrispage';
     }
 
     onLoadImage(success) {

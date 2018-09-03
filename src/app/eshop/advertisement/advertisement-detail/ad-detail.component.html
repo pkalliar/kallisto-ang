@@ -1,4 +1,4 @@
-<div>
+<div style="max-width:800px; margin: auto;">
 
   <table class="table" style="max-width: 500px;">
     <tbody>
@@ -27,7 +27,7 @@
           </td>
         </tr> -->
     </table>
-    <app-map-locator (positioned)="onPositioned($event)"></app-map-locator>
+    <app-map-locator *ngIf="token.geometry" (positioned)="onPositioned($event)" [geometry]="token.geometry"></app-map-locator>
     <app-photo-list *ngIf="token.id" [imgPath]="token.id"></app-photo-list>
 
     <div class="button-row">

@@ -34,7 +34,7 @@
 
     <div class="row justify-content-left">
         <div class="col-md-6" *ngFor="let token of ads">
-            <mat-card class="ad-card">
+            <mat-card class="ad-card" routerLink="{{token.id}}">
               <mat-card-header>
                   <mat-card-title>{{token.id}}</mat-card-title>
                   <mat-card-subtitle>{{token.phone}} - {{token.created_on | date:'dd-MM-yyyy':''}}</mat-card-subtitle>

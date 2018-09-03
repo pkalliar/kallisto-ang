@@ -6,7 +6,7 @@ export class Advertisement {
     phone: string;
     created_on: Date;
     images: Array<String>;
-    geometry: Object;
+    geometry: Geometry;
 }
 
 export class AdvCat {
@@ -16,5 +16,13 @@ export class AdvCat {
     constructor(id, name) {
         this.id = id;
         this.name = name;
+    }
+}
+
+export class Geometry {
+    coordinates: Array<number>;
+
+    constructor(coordinates) {
+        this.coordinates = coordinates;
     }
 }

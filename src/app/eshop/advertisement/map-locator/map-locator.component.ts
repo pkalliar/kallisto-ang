@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';
 import {PhotoAlbum} from '../photo-album.service';
 import {Photo} from '../photo';
+import {Geometry} from '../advertisement'
 declare let L;
 
 @Component({
@@ -14,6 +15,9 @@ export class MapLocatorComponent implements OnInit {
     public publicId = '';
     map: any;
 
+    @Input()
+    geometry: Geometry = null;
+
     @Output() positioned = new EventEmitter<Object>();
 
 
@@ -22,7 +26,6 @@ export class MapLocatorComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-
 
     }
 
@@ -34,8 +37,20 @@ export class MapLocatorComponent implements OnInit {
         this.map = L.map('map').setView([38.0152, 23.8277], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution: ''
         }).addTo(this.map);
+
+        L.tileLayer.provider('HERE.normalDay', {
+            app_id: 'K0Z4rKzWnBk4eR25vS40',
+            app_code: 'OEBSCrinYftL-OQPodOiOw'
+        }).addTo(this.map);
+
+        if(this.geometry !== null) {
+            console.log(JSON.stringify(this.geometry));
+            if (marker == null) {
+                marker = L.marker([this.geometry.coordinates[1], this.geometry.coordinates[0]], {draggable: false}).addTo(this.map);
+            }
+        }
 
         this.map.on('click', e => {
             // console.log('You clicked the map at ' + e.latlng.lat);
@@ -44,6 +59,8 @@ export class MapLocatorComponent implements OnInit {
 
                 this.positioned.emit(marker.toGeoJSON().geometry);
             }
+
+
 
             marker.on('click', e2 => {
                 // console.log('You clicked the marker at ' + e2.latlng.lat);

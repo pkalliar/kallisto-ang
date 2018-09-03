@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Advertisement, AdvCat } from '../advertisement';
+import { Advertisement, AdvCat, Geometry } from '../advertisement';
 import { AdsService } from '../advertisements.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { throwMatDuplicatedDrawerError } from '@angular/material';
@@ -20,7 +20,7 @@ export class CreateAdComponent implements OnInit {
   user_uid: String;
   adv_id: string;
   images: Array<String> = [];
-  geometry: Object;
+  geometry: Geometry;
   categories: Array<AdvCat> = [];
   isLinear = true;
   firstFormGroup: FormGroup;
@@ -111,7 +111,7 @@ export class CreateAdComponent implements OnInit {
     });
   }
 
-  onPositioned(resp: Object) {
+  onPositioned(resp: Geometry) {
     // console.log(resp.geometry.coordinates);
     this.geometry = resp;
 

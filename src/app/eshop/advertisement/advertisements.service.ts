@@ -153,6 +153,8 @@ export class AdsService {
       ad.user_uid = token.get('user_uid');
       ad.created_on = new Date((token.get('created_on').seconds * 1000));
       ad.images = token.get('images');
+      ad.geometry = token.get('geometry');
+
 
       // if (token.get('category') !== undefined) {
       //   appt.category = new ApptCat(token.get('category').id, token.get('category').name);
