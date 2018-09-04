@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AdsService } from '../advertisements.service';
 import { AdDetailComponent} from '../advertisement-detail/ad-detail.component';
 import { Advertisement } from '../advertisement';
+import { AuthService } from '../../../services/auth.service';
 
 
 
@@ -23,13 +24,17 @@ export class AdsComponent implements OnInit {
   searchResult = [];
   categories = [];
   ads: Array<Advertisement> = [];
+  uid = '';
 
   searchTerm: FormControl = new FormControl();
 
   constructor(
     private router: Router,
     private service: AdsService,
-    private route: ActivatedRoute) { }
+    private authService: AuthService,
+    private route: ActivatedRoute) {
+      // this.authService = authService;
+  }
 
   searchContact(toSearch: String): void {
     console.log('searching for ' + toSearch);
@@ -56,8 +61,8 @@ export class AdsComponent implements OnInit {
 
         this.ads.push(ad);
 
-        console.log(doc.get('body'));
-            console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
+        // console.log(doc.get('body'));
+            // console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
       });
       this.searchResult = response;
 
@@ -67,6 +72,13 @@ export class AdsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('initializing app..');
+
+    this.authService.user.subscribe(
+      (user) => {
+        if (user) {
+          this.uid = user.uid;
+        }
+      });
 
     this.filter();
   }

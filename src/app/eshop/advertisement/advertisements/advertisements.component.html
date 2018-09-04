@@ -16,27 +16,13 @@
             <button mat-button><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
         </mat-grid-tile>
     </mat-grid-list>
-    <!-- <mat-grid-list cols="8" >
-        <mat-grid-tile *ngFor="let obj of ads" [colspan]="2" [rowspan]="1">
-                <mat-card class="ad-card">
-                    <mat-card-header>
-                        <mat-card-title>{{obj.user_id}}</mat-card-title>
-                        <mat-card-subtitle>{{obj.phone}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>    
-                        
-                        <p>{{obj.body}}</p>                   
-                    </mat-card-content>                  
-                </mat-card>
 
-        </mat-grid-tile>
-     </mat-grid-list> -->
 
     <div class="row justify-content-left">
         <div class="col-md-6" *ngFor="let token of ads">
             <mat-card class="ad-card" routerLink="{{token.id}}">
               <mat-card-header>
-                  <mat-card-title>{{token.id}}</mat-card-title>
+                  <mat-card-title>{{token.category.name}}</mat-card-title>
                   <mat-card-subtitle>{{token.phone}} - {{token.created_on | date:'dd-MM-yyyy':''}}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>    
@@ -45,6 +31,10 @@
                         {{token.body}}
                     </p>                   
                 </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button><i class="fa fa-eye" aria-hidden="true"></i></button>
+                    <button mat-button><i class="fa fa-edit" *ngIf="token.user_uid == uid" aria-hidden="true"></i></button>
+                </mat-card-actions>
             </mat-card>
         </div>
       </div>

@@ -1,5 +1,27 @@
 <div class="row justify-content-center" style="min-height: 100px; max-width:800px; margin: auto;">
-    
+    <ngb-carousel *ngIf="images" interval="100">
+        <ng-template ngbSlide>
+          <img [src]="images[0]" alt="Random first slide">
+          <div class="carousel-caption">
+            <h3>ESHOP </h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <img [src]="images[1]" alt="Random second slide">
+          <div class="carousel-caption">
+            <h3>ΠΑΡΤΕ ΚΟΣΜΕ</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <img [src]="images[2]" alt="Random third slide">
+          <div class="carousel-caption">
+            <h3>ΤΟ ΑΦΕΝΤΙΚΟ ΤΡΕΛΑΘΗΚΕ</h3>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+          </div>
+        </ng-template>
+      </ngb-carousel>
 </div>
 <div class="row justify-content-center" style="max-width:800px; margin: auto;">
     <div class="col-md-3">

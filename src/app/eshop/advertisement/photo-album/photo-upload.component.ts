@@ -116,7 +116,7 @@ export class PhotoUploadComponent implements OnInit {
      };
 
     // Update model on completion of uploading a file
-    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) =>{
+    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) => {
 
       const resp = JSON.parse(response);
       upsertResponse(
