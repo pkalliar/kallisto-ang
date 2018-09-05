@@ -32,8 +32,8 @@
                     </p>                   
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button><i class="fa fa-eye" aria-hidden="true"></i></button>
-                    <button mat-button><i class="fa fa-edit" *ngIf="token.user_uid == uid" aria-hidden="true"></i></button>
+                    <button mat-button routerLink='{{token.id}}'><i class="fa fa-eye" aria-hidden="true"></i></button>
+                    <button mat-button routerLink='create-ad'><i class="fa fa-edit" *ngIf="token.user_uid == uid" aria-hidden="true"></i></button>
                 </mat-card-actions>
             </mat-card>
         </div>

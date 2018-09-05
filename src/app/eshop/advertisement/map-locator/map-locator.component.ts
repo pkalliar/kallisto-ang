@@ -2,7 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';
 import {PhotoAlbum} from '../photo-album.service';
 import {Photo} from '../photo';
-import {Geometry} from '../advertisement'
+import {Geometry} from '../advertisement';
 declare let L;
 
 @Component({
@@ -27,12 +27,37 @@ export class MapLocatorComponent implements OnInit {
 
     ngOnInit(): void {
 
+
+
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit(): void {
 
         let marker = null;
+
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+          };
+
+          function success(pos) {
+            const crd = pos.coords;
+
+            console.log('Your current position is:');
+            console.log(`Latitude : ${crd.latitude}`);
+            console.log(`Longitude: ${crd.longitude}`);
+            console.log(`More or less ${crd.accuracy} meters.`);
+
+            // this.map = L.map('map').setView([crd.latitude, 23.8277], 13);
+          }
+
+          function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+          }
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
 
         this.map = L.map('map').setView([38.0152, 23.8277], 13);
 
@@ -45,7 +70,7 @@ export class MapLocatorComponent implements OnInit {
             app_code: 'OEBSCrinYftL-OQPodOiOw'
         }).addTo(this.map);
 
-        if(this.geometry !== null) {
+        if (this.geometry !== null) {
             console.log(JSON.stringify(this.geometry));
             if (marker == null) {
                 marker = L.marker([this.geometry.coordinates[1], this.geometry.coordinates[0]], {draggable: false}).addTo(this.map);

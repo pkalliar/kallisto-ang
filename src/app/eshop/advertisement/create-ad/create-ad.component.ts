@@ -25,6 +25,7 @@ export class CreateAdComponent implements OnInit {
   isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
 
   constructor(private afs: AngularFirestore, private _formBuilder: FormBuilder,
     private cloudinary: Cloudinary, private router: Router,
@@ -47,6 +48,10 @@ export class CreateAdComponent implements OnInit {
 
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.nullValidator]
+    });
+
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.nullValidator]
     });
 
     this.service.get_categories().then(response => {

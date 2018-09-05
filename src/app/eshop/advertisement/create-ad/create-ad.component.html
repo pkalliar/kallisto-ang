@@ -19,7 +19,7 @@
                       </mat-option>
                 </mat-select>
               </mat-form-field>
-              <app-map-locator (positioned)="onPositioned($event)"></app-map-locator>
+              
             <div>
               <button mat-button matStepperNext>Συνέχεια</button>
             </div>
@@ -27,6 +27,18 @@
         </mat-step>
         <mat-step [stepControl]="secondFormGroup">
           <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Τοποθετείστε σημείο στο χάρτη</ng-template>
+              
+            <app-map-locator *ngIf="user_uid" (positioned)="onPositioned($event)"></app-map-locator>
+
+            <div>
+              <button mat-button matStepperPrevious>Πίσω</button>
+              <button mat-button matStepperNext>Συνέχεια</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+          <form [formGroup]="thirdFormGroup">
             <ng-template matStepLabel>Τοποθετείστε φωτογραφία</ng-template>
               
                 <photo-upload [uploadPath]="adv_id" (uploaded)="onUploaded($event)"></photo-upload>
