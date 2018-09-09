@@ -22,8 +22,11 @@
           <td><span>Ονοματεπώνυμο: </span></td>
           <td>
             <mat-form-field class="example-full-width">
-                <input matInput [(ngModel)]="token.name" placeholder="Ονοματεπώνυμο" [readonly]="!isEdit">
-              </mat-form-field>
+              <input matInput [(ngModel)]="token.firstname" placeholder="Ονομα" [readonly]="!isEdit">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]="token.lastname" placeholder="επώνυμο" [readonly]="!isEdit">
+            </mat-form-field>
           </td>
         </tr>
         <tr>

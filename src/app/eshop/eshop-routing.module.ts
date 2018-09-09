@@ -9,6 +9,7 @@ import { EshopComponent } from './eshop.component';
 import { CreateAdComponent } from './advertisement/create-ad/create-ad.component';
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
+import { AppointmentSlotsComponent } from './appointment/appointment-slots/appointment-slots.component';
 
 const routes: Routes = [
   { path: 'eshop', component: EshopComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'eshop/appointments', component: AppointmentsComponent },
   { path: 'eshop/appointments/:id',     component: AppointmentDetailComponent },
   { path: 'eshop/appointments/:id/edit',     component: AppointmentDetailComponent },
+  { path: 'consulate/app-slots', component: AppointmentSlotsComponent }
 ];
 
 @NgModule({

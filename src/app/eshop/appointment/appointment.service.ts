@@ -36,7 +36,8 @@ export class AppointmentService {
   getApptFromToken(token): Appointment {
     const appt: Appointment = new Appointment();
     appt.id = token.id;
-    appt.name = token.get('name');
+    appt.firstname = token.get('firstname');
+    appt.lastname = token.get('lastname');
     appt.start_time = new Date((token.get('start_time').seconds * 1000));
     appt.end_time = new Date((token.get('end_time').seconds * 1000));
     if (token.get('category') !== undefined) {

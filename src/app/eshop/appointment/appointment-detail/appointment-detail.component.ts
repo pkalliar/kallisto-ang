@@ -45,7 +45,8 @@ export class AppointmentDetailComponent implements OnInit {
       this.token.end_time.setMinutes(this.toTime.minute);
 
     const toSave = {
-      name: this.token.name,
+      firstname: this.token.firstname,
+      lastname: this.token.lastname,
       start_time: this.token.start_time,
       end_time: this.token.end_time,
       category: null

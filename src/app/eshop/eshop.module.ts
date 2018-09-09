@@ -79,6 +79,7 @@ import { CreateAdComponent } from './advertisement/create-ad/create-ad.component
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
+import { AppointmentSlotsComponent, DialogAppointmentSlotDialog } from './appointment/appointment-slots/appointment-slots.component';
 
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
@@ -105,7 +106,7 @@ export const cloudinary = {
     BrowserAnimationsModule,
     FormsModule,
     HttpModule, HttpClientModule,
-    MatNativeDateModule, MatDividerModule, MatListModule, MatSelectModule,
+    MatNativeDateModule, MatDialogModule, MatDividerModule, MatListModule, MatSelectModule,
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
@@ -123,16 +124,21 @@ export const cloudinary = {
       upload_preset: 'ecnvvbwv'
   }),
   ],
+  entryComponents: [
+    AppointmentSlotsComponent, DialogAppointmentSlotDialog
+  ],
   declarations: [
     EshopComponent,
     SkroutzComponent, PhotoUploadComponent, PhotoListComponent, MapLocatorComponent,
     ItemsComponent,
-    AdsComponent, AdDetailComponent, CreateAdComponent, AppointmentsComponent, AppointmentDetailComponent
+    AdsComponent, AdDetailComponent, CreateAdComponent,
+    AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, DialogAppointmentSlotDialog
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,
     // CrisisDetailComponent
   ],
+  bootstrap: [AppointmentSlotsComponent],
   providers: [
     { provide: LOCALE_ID, useValue: 'el' },
     AdsService, SkroutzService, PhotoAlbum,

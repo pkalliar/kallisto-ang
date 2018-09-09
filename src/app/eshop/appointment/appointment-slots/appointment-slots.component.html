@@ -5,35 +5,59 @@
         [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
     </div> -->
     <mat-toolbar>
-      <span>Προγραμματισμός ραντεβού</span>
+      <span>Δημιουργία/επεξεργασία διαθέσιμων ραντεβού</span>
+
       <span class="example-spacer"></span>
       <button mat-button routerLink="new/edit"><i class="fas fa-plus"></i></button>
       <button mat-button (click)="filter()"><i class="fas fa-play"></i></button>
     </mat-toolbar>
-    <mat-accordion>
-        <mat-expansion-panel >
+    <mat-accordion multi="true">
+        <mat-expansion-panel [expanded]="true">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                  Ημερομηνία
+                  Κατηγορία - Ημερομηνία
               </mat-panel-title>
-              <mat-panel-description>
-                Από {{date1.value | date:'dd-MM-yyyy':''}} εώς {{date2.value | date:'dd-MM-yyyy':''}}
+              <mat-panel-description *ngIf="category">
+                  {{category.name}} - Από {{date1.value | date:'dd-MM-yyyy':''}} εώς {{date2.value | date:'dd-MM-yyyy':''}}
               </mat-panel-description>
             </mat-expansion-panel-header>
-              <mat-form-field>
-                <input matInput [matDatepicker]="picker1" placeholder="Από:" [formControl]="date1">
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-              </mat-form-field>
-              <!-- <br/> -->
-              <span class="example-spacer"></span>
-              <mat-form-field>
-                  <input matInput [matDatepicker]="picker2" placeholder="Εώς:" [formControl]="date2">
-                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                  <mat-datepicker #picker2></mat-datepicker>
-                </mat-form-field>
+              <table class="example-full-width" cellspacing="0"><tr>
+                  <td>Κατηγορία : </td>
+                  <td><mat-form-field *ngIf="category">
+                      <mat-select placeholder="Επιλέξτε κατηγορία" [(value)]="category" >
+                        <mat-option *ngFor="let category of categories" [value]="category">
+                          {{category.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field></td>
+                  <td>Ημερομηνία : </td>
+                  <td><mat-form-field>
+                      <input matInput [matDatepicker]="picker1" placeholder="Από:" [formControl]="date1">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field><br/>
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="picker2" placeholder="Εώς:" [formControl]="date2">
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field></td>
+                </tr><tr>
+                  <td>Από : </td>
+                  <td>
+                      <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
+                  </td>
+                  <td>Εώς : </td>
+                  <td>
+                      <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
+                      <ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
+                  </td>
+                </tr>
+              </table>
+              <mat-action-row>
+                <button mat-raised-button (click)="openDialog()">Δημιουργία</button>
+              </mat-action-row>
           </mat-expansion-panel>
-      <mat-expansion-panel ng-show="false">
+      <mat-expansion-panel  [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
               Προβολή διαθεσιμότητας: 
@@ -87,7 +111,7 @@
 
 
 <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
-  <div class="custom-day" [class.weekend]="isWeekend(date)" 
+  <div class="custom-day" [class.full]="isWeekend(date)" 
         [class.focused]="focused"
         [class.bg-primary]="selected" 
         [class.hidden]="date.month !== currentMonth" 
@@ -103,14 +127,3 @@
 </ng-template>
 
 
-
-<ng-template #t let-date="date" let-focused="focused">
-  <span class="custom-day"
-        [class.focused]="focused"
-        [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
-        [class.faded]="isHovered(date) || isInside(date)"
-        (mouseenter)="hoveredDate = date"
-        (mouseleave)="hoveredDate = null">
-    {{ date.day }}
-  </span>
-</ng-template>
