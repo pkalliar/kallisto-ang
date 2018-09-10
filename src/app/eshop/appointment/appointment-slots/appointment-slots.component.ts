@@ -138,18 +138,7 @@ export class AppointmentSlotsComponent implements OnInit {
     return date.month !== current.month || this.isWeekend(date);
   }
 
-  openDialog(): void {
-    console.log('openDialog ');
-    const dialogRef = this.dialog.open(DialogAppointmentSlotDialog, {
-      width: '250px',
-      data: {name: 'this.name', animal: 'this.animal'}
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
-  }
 
   filter() {
     console.log('filtering with parameters: ' + JSON.stringify(this.fromTime) + JSON.stringify(this.toTime));
@@ -201,12 +190,32 @@ export class AppointmentSlotsComponent implements OnInit {
   isTo = date => equals(date, this.toDate);
 
 
+  openDialog(): void {
+    console.log('openDialog ');
+    const d1: Date = this.date1.value;
+    d1.setHours(this.fromTime.hour);
+    d1.setMinutes(this.fromTime.minute);
+    d1.setSeconds(0);
+    const d2: Date = this.date2.value;
+    d2.setHours(this.toTime.hour);
+    d2.setMinutes(this.toTime.minute);
+    d2.setSeconds(0);
+    const dialogRef = this.dialog.open(DialogAppointmentSlotDialog, {
+      width: '400px',
+      data: {fromDate: d1, toDate: d2}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
 
 }
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  fromDate: Date;
+  toDate: Date;
 }
 
 @Component({
