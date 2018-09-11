@@ -22,14 +22,25 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
               <table class="example-full-width" cellspacing="0"><tr>
-                  <td>Κατηγορία : </td>
+                  <td>Κατηγορία : <br/> <br/>Διάρκεια: </td>
                   <td><mat-form-field *ngIf="category">
                       <mat-select placeholder="Επιλέξτε κατηγορία" [(value)]="category" >
                         <mat-option *ngFor="let category of categories" [value]="category">
                           {{category.name}}
                         </mat-option>
                       </mat-select>
-                    </mat-form-field></td>
+                    </mat-form-field>
+                  <br/>
+                    <!-- <mat-form-field > -->
+                        <mat-radio-group>
+                          <mat-radio-button value="15" checked='true'>15'</mat-radio-button>
+                          <mat-radio-button value="30">30'</mat-radio-button>
+                          <mat-radio-button value="60">60'</mat-radio-button>
+                        </mat-radio-group>
+                    <!-- </mat-form-field> -->
+ 
+                  
+                  </td>
                   <td>Ημερομηνία : </td>
                   <td><mat-form-field>
                       <input matInput [matDatepicker]="picker1" placeholder="Από:" [formControl]="date1">
@@ -48,7 +59,7 @@
                   </td>
                   <td><tr>1</tr><tr>2</tr>Εώς : </td>
                   <td>
-                      <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
+                      <!-- <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker> -->
                       <ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
                   </td>
                 </tr>

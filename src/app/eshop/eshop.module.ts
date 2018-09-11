@@ -110,7 +110,7 @@ export const cloudinary = {
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
-    MatIconModule, MatInputModule, MatSortModule, MatStepperModule, MatTableModule, MatChipsModule,
+    MatIconModule, MatInputModule, MatRadioModule, MatSortModule, MatStepperModule, MatTableModule, MatChipsModule,
     MatDatepickerModule,
     AngularFirestoreModule, AngularFireAuthModule,
     FileUploadModule,
