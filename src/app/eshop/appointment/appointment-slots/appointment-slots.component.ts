@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
-import { Appointment, ApptCat } from '../appointment';
+import { Appointment, ApptCat, CreationData } from '../appointment';
 import { TableDatabase, TableDataSource } from '../../../utilities';
 import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AppointmentService } from '../appointment.service';
@@ -202,14 +202,15 @@ export class AppointmentSlotsComponent implements OnInit {
     // d2.setHours(this.toTime.hour);
     // d2.setMinutes(this.toTime.minute);
     // d2.setSeconds(0);
-    const dialogRef = this.dialog.open(DialogAppointmentSlotDialog, {
+    const dialogRef = this.dialog.open(AppointmentSlotDialogComponent, {
       width: '400px',
       data: {
         fromDate: this.date1.value,
         toDate: this.date2.value,
         fromTime: this.fromTime,
         toTime: this.toTime,
-        appointmentDuration: this.duration
+        appointmentDuration: this.duration,
+        category: this.category
       }
     });
 
@@ -221,40 +222,40 @@ export class AppointmentSlotsComponent implements OnInit {
 
 }
 
-export interface DialogData {
-  fromDate: Date;
-  toDate: Date;
-  fromTime: NgbTimeStruct;
-  toTime: NgbTimeStruct;
-  appointmentDuration: number;
-}
 
 @Component({
-  selector: 'dialog-overview-example-dialog',
+  selector: 'app-dialog-overview-example-dialog',
   templateUrl: './dialog.html',
 })
-export class DialogAppointmentSlotDialog {
+export class AppointmentSlotDialogComponent {
+
+  workdays: number;
 
   workday_count(start: Date, end: Date) {
-    const first = moment(start).clone().endOf('week'); // end of first week
-    const last = moment(end).clone().startOf('week'); // start of last week
-    const days = last.diff(first, 'days') * 5 / 7; // this will always multiply of 7
-    let wfirst = first.day() - moment(start).day(); // check first week
-    if (moment(start).day() === 0) {--wfirst; } // -1 if start with sunday
-    let wlast = moment(end).day() - last.day(); // check last week
-    if (moment(end).day() === 6) {--wlast; } // -1 if end with saturday
-    return wfirst + days + wlast; // get the total
+    let numWorkDays = 0;
+    const currentDate = new Date(start);
+    while (currentDate <= end) {
+        // Skips Sunday and Saturday
+        if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+            numWorkDays++;
+        }
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return numWorkDays;
   }
 
   constructor(
-    public dialogRef: MatDialogRef<DialogAppointmentSlotDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    public dialogRef: MatDialogRef<AppointmentSlotDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: CreationData,
+    private service: AppointmentService
+  ) {
 
       const now1 = moment().format('LLLL');
 
       console.log(now1 + ' here goes the process of vreation data..' + data.appointmentDuration);
 
-      console.log( 'diff: ' + this. workday_count(data.fromDate, data.toDate) );
+      this.workdays = this. workday_count(data.fromDate, data.toDate);
+
 
 
     }
@@ -264,6 +265,8 @@ export class DialogAppointmentSlotDialog {
   }
 
   onYesClick(): void {
+
+    this.service.createAppointments(this.data);
 
   }
 

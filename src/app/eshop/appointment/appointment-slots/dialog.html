@@ -1,6 +1,8 @@
 <h1 mat-dialog-title>Hi {{data.fromDate}} - {{data.toDate}}</h1>
 <div mat-dialog-content>
-  <p>Δημιουργία νέων ραντεβού {{data.fromTime.hour}} - {{data.toTime.hour}} ... {{data.appointmentDuration}}</p>
+  <p>Δημιουργία νέων ραντεβού {{data.fromTime.hour}} - {{data.toTime.hour}} ... {{data.appointmentDuration}}
+      {{workdays}}
+  </p>
   <!-- <mat-form-field>
     <input matInput [(ngModel)]="data.animal">
   </mat-form-field> -->

@@ -1,4 +1,5 @@
 import { Person } from '../../security/persons/person';
+import { NgbTimeStruct } from '../../../../node_modules/@ng-bootstrap/ng-bootstrap';
 
 export class Appointment {
     id: string;
@@ -32,4 +33,13 @@ export class ApptCat {
         this.name = name;
     }
 }
+
+export class CreationData {
+    category: ApptCat;
+    fromDate: Date;
+    toDate: Date;
+    fromTime: NgbTimeStruct;
+    toTime: NgbTimeStruct;
+    appointmentDuration: number;
+  }
 

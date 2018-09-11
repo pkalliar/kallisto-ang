@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Appointment, ApptCat } from './appointment';
+import { Appointment, ApptCat, CreationData } from './appointment';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -62,4 +63,21 @@ export class AppointmentService {
     return this.afs.firestore.collection('appointments').add(token);
 
   }
+
+  createAppointments(data: CreationData) {
+    console.log('in create..');
+
+    const toSave = {
+      start_time: data.fromDate,
+      end_time: moment(data.toDate).add(30, 'minutes').toDate(),
+      category: null
+    };
+    if (data.category !== undefined) {
+      toSave.category = JSON.parse(JSON.stringify(data.category));
+    }
+
+    this.afs.firestore.collection('appointments').add(toSave);
+
+  }
+
 }

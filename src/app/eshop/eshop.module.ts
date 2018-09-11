@@ -79,7 +79,7 @@ import { CreateAdComponent } from './advertisement/create-ad/create-ad.component
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
-import { AppointmentSlotsComponent, DialogAppointmentSlotDialog } from './appointment/appointment-slots/appointment-slots.component';
+import { AppointmentSlotsComponent, AppointmentSlotDialogComponent } from './appointment/appointment-slots/appointment-slots.component';
 
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
@@ -125,14 +125,14 @@ export const cloudinary = {
   }),
   ],
   entryComponents: [
-    AppointmentSlotsComponent, DialogAppointmentSlotDialog
+    AppointmentSlotsComponent, AppointmentSlotDialogComponent
   ],
   declarations: [
     EshopComponent,
     SkroutzComponent, PhotoUploadComponent, PhotoListComponent, MapLocatorComponent,
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent,
-    AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, DialogAppointmentSlotDialog
+    AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,
