@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
+import * as moment from 'moment';
 
 const now = new Date();
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
@@ -61,6 +62,7 @@ export class AppointmentSlotsComponent implements OnInit {
   toTime = {hour: 9, minute: 30};
   minuteStep = 15;
   hourStep = 1;
+  duration = 15;
 
   constructor(private service: AppointmentService, calendar: NgbCalendar,
     private router: Router, private route: ActivatedRoute,
@@ -192,17 +194,23 @@ export class AppointmentSlotsComponent implements OnInit {
 
   openDialog(): void {
     console.log('openDialog ');
-    const d1: Date = this.date1.value;
-    d1.setHours(this.fromTime.hour);
-    d1.setMinutes(this.fromTime.minute);
-    d1.setSeconds(0);
-    const d2: Date = this.date2.value;
-    d2.setHours(this.toTime.hour);
-    d2.setMinutes(this.toTime.minute);
-    d2.setSeconds(0);
+    // const d1: Date = this.date1.value;
+    // d1.setHours(this.fromTime.hour);
+    // d1.setMinutes(this.fromTime.minute);
+    // d1.setSeconds(0);
+    // const d2: Date = this.date2.value;
+    // d2.setHours(this.toTime.hour);
+    // d2.setMinutes(this.toTime.minute);
+    // d2.setSeconds(0);
     const dialogRef = this.dialog.open(DialogAppointmentSlotDialog, {
       width: '400px',
-      data: {fromDate: d1, toDate: d2}
+      data: {
+        fromDate: this.date1.value,
+        toDate: this.date2.value,
+        fromTime: this.fromTime,
+        toTime: this.toTime,
+        appointmentDuration: this.duration
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -216,6 +224,9 @@ export class AppointmentSlotsComponent implements OnInit {
 export interface DialogData {
   fromDate: Date;
   toDate: Date;
+  fromTime: NgbTimeStruct;
+  toTime: NgbTimeStruct;
+  appointmentDuration: number;
 }
 
 @Component({
@@ -224,12 +235,36 @@ export interface DialogData {
 })
 export class DialogAppointmentSlotDialog {
 
+  workday_count(start: Date, end: Date) {
+    const first = moment(start).clone().endOf('week'); // end of first week
+    const last = moment(end).clone().startOf('week'); // start of last week
+    const days = last.diff(first, 'days') * 5 / 7; // this will always multiply of 7
+    let wfirst = first.day() - moment(start).day(); // check first week
+    if (moment(start).day() === 0) {--wfirst; } // -1 if start with sunday
+    let wlast = moment(end).day() - last.day(); // check last week
+    if (moment(end).day() === 6) {--wlast; } // -1 if end with saturday
+    return wfirst + days + wlast; // get the total
+  }
+
   constructor(
     public dialogRef: MatDialogRef<DialogAppointmentSlotDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+
+      const now1 = moment().format('LLLL');
+
+      console.log(now1 + ' here goes the process of vreation data..' + data.appointmentDuration);
+
+      console.log( 'diff: ' + this. workday_count(data.fromDate, data.toDate) );
+
+
+    }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onYesClick(): void {
+
   }
 
 }

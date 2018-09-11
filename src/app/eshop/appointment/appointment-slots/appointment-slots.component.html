@@ -32,10 +32,10 @@
                     </mat-form-field>
                   <br/>
                     <!-- <mat-form-field > -->
-                        <mat-radio-group>
-                          <mat-radio-button value="15" checked='true'>15'</mat-radio-button>
-                          <mat-radio-button value="30">30'</mat-radio-button>
-                          <mat-radio-button value="60">60'</mat-radio-button>
+                        <mat-radio-group [(ngModel)]="duration">
+                          <mat-radio-button value="15"> 15' </mat-radio-button>
+                          <mat-radio-button value="30"> 30' </mat-radio-button>
+                          <mat-radio-button value="60"> 60' </mat-radio-button>
                         </mat-radio-group>
                     <!-- </mat-form-field> -->
  
@@ -57,9 +57,8 @@
                   <td>
                       <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
                   </td>
-                  <td><tr>1</tr><tr>2</tr>Εώς : </td>
+                  <td>Εώς : </td>
                   <td>
-                      <!-- <ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker> -->
                       <ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
                   </td>
                 </tr>

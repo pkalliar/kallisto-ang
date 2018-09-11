@@ -1,11 +1,13 @@
-<h1 mat-dialog-title>Hi {{data.fromDate}}</h1>
+<h1 mat-dialog-title>Hi {{data.fromDate}} - {{data.toDate}}</h1>
 <div mat-dialog-content>
-  <p>Δημιουργία νέων ραντεβού</p>
-  <mat-form-field>
+  <p>Δημιουργία νέων ραντεβού {{data.fromTime.hour}} - {{data.toTime.hour}} ... {{data.appointmentDuration}}</p>
+  <!-- <mat-form-field>
     <input matInput [(ngModel)]="data.animal">
-  </mat-form-field>
+  </mat-form-field> -->
+
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onYesClick()">Δημιουργία τώρα</button>
+  <button mat-button (click)="onNoClick()">Όχι</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Oκ</button>
 </div>
