@@ -67,6 +67,32 @@ export class AppointmentService {
   createAppointments(data: CreationData) {
     console.log('in create..');
 
+    let numWorkDays = 0;
+    const currentDate = new Date(data.fromDate);
+    while (currentDate <= data.toDate) {
+        // Skips Sunday and Saturday
+        if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+            numWorkDays++;
+            console.log(currentDate.toDateString() + '..............' + currentDate.getDay());
+            const currentApp = moment(currentDate).hour(data.fromTime.hour).minute(0).second(0);
+            const lastApp = moment(currentDate).hour(data.toTime.hour).minute(0).second(0);
+            while (currentApp.isBefore(lastApp)) {
+              console.log(currentApp.toLocaleString());
+
+              currentApp.add(data.appointmentDuration, 'm');
+            }
+
+
+            // let currentHour = data.fromTime.hour;
+            // while (currentHour <= data.toTime.hour) {
+            //   console.log(currentHour);
+            //   currentHour++;
+            // }
+
+        }
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+
     const toSave = {
       start_time: data.fromDate,
       end_time: moment(data.toDate).add(30, 'minutes').toDate(),
@@ -76,7 +102,9 @@ export class AppointmentService {
       toSave.category = JSON.parse(JSON.stringify(data.category));
     }
 
-    this.afs.firestore.collection('appointments').add(toSave);
+    console.log(toSave);
+
+    // this.afs.firestore.collection('appointments').add(toSave);
 
   }
 
