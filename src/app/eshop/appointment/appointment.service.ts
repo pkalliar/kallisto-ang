@@ -74,10 +74,22 @@ export class AppointmentService {
         if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
             numWorkDays++;
             console.log(currentDate.toDateString() + '..............' + currentDate.getDay());
-            const currentApp = moment(currentDate).hour(data.fromTime.hour).minute(0).second(0);
-            const lastApp = moment(currentDate).hour(data.toTime.hour).minute(0).second(0);
+            const currentApp = moment(currentDate).hour(data.fromTime.hour).minute(data.fromTime.minute).second(0);
+            const lastApp = moment(currentDate).hour(data.toTime.hour).minute(data.toTime.minute).second(0);
             while (currentApp.isBefore(lastApp)) {
-              console.log(currentApp.toLocaleString());
+              // console.log(currentApp.toLocaleString());
+
+              const toSave = {
+                start_time: currentApp.toDate(),
+                end_time: currentApp.add(data.appointmentDuration, 'minutes').toDate(),
+                category: null
+              };
+              if (data.category !== undefined) {
+                toSave.category = JSON.parse(JSON.stringify(data.category));
+              }
+
+              // console.log(toSave);
+              this.afs.firestore.collection('appointments').add(toSave);
 
               currentApp.add(data.appointmentDuration, 'm');
             }
@@ -93,16 +105,6 @@ export class AppointmentService {
         currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    const toSave = {
-      start_time: data.fromDate,
-      end_time: moment(data.toDate).add(30, 'minutes').toDate(),
-      category: null
-    };
-    if (data.category !== undefined) {
-      toSave.category = JSON.parse(JSON.stringify(data.category));
-    }
-
-    console.log(toSave);
 
     // this.afs.firestore.collection('appointments').add(toSave);
 
