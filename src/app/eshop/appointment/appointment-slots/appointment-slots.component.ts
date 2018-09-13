@@ -8,6 +8,7 @@ import { NgbDateStruct, NgbCalendar, NgbTimeStruct } from '@ng-bootstrap/ng-boot
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import * as moment from 'moment';
+import { NgbDatepickerNavigateEvent } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker';
 
 const now = new Date();
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
@@ -88,6 +89,9 @@ export class AppointmentSlotsComponent implements OnInit {
         this.categories.push(a);
       });
       this.category = this.categories[0];
+
+      this.filter();
+      this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
     });
 
     let d = this.route.snapshot.queryParamMap.get('d1');
@@ -103,13 +107,11 @@ export class AppointmentSlotsComponent implements OnInit {
       this.date2 = new FormControl(new Date(d));
     } else {
       const d2: Date = new Date();
-      d2.setDate(new Date().getDate() + 10);
+      d2.setDate(new Date().getDate() + 3);
       this.date2 = new FormControl(d2);
     }
 
 
-    // this.filter();
-    this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
 
 
 
@@ -129,6 +131,11 @@ export class AppointmentSlotsComponent implements OnInit {
     //   this.toDate = null;
     //   this.fromDate = date;
     // }
+  }
+
+  onDateNavigation(event: NgbDatepickerNavigateEvent) {
+    console.log(event.current.month + '   ' + event.next.month );
+    this.date = event.next;
   }
 
   isWeekend(date: NgbDateStruct) {
@@ -169,19 +176,18 @@ export class AppointmentSlotsComponent implements OnInit {
     this.router.navigate(['/consulate/app-slots'], {queryParams: q});
 
 
-    this.service.search_firestore(this.searchTerm.value, d1, d2).then(response => {
+    this.service.search_firestore(this.searchTerm.value, d1, d2, this.category).then(response => {
       this.aps  = [];
       this.tableDatabase.clear();
       response.forEach((doc) => {
 
         const a: Appointment = this.service.getApptFromToken(doc);
 
-
         this.aps.push(a);
         this.tableDatabase.addLine(a);
 
         console.log(doc.get('body'));
-            console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
+        console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
       });
     });
   }

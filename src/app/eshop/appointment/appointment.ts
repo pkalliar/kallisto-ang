@@ -6,6 +6,7 @@ export class Appointment {
     firstname: string;
     lastname: string;
     start_time: Date;
+    durationMinutes: number;
     end_time: Date;
     category: ApptCat;
 

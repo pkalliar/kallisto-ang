@@ -151,7 +151,7 @@ export class AppointmentsComponent implements OnInit {
     this.router.navigate(['/eshop/appointments'], {queryParams: q});
 
 
-    this.service.search_firestore(this.searchTerm.value, d1, d2).then(response => {
+    this.service.search_firestore(this.searchTerm.value, d1, d2, { id: '', name: ''}).then(response => {
       this.aps  = [];
       this.tableDatabase.clear();
       response.forEach((doc) => {

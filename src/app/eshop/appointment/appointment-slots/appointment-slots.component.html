@@ -74,7 +74,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div style="overflow: auto; margin: auto;">
-            <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" style="width:100%"
+            <ngb-datepicker #dp [(ngModel)]="model" (navigate)="onDateNavigation($event)" style="width:100%"
             [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
         </div>
       </mat-expansion-panel>

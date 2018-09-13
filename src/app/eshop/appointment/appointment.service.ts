@@ -10,14 +10,17 @@ export class AppointmentService {
 
   constructor(private afs: AngularFirestore) { }
 
-  search_firestore(keyword: string, date1: Date, date2: Date) {
+  search_firestore(keyword: string, date1: Date, date2: Date, cat: ApptCat) {
     console.log('in search_firestore..');
 
     const appointmentsRef = this.afs.firestore.collection('appointments');
 
     // const query = appointmentsRef.where('name', '>=', 'Γαμ');
 
-    const query = appointmentsRef.where('start_time', '>=', date1).where('start_time', '<', date2);
+    const query = appointmentsRef
+    .where('start_time', '>=', date1)
+    .where('start_time', '<', date2)
+    .where('category.id', '==', cat.id);
 
     // query = query.where('start_time', '>=', new Date('July 01, 2018'));
 
