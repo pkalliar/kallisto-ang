@@ -63,7 +63,7 @@ export class AppointmentSlotsComponent implements OnInit {
   toTime = {hour: 9, minute: 30};
   minuteStep = 15;
   hourStep = 1;
-  duration = 15;
+  duration: number;
 
   constructor(private service: AppointmentService, calendar: NgbCalendar,
     private router: Router, private route: ActivatedRoute,
@@ -81,6 +81,8 @@ export class AppointmentSlotsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.duration = 15;
 
     this.service.get_categories().then(response => {
       response.forEach((doc) => {
@@ -112,9 +114,6 @@ export class AppointmentSlotsComponent implements OnInit {
     }
 
 
-
-
-
   }
 
   selectToday() {
@@ -122,19 +121,23 @@ export class AppointmentSlotsComponent implements OnInit {
   }
 
   onDateSelection(date: NgbDateStruct) {
-    console.log('selected ' + JSON.stringify(this.model));
-    // if (!this.fromDate && !this.toDate) {
-    //   this.fromDate = date;
-    // } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
-    //   this.toDate = date;
-    // } else {
-    //   this.toDate = null;
-    //   this.fromDate = date;
-    // }
+    const d = new Date(date.year, date.month - 1, date.day);
+    this.service.getFreeAppointmentsPerDay(d, this.category).then(response => {
+      this.aps  = [];
+      this.tableDatabase.clear();
+      response.forEach((doc) => {
+
+        const a: Appointment = this.service.getApptFromToken(doc);
+
+        this.aps.push(a);
+        this.tableDatabase.addLine(a);
+        // console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
+      });
+    });
   }
 
   onDateNavigation(event: NgbDatepickerNavigateEvent) {
-    console.log(event.current.month + '   ' + event.next.month );
+    // console.log(event.current.month + '   ' + event.next.month );
     this.date = event.next;
   }
 
@@ -175,19 +178,19 @@ export class AppointmentSlotsComponent implements OnInit {
 
     this.router.navigate(['/consulate/app-slots'], {queryParams: q});
 
-
     this.service.search_firestore(this.searchTerm.value, d1, d2, this.category).then(response => {
       this.aps  = [];
       this.tableDatabase.clear();
       response.forEach((doc) => {
-
         const a: Appointment = this.service.getApptFromToken(doc);
+
+        console.log(a.start_time.getDay() + '..' + a.start_time.getMonth());
 
         this.aps.push(a);
         this.tableDatabase.addLine(a);
 
-        console.log(doc.get('body'));
-        console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
+        // console.log(doc.get('body'));
+        // console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
       });
     });
   }

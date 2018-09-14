@@ -27,6 +27,23 @@ export class AppointmentService {
     return query.get().then(querySnapshot => querySnapshot.docs);
   }
 
+  getFreeAppointmentsPerDay(date1: Date, cat: ApptCat) {
+    // console.log('in getFreeAppointmentsPerDay.. d1=' + JSON.stringify(date1));
+
+    const date2 = moment(date1).add(1, 'd').hour(0).minute(0).second(0).toDate();
+
+    // console.log('in getFreeAppointmentsPerDay.. d2=' + JSON.stringify(date2));
+
+    const appointmentsRef = this.afs.firestore.collection('appointments');
+
+    const query = appointmentsRef
+    .where('start_time', '>=', date1)
+    .where('start_time', '<', date2)
+    .where('category.id', '==', cat.id);
+
+    return query.get().then(querySnapshot => querySnapshot.docs);
+  }
+
   get_categories() {
     return this.afs.firestore.collection('appointment_categories').get().then(querySnapshot => querySnapshot.docs
     );
@@ -50,7 +67,7 @@ export class AppointmentService {
     } else {
       appt.category = new ApptCat('', '');
     }
-    console.log(JSON.stringify(appt));
+    // console.log(JSON.stringify(appt));
     return appt;
   }
 
