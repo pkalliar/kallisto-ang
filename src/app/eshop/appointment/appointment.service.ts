@@ -43,7 +43,8 @@ export class AppointmentService {
     appt.firstname = token.get('firstname');
     appt.lastname = token.get('lastname');
     appt.start_time = new Date((token.get('start_time').seconds * 1000));
-    appt.end_time = new Date((token.get('end_time').seconds * 1000));
+    appt.durationMinutes = token.get('durationMinutes');
+    // appt.end_time = new Date((token.get('end_time').seconds * 1000));
     if (token.get('category') !== undefined) {
       appt.category = new ApptCat(token.get('category').id, token.get('category').name);
     } else {
@@ -84,7 +85,8 @@ export class AppointmentService {
 
               const toSave = {
                 start_time: currentApp.toDate(),
-                end_time: currentApp.add(data.appointmentDuration, 'minutes').toDate(),
+                durationMinutes: data.appointmentDuration,
+                // end_time: currentApp.add(data.appointmentDuration, 'minutes').toDate(),
                 category: null
               };
               if (data.category !== undefined) {
@@ -98,19 +100,16 @@ export class AppointmentService {
             }
 
 
-            // let currentHour = data.fromTime.hour;
-            // while (currentHour <= data.toTime.hour) {
-            //   console.log(currentHour);
-            //   currentHour++;
-            // }
-
         }
         currentDate.setDate(currentDate.getDate() + 1);
     }
 
+  }
 
-    // this.afs.firestore.collection('appointments').add(toSave);
+  deleteAppointments(data: CreationData) {
 
   }
 
 }
+
+
