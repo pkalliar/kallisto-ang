@@ -184,7 +184,7 @@ export class AppointmentSlotsComponent implements OnInit {
       response.forEach((doc) => {
         const a: Appointment = this.service.getApptFromToken(doc);
 
-        console.log(a.start_time.getDay() + '..' + a.start_time.getMonth());
+        console.log(a.start_time.getDate() + '..' + a.start_time.getMonth());
 
         this.aps.push(a);
         this.tableDatabase.addLine(a);
