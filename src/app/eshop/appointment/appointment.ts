@@ -42,5 +42,10 @@ export class CreationData {
     fromTime: NgbTimeStruct;
     toTime: NgbTimeStruct;
     appointmentDuration: number;
-  }
+}
+
+export class DailyData {
+    day: Date;
+    freeAppointment: number;
+}
 
