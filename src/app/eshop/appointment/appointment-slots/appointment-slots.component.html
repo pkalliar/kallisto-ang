@@ -73,7 +73,7 @@
               Προβολή διαθεσιμότητας: 
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div style="overflow: auto; margin: auto;">
+        <div style="overflow: auto; margin: auto;" *ngIf="dailyAppts.length > 0">
             <ngb-datepicker #dp [(ngModel)]="model" (navigate)="onDateNavigation($event)" style="width:100%"
             [displayMonths]="3" [dayTemplate]="customDay" (select)="onDateSelection($event)"></ngb-datepicker>
         </div>
@@ -127,7 +127,7 @@
         [class.hidden]="date.month !== currentMonth" 
         [class.text-muted]="disabled"
         [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
-        [class.faded]="isHovered(date) || isInside(date)"
+        [class.faded]="isHovered(date) || isInside(date) || isFull(date)"
         (mouseenter)="hoveredDate = date"
         (mouseleave)="hoveredDate = null"
   >

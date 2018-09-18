@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
-import { Appointment, ApptCat, CreationData } from '../appointment';
+import { Appointment, ApptCat, CreationData, DailyData } from '../appointment';
 import { TableDatabase, TableDataSource } from '../../../utilities';
 import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AppointmentService } from '../appointment.service';
@@ -38,6 +38,8 @@ export class AppointmentSlotsComponent implements OnInit {
   entlist: Appointment[];
   aps: Array<Appointment> = [];
 
+  dailyAppts: Array<DailyData> = [];
+
   searchTerm: FormControl = new FormControl();
 
   currentFilter = '';
@@ -53,6 +55,7 @@ export class AppointmentSlotsComponent implements OnInit {
 
   hoveredDate: NgbDateStruct;
 
+
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
   model: NgbDateStruct;
@@ -65,7 +68,7 @@ export class AppointmentSlotsComponent implements OnInit {
   hourStep = 1;
   duration: number;
 
-  constructor(private service: AppointmentService, calendar: NgbCalendar,
+  constructor(private service: AppointmentService, private calendar: NgbCalendar,
     private router: Router, private route: ActivatedRoute,
     public dialog: MatDialog) {
 
@@ -165,6 +168,8 @@ export class AppointmentSlotsComponent implements OnInit {
     d2.setSeconds(0);
     console.log('filtering with date: ' + d1 + '' + d2);
 
+
+
   //   const params = new HttpParams()
   // .set('page', '2')
   // .set('sort', '32');
@@ -184,7 +189,16 @@ export class AppointmentSlotsComponent implements OnInit {
       response.forEach((doc) => {
         const a: Appointment = this.service.getApptFromToken(doc);
 
-        console.log(a.start_time.getDate() + '..' + a.start_time.getMonth());
+        // console.log(a.start_time.getDate() + '..' + a.start_time.getMonth());
+
+        const res = this.dailyAppts.filter(
+          dd => dd.day === a.start_time.getDate() && dd.month === a.start_time.getMonth());
+        if (res.length === 0) {
+          this.dailyAppts.push(new DailyData(a.start_time.getDate(), a.start_time.getMonth(), 1));
+        } else {
+          res[0].freeAppointments++;
+        }
+
 
         this.aps.push(a);
         this.tableDatabase.addLine(a);
@@ -199,6 +213,10 @@ export class AppointmentSlotsComponent implements OnInit {
   isInside = date => after(date, this.fromDate) && before(date, this.toDate) && !this.isWeekend(date);
   isFrom = date => equals(date, this.fromDate);
   isTo = date => equals(date, this.toDate);
+  isFull = date => {
+
+    return true;
+  }
 
 
   openDialog(): void {

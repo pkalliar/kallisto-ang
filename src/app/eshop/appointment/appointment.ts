@@ -45,7 +45,14 @@ export class CreationData {
 }
 
 export class DailyData {
-    day: Date;
-    freeAppointment: number;
+    day: number;
+    month: number;
+    freeAppointments: number;
+
+    constructor(day, month, freeAppointments) {
+        this.day = day;
+        this.month = month;
+        this.freeAppointments = freeAppointments;
+    }
 }
 

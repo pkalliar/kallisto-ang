@@ -15,6 +15,7 @@
     padding-right: 16px;
   }
 
+
   .empty {
     background-color: #11e256;
     /* border-radius: 1rem; */
@@ -42,7 +43,7 @@
     width: 2rem;
   }
   .custom-day.focused {
-    background-color: #e6e6e6;
+    background-color: #0de429;
   }
   .custom-day.range, .custom-day:hover {
     background-color: rgb(2, 117, 216);
