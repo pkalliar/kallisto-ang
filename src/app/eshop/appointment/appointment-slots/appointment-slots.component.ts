@@ -192,9 +192,9 @@ export class AppointmentSlotsComponent implements OnInit {
         // console.log(a.start_time.getDate() + '..' + a.start_time.getMonth());
 
         const res = this.dailyAppts.filter(
-          dd => dd.day === a.start_time.getDate() && dd.month === a.start_time.getMonth());
+          dd => dd.day === a.start_time.getDate() && dd.month === a.start_time.getMonth() + 1);
         if (res.length === 0) {
-          this.dailyAppts.push(new DailyData(a.start_time.getDate(), a.start_time.getMonth(), 1));
+          this.dailyAppts.push(new DailyData(a.start_time.getDate(), a.start_time.getMonth() + 1, 1));
         } else {
           res[0].freeAppointments++;
         }
@@ -214,8 +214,17 @@ export class AppointmentSlotsComponent implements OnInit {
   isFrom = date => equals(date, this.fromDate);
   isTo = date => equals(date, this.toDate);
   isFull = date => {
-
-    return true;
+    // console.log(date.day + '/' + date.month + '..' + this.dailyAppts.length +
+    // '...' + this.dailyAppts[0].day + '/' + this.dailyAppts[0].month);
+    const res = this.dailyAppts.filter(
+      dd => dd.day === date.day && dd.month === date.month);
+      if (res.length > 0
+        // && res[0].freeAppointments > 0
+        ) {
+        return true;
+      } else {
+        return false;
+      }
   }
 
 
