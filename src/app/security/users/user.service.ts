@@ -3,11 +3,10 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
-
 import { User } from './user';
 import {environment} from '../../../environments/environment';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -20,9 +19,9 @@ export class UserService {
     }
 
     search_word(term) {
-        return this.httpClient.get(this.baseUrl + '/search/' + term).map(res => {
+        return this.httpClient.get(this.baseUrl + '/search/' + term).pipe(map(res => {
             return res as User[];
-        });
+        }));
     }
 
 
@@ -50,8 +49,8 @@ export class UserService {
      }
 
 
-    searchSync(keyword: string): Observable<any[]> {
-      return this.httpClient.get<any>(this.baseUrl + '/search/' + keyword);
+    searchSync(keyword: string): Observable<User[]> {
+      return this.httpClient.get<User[]>(this.baseUrl + '/search/' + keyword);
      }
 
     save(contact: User): Promise<User> {

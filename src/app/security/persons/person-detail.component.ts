@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 
 import { PersonService } from './person.service';
 
 import { Person } from './person';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'person-detail',
+  selector: 'app-person-detail',
   templateUrl: './person-detail.component.html',
   styleUrls: ['./person-detail.component.css']
 })
@@ -27,8 +27,8 @@ export class PersonDetailComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-      this.route.paramMap
-        .switchMap((params: ParamMap) => this.service.getOne(params.get('id')))
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => this.service.getOne(params.get('id'))))
         .subscribe(entity => this.entity = entity);
         if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
     }

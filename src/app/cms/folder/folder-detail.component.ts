@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 
 import { FolderService } from './folder.service';
 
 import { Folder } from './folder';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'folder-detail',
+  selector: 'app-folder-detail',
   templateUrl: './folder-detail.component.html',
   styleUrls: ['./folder-detail.component.css']
 })
@@ -27,8 +27,8 @@ export class FolderDetailComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-      this.route.paramMap
-        .switchMap((params: ParamMap) => this.service.getFolder(params.get('id')))
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => this.service.getFolder(params.get('id'))))
         .subscribe(folder => this.folder = folder);
         if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
     }

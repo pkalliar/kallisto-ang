@@ -4,6 +4,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEl from '@angular/common/locales/el';
 registerLocaleData(localeEl, 'el');
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
@@ -76,7 +77,6 @@ import {AdsService} from './advertisement/advertisements.service';
 import { EshopRoutingModule } from './eshop-routing.module';
 import { CreateAdComponent } from './advertisement/create-ad/create-ad.component';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
 import { AppointmentSlotsComponent, AppointmentSlotDialogComponent } from './appointment/appointment-slots/appointment-slots.component';
@@ -113,11 +113,11 @@ export const cloudinary = {
     MatIconModule, MatInputModule, MatRadioModule, MatSortModule, MatStepperModule, MatTableModule, MatChipsModule,
     MatDatepickerModule,
     AngularFirestoreModule, AngularFireAuthModule,
+    NgbModule,
     FileUploadModule,
     CommonModule,
     FormsModule,
     EshopRoutingModule,
-    NgbModule.forRoot(),
     // CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
     CloudinaryModule.forRoot(cloudinary, {
       cloud_name: 'pkenergy',

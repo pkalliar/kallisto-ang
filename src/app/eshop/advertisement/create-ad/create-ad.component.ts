@@ -85,20 +85,7 @@ export class CreateAdComponent implements OnInit {
 
       reader.onload = function(e) {
 
-        // Jimp.read(reader.result)
-        // .then(image => {
-        //     // do stuff with the image
-        // })
-        // .catch(err => {
-        //     // handle an exception
-        // });
-
-      //   Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-      //     // image.print(font, 10, 10, 'Hello world!');
-      // });
-
-
-        document.getElementById('img_1').setAttribute('src', reader.result);
+        document.getElementById('img_1').setAttribute('src', reader.result.toString());
       };
 
       reader.readAsDataURL(event.target.files[0]);

@@ -5,11 +5,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
 
 import { Person } from './person';
 import {environment} from '../../../environments/environment';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class PersonService {
@@ -23,12 +23,12 @@ export class PersonService {
 
     // search both contacts and groups
     search_word(term) {
-        return this.http.get(this.baseUrl + '/searchAll/' + term).map(res => {
+        return this.http.get(this.baseUrl + '/searchAll/' + term).pipe(map(res => {
             return res.json();
             // .map(item => {
             //     return item;
             // });
-        });
+        }));
     }
 
 
@@ -73,8 +73,8 @@ export class PersonService {
                  .catch(this.handleError);
      }
 
-    searchSync(keyword: string): Observable<any[]> {
-      return this.httpClient.get<any>(this.baseUrl + '/search/' + keyword);
+    searchSync(keyword: string): Observable<Person[]> {
+      return this.httpClient.get<Person[]>(this.baseUrl + '/search/' + keyword);
      }
 
 

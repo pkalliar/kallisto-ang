@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 
 import { ContactService } from './contact.service';
 import { ContactGroupService } from './contactgroup.service';
 
 import { Contact, ContactGroup, ContactGroupFull } from './contact';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contactgroup-detail',
@@ -32,8 +32,8 @@ export class ContactGroupDetailComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-      this.route.paramMap
-        .switchMap((params: ParamMap) => this.contactgroupService.get(params.get('id')))
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => this.contactgroupService.get(params.get('id'))))
         .subscribe(result => this.loadGroupContacts(result));
 
 

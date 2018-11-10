@@ -7,16 +7,9 @@ import {FormControl} from '@angular/forms';
 
 import {DataSource} from '@angular/cdk/collections';
 import {MatSort, MatChipInputEvent, MatAutocompleteSelectedEvent} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/debounceTime';
-import {startWith} from 'rxjs/operators/startWith';
-import { catchError, tap, switchMap, debounceTime, distinctUntilChanged, takeWhile, first } from 'rxjs/operators';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/map';
-import {map} from 'rxjs/operators/map';
+import {Observable, BehaviorSubject} from 'rxjs';
+
+import { map, catchError, tap, switchMap, debounceTime, distinctUntilChanged, takeWhile, first, startWith } from 'rxjs/operators';
 import {ENTER} from '@angular/cdk/keycodes';
 
 import { TableDatabase, TableDataSource } from '../../utilities';
@@ -157,7 +150,7 @@ export class AffairComponent implements OnInit {
     this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
 
     this.searchTerm.valueChanges
-    .debounceTime(400)
+    // .debounceTime(400)
     .subscribe(data => {
       if (data.length > 2) {
         this.service.search_word(data).subscribe(response => {

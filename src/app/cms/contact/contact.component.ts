@@ -8,17 +8,9 @@ import {FormControl} from '@angular/forms';
 
 import {DataSource} from '@angular/cdk/collections';
 import {MatSort, MatChipInputEvent, MatAutocompleteSelectedEvent} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/debounceTime';
-import {startWith} from 'rxjs/operators/startWith';
-import { catchError, tap, switchMap, debounceTime, distinctUntilChanged, takeWhile, first } from 'rxjs/operators';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/map';
-import {map} from 'rxjs/operators/map';
+import { catchError, tap, switchMap, debounceTime, distinctUntilChanged, takeWhile, first, map } from 'rxjs/operators';
 import {ENTER} from '@angular/cdk/keycodes';
+import { Observable, BehaviorSubject, merge } from 'rxjs';
 
 const COMMA = 188;
 
@@ -73,7 +65,7 @@ export class ContactComponent implements OnInit {
       this.getContacts(this.criteria);
       this.dataSource = new ContactDataSource(this.contactDatabase, this.sort);
       this.searchTerm.valueChanges
-      .debounceTime(400)
+      // .debounceTime(400)
       .subscribe(data => {
         if (data.length > 2) {
           this.contactService.search_word(data).subscribe(response => {
@@ -143,7 +135,7 @@ export class ContactComponent implements OnInit {
       console.log(this.currentFilter + ' 456' + JSON.stringify(cc) + ' - ' + cc.code);
       if (cc.legal_name !== undefined && cc.legal_name.length > 1) {
         this.router.navigate(['/contacts/', cc.id]);
-      }else if (cc.name !== undefined && cc.name.length > 1 ) {
+      } else if (cc.name !== undefined && cc.name.length > 1 ) {
         this.router.navigate(['/contact-groups/', cc.id]);
       }
 
@@ -244,9 +236,9 @@ export class ContactDataSource extends DataSource<any> {
       this._sort.sortChange,
     ];
 
-    return Observable.merge(...displayDataChanges).map(() => {
-      return this.getSortedData();
-    });
+
+    return Observable.create(this.getSortedData());
+
   }
 
   disconnect() {}

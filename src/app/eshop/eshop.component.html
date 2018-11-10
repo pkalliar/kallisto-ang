@@ -1,5 +1,5 @@
 <div class="row justify-content-center" style="min-height: 100px; max-width:800px; margin: auto;">
-    <ngb-carousel *ngIf="images" interval="100">
+    <ngb-carousel *ngIf="images" interval="5000">
         <ng-template ngbSlide>
           <img [src]="images[0]" alt="Random first slide">
           <div class="carousel-caption">
@@ -25,7 +25,7 @@
 </div>
 <div class="row justify-content-center" style="max-width:800px; margin: auto;">
     <div class="col-md-3">
-        <button mat-button routerLink='aggelies'>
+        <button mat-flat-button routerLink='aggelies'>
             <mat-card class="example-card">
                 <mat-card-content>    
                     <i class="fab fa-searchengin fa-8x" ></i>
@@ -37,7 +37,7 @@
         </button>
     </div>
     <div class="col-md-3">
-            <button mat-button routerLink='create-ad'>
+            <button mat-flat-button routerLink='create-ad'>
             <mat-card class="example-card">     
                 <mat-card-content>    
                     <i class="fas fa-plus fa-8x" ></i>
@@ -49,7 +49,7 @@
         </button>
     </div>
     <div class="col-md-3">
-            <button mat-button routerLink='create-ad'>
+            <button mat-flat-button routerLink='create-ad'>
             <mat-card class="example-card">     
                 <mat-card-content>    
                     <i class="fas fa-shopping-cart fa-8x" ></i>

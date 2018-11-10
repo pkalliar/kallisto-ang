@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import { Contact } from './contact';
 import {environment} from '../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ContactService {
@@ -21,12 +21,12 @@ export class ContactService {
 
     // search both contacts and groups
     search_word(term) {
-        return this.http.get(this.contactsUrl + '/searchAll/' + term).map(res => {
+        return this.http.get(this.contactsUrl + '/searchAll/' + term).pipe(map(res => {
             return res.json();
             // .map(item => {
             //     return item;
             // });
-        });
+        }));
     }
 
 

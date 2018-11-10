@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
 
 import { Headers, Http } from '@angular/http';
 import * as moment from 'moment';
 
 import { AuthGuard } from './auth-guard.service';
 
-import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {

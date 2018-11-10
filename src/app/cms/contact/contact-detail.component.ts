@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 
 import { ContactService } from './contact.service';
 
 import { Contact } from './contact';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'contact-detail',
+  selector: 'app-contact-detail',
   templateUrl: './contact-detail.component.html',
   styleUrls: ['./contact-detail.component.css']
 })
@@ -27,8 +27,8 @@ export class ContactDetailComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-      this.route.paramMap
-        .switchMap((params: ParamMap) => this.contactService.getContact(params.get('id')))
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => this.contactService.getContact(params.get('id'))))
         .subscribe(contact => this.contact = contact);
         if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
     }

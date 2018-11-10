@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import { Contact, ContactGroup, ContactGroupFull } from './contact';
 import {environment} from '../../../environments/environment';

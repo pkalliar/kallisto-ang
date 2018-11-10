@@ -7,19 +7,13 @@ import {FormControl} from '@angular/forms';
 
 import {DataSource} from '@angular/cdk/collections';
 import {MatSort, MatChipInputEvent, MatAutocompleteSelectedEvent} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/debounceTime';
-import {startWith} from 'rxjs/operators/startWith';
-import { catchError, tap, switchMap, debounceTime, distinctUntilChanged, takeWhile, first } from 'rxjs/operators';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/map';
-import {map} from 'rxjs/operators/map';
+
+import { catchError, tap, switchMap, debounceTime, distinctUntilChanged, takeWhile, first, map } from 'rxjs/operators';
+
 import {ENTER} from '@angular/cdk/keycodes';
 
 import { TableDatabase, TableDataSource } from '../../utilities';
+import { Observable } from 'rxjs';
 
 const COMMA = 188;
 
@@ -107,12 +101,12 @@ export class UserComponent implements OnInit {
     console.log('123 ' + name);
     // if ( name.length > 1 ) {
 
-      return this.service.searchSync(name)
-      .pipe(
-        map(response => response.filter(option => {
-          return option.display_name.toLowerCase().indexOf(name.toLowerCase()) === 0;
-        }))
-      );
+      return this.service.searchSync(name);
+      // .pipe(
+      //   map(response => response.filter(option => {
+      //     return option.display_name.toLowerCase().indexOf(name.toLowerCase()) === 0;
+      //   }))
+      // );
     // }
   }
 
@@ -156,7 +150,6 @@ export class UserComponent implements OnInit {
     this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
 
     this.searchTerm.valueChanges
-    .debounceTime(400)
     .subscribe(data => {
       if (data.length > 2) {
         this.service.search_word(data).subscribe(response => {

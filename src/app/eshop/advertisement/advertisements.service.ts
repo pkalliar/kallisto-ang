@@ -5,14 +5,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
-import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 
 import { Advertisement } from './advertisement';
 import { AuthService } from '../../services/auth.service';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { Reference } from 'angularfire2/storage/interfaces';
+import { Reference } from '@angular/fire/storage/interfaces';
+// import { Reference } from 'angularfire2/storage/interfaces';
 
 @Injectable()
 export class AdsService {

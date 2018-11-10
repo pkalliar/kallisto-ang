@@ -1,7 +1,8 @@
 import {DataSource} from '@angular/cdk/collections';
 import {MatSort, MatChipInputEvent, MatAutocompleteSelectedEvent} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable, merge } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 
 
@@ -55,9 +56,9 @@ export class TableDatabase {
         this._sort.sortChange,
       ];
 
-      return Observable.merge(...displayDataChanges).map(() => {
+      return merge(...displayDataChanges).pipe(map(() => {
         return this.getSortedData();
-      });
+      }));
     }
 
     disconnect() {}

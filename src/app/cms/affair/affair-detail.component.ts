@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 
 import { AffairService } from './affair.service';
 
 import { Affair } from './affair';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'affair-detail',
+  selector: 'app-affair-detail',
   templateUrl: './affair-detail.component.html',
   styleUrls: ['./affair-detail.component.css']
 })
@@ -27,8 +27,12 @@ export class AffairDetailComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-      this.route.paramMap
-        .switchMap((params: ParamMap) => this.service.getOne(params.get('id')))
+
+
+
+
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => this.service.getOne(params.get('id'))))
         .subscribe(affair => this.affair = affair);
         if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
     }
