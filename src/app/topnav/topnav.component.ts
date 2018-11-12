@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { AuthGuard } from '../services/auth-guard.service';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
+import { TopnavService } from './topnav.service';
 
 // my comment on Monday morning
 @Component({
@@ -17,7 +18,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class TopNavComponent implements OnInit {
-  title = 'kallisto';
+  title = '';
   countdown = '';
   // isLoggedIn = false;
   ttposition = 'below';
@@ -27,7 +28,7 @@ export class TopNavComponent implements OnInit {
 
 
 
-  constructor(private httpClient: HttpClient, public authService: AuthService
+  constructor(private topnav: TopnavService, private httpClient: HttpClient, public authService: AuthService
     , private router: Router, private route: ActivatedRoute, private authGuard: AuthGuard) {
     this.authService = authService;
 
@@ -56,6 +57,12 @@ export class TopNavComponent implements OnInit {
     console.log('initializing app..');
 
     moment.locale('el');
+
+    console.log('test titlo ' + this.topnav.getTitlo());
+
+    this.topnav.changeTitle.subscribe(title => {
+      this.title = title;
+    });
 
 
     // setInterval(this.countdownToLogout(), 30); // every 5 minutes (300000)

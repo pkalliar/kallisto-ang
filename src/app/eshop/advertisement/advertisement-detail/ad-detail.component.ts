@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Advertisement } from '../advertisement';
 import { AdsService } from '../advertisements.service';
+import { TopnavService } from '../../../topnav/topnav.service';
 
 
 @Component({
@@ -22,11 +23,14 @@ export class AdDetailComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private location: Location,
-      private service: AdsService
+      private service: AdsService,
+      private topnav: TopnavService
     ) {}
 
     ngOnInit(): void {
       this.token = new Advertisement();
+
+      this.topnav.setTitle('Λεπτομέρειες αγγελίας');
 
       this.route.paramMap.subscribe(params => {
         this.id = params.get('id');

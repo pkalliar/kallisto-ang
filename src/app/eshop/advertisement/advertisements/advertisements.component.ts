@@ -8,6 +8,7 @@ import { AdsService } from '../advertisements.service';
 import { AdDetailComponent} from '../advertisement-detail/ad-detail.component';
 import { Advertisement } from '../advertisement';
 import { AuthService } from '../../../services/auth.service';
+import { TopnavService } from '../../../topnav/topnav.service';
 
 
 
@@ -32,7 +33,8 @@ export class AdsComponent implements OnInit {
     private router: Router,
     private service: AdsService,
     private authService: AuthService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private topnav: TopnavService) {
       // this.authService = authService;
   }
 
@@ -72,6 +74,9 @@ export class AdsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('initializing app..');
+
+    console.log('test titlo ' + this.topnav.getTitlo());
+    this.topnav.setTitle('Λίστα αγγελιών');
 
     this.authService.user.subscribe(
       (user) => {

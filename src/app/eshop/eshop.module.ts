@@ -89,6 +89,7 @@ import { PhotoUploadComponent } from './advertisement/photo-album/photo-upload.c
 import { PhotoListComponent } from './advertisement/photo-list/photo-list.component';
 import {PhotoAlbum} from './advertisement/photo-album.service';
 import {MapLocatorComponent} from './advertisement/map-locator/map-locator.component';
+import { TopnavService } from '../topnav/topnav.service';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -141,7 +142,7 @@ export const cloudinary = {
   bootstrap: [AppointmentSlotsComponent],
   providers: [
     { provide: LOCALE_ID, useValue: 'el' },
-    AdsService, SkroutzService, PhotoAlbum,
+    AdsService, SkroutzService, PhotoAlbum, TopnavService
   ]
 })
 export class EshopModule {

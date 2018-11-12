@@ -65,7 +65,7 @@ export class MapLocatorComponent implements OnInit {
             attribution: ''
         }).addTo(this.map);
 
-        L.tileLayer.provider('HERE.normalDay', {
+        L.tileLayer.provider('HERE.terrainDay', {
             app_id: 'K0Z4rKzWnBk4eR25vS40',
             app_code: 'OEBSCrinYftL-OQPodOiOw'
         }).addTo(this.map);

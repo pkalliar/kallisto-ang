@@ -27,6 +27,7 @@
 
   <!-- <button mat-button routerLink="/dashboard">Control Panel</button> -->
   <span class="example-spacer"></span>
+  <span>{{title}}</span>
 
   <div *ngIf="authService.user | async as user;">
     <!-- <span>{{ user.authDomain }}</span> -->

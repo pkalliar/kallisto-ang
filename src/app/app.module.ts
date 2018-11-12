@@ -102,6 +102,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { UserService } from './security/users/user.service';
 import { PersonService } from './security/persons/person.service';
+import { TopnavService } from './topnav/topnav.service';
 
 @NgModule({
   declarations: [
@@ -176,7 +177,7 @@ import { PersonService } from './security/persons/person.service';
     MatTooltipModule, MatDividerModule],
   providers: [
     // ProtocolService, ContactService, PriorityService, ItemService,
-    UserService, PersonService,
+    UserService, PersonService, TopnavService,
     AuthService, AuthGuard, UtilitiesService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,  multi: true  }
   ],
