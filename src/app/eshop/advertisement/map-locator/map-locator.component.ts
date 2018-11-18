@@ -42,28 +42,15 @@ export class MapLocatorComponent implements OnInit {
             maximumAge: 0
           };
 
-          function success(pos) {
-            const crd = pos.coords;
+          this.map = L.map('map');
 
-            console.log('Your current position is:');
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-            console.log(`More or less ${crd.accuracy} meters.`);
-
-            // this.map = L.map('map').setView([crd.latitude, 23.8277], 13);
-          }
-
-          function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-          }
-
-        navigator.geolocation.getCurrentPosition(success, error, options);
-
-        this.map = L.map('map').setView([38.0152, 23.8277], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: ''
         }).addTo(this.map);
+
+        // this.map = L.map('map').setView([38.0152, 23.8277], 13);
+
+
 
         L.tileLayer.provider('HERE.terrainDay', {
             app_id: 'K0Z4rKzWnBk4eR25vS40',
@@ -74,7 +61,23 @@ export class MapLocatorComponent implements OnInit {
             console.log(JSON.stringify(this.geometry));
             if (marker == null) {
                 marker = L.marker([this.geometry.coordinates[1], this.geometry.coordinates[0]], {draggable: false}).addTo(this.map);
+                this.map.setView([this.geometry.coordinates[1], this.geometry.coordinates[0]], 15);
             }
+        } else {
+            navigator.geolocation.getCurrentPosition(
+                pos => {
+                    const crd = pos.coords;
+
+                    console.log('Your current position is:');
+                    console.log(`Latitude : ${crd.latitude}`);
+                    console.log(`Longitude: ${crd.longitude}`);
+                    console.log(`More or less ${crd.accuracy} meters.`);
+
+                    this.map.setView([crd.latitude, crd.longitude], 15);
+                }
+              , err => {
+                console.warn(`ERROR(${err.code}): ${err.message}`);
+              }, options);
         }
 
         this.map.on('click', e => {

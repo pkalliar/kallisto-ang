@@ -1,0 +1,7 @@
+<form class="search-form">
+  <mat-form-field class="example-full-width" style="width:100%">
+      <input type="text" placeholder="Αναζήτηση" aria-label="Number" matInput #searchinp
+              [formControl]="searchTerm" (keyup)="handleKeyPress($event)">
+  </mat-form-field>
+</form>
+<div class="map-full-width" id="mapContainer"></div>

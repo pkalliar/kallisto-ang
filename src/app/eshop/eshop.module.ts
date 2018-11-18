@@ -90,6 +90,7 @@ import { PhotoListComponent } from './advertisement/photo-list/photo-list.compon
 import {PhotoAlbum} from './advertisement/photo-album.service';
 import {MapLocatorComponent} from './advertisement/map-locator/map-locator.component';
 import { TopnavService } from '../topnav/topnav.service';
+import { MapComponent } from './maps/map/map.component';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -133,7 +134,7 @@ export const cloudinary = {
     SkroutzComponent, PhotoUploadComponent, PhotoListComponent, MapLocatorComponent,
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent,
-    AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent
+    AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent, MapComponent
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,

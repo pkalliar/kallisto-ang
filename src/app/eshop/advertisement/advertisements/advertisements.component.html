@@ -26,14 +26,15 @@
                   <mat-card-subtitle>{{token.phone}} - {{token.created_on | date:'dd-MM-yyyy':''}}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>    
-                    <img src="{{token}}" *ngFor="let token of token.images" alt="Card image cap" height="80" width="80">
+                    <app-photo-list *ngIf="token.id" [imgPath]="token.id" [maxHeight]="60"></app-photo-list>
+                    <!-- <img src="{{token}}" *ngFor="let token of token.images" alt="Card image cap" height="80" width="80"> -->
                     <p>
                         {{token.body}}
                     </p>                   
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button routerLink='{{token.id}}'><i class="fa fa-eye" aria-hidden="true"></i></button>
-                    <button mat-button routerLink='create-ad'><i class="fa fa-edit" *ngIf="token.user_uid == uid" aria-hidden="true"></i></button>
+                    <button mat-raised-button routerLink='{{token.id}}'><i class="fa fa-eye fa-lg" aria-hidden="true"></i></button>
+                    <button mat-raised-button routerLink='create-ad'><i class="fa fa-edit fa-lg" *ngIf="token.user_uid == uid" aria-hidden="true"></i></button>
                 </mat-card-actions>
             </mat-card>
         </div>

@@ -13,6 +13,7 @@ export class PhotoListComponent implements OnInit {
     public photos: Observable<Photo[]>;
 
     @Input() imgPath: string;
+    @Input() maxHeight: number;
 
     constructor(
         private photoAlbum: PhotoAlbum

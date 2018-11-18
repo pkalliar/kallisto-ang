@@ -28,7 +28,7 @@
         </tr> -->
     </table>
     <app-map-locator *ngIf="token.geometry" (positioned)="onPositioned($event)" [geometry]="token.geometry"></app-map-locator>
-    <app-photo-list *ngIf="token.id" [imgPath]="token.id"></app-photo-list>
+    <app-photo-list *ngIf="token.id" [imgPath]="token.id" [maxHeight]="400"></app-photo-list>
 
     <div class="button-row">
       <button mat-button (click)="goBack()"><i class="material-icons">keyboard_backspace</i></button>
