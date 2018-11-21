@@ -28,7 +28,7 @@ export class MapComponent implements OnInit {
 
   // Create the parameters for the geocoding request:
   geocodingParams = {
-    searchText: 'Trifilias'
+    searchText: '200 S Mathilda Ave, Sunnyvale, CA'
   };
 
 
@@ -52,45 +52,52 @@ export class MapComponent implements OnInit {
       app_code: 'OEBSCrinYftL-OQPodOiOw'
     });
 
+    const targetElement = document.getElementById('mapContainer');
+
     // Obtain the default map types from the platform object
-    const maptypes = platform.createDefaultLayers();
+    const defaultLayers = platform.createDefaultLayers();
 
-    this.watchID = navigator.geolocation.watchPosition(
-      pos => {
-          this.coordinates.lat = pos.coords.latitude;
-          this.coordinates.lng = pos.coords.longitude;
-          this.accuracy = pos.coords.accuracy;
-
-
-          // console.log('Your current position is:');
-          // console.log(`Latitude : ${this.coordinates.lat}`);
-          // console.log(`Longitude: ${this.coordinates.lng}`);
-          // console.log(`More or less ${this.accuracy} meters.`);
+    // this.watchID = navigator.geolocation.watchPosition(
+    //   pos => {
+    //       this.coordinates.lat = pos.coords.latitude;
+    //       this.coordinates.lng = pos.coords.longitude;
+    //       this.accuracy = pos.coords.accuracy;
 
 
-          // this.map.setView([this.latitude, this.longitude], 15);
+    //       // console.log('Your current position is:');
+    //       // console.log(`Latitude : ${this.coordinates.lat}`);
+    //       // console.log(`Longitude: ${this.coordinates.lng}`);
+    //       // console.log(`More or less ${this.accuracy} meters.`);
 
-          this.map.setCenter(this.coordinates);
-          this.map.setZoom(14);
 
-          // Add the venue layer to the map:
-          this.map.addLayer(maptypes.venues);
+    //       // this.map.setView([this.latitude, this.longitude], 15);
 
-          const marker = new H.map.Marker(this.coordinates);
-          this.map.addObject(marker);
-      }
-    , err => {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
-    }, this.options);
+    //       this.map.setCenter(this.coordinates);
+    //       this.map.setZoom(14);
+
+
+
+    //       const marker = new H.map.Marker(this.coordinates);
+    //       this.map.addObject(marker);
+    //   }
+    // , err => {
+    //   console.warn(`ERROR(${err.code}): ${err.message}`);
+    // }, this.options);
 
       // Instantiate (and display) a map object:
       this.map = new H.Map(
-        document.getElementById('mapContainer'),
-        maptypes.normal.map,
+        targetElement,
+        defaultLayers.normal.map,
         {
           zoom: 10,
           center: this.coordinates
         });
+
+        const ui = H.ui.UI.createDefault(this.map, defaultLayers);
+
+        // Add the venue layer to the map:
+        // this.map.addLayer(maptypes.venues);
+
 
         // Get an instance of the geocoding service:
       const geocoder = platform.getGeocodingService();
@@ -99,6 +106,7 @@ export class MapComponent implements OnInit {
       // the callback and an error callback function (called if a
       // communication error occurs):
       geocoder.geocode(this.geocodingParams, result => {
+        console.log(JSON.stringify(result.Response));
         const locations = result.Response.View[0].Result;
         // Add a marker for each location found
         for (let i = 0;  i < locations.length; i++) {
@@ -108,6 +116,9 @@ export class MapComponent implements OnInit {
         };
         const marker = new H.map.Marker(position);
         this.map.addObject(marker);
+
+        this.map.setCenter(position);
+
         }
       }, error => {
         alert(error);

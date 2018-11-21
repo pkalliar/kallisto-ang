@@ -4,9 +4,17 @@
 
 }
 
-.example-form {
-    width: 100%;
-    height: 60px;
+.search-form {
+
+    position: fixed;
+    z-index: 1;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffffc5;
+    padding: 5px;
+    width: 50%;
+    border-radius: 5px;
    
 }
 
