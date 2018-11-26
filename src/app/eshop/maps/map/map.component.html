@@ -1,7 +1,20 @@
+{{locOptions | json}}
 <form class="search-form">
   <mat-form-field class="example-full-width" style="width:100%">
       <input type="text" placeholder="Αναζήτηση" aria-label="Number" matInput #searchinp
-              [formControl]="searchTerm" (keyup)="handleKeyPress($event)">
+        [formControl]="searchTerm" (keyup)="handleKeyPress($event)" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+        <mat-option *ngFor="let option of locOptions" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
   </mat-form-field>
 </form>
+<!-- <mat-chip-list class="suggestions">
+  <mat-chip>One fish</mat-chip>
+  <mat-chip>Two fish</mat-chip>
+  <mat-chip color="primary" selected>Primary fish</mat-chip>
+  <mat-chip color="accent" selected>Accent fish</mat-chip>
+</mat-chip-list> -->
 <div class="map-full-width" id="mapContainer"></div>

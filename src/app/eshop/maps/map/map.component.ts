@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map, debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 
 declare let H;
 
 @Component({
-  selector: 'pk-map',
+  selector: 'app-pk-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+
+  locOptions: string[] = [];
+  filteredOptions: string[];
+  isLoading = false;
 
    options = {
     enableHighAccuracy: true,
@@ -30,16 +36,43 @@ export class MapComponent implements OnInit {
   geocodingParams = {
     searchText: '200 S Mathilda Ave, Sunnyvale, CA'
   };
+  geocoder: any;
 
 
   constructor() { }
 
   handleKeyPress(e) {
     const key = e.keyCode || e.which;
-      if (key === 13 ) {
-      console.log(' enter pressed ' + this.searchTerm.value);
-      navigator.geolocation.clearWatch(this.watchID);
+      // if (this.searchTerm.value != null && this.searchTerm.value.length > 2) {
+        // console.log(' looking for ' + this.searchTerm.value);
 
+      // }
+      if (key === 13 ) {
+        console.log(' enter pressed ' + this.searchTerm.value);
+        navigator.geolocation.clearWatch(this.watchID);
+        // Call the geocode method with the geocoding parameters,
+        // the callback and an error callback function (called if a
+        // communication error occurs):
+        this.geocoder.geocode({
+          searchText: this.searchTerm.value
+        }, result => {
+        console.log(JSON.stringify(result.Response));
+        const locations = result.Response.View[0].Result;
+        // Add a marker for each location found
+        for (let i = 0;  i < locations.length; i++) {
+          const position = {
+          lat: locations[i].Location.DisplayPosition.Latitude,
+          lng: locations[i].Location.DisplayPosition.Longitude
+        };
+        const marker = new H.map.Marker(position);
+        this.map.addObject(marker);
+
+        this.map.setCenter(position);
+
+        }
+      }, error => {
+        alert(error);
+      });
 
       }
   }
@@ -51,6 +84,40 @@ export class MapComponent implements OnInit {
       app_id: 'K0Z4rKzWnBk4eR25vS40',
       app_code: 'OEBSCrinYftL-OQPodOiOw'
     });
+
+    this.searchTerm.valueChanges
+    .pipe(
+      debounceTime(300),
+      tap(() => this.isLoading = true),
+      switchMap(value =>
+        // console.log('value ' + value);
+        // return value;
+        this.geocoder.geocode({
+          searchText: value
+        }, result => {
+          if (result.Response.View.length > 0) {
+            for (let c = 0;  c < result.Response.View.length; c++) {
+              const locations = result.Response.View[c].Result;
+              console.log(locations);
+              // Add a marker for each location found
+              for (let i = 0;  i < locations.length; i++) {
+                console.log('found: ' + JSON.stringify(locations[i].Location.Address));
+                this.locOptions.push(locations[i].Location.Address.Label);
+                //   const position = {
+                //   lat: locations[i].Location.DisplayPosition.Latitude,
+                //   lng: locations[i].Location.DisplayPosition.Longitude
+                // };
+              }
+            }
+          }
+          // return this.locOptions;
+        }, error => {
+          alert(error);
+        }).subscribe(points =>  {
+          console.log(points);
+          this.isLoading = false;
+        })
+    ));
 
     const targetElement = document.getElementById('mapContainer');
 
@@ -99,30 +166,9 @@ export class MapComponent implements OnInit {
         // this.map.addLayer(maptypes.venues);
 
 
-        // Get an instance of the geocoding service:
-      const geocoder = platform.getGeocodingService();
 
-      // Call the geocode method with the geocoding parameters,
-      // the callback and an error callback function (called if a
-      // communication error occurs):
-      geocoder.geocode(this.geocodingParams, result => {
-        console.log(JSON.stringify(result.Response));
-        const locations = result.Response.View[0].Result;
-        // Add a marker for each location found
-        for (let i = 0;  i < locations.length; i++) {
-          const position = {
-          lat: locations[i].Location.DisplayPosition.Latitude,
-          lng: locations[i].Location.DisplayPosition.Longitude
-        };
-        const marker = new H.map.Marker(position);
-        this.map.addObject(marker);
 
-        this.map.setCenter(position);
 
-        }
-      }, error => {
-        alert(error);
-      });
 
         // const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
 
@@ -132,6 +178,36 @@ export class MapComponent implements OnInit {
           this.map.getViewPort().resize();
         });
 
+  }
+
+  private _filter(value: string): Observable<string[]> {
+    const filterValue = value.toLowerCase();
+    console.log('casc' + filterValue);
+    this.locOptions = [];
+    return this.geocoder.geocode({
+      searchText: filterValue
+    }, result => {
+      if (result.Response.View.length > 0) {
+        for (let c = 0;  c < result.Response.View.length; c++) {
+          const locations = result.Response.View[c].Result;
+          console.log(locations);
+          // Add a marker for each location found
+          for (let i = 0;  i < locations.length; i++) {
+            console.log('found: ' + JSON.stringify(locations[i].Location.Address));
+            this.locOptions.push(locations[i].Location.Address.Label);
+              const position = {
+              lat: locations[i].Location.DisplayPosition.Latitude,
+              lng: locations[i].Location.DisplayPosition.Longitude
+            };
+          }
+        }
+
+      }
+    }, error => {
+      alert(error);
+    });
+
+    // return this.locOptions.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
 }
