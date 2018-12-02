@@ -1,12 +1,12 @@
-{{locOptions | json}}
+<!-- {{locOptions | json}} -->
+<!-- {{filteredOptions | json}} -->
 <form class="search-form">
   <mat-form-field class="example-full-width" style="width:100%">
       <input type="text" placeholder="Αναζήτηση" aria-label="Number" matInput #searchinp
         [formControl]="searchTerm" (keyup)="handleKeyPress($event)" [matAutocomplete]="auto">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
-        <mat-option *ngFor="let option of locOptions" [value]="option">
-          {{option}}
+        <mat-option *ngFor="let option of locOptions" [value]="option" [innerHTML]="option.label">
         </mat-option>
       </mat-autocomplete>
   </mat-form-field>

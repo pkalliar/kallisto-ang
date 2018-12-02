@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
+import { SearchCultureService } from '../search-culture.service';
+import { MapService } from '../map.service';
+import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
+import { strict } from 'assert';
 
 declare let H;
 
@@ -39,7 +43,8 @@ export class MapComponent implements OnInit {
   geocoder: any;
 
 
-  constructor() { }
+  constructor( private cultureSrv: SearchCultureService
+    , private mapSrv: MapService) { }
 
   handleKeyPress(e) {
     const key = e.keyCode || e.which;
@@ -47,12 +52,9 @@ export class MapComponent implements OnInit {
         // console.log(' looking for ' + this.searchTerm.value);
 
       // }
-      if (key === 13 ) {
+      if (key === 1399999 ) {
         console.log(' enter pressed ' + this.searchTerm.value);
         navigator.geolocation.clearWatch(this.watchID);
-        // Call the geocode method with the geocoding parameters,
-        // the callback and an error callback function (called if a
-        // communication error occurs):
         this.geocoder.geocode({
           searchText: this.searchTerm.value
         }, result => {
@@ -85,39 +87,55 @@ export class MapComponent implements OnInit {
       app_code: 'OEBSCrinYftL-OQPodOiOw'
     });
 
-    this.searchTerm.valueChanges
+
+    this.searchTerm
+    .valueChanges
     .pipe(
       debounceTime(300),
       tap(() => this.isLoading = true),
-      switchMap(value =>
-        // console.log('value ' + value);
-        // return value;
-        this.geocoder.geocode({
-          searchText: value
-        }, result => {
-          if (result.Response.View.length > 0) {
-            for (let c = 0;  c < result.Response.View.length; c++) {
-              const locations = result.Response.View[c].Result;
-              console.log(locations);
-              // Add a marker for each location found
-              for (let i = 0;  i < locations.length; i++) {
-                console.log('found: ' + JSON.stringify(locations[i].Location.Address));
-                this.locOptions.push(locations[i].Location.Address.Label);
-                //   const position = {
-                //   lat: locations[i].Location.DisplayPosition.Latitude,
-                //   lng: locations[i].Location.DisplayPosition.Longitude
-                // };
-              }
-            }
-          }
-          // return this.locOptions;
-        }, error => {
-          alert(error);
-        }).subscribe(points =>  {
-          console.log(points);
-          this.isLoading = false;
-        })
-    ));
+      switchMap(value => this.mapSrv.search(value)
+      .pipe(
+        finalize(() => this.isLoading = false),
+        )
+      )
+    )
+    .subscribe(data => {
+      this.locOptions = data['suggestions'];
+    });
+
+
+    // this.searchTerm.valueChanges
+    // .pipe(
+    //   debounceTime(300),
+    //   tap(() => this.isLoading = true),
+    //   switchMap(value => {
+    //     console.log('value ' + value);
+    //     // return value;
+    //     return this.geocoder.geocode({
+    //       searchText: value
+    //     }, result => {
+    //       if (result.Response.View.length > 0) {
+    //         for (let c = 0;  c < result.Response.View.length; c++) {
+    //           const locations = result.Response.View[c].Result;
+    //           console.log(locations);
+    //           // Add a marker for each location found
+    //           for (let i = 0;  i < locations.length; i++) {
+    //             console.log('found: ' + JSON.stringify(locations[i].Location.Address));
+    //             this.locOptions.push(locations[i].Location.Address.Label);
+    //             //   const position = {
+    //             //   lat: locations[i].Location.DisplayPosition.Latitude,
+    //             //   lng: locations[i].Location.DisplayPosition.Longitude
+    //             // };
+    //           }
+    //         }
+    //       }
+    //     }, error => {
+    //       alert(error);
+    //     }).subscribe(points =>  {
+    //       console.log(points);
+    //       this.isLoading = false;
+    //     }); }
+    // ));
 
     const targetElement = document.getElementById('mapContainer');
 
@@ -178,6 +196,18 @@ export class MapComponent implements OnInit {
           this.map.getViewPort().resize();
         });
 
+  }
+
+  displayFn(res?: Object): string | undefined {
+    if ((res === null) || (res === '')) {
+      return undefined;
+    } else {
+      let str = res['label'].toString();
+      str = str.replace(/<[^>]*>/g, '');
+      console.log(JSON.stringify(res));
+      return str;
+      // return str + res['address']['postalCode'];
+    }
   }
 
   private _filter(value: string): Observable<string[]> {
