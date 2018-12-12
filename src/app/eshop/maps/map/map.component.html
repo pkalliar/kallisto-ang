@@ -1,20 +1,32 @@
+<link rel="stylesheet" href="/assets/svg/icomoon/style.css">
+
+<span class="icon-pencil2 right-btns"></span>
+
 <!-- {{locOptions | json}} -->
-<!-- {{filteredOptions | json}} -->
-<form class="search-form">
-  <mat-form-field class="example-full-width" style="width:100%">
-      <input type="text" placeholder="Αναζήτηση" aria-label="Number" matInput #searchinp
-        [formControl]="searchTerm" (keyup)="handleKeyPress($event)" [matAutocomplete]="auto">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
-        <mat-option *ngFor="let option of locOptions" [value]="option" [innerHTML]="option.label">
-        </mat-option>
-      </mat-autocomplete>
-  </mat-form-field>
+<!-- ----{{suggestion | json}} -->
+<form class="search-form" *ngIf="showsearch">
+    <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Αναζήτηση" aria-label="Number" matInput #searchinp
+          [formControl]="searchTerm" [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" 
+        [displayWith]="displayFn" (optionSelected)="onSelectionChanged($event)">
+          <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+          <mat-option *ngFor="let option of locOptions" [value]="option" [innerHTML]="option.label">
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
 </form>
-<!-- <mat-chip-list class="suggestions">
-  <mat-chip>One fish</mat-chip>
-  <mat-chip>Two fish</mat-chip>
-  <mat-chip color="primary" selected>Primary fish</mat-chip>
-  <mat-chip color="accent" selected>Accent fish</mat-chip>
-</mat-chip-list> -->
+
+<!-- <svg class="icon"><use xlink:href="/assets/svg/drama.svg"></use></svg> -->
+
+<!-- <svg><use xlink:href="assets/svg/drama.svg#icon-images"></use></svg> -->
+
+<button mat-icon-button class="right-btns location-btn" (click)="myLocation()">
+    <mat-icon aria-label="my location">location_on</mat-icon>
+</button>
+<button mat-icon-button class="right-btns search-btn" (click)="showsearch = !showsearch">
+    <mat-icon aria-label="my location">location_searching</mat-icon>
+</button>
+
 <div class="map-full-width" id="mapContainer"></div>

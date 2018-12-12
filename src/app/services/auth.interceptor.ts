@@ -30,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
     || request.url.startsWith('https://api.cloudinary.com/')
     || request.url.startsWith('https://res.cloudinary.com/')
     || request.url.startsWith('https://geocoder.api.here.com/')
-    || request.url.startsWith('http://autocomplete.geocoder.api')
+    || request.url.startsWith('https://autocomplete.geocoder.api')
     ) {
       return next.handle(request);
     } else {

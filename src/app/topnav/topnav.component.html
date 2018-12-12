@@ -1,65 +1,31 @@
+<mat-toolbar color="basic" class="topnav-toolbar">
+    <a mat-button  routerLink="/intro"><i class="material-icons ">home</i></a>
+    <span>{{title}}</span>
+    <span class="example-spacer"></span>
+    <!-- <mat-icon class="example-icon">favorite</mat-icon>
+    <mat-icon class="example-icon">delete</mat-icon> -->
 
-<!--The content below is only a placeholder and can be replaced.-->
-<!-- <div style="text-align:center"> -->
-
-        
-  <mat-toolbar color="primary" style="height: 40px;">
-    <i class="material-icons">menu</i>
-      <a href="/main"><img src="assets/pkenergy_bw.svg" height="36px"></a>
-  <!-- <button mat-button routerLink="/">{{title}}</button> -->
-  <!-- <div *ngIf="authService.app as app;">
-    <h2>{{ app.name }}</h2>
-  </div> -->
-  <!-- <a mat-button href="intro#divider2">Εταιρεία--</a>
-  <a mat-button href="intro#divider3">Ενδεικτικά Έργα
-  </a>
-  <a mat-button href="skroutz">Αναζήτηση Skroutz
-  </a> -->
-  <button mat-icon-button routerLink="/protocols" matTooltip="Incoming" [matTooltipPosition]="ttposition">
-    <mat-icon class="material-icons md-48">inbox</mat-icon>
-  </button>
-  <button mat-icon-button routerLink="/protocols" matTooltip="Outgoing" [matTooltipPosition]="ttposition">
-    <mat-icon class="material-icons md-48">all_out</mat-icon>
-  </button>
-  <a mat-button><mat-icon class="example-icon" routerLink="/contacts">contacts</mat-icon></a>
-  <button mat-icon-button routerLink="eshop/create-ad" matTooltip="Νέα αγγελία" [matTooltipPosition]="ttposition">
-    <i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
-
-  <!-- <button mat-button routerLink="/dashboard">Control Panel</button> -->
-  <span class="example-spacer"></span>
-  <span>{{title}}</span>
-
-  <div *ngIf="authService.user | async as user;">
-    <!-- <span>{{ user.authDomain }}</span> -->
-    <div mat-card-avatar class="example-header-image">
-        <img src="{{ user.photoURL }}" alt="" onError="this.src='assets/baseline_person_outline_white_24dp.png';" 
-        width="35" height="35" matTooltip="{{ user.displayName }}" [matTooltipPosition]="ttposition">
-    </div>
-  </div>
-
-  <!-- <label for="file">File:</label>
-  <input type="file" (change)="upload($event)" accept=".png,.jpg" /> -->
-  
-  <!-- <span [hidden]="!authService.isLoggedIn()" matTooltip="{{username}}" [matTooltipPosition]="ttposition">
-      <i class="fas fa-user-circle" aria-hidden="true"></i>
-  </span> -->
-
-  <button mat-icon-button (click)="refresh()" [hidden]="!authService.isLoggedIn()" matTooltip="Refresh time to logout" [matTooltipPosition]="ttposition">
-      {{countdown}}
-      <!-- <i class="fas fa-sync-alt" aria-hidden="true"></i> -->
-  </button>
-  <!-- <mat-icon class="example-icon">delete</mat-icon> -->
-
-  
-  
-  <button mat-icon-button (click)="logout()" [hidden]="!authService.isLoggedIn()" matTooltip="Logout!" [matTooltipPosition]="ttposition">   
-      <i class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i>         
-  </button>
-  <button mat-icon-button (click)="login()" [hidden]="authService.isLoggedIn()" matTooltip="Login!" [matTooltipPosition]="ttposition">      
-      <i class="fas fa-sign-in-alt fa-lg" aria-hidden="true"></i> 
-  </button>
-
-  </mat-toolbar>
-
-
-
+    <span *ngIf="user">{{user.username}}</span>
+    <div *ngIf="authService.user | async as user;">
+        <!-- <span>{{ user.authDomain }}</span> -->
+        <div mat-card-avatar class="example-header-image">
+            <img src="{{ user.photoURL }}" alt="" onError="this.src='assets/baseline_person_outline_white_24dp.png';" 
+            width="35" height="35" matTooltip="{{ user.displayName }}" [matTooltipPosition]="ttposition">
+        </div>
+      </div>
+    <mat-progress-spinner *ngIf="user" matTooltip="{{counterStr}}"
+        class="example-margin"
+        [color]="color"
+        [mode]="mode"
+        [value]="spinnerValue"
+        [strokeWidth]="3.5" 
+        [diameter]="20">
+    </mat-progress-spinner>
+    <!-- <span>{{counterStr}} - {{spinnerValue}}</span> -->
+    <button mat-icon-button (click)="logout()" *ngIf="isLoggedIn()" matTooltip="Logout!" [matTooltipPosition]="ttposition">   
+        <i class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i>         
+    </button>
+    <button mat-icon-button (click)="login()" *ngIf="!isLoggedIn()" matTooltip="Login!" [matTooltipPosition]="ttposition">      
+        <i class="fas fa-sign-in-alt fa-lg" aria-hidden="true"></i> 
+    </button>
+</mat-toolbar>

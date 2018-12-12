@@ -15,7 +15,7 @@ import { CmsComponent } from './cms/cms.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/intro', pathMatch: 'full' },
   // {
   //   path: 'cms',
   //   loadChildren: 'app/cms/cms.module#CmsModule',

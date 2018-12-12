@@ -17,13 +17,19 @@ export class TopnavService {
     this.changeTitle.emit(title);
   }
 
-  public getTitlo() {return 'titlo'; }
-
   public setUser(user: User) {
 
     sessionStorage.setItem('user', JSON.stringify(user));
 
     this.changeUser.emit(user);
+  }
+
+  public getUserInfo(): User {
+
+    // console.log('getUserInfo');
+
+    const user = sessionStorage.getItem('user');
+    return JSON.parse(user);
   }
 
 }

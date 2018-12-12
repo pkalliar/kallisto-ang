@@ -6,8 +6,13 @@ import { SearchCultureService } from '../search-culture.service';
 import { MapService } from '../map.service';
 import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
-declare let H;
+// import '/assets/svg/drama.svg';
+// import fileContent from '/assets/svg/drama.svg';
+
+// declare let H;
+declare var H: any;
 
 @Component({
   selector: 'app-pk-map',
@@ -17,8 +22,10 @@ declare let H;
 export class MapComponent implements OnInit {
 
   locOptions: string[] = [];
-  filteredOptions: string[];
+  // filteredOptions: string[];
   isLoading = false;
+  suggestion: Object;
+  platform: any;
 
    options = {
     enableHighAccuracy: true,
@@ -36,57 +43,20 @@ export class MapComponent implements OnInit {
     };
   accuracy = 15;
 
-  // Create the parameters for the geocoding request:
-  geocodingParams = {
-    searchText: '200 S Mathilda Ave, Sunnyvale, CA'
-  };
   geocoder: any;
-
 
   constructor( private cultureSrv: SearchCultureService
     , private mapSrv: MapService) { }
 
-  handleKeyPress(e) {
-    const key = e.keyCode || e.which;
-      // if (this.searchTerm.value != null && this.searchTerm.value.length > 2) {
-        // console.log(' looking for ' + this.searchTerm.value);
-
-      // }
-      if (key === 1399999 ) {
-        console.log(' enter pressed ' + this.searchTerm.value);
-        navigator.geolocation.clearWatch(this.watchID);
-        this.geocoder.geocode({
-          searchText: this.searchTerm.value
-        }, result => {
-        console.log(JSON.stringify(result.Response));
-        const locations = result.Response.View[0].Result;
-        // Add a marker for each location found
-        for (let i = 0;  i < locations.length; i++) {
-          const position = {
-          lat: locations[i].Location.DisplayPosition.Latitude,
-          lng: locations[i].Location.DisplayPosition.Longitude
-        };
-        const marker = new H.map.Marker(position);
-        this.map.addObject(marker);
-
-        this.map.setCenter(position);
-
-        }
-      }, error => {
-        alert(error);
-      });
-
-      }
-  }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit(): void {
 
-    const platform = new H.service.Platform({
+    this.platform = new H.service.Platform({
       app_id: 'K0Z4rKzWnBk4eR25vS40',
-      app_code: 'OEBSCrinYftL-OQPodOiOw'
+      app_code: 'OEBSCrinYftL-OQPodOiOw',
+      useHTTPS: true
     });
-
 
     this.searchTerm
     .valueChanges
@@ -103,98 +73,31 @@ export class MapComponent implements OnInit {
       this.locOptions = data['suggestions'];
     });
 
-
-    // this.searchTerm.valueChanges
-    // .pipe(
-    //   debounceTime(300),
-    //   tap(() => this.isLoading = true),
-    //   switchMap(value => {
-    //     console.log('value ' + value);
-    //     // return value;
-    //     return this.geocoder.geocode({
-    //       searchText: value
-    //     }, result => {
-    //       if (result.Response.View.length > 0) {
-    //         for (let c = 0;  c < result.Response.View.length; c++) {
-    //           const locations = result.Response.View[c].Result;
-    //           console.log(locations);
-    //           // Add a marker for each location found
-    //           for (let i = 0;  i < locations.length; i++) {
-    //             console.log('found: ' + JSON.stringify(locations[i].Location.Address));
-    //             this.locOptions.push(locations[i].Location.Address.Label);
-    //             //   const position = {
-    //             //   lat: locations[i].Location.DisplayPosition.Latitude,
-    //             //   lng: locations[i].Location.DisplayPosition.Longitude
-    //             // };
-    //           }
-    //         }
-    //       }
-    //     }, error => {
-    //       alert(error);
-    //     }).subscribe(points =>  {
-    //       console.log(points);
-    //       this.isLoading = false;
-    //     }); }
-    // ));
-
     const targetElement = document.getElementById('mapContainer');
 
     // Obtain the default map types from the platform object
-    const defaultLayers = platform.createDefaultLayers();
+    const defaultLayers = this.platform.createDefaultLayers();
 
-    // this.watchID = navigator.geolocation.watchPosition(
-    //   pos => {
-    //       this.coordinates.lat = pos.coords.latitude;
-    //       this.coordinates.lng = pos.coords.longitude;
-    //       this.accuracy = pos.coords.accuracy;
+    // Instantiate (and display) a map object:
+    this.map = new H.Map(
+      targetElement,
+      defaultLayers.normal.map,
+      {
+        zoom: 10,
+        center: this.coordinates
+      });
 
+      const ui = H.ui.UI.createDefault(this.map, defaultLayers);
 
-    //       // console.log('Your current position is:');
-    //       // console.log(`Latitude : ${this.coordinates.lat}`);
-    //       // console.log(`Longitude: ${this.coordinates.lng}`);
-    //       // console.log(`More or less ${this.accuracy} meters.`);
+      // this.map.addLayer(defaultLayers.venues);
 
+      const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
 
-    //       // this.map.setView([this.latitude, this.longitude], 15);
+      this.setUpClickListener(this.map);
 
-    //       this.map.setCenter(this.coordinates);
-    //       this.map.setZoom(14);
-
-
-
-    //       const marker = new H.map.Marker(this.coordinates);
-    //       this.map.addObject(marker);
-    //   }
-    // , err => {
-    //   console.warn(`ERROR(${err.code}): ${err.message}`);
-    // }, this.options);
-
-      // Instantiate (and display) a map object:
-      this.map = new H.Map(
-        targetElement,
-        defaultLayers.normal.map,
-        {
-          zoom: 10,
-          center: this.coordinates
-        });
-
-        const ui = H.ui.UI.createDefault(this.map, defaultLayers);
-
-        // Add the venue layer to the map:
-        // this.map.addLayer(maptypes.venues);
-
-
-
-
-
-
-        // const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
-
-        // const ui = H.ui.UI.createDefault(this.map, maptypes);
-
-        window.addEventListener('resize', e => {
-          this.map.getViewPort().resize();
-        });
+      window.addEventListener('resize', e => {
+        this.map.getViewPort().resize();
+      });
 
   }
 
@@ -204,40 +107,107 @@ export class MapComponent implements OnInit {
     } else {
       let str = res['label'].toString();
       str = str.replace(/<[^>]*>/g, '');
+      this.suggestion = res;
       console.log(JSON.stringify(res));
       return str;
-      // return str + res['address']['postalCode'];
     }
   }
 
-  private _filter(value: string): Observable<string[]> {
-    const filterValue = value.toLowerCase();
-    console.log('casc' + filterValue);
-    this.locOptions = [];
-    return this.geocoder.geocode({
-      searchText: filterValue
-    }, result => {
-      if (result.Response.View.length > 0) {
-        for (let c = 0;  c < result.Response.View.length; c++) {
-          const locations = result.Response.View[c].Result;
-          console.log(locations);
-          // Add a marker for each location found
-          for (let i = 0;  i < locations.length; i++) {
-            console.log('found: ' + JSON.stringify(locations[i].Location.Address));
-            this.locOptions.push(locations[i].Location.Address.Label);
-              const position = {
-              lat: locations[i].Location.DisplayPosition.Latitude,
-              lng: locations[i].Location.DisplayPosition.Longitude
-            };
-          }
-        }
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    this.suggestion = event.option.value;
+    console.log(event.option.value);
+    this.centerMap(event.option.value.locationId);
+  }
 
-      }
-    }, error => {
-      alert(error);
+  private centerMap(locationId: string) {
+    this.mapSrv.getCoordinates(locationId)
+    .subscribe(data => {
+      console.log(data.response.view[0].result[0].location.mapView);
+
+      const mapview = data.response.view[0].result[0].location.mapView;
+
+      const bbox = new H.geo.Rect(
+        mapview.topLeft.latitude,
+        mapview.topLeft.longitude,
+        mapview.bottomRight.latitude,
+        mapview.bottomRight.longitude
+      );
+      this.map.setViewBounds(bbox);
     });
 
-    // return this.locOptions.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
+
+  myLocation() {
+    this.watchID = navigator.geolocation.getCurrentPosition(
+      pos => {
+          this.coordinates.lat = pos.coords.latitude;
+          this.coordinates.lng = pos.coords.longitude;
+          this.accuracy = pos.coords.accuracy;
+
+          this.map.setCenter(this.coordinates);
+          this.map.setZoom(15);
+
+          const marker = new H.map.Marker(this.coordinates);
+          this.map.addObject(marker);
+      }
+    , err => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }, this.options);
+  }
+
+  addSVGMarker(mapContainer: any, coord: any): void  {
+
+
+
+    const svgMarkup = '<svg  width="54" height="24" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect stroke="black" fill="${FILL}" x="1" y="1" width="52" height="22" />' +
+    '<text x="26" y="18" font-size="12pt" font-family="Arial" font-weight="bold" ' +
+    'text-anchor="middle" fill="${STROKE}" >' + 'lakis' + '</text></svg>';
+
+    const bearsIcon = new H.map.Icon(
+      svgMarkup.replace('${FILL}', 'blue').replace('${STROKE}', 'red')),
+      bearsMarker = new H.map.Marker(coord, {icon: bearsIcon});
+
+    mapContainer.addObject(bearsMarker);
+  }
+
+  setUpClickListener(mapContainer) {
+    mapContainer.addEventListener('tap', evt => {
+      const coord = mapContainer.screenToGeo(evt.currentPointer.viewportX,
+              evt.currentPointer.viewportY);
+      // const marker = new H.map.Marker(coord);
+      // mapContainer.addObject(marker);
+
+
+      this.calculateRouteFromAtoB(this.coordinates, coord);
+      this.addSVGMarker(mapContainer, coord);
+      // alert('Clicked at ' + Math.abs(coord.lat.toFixed(4)) +
+      //     ((coord.lat > 0) ? 'N' : 'S') +
+      //     ' ' + Math.abs(coord.lng.toFixed(4)) +
+      //      ((coord.lng > 0) ? 'E' : 'W'));
+    });
+  }
+
+  calculateRouteFromAtoB (from, to) {
+    const router = this.platform.getRoutingService(),
+      routeRequestParams = {
+        mode: 'shortest;pedestrian',
+        representation: 'display',
+        waypoint0: from.lat + ',' + from.lng, // St Paul's Cathedral
+        waypoint1: to.lat + ',' + to.lng,  // Tate Modern
+        routeattributes: 'waypoints,summary,shape,legs',
+        maneuverattributes: 'direction,action'
+      };
+    router.calculateRoute(
+      routeRequestParams,
+      result => {
+        const route = result.response.route[0];
+        console.log(route);
+       },
+      error => {}
+    );
+  }
+
+
 
 }

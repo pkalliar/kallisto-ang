@@ -1,171 +1,134 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
-import { HttpClient, HttpUrlEncodingCodec } from '@angular/common/http';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { AuthGuard } from '../services/auth-guard.service';
-import * as moment from 'moment';
-import { environment } from '../../environments/environment';
+import { Component, OnInit } from '@angular/core';
 import { TopnavService } from './topnav.service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { User } from '../security/users/user';
+// import * as dayjs from 'dayjs';
+import { DateTime, Duration, Interval } from 'luxon';
 
-// my comment on Monday morning
 @Component({
   selector: 'app-topnav',
   templateUrl: './topnav.component.html',
-  styleUrls: ['./topnav.component.css'],
-  providers: []
+  styleUrls: ['./topnav.component.css']
 })
+export class TopnavComponent implements OnInit {
 
-@Injectable()
-export class TopNavComponent implements OnInit {
-  title = '';
-  countdown = '';
-  // isLoggedIn = false;
+  title = '--';
   ttposition = 'below';
-  username = '';
-  nowDate = '';
-  authDomain = '';
+  user: User;
+  counter: number;
+  counterStr: string;
 
+  // spinner
+  color = 'primary';
+  mode = 'determinate';
+  spinnerValue = 0;
 
+  constructor(private topnav: TopnavService, private authService: AuthService ,
+    private router: Router, private route: ActivatedRoute) {
+      this.authService = authService;
 
-  constructor(private topnav: TopnavService, private httpClient: HttpClient, public authService: AuthService
-    , private router: Router, private route: ActivatedRoute, private authGuard: AuthGuard) {
-    this.authService = authService;
+      authService.user.subscribe(
+        (user) => {
+          if (user) {
+            // console.log( 'user.uid ' + user.uid );
 
-    authService.user.subscribe(
-      (user) => {
-        if (user) {
-          // console.log( 'user.uid ' + user.uid );
-
-          // console.log(JSON.stringify(user));
-          user.getIdTokenResult().then((res) => {
-            console.log(this.authService.isLoggedIn() + ' Write succeeded!' + res.expirationTime);
-            console.log(res.issuedAtTime + '..' + res.authTime);
+            // console.log(JSON.stringify(user));
+            user.getIdTokenResult().then((res) => {
+              console.log(this.authService.isLoggedIn() + ' Write succeeded!' + res.expirationTime);
+              console.log(res.issuedAtTime + '..' + res.authTime);
+            }
+            );
+          } else {
           }
-
-          );
-        } else {
         }
-      }
-    );
-  }
+      );
 
+    }
 
-
-
-  ngOnInit(): void {
-    console.log('initializing app..');
-
-    moment.locale('el');
-
-    console.log('test titlo ' + this.topnav.getTitlo());
+  ngOnInit() {
 
     this.topnav.changeTitle.subscribe(title => {
       this.title = title;
     });
 
+    this.user = this.topnav.getUserInfo();
+    this.initUserInfo(this.user);
 
-    // setInterval(this.countdownToLogout(), 30); // every 5 minutes (300000)
-    setInterval(() => this.countdownToLogout(), 1 * 1000);
-    // setInterval(() => this.pingHeroku(this.http), 5 * 1000);
+
+    this.topnav.changeUser.subscribe(user => {
+      this.user = user;
+      this.initUserInfo(this.user);
+    });
 
   }
 
-    pingHeroku = function(http) {
-      console.log('pinging.. pingHeroku');
-      // http.get('https://kallisto-backend.herokuapp.com/');
-    };
-
-    login() {
-      this.route.paramMap.subscribe((params: ParamMap) => console.log(params.get('id')));
-
-      console.log('current path: ' + location.pathname);
-      console.log('current path: ' + encodeURIComponent(location.pathname));
-      // if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
-
-      this.router.navigate(['/login', { then: location.pathname }]);
+  initUserInfo(user: User) {
+    console.log('this.user: ' + JSON.stringify(this.user));
+    const expireDate = DateTime.fromMillis(this.user.apikey_expires);
+    // const expireDate = DateTime.fromJSDate(this.user.apikey_expires) ;
+    let loginTime = DateTime.fromISO(this.user.loginTime) ;
+    if (this.user.loginTime instanceof Date) {
+      loginTime = DateTime.fromJSDate(this.user.loginTime) ;
     }
+    console.log('loginTime: ' + loginTime.toISO());
+    console.log('expireDate: ' + expireDate.toISO() + ' ' + DateTime.local().toISO());
+    const interval = Interval.fromDateTimes(DateTime.local(), expireDate);
 
-    refresh = function() {
-      this.httpClient.get(environment.apiurl + '/api/refresh')
-      // .toPromise()
-      // .then(function(resp: any) {
-      //   console.log('refreshing : ' + JSON.stringify(resp) );
-      // })
-      // .catch(this.handleError);
-      .subscribe(
-        resp => {
-          console.log('1 ' + resp);
-        },
-        err => console.log('2 ' + err)
-      );
-    };
+    const maxlocal = DateTime.max(loginTime, DateTime.local());
+    const offset = Interval.fromDateTimes(loginTime, DateTime.local());
+    this.startCountdown(
+      interval.toDuration('seconds').toFormat('s'),
+      offset.toDuration('seconds').toFormat('s')
+    );
+  }
 
-    private handleError(error: any): Promise<any> {
-      console.error('An error occurred', error); // for demo purposes only
-      return Promise.reject(error.message || error);
-    }
+  login() {
+    this.route.paramMap.subscribe((params: ParamMap) => console.log(params.get('id')));
 
-    logout = function() {
-      // this.httpClient.get(environment.apiurl + '/api/authenticate/logout').toPromise()
-      // .then(function(resp: any) {
-      //   console.log('refreshing : ' + JSON.stringify(resp) );
-      // });
-      this.authService.logout();
-    };
+    console.log('current path: ' + location.pathname);
+    console.log('current path: ' + decodeURIComponent(location.pathname));
+    console.log('current path: ' + encodeURIComponent(location.pathname));
+    // if (location.pathname.endsWith('edit') || location.pathname.endsWith('new')) { this.isEdit = true; }
 
-  countdownToLogout = function() {
+    this.router.navigate(['/login', { then: decodeURIComponent(location.pathname) }]);
+  }
 
-    // console.log(this.authService.user);
-
-      // var datePattern = "YYYY-MM-DD HH:mm:ss Z";
-
-      const tr = this.authService.idTokenResult;
-      if (tr) {
-        tr.then((res) => {
-            if (this.authService.isLoggedIn() === true) {
-              // console.log(this.authService.isLoggedIn() + ' Write succeeded!' + res.expirationTime);
-              // console.log(res.issuedAtTime + '..' + res.authTime);
-              // const d = new Date(JSON.parse(localStorage.apikey_expires));
-              const authExpiration = moment(res.expirationTime);
-              const previousPollTime = moment();
-
-              this.nowDate = previousPollTime.format('LLLL');
-              this.timeoutDate = authExpiration.format('LLLL');
-
-              // console.log('this.timeoutDate ' + this.timeoutDate);
-
-              const pollInnterval = 5;
-
-              const b = moment();
-              const diffSec = authExpiration.diff(b, 'seconds');
-              const diffMin = authExpiration.diff(b, 'minutes');
-              const diffSec2 = diffSec - diffMin * 60;
-
-              if (diffSec > 0) {
-                  let divider = ':', frontDiv = '';
-                  if (diffSec2 < 10) {frontDiv = '0' + frontDiv; }
-                  if (diffSec2 < 10) {divider = divider + '0'; }
-                  this.countdown = diffMin + divider + diffSec2;
-                  // localStorage.isLoggedIn = true;
-                  this.username = localStorage.username;
-              } else {
-                this.countdown = '';
-                this.username = '';
-                // localStorage.isLoggedIn = false;
-                  // $scope.logout();
-              }
-            }
-
-          }
-        );
+  logout = function() {
+    // this.httpClient.get(environment.apiurl + '/api/authenticate/logout').toPromise()
+    // .then(function(resp: any) {
+    //   console.log('refreshing : ' + JSON.stringify(resp) );
+    // });
+    this.authService.logout().subscribe(
+      (res: Object) => {
+        console.log(JSON.stringify(res));
+        this.user = null;
+        this.router.navigate(['/login' ]);
       }
+      );
+  };
 
+  isLoggedIn = function() {return this.authService.isLoggedIn(); };
 
+  startCountdown(secondsLeft, offset) {
+    this.counter = secondsLeft - offset;
+    console.log('seconds: ' + secondsLeft + ' offset: ' + offset);
 
+    const interval = setInterval(() => {
+      this.counter--;
+      this.spinnerValue = this.counter / secondsLeft * 100;
+      const dur = Duration.fromObject({seconds: this.counter});
+      this.counterStr = dur.toFormat('mm:ss');
 
-    };
+      if (this.counter < 0 ) {
+        // The code here will run when
+        // the timer has reached zero.
+
+        clearInterval(interval);
+        console.log('Ding!');
+        this.logout();
+      }
+    }, 1000);
+  }
+
 }
-
-
-

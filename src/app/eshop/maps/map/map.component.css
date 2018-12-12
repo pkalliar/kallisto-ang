@@ -29,6 +29,30 @@
     border-radius: 5px;  
 }
 
+.right-btns {
+    position: fixed;
+    z-index: 1;
+    left: 97%;
+}
+
+.location-btn {
+    top: 40px;
+}
+
+.search-btn {
+    top: 70px;
+}
+
 .example-full-width {
     width: 100%;
+}
+
+.icon {
+    display: inline-block;
+    width: 10em;
+    height: 10em;
+   
+    stroke-width: 1;
+    stroke: black;
+    fill: red;
 }

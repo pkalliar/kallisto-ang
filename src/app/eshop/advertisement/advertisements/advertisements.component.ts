@@ -75,7 +75,7 @@ export class AdsComponent implements OnInit {
   ngOnInit(): void {
     console.log('initializing app..');
 
-    console.log('test titlo ' + this.topnav.getTitlo());
+    // console.log('test titlo ' + this.topnav.getTitlo());
     this.topnav.setTitle('Λίστα αγγελιών');
 
     this.authService.user.subscribe(

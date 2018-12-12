@@ -60,7 +60,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { TopNavComponent } from './topnav/topnav.component';
+import { TopnavComponent } from './topnav/topnav.component';
 
 import { EshopModule } from './eshop/eshop.module';
 import { EshopRoutingModule } from './eshop/eshop-routing.module';
@@ -106,7 +106,7 @@ import { TopnavService } from './topnav/topnav.service';
 
 @NgModule({
   declarations: [
-    AppComponent, TopNavComponent,
+    AppComponent, TopnavComponent,
     DashboardComponent, IntroComponent,
     // ProtocolsComponent,
     // ProtocolDetailComponent,
@@ -128,7 +128,7 @@ import { TopnavService } from './topnav/topnav.service';
     HttpModule, HttpClientModule,
     MatNativeDateModule, MatDividerModule, MatListModule,
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
-    MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
+    MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule, MatProgressSpinnerModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
 
