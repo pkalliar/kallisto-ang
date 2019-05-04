@@ -31,12 +31,10 @@ export class AdsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private service: AdsService,
+    private adService: AdsService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private topnav: TopnavService) {
-      // this.authService = authService;
-  }
+    private topnav: TopnavService) { }
 
   searchContact(toSearch: String): void {
     console.log('searching for ' + toSearch);
@@ -56,10 +54,12 @@ export class AdsComponent implements OnInit {
 
     // this.router.navigate(['/eshop/aggelies'], {queryParams: q});
 
-    this.service.search_firestore(this.searchTerm.value).then(response => {
+    this.adService.searchCar();
+
+    this.adService.search_firestore(this.searchTerm.value).then(response => {
       response.forEach((doc) => {
 
-        const ad: Advertisement = this.service.getAdvFromToken(doc);
+        const ad: Advertisement = this.adService.getAdvFromToken(doc);
 
         this.ads.push(ad);
 

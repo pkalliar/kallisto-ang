@@ -99,6 +99,13 @@ export class AdsService {
       // this.afStorage.upload(fpath, f);
     }
 
+    searchCar() {
+      console.log('in searchCar()');
+      // const url = 'https://pankal-e7786.appspot.com/search/car/volvo';
+      const url = 'http://localhost:8080/search/car/volvo/v40';
+      this.httpClient.get(url).subscribe(res => console.log(res));
+    }
+
     search_firestore(keyword) {
       console.log('in search_firestore..');
 

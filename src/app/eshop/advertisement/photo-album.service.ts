@@ -29,7 +29,7 @@ export class PhotoAlbum {
             version: Math.ceil(new Date().getTime() / 1000)
         });
 
-        console.log('url: ' + url);
+        // console.log('url: ' + url);
 
 
         return this.http

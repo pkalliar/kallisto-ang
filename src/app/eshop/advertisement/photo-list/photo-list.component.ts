@@ -24,7 +24,9 @@ export class PhotoListComponent implements OnInit {
         this.photos = this.photoAlbum.getPhotos( this.imgPath );
 
         this.photos.subscribe(
-            x => { console.log('Observer got a next value: ' + JSON.stringify(x)); }
+            x => {
+                // console.log('Observer got a next value: ' + JSON.stringify(x));
+            }
         );
 
         // if (this.photos === undefined) {

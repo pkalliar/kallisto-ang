@@ -31,6 +31,8 @@ export class AuthInterceptor implements HttpInterceptor {
     || request.url.startsWith('https://res.cloudinary.com/')
     || request.url.startsWith('https://geocoder.api.here.com/')
     || request.url.startsWith('https://autocomplete.geocoder.api')
+    || request.url.startsWith('http://localhost:8080/')
+    || request.url.startsWith('https://pankal-e7786.appspot.com/search/car/volvo')
     ) {
       return next.handle(request);
     } else {
