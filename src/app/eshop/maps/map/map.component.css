@@ -1,6 +1,6 @@
 .map-full-width {
     width: 100%;
-    height: 700px;
+    height: 900px;
 
 }
 
@@ -41,6 +41,10 @@
 
 .search-btn {
     top: 70px;
+}
+
+.search-navtex-btn {
+    top: 100px;
 }
 
 .example-full-width {

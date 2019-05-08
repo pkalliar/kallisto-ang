@@ -15,7 +15,13 @@
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
+</form>
 
+<form class="search-form" *ngIf="showNavtexSearch">
+  <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Εισάγετε NAVTEX" aria-label="Number" matInput #searchinp
+        [formControl]="searchNavtex">
+  </mat-form-field>
 </form>
 
 <!-- <svg class="icon"><use xlink:href="/assets/svg/drama.svg"></use></svg> -->
@@ -27,6 +33,10 @@
 </button>
 <button mat-icon-button class="right-btns search-btn" (click)="showsearch = !showsearch">
     <mat-icon aria-label="my location">location_searching</mat-icon>
+</button>
+
+<button mat-icon-button class="right-btns search-navtex-btn" (click)="showNavtexSearch = !showNavtexSearch">
+  <mat-icon aria-label="navtex search">directions_boat</mat-icon>
 </button>
 
 <div class="map-full-width" id="mapContainer"></div>

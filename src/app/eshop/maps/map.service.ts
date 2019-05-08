@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Observable, of as observableOf} from 'rxjs';
 import { User } from '../../security/users/user';
 import { HttpClient } from '@angular/common/http';
 
@@ -34,6 +34,41 @@ export class MapService {
   search(keyword: string): Observable<any[]> {
     const req = this.autocompleteUrl + keyword + '&beginHighlight=<b>&endHighlight=</b>';
     return this.http.get<any>(req);
+   }
+
+   searchNavtex(keyword: string): Observable<any[]> {
+    console.log('searching for navtex ' + keyword);
+    const splitted = keyword.split('E');
+    const points = [];
+    splitted.forEach((doc) => {
+      console.log(doc);
+      if (doc.trim().length > 0) {
+        const coord = doc.trim().split('-');
+        const lat = coord[0].replace('N', '').trim(), long = coord[1].trim();
+
+        const point = {};
+
+        const latArr = lat.trim().split(' ');
+        if (latArr.length === 2) {
+          const lat1 = parseInt(latArr[0], 10);
+          const lat2 = parseFloat(latArr[1]) / 60;
+          point['lat'] = lat1 + lat2;
+        }
+        const longArr = long.trim().split(' ');
+        if (longArr.length === 2) {
+          const long1 = parseInt(longArr[0], 10);
+          const long2 = parseFloat(longArr[1]) / 60;
+          point['lng'] = long1 + long2;
+        }
+
+        points.push(point);
+      }
+
+    });
+
+    console.log(points);
+
+    return observableOf(points);
    }
 
    getCoordinates(locationId) {

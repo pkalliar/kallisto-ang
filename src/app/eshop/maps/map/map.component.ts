@@ -35,11 +35,14 @@ export class MapComponent implements OnInit {
   watchID: any;
 
   searchTerm: FormControl = new FormControl();
+  searchNavtex: FormControl = new FormControl();
+
+  mapTemplate = 'assets/oil_fields.kml';
 
   map: any;
   coordinates = {
-    lat: 52.530974, // HERE HQ in Berlin, Germany
-    lng: 13.384944
+    lat: 35.04578, // HERE HQ in Berlin, Germany
+    lng: 32.96754
     };
   accuracy = 15;
 
@@ -58,6 +61,7 @@ export class MapComponent implements OnInit {
       useHTTPS: true
     });
 
+
     this.searchTerm
     .valueChanges
     .pipe(
@@ -73,19 +77,47 @@ export class MapComponent implements OnInit {
       this.locOptions = data['suggestions'];
     });
 
+    this.searchNavtex.valueChanges
+    .pipe(
+      debounceTime(300),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.mapSrv.searchNavtex(value)
+      .pipe(
+        finalize(() => this.isLoading = false),
+        )
+      )
+    )
+    .subscribe(data => {
+      console.log(data);
+
+      // this.locOptions = data['suggestions'];
+    });
+
     const targetElement = document.getElementById('mapContainer');
 
     // Obtain the default map types from the platform object
     const defaultLayers = this.platform.createDefaultLayers();
+
+
+
+
 
     // Instantiate (and display) a map object:
     this.map = new H.Map(
       targetElement,
       defaultLayers.normal.map,
       {
-        zoom: 10,
+        zoom: 7,
         center: this.coordinates
       });
+
+      const reader = new H.data.kml.Reader(this.mapTemplate);
+      // Parse the document:
+      reader.parse();
+
+          // Get KML layer from the reader object and add it to the map:
+      const layer = reader.getLayer();
+      this.map.addLayer(layer);
 
       const ui = H.ui.UI.createDefault(this.map, defaultLayers);
 
@@ -179,12 +211,12 @@ export class MapComponent implements OnInit {
       // mapContainer.addObject(marker);
 
 
-      this.calculateRouteFromAtoB(this.coordinates, coord);
-      this.addSVGMarker(mapContainer, coord);
-      // alert('Clicked at ' + Math.abs(coord.lat.toFixed(4)) +
-      //     ((coord.lat > 0) ? 'N' : 'S') +
-      //     ' ' + Math.abs(coord.lng.toFixed(4)) +
-      //      ((coord.lng > 0) ? 'E' : 'W'));
+      // this.calculateRouteFromAtoB(this.coordinates, coord);
+      // this.addSVGMarker(mapContainer, coord);
+      console.log('Clicked at ' + Math.abs(coord.lat.toFixed(4)) +
+          ((coord.lat > 0) ? 'N' : 'S') +
+          ' ' + Math.abs(coord.lng.toFixed(4)) +
+           ((coord.lng > 0) ? 'E' : 'W'));
     });
   }
 
