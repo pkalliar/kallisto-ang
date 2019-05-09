@@ -65,6 +65,9 @@ export class MapService {
       }
 
     });
+    if (points.length > 0) {
+      points.push(points[0]);
+    }
 
     console.log(points);
 

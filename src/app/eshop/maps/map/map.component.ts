@@ -34,10 +34,14 @@ export class MapComponent implements OnInit {
   };
   watchID: any;
 
+  showsearch: boolean;
+  showNavtexSearch: boolean;
   searchTerm: FormControl = new FormControl();
   searchNavtex: FormControl = new FormControl();
 
   mapTemplate = 'assets/oil_fields.kml';
+  aozTemplate = 'assets/AOZ.kml';
+  blocksTemplate = 'assets/BLOCKS.kml';
 
   map: any;
   coordinates = {
@@ -89,20 +93,23 @@ export class MapComponent implements OnInit {
     )
     .subscribe(data => {
       console.log(data);
-      // Initialize a linestring and add all the points to it:
-      const linestring = new H.geo.LineString();
-      data.forEach(function(point) {
-        linestring.pushPoint(point);
-      });
+      if (data.length > 1) {
+        // Initialize a linestring and add all the points to it:
+        const linestring = new H.geo.LineString();
+        data.forEach(function(point) {
+          linestring.pushPoint(point);
+        });
 
-      // Initialize a polyline with the linestring:
-      const polyline = new H.map.Polyline(linestring, { style: { lineWidth: 10 }});
+        // Initialize a polyline with the linestring:
+        const polyline = new H.map.Polyline(linestring, { style: { lineWidth: 2 }});
 
-      // Add the polyline to the map:
-      this.map.addObject(polyline);
+        // Add the polyline to the map:
+        this.map.addObject(polyline);
 
-      // Zoom the map to make sure the whole polyline is visible:
-      this.map.setViewBounds(polyline.getBounds());
+        // Zoom the map to make sure the whole polyline is visible:
+        this.map.setViewBounds(polyline.getBounds());
+      }
+
     });
 
     const targetElement = document.getElementById('mapContainer');
@@ -123,12 +130,16 @@ export class MapComponent implements OnInit {
         center: this.coordinates
       });
 
-      const reader = new H.data.kml.Reader(this.mapTemplate);
+      let reader = new H.data.kml.Reader(this.aozTemplate);
       // Parse the document:
       reader.parse();
+      // Get KML layer from the reader object and add it to the map:
+      let layer = reader.getLayer();
+      this.map.addLayer(layer);
 
-          // Get KML layer from the reader object and add it to the map:
-      const layer = reader.getLayer();
+      reader = new H.data.kml.Reader(this.blocksTemplate);
+      reader.parse();
+      layer = reader.getLayer();
       this.map.addLayer(layer);
 
       const layerd = reader.getParsedObjects();

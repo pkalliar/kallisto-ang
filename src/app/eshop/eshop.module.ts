@@ -81,7 +81,7 @@ import { AppointmentsComponent } from './appointment/appointments/appointments.c
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
 import { AppointmentSlotsComponent, AppointmentSlotDialogComponent } from './appointment/appointment-slots/appointment-slots.component';
 
-import { CloudinaryModule } from '@cloudinary/angular-5.x';
+// import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
 import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
 import cloudinaryConfiguration from './config';
@@ -91,6 +91,8 @@ import {PhotoAlbum} from './advertisement/photo-album.service';
 import {MapLocatorComponent} from './advertisement/map-locator/map-locator.component';
 import { TopnavService } from '../topnav/topnav.service';
 import { MapComponent } from './maps/map/map.component';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import { GmapComponent } from './gmap/gmap.component';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -135,7 +137,8 @@ export const cloudinary = {
     SkroutzComponent, PhotoUploadComponent, PhotoListComponent, MapLocatorComponent,
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent,
-    AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent, MapComponent
+    AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent,
+    MapComponent, GmapComponent
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,

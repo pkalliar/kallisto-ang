@@ -11,6 +11,7 @@ import { AppointmentsComponent } from './appointment/appointments/appointments.c
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
 import { AppointmentSlotsComponent } from './appointment/appointment-slots/appointment-slots.component';
 import { MapComponent } from './maps/map/map.component';
+import { GmapComponent } from './gmap/gmap.component';
 
 const routes: Routes = [
   { path: 'eshop', component: EshopComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'eshop/appointments/:id',     component: AppointmentDetailComponent },
   { path: 'eshop/appointments/:id/edit',     component: AppointmentDetailComponent },
   { path: 'eshop/app-slots', component: AppointmentSlotsComponent },
-  { path: 'eshop/maps', component: MapComponent }
+  { path: 'eshop/maps', component: MapComponent },
+  { path: 'eshop/gmaps', component: GmapComponent }
 ];
 
 @NgModule({

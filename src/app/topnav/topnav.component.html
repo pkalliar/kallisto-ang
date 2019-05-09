@@ -6,7 +6,7 @@
     <mat-icon class="example-icon">delete</mat-icon> -->
 
     <span *ngIf="user">{{user.username}}</span>
-    <div *ngIf="authService.user | async as user;">
+    <div *ngIf="user | async as user;">
         <!-- <span>{{ user.authDomain }}</span> -->
         <div mat-card-avatar class="example-header-image">
             <img src="{{ user.photoURL }}" alt="" onError="this.src='assets/baseline_person_outline_white_24dp.png';" 
