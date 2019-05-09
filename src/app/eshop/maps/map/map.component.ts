@@ -89,8 +89,20 @@ export class MapComponent implements OnInit {
     )
     .subscribe(data => {
       console.log(data);
+      // Initialize a linestring and add all the points to it:
+      const linestring = new H.geo.LineString();
+      data.forEach(function(point) {
+        linestring.pushPoint(point);
+      });
 
-      // this.locOptions = data['suggestions'];
+      // Initialize a polyline with the linestring:
+      const polyline = new H.map.Polyline(linestring, { style: { lineWidth: 10 }});
+
+      // Add the polyline to the map:
+      this.map.addObject(polyline);
+
+      // Zoom the map to make sure the whole polyline is visible:
+      this.map.setViewBounds(polyline.getBounds());
     });
 
     const targetElement = document.getElementById('mapContainer');
@@ -118,6 +130,9 @@ export class MapComponent implements OnInit {
           // Get KML layer from the reader object and add it to the map:
       const layer = reader.getLayer();
       this.map.addLayer(layer);
+
+      const layerd = reader.getParsedObjects();
+      console.log(layerd);
 
       const ui = H.ui.UI.createDefault(this.map, defaultLayers);
 
