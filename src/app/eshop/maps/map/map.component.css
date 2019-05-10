@@ -10,12 +10,26 @@
     top: 40px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #ffffffc5;
+    background-color: #fffffff6;
     padding: 5px;
     height: 50px;
     width: 50%;
     border-radius: 5px;  
 }
+
+.search-navtex-form{
+    position: fixed;
+    z-index: 1;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fffffff6;
+    padding: 5px;
+    height: 180px;
+    width: 50%;
+    border-radius: 5px;  
+}
+
 
 .suggestions {
     position: fixed;
@@ -35,6 +49,12 @@
     left: 97%;
 }
 
+.left-btns {
+    position: fixed;
+    z-index: 1;
+    left: 1%;
+}
+
 .location-btn {
     top: 40px;
 }
@@ -47,9 +67,18 @@
     top: 100px;
 }
 
+.logo-btn {
+    top: 50px;
+    width: 80px;
+}
+
 .example-full-width {
     width: 100%;
 }
+
+.example-radio-button {
+    margin: 5px;
+  }
 
 .icon {
     display: inline-block;

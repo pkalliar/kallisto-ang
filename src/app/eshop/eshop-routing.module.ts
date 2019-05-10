@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'eshop/appointments/:id/edit',     component: AppointmentDetailComponent },
   { path: 'eshop/app-slots', component: AppointmentSlotsComponent },
   { path: 'eshop/maps', component: MapComponent },
+  { path: 'maps', component: MapComponent },
   { path: 'eshop/gmaps', component: GmapComponent }
 ];
 

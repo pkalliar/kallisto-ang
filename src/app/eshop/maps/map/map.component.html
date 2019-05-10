@@ -17,12 +17,20 @@
     </mat-form-field>
 </form>
 
-<form class="search-form" *ngIf="showNavtexSearch">
+<div class="search-navtex-form" *ngIf="showNavtexSearch">
+  <mat-radio-group aria-label="Επιλέξτε σταθμό" [(ngModel)]="selectedStation">
+    <mat-radio-button class="example-radio-button" *ngFor="let station of stations" [value]="station">{{station}} </mat-radio-button>
+  </mat-radio-group>
   <mat-form-field class="example-full-width">
       <input type="text" placeholder="Εισάγετε NAVTEX" aria-label="Number" matInput #searchinp
         [formControl]="searchNavtex">
   </mat-form-field>
-</form>
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Εισάγετε περιγραφή"></textarea>
+  </mat-form-field>
+</div>
+
+
 
 <!-- <svg class="icon"><use xlink:href="/assets/svg/drama.svg"></use></svg> -->
 
@@ -37,6 +45,11 @@
 
 <button mat-icon-button class="right-btns search-navtex-btn" (click)="showNavtexSearch = !showNavtexSearch">
   <mat-icon aria-label="navtex search">directions_boat</mat-icon>
+</button>
+
+<button mat-icon-button class="left-btns logo-btn" (click)="showNavtexSearch = !showNavtexSearch">
+  <img src="assets/eldim.png" alt="" onError="" width="35" height="35" matTooltip="">
+  Πρεσβεία της Ελλάδος στη Λευκωσία
 </button>
 
 <div class="map-full-width" id="mapContainer"></div>

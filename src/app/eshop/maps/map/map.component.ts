@@ -42,10 +42,14 @@ export class MapComponent implements OnInit {
   mapTemplate = 'assets/oil_fields.kml';
   aozTemplate = 'assets/AOZ.kml';
   blocksTemplate = 'assets/BLOCKS.kml';
+  greeceTemplate = 'assets/MarineRegions-greece-eez.kml';
+
+  selectedStation: string;
+  stations: string[] = ['ANTALYA NAVTEX STATION', 'JRCC LARNACA'];
 
   map: any;
   coordinates = {
-    lat: 35.04578, // HERE HQ in Berlin, Germany
+    lat: 35.04578,
     lng: 32.96754
     };
   accuracy = 15;
@@ -138,6 +142,11 @@ export class MapComponent implements OnInit {
       this.map.addLayer(layer);
 
       reader = new H.data.kml.Reader(this.blocksTemplate);
+      reader.parse();
+      layer = reader.getLayer();
+      this.map.addLayer(layer);
+
+      reader = new H.data.kml.Reader(this.greeceTemplate);
       reader.parse();
       layer = reader.getLayer();
       this.map.addLayer(layer);
