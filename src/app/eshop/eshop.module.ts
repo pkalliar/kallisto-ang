@@ -92,7 +92,7 @@ import {MapLocatorComponent} from './advertisement/map-locator/map-locator.compo
 import { TopnavService } from '../topnav/topnav.service';
 import { MapComponent } from './maps/map/map.component';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
-import { GmapComponent } from './gmap/gmap.component';
+import { GmapComponent } from './maps/gmap/gmap.component';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore

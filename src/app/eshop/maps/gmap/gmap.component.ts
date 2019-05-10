@@ -9,25 +9,39 @@ declare var google: any;
 })
 export class GmapComponent implements AfterViewInit {
   name = 'Angular 5';
+  coordinates = {
+    lat: 35.04578, // HERE HQ in Berlin, Germany
+    lng: 32.96754
+    };
+  mapTemplate = 'https://drive.google.com/file/d/1wMPfCTjun-1Lrlw2jod6Uz-8G0DfOGFl/view?usp=sharing';
   uluru: Object = { lat: -25.363, lng: 131.044 };
   map: any;
+  src = 'https://developers.google.com/maps/documentation/javascript/examples/kml/westcampus.kml';
   marker: Object;
   zoom: number;
   @ViewChild('map') mapRef: ElementRef;
+
   ngAfterViewInit() {
     // used setTimeout google map is delayed in loading, in stackBlitz
 
     setTimeout(() => {
       this.map = new google.maps.Map(this.mapRef.nativeElement, {
-        zoom: 4,
-        center: this.uluru
+        zoom: 8,
+        center: this.coordinates
+        // center: new google.maps.LatLng(-19.257753, 146.823688),
       });
-      this.marker = new google.maps.Marker({
-        position: this.uluru,
+      // this.marker = new google.maps.Marker({
+      //   position: this.coordinates,
+      //   map: this.map
+      // });
+
+      const ctaLayer = new google.maps.KmlLayer(this.mapTemplate, {
+        // url: this.mapTemplate,
+        suppressInfoWindows: true,
         map: this.map
       });
 
-    }, 2000);
+    }, 5000);
 
     // console.log(this.map.getZoom())
   }
