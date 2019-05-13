@@ -14,6 +14,18 @@ import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
 // declare let H;
 declare var H: any;
 
+export class MapLayer {
+  name: string;
+  kmlFile: string;
+  layer: any;
+
+  constructor(name, file, layer) {
+      this.name = name;
+      this.kmlFile = file;
+      this.layer = layer;
+  }
+}
+
 @Component({
   selector: 'app-pk-map',
   templateUrl: './map.component.html',
@@ -39,10 +51,12 @@ export class MapComponent implements OnInit {
   searchTerm: FormControl = new FormControl();
   searchNavtex: FormControl = new FormControl();
 
-  mapTemplate = 'assets/oil_fields.kml';
-  aozTemplate = 'assets/AOZ.kml';
-  blocksTemplate = 'assets/BLOCKS.kml';
-  greeceTemplate = 'assets/MarineRegions-greece-eez.kml';
+  mapLayers: MapLayer[] = [];
+
+  // mapTemplate = 'assets/oil_fields.kml';
+  // aozTemplate = 'assets/AOZ.kml';
+  // blocksTemplate = 'assets/BLOCKS.kml';
+  // greeceTemplate = 'assets/MarineRegions-greece-eez.kml';
 
   selectedStation: string;
   stations: string[];
@@ -72,6 +86,14 @@ export class MapComponent implements OnInit {
       app_code: 'OEBSCrinYftL-OQPodOiOw',
       useHTTPS: true
     });
+
+    // this.mapLayers.push(new MapLayer('Οικόπεδα ΚΔ', 'assets/oil_fields.kml'));
+    // this.mapLayers.push(new MapLayer('ΑΟΖ ΚΔ', 'assets/AOZ.kml'));
+
+
+
+    // this.mapLayers.push(new MapLayer('Οικόπεδα ΚΔ', 'assets/BLOCKS.kml'));
+    // this.mapLayers.push(new MapLayer('ΑΟΖ Ελλάδας', 'assets/MarineRegions-greece-eez.kml'));
 
 
     this.searchTerm
@@ -135,25 +157,9 @@ export class MapComponent implements OnInit {
         center: this.coordinates
       });
 
-      let reader = new H.data.kml.Reader(this.aozTemplate);
-      // Parse the document:
-      reader.parse();
-      // Get KML layer from the reader object and add it to the map:
-      let layer = reader.getLayer();
-      this.map.addLayer(layer);
-
-      reader = new H.data.kml.Reader(this.blocksTemplate);
-      reader.parse();
-      layer = reader.getLayer();
-      this.map.addLayer(layer);
-
-      reader = new H.data.kml.Reader(this.greeceTemplate);
-      reader.parse();
-      layer = reader.getLayer();
-      this.map.addLayer(layer);
-
-      const layerd = reader.getParsedObjects();
-      console.log(layerd);
+      this.loadLayer('ΑΟΖ ΚΔ', 'assets/AOZ.kml');
+      this.loadLayer('Οικόπεδα ΚΔ', 'assets/BLOCKS.kml');
+      this.loadLayer('ΑΟΖ Ελλάδας', 'assets/MarineRegions-greece-eez.kml');
 
       const ui = H.ui.UI.createDefault(this.map, defaultLayers);
       const distanceMeasurementTool = new H.ui.DistanceMeasurement();
@@ -169,6 +175,22 @@ export class MapComponent implements OnInit {
         this.map.getViewPort().resize();
       });
 
+  }
+
+  loadLayer(name: string, template: string) {
+    const reader = new H.data.kml.Reader(template);
+    // Parse the document:
+    reader.parse();
+    // Get KML layer from the reader object and add it to the map:
+    const layer = reader.getLayer();
+    this.map.addLayer(layer);
+
+    this.mapLayers.push(new MapLayer(name, template, layer));
+  }
+
+  removeLayer(template: string) {
+
+    this.map.removeLayer();
   }
 
   displayFn(res?: Object): string | undefined {
@@ -285,7 +307,7 @@ export class MapComponent implements OnInit {
     const dialogRef = this.dialog.open(MapDialogComponent, {
       height: '400px',
   width: '600px',
-      data: {name: 'afdsc', animal: 'this.animal'}
+      data: this.mapLayers
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -295,3 +317,4 @@ export class MapComponent implements OnInit {
   }
 
 }
+

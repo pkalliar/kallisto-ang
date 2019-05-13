@@ -4,6 +4,7 @@ import { User } from '../../security/users/user';
 import { HttpClient } from '@angular/common/http';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MapLayer } from './map/map.component';
 
 export interface DialogData {
   animal: string;
@@ -103,12 +104,26 @@ export class MapDialogComponent {
 
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 
+  mapLayers: MapLayer[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<MapDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: MapLayer[]) {
+      this.mapLayers = data;
+    }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  onSelection(e, v) {
+    console.log(e.option.value);
+
+    console.log(v.selected);
+    v.selected.forEach(function(layer) {
+      console.log(layer.value);
+    });
+
+ }
 
 }
