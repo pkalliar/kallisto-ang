@@ -93,6 +93,7 @@ import { TopnavService } from '../topnav/topnav.service';
 import { MapComponent } from './maps/map/map.component';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { GmapComponent } from './maps/gmap/gmap.component';
+import { MapDialogComponent } from './maps/map.service';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -130,7 +131,7 @@ export const cloudinary = {
   }),
   ],
   entryComponents: [
-    AppointmentSlotsComponent, AppointmentSlotDialogComponent
+    AppointmentSlotsComponent, AppointmentSlotDialogComponent, MapDialogComponent
   ],
   declarations: [
     EshopComponent,
@@ -138,7 +139,7 @@ export const cloudinary = {
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent,
     AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent,
-    MapComponent, GmapComponent
+    MapComponent, GmapComponent, MapDialogComponent
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,

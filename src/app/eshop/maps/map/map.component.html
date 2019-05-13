@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/assets/svg/icomoon/style.css">
 
-<span class="icon-pencil2 right-btns"></span>
+<!-- <span class="icon-pencil2 right-btns"></span> -->
 
 <!-- {{locOptions | json}} -->
 <!-- ----{{suggestion | json}} -->
@@ -22,7 +22,7 @@
     <mat-radio-button class="example-radio-button" *ngFor="let station of stations" [value]="station">{{station}} </mat-radio-button>
   </mat-radio-group>
   <mat-form-field class="example-full-width">
-      <input type="text" placeholder="Εισάγετε NAVTEX" aria-label="Number" matInput #searchinp
+      <input type="text" placeholder="Εισάγετε NAVTEX για {{selectedStation}}" aria-label="Number" matInput #searchinp
         [formControl]="searchNavtex">
   </mat-form-field>
   <mat-form-field class="example-full-width">
@@ -43,13 +43,18 @@
     <mat-icon aria-label="my location">location_searching</mat-icon>
 </button>
 
+ <!-- (click)="showNavtexSearch = !showNavtexSearch" -->
+
 <button mat-icon-button class="right-btns search-navtex-btn" (click)="showNavtexSearch = !showNavtexSearch">
   <mat-icon aria-label="navtex search">directions_boat</mat-icon>
 </button>
 
+<button mat-icon-button class="right-btns layers-btn" (click)="openDialog()">
+  <i class="fas fa-lg fa-object-group"></i>
+</button>
+
 <button mat-icon-button class="left-btns logo-btn" (click)="showNavtexSearch = !showNavtexSearch">
-  <img src="assets/eldim.png" alt="" onError="" width="35" height="35" matTooltip="">
-  Πρεσβεία της Ελλάδος στη Λευκωσία
+  <img src="assets/gremb_nic.png" alt="" width="50px" onError="" matTooltip="">
 </button>
 
 <div class="map-full-width" id="mapContainer"></div>

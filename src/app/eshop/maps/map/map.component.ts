@@ -3,10 +3,10 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 import { SearchCultureService } from '../search-culture.service';
-import { MapService } from '../map.service';
+import { MapService, MapDialogComponent } from '../map.service';
 import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
 
 // import '/assets/svg/drama.svg';
 // import fileContent from '/assets/svg/drama.svg';
@@ -45,9 +45,10 @@ export class MapComponent implements OnInit {
   greeceTemplate = 'assets/MarineRegions-greece-eez.kml';
 
   selectedStation: string;
-  stations: string[] = ['ANTALYA NAVTEX STATION', 'JRCC LARNACA'];
+  stations: string[];
 
   map: any;
+  behavior: any;
   coordinates = {
     lat: 35.04578,
     lng: 32.96754
@@ -57,11 +58,14 @@ export class MapComponent implements OnInit {
   geocoder: any;
 
   constructor( private cultureSrv: SearchCultureService
-    , private mapSrv: MapService) { }
+    , private mapSrv: MapService, private dialog: MatDialog) { }
 
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit(): void {
+
+    this.stations = this.mapSrv.stations;
+    this.selectedStation = this.stations[0];
 
     this.platform = new H.service.Platform({
       app_id: 'K0Z4rKzWnBk4eR25vS40',
@@ -122,9 +126,6 @@ export class MapComponent implements OnInit {
     const defaultLayers = this.platform.createDefaultLayers();
 
 
-
-
-
     // Instantiate (and display) a map object:
     this.map = new H.Map(
       targetElement,
@@ -155,10 +156,12 @@ export class MapComponent implements OnInit {
       console.log(layerd);
 
       const ui = H.ui.UI.createDefault(this.map, defaultLayers);
+      const distanceMeasurementTool = new H.ui.DistanceMeasurement();
+      ui.addControl('distancemeasurement', distanceMeasurementTool);
 
       // this.map.addLayer(defaultLayers.venues);
 
-      const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
+      this.behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
 
       this.setUpClickListener(this.map);
 
@@ -248,6 +251,9 @@ export class MapComponent implements OnInit {
 
       // this.calculateRouteFromAtoB(this.coordinates, coord);
       // this.addSVGMarker(mapContainer, coord);
+
+      // this.addDraggableMarker(mapContainer, this.behavior, coord);
+
       console.log('Clicked at ' + Math.abs(coord.lat.toFixed(4)) +
           ((coord.lat > 0) ? 'N' : 'S') +
           ' ' + Math.abs(coord.lng.toFixed(4)) +
@@ -275,6 +281,17 @@ export class MapComponent implements OnInit {
     );
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(MapDialogComponent, {
+      height: '400px',
+  width: '600px',
+      data: {name: 'afdsc', animal: 'this.animal'}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed ' + result);
+
+    });
+  }
 
 }

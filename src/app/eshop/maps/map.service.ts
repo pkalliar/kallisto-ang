@@ -1,7 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component, Inject } from '@angular/core';
 import {Observable, of as observableOf} from 'rxjs';
 import { User } from '../../security/users/user';
 import { HttpClient } from '@angular/common/http';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +35,8 @@ export class MapService {
   '&app_code=' + this.APP_CODE +
   '&locationid=';
 
+  stations: string[] = ['ANTALYA NAVTEX STATION', 'JRCC LARNACA'];
+
   constructor(private http: HttpClient) {
   }
 
@@ -40,34 +49,37 @@ export class MapService {
     console.log('searching for navtex ' + keyword);
     const splitted = keyword.split('E');
     const points = [];
-    splitted.forEach((doc) => {
-      console.log(doc);
-      if (doc.trim().length > 0) {
-        const coord = doc.trim().split('-');
-        const lat = coord[0].replace('N', '').trim(), long = coord[1].trim();
-
-        const point = {};
-
-        const latArr = lat.trim().split(' ');
-        if (latArr.length === 2) {
-          const lat1 = parseInt(latArr[0], 10);
-          const lat2 = parseFloat(latArr[1]) / 60;
-          point['lat'] = lat1 + lat2;
+    try {
+      // throw new Error('Something bad happened');
+      splitted.forEach((doc) => {
+        console.log(doc);
+        if (doc.trim().length > 0) {
+          const coord = doc.trim().split('-');
+          const lat = coord[0].replace('N', '').trim(), long = coord[1].trim();
+          const point = {};
+          const latArr = lat.trim().split(' ');
+          if (latArr.length === 2) {
+            const lat1 = parseInt(latArr[0], 10);
+            const lat2 = parseFloat(latArr[1]) / 60;
+            point['lat'] = lat1 + lat2;
+          }
+          const longArr = long.trim().split(' ');
+          if (longArr.length === 2) {
+            const long1 = parseInt(longArr[0], 10);
+            const long2 = parseFloat(longArr[1]) / 60;
+            point['lng'] = long1 + long2;
+          }
+          points.push(point);
         }
-        const longArr = long.trim().split(' ');
-        if (longArr.length === 2) {
-          const long1 = parseInt(longArr[0], 10);
-          const long2 = parseFloat(longArr[1]) / 60;
-          point['lng'] = long1 + long2;
-        }
-
-        points.push(point);
+      });
+      if (points.length > 0) {
+        points.push(points[0]);
       }
 
-    });
-    if (points.length > 0) {
-      points.push(points[0]);
+    } catch (e) {
+      console.log(e);
     }
+
 
     console.log(points);
 
@@ -78,5 +90,25 @@ export class MapService {
     const req = this.locationIdUrl + locationId;
     return this.http.get<any>(req);
    }
+
+
+
+}
+
+@Component({
+  selector: 'app-map-dialog',
+  templateUrl: 'map-dialog.html',
+})
+export class MapDialogComponent {
+
+  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+
+  constructor(
+    public dialogRef: MatDialogRef<MapDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }
