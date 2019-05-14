@@ -117,7 +117,7 @@ export class MapComponent implements OnInit {
     .pipe(
       debounceTime(300),
       tap(() => this.isLoading = true),
-      switchMap(value => this.mapSrv.searchNavtex(value)
+      switchMap(value => this.mapSrv.searchNavtex(value, this.selectedStation)
       .pipe(
         finalize(() => this.isLoading = false),
         )

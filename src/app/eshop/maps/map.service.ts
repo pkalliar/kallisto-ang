@@ -46,7 +46,7 @@ export class MapService {
     return this.http.get<any>(req);
    }
 
-   searchNavtex(keyword: string): Observable<any[]> {
+   searchNavtex(keyword: string, selectedStation: string): Observable<any[]> {
     console.log('searching for navtex ' + keyword);
     const splitted = keyword.split('E');
     const points = [];
@@ -55,9 +55,10 @@ export class MapService {
       splitted.forEach((doc) => {
         console.log(doc);
         if (doc.trim().length > 0) {
-          const coord = doc.trim().split('-');
-          const lat = coord[0].replace('N', '').trim(), long = coord[1].trim();
+          const coord = doc.trim().split('N');
+          const lat = coord[0].replace('-', '').trim(), long = coord[1].replace('-', '').trim();
           const point = {};
+          console.log(lat + '____' + long);
           const latArr = lat.trim().split(' ');
           if (latArr.length === 2) {
             const lat1 = parseInt(latArr[0], 10);
@@ -65,6 +66,7 @@ export class MapService {
             point['lat'] = lat1 + lat2;
           }
           const longArr = long.trim().split(' ');
+          console.log(longArr);
           if (longArr.length === 2) {
             const long1 = parseInt(longArr[0], 10);
             const long2 = parseFloat(longArr[1]) / 60;
