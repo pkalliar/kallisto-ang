@@ -102,14 +102,15 @@ export class MapService {
 })
 export class MapDialogComponent {
 
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
-
   mapLayers: MapLayer[] = [];
+  // @ViewChild(MatSelectionList) selectionList: MatSelectionList;
 
   constructor(
     public dialogRef: MatDialogRef<MapDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MapLayer[]) {
       this.mapLayers = data;
+
+      console.log();
     }
 
   onNoClick(): void {
@@ -118,11 +119,20 @@ export class MapDialogComponent {
 
   onSelection(e, v) {
     console.log(e.option.value);
+    console.log(e.option.selected);
+
+    this.mapLayers.forEach(function(layer) {
+      if (layer.name === e.option.value.name) {
+        layer.show = e.option.selected;
+      }
+      console.log(layer.name);
+    });
+
 
     console.log(v.selected);
-    v.selected.forEach(function(layer) {
-      console.log(layer.value);
-    });
+    // v.selected.forEach(function(layer) {
+    //   console.log(layer.value);
+    // });
 
  }
 

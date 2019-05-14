@@ -18,11 +18,13 @@ export class MapLayer {
   name: string;
   kmlFile: string;
   layer: any;
+  show: boolean;
 
-  constructor(name, file, layer) {
+  constructor(name, file, layer, show) {
       this.name = name;
       this.kmlFile = file;
       this.layer = layer;
+      this.show = show;
   }
 }
 
@@ -157,9 +159,10 @@ export class MapComponent implements OnInit {
         center: this.coordinates
       });
 
-      this.loadLayer('ΑΟΖ ΚΔ', 'assets/AOZ.kml');
-      this.loadLayer('Οικόπεδα ΚΔ', 'assets/BLOCKS.kml');
-      this.loadLayer('ΑΟΖ Ελλάδας', 'assets/MarineRegions-greece-eez.kml');
+      this.loadLayer('ΑΟΖ ΚΔ', 'assets/AOZ.kml', true);
+      this.loadLayer('Οικόπεδα ΚΔ', 'assets/BLOCKS.kml', true);
+      this.loadLayer('ΑΟΖ Ελλάδας', 'assets/MarineRegions-greece-eez.kml', false);
+      this.loadLayer('FIR ΚΔ', 'assets/FIR_NEW.kml', false);
 
       const ui = H.ui.UI.createDefault(this.map, defaultLayers);
       const distanceMeasurementTool = new H.ui.DistanceMeasurement();
@@ -177,20 +180,26 @@ export class MapComponent implements OnInit {
 
   }
 
-  loadLayer(name: string, template: string) {
+  loadLayer(name: string, template: string, show: boolean) {
+
     const reader = new H.data.kml.Reader(template);
     // Parse the document:
     reader.parse();
     // Get KML layer from the reader object and add it to the map:
     const layer = reader.getLayer();
-    this.map.addLayer(layer);
+    if (show) {
+      this.map.addLayer(layer);
+    }
 
-    this.mapLayers.push(new MapLayer(name, template, layer));
+    this.mapLayers.push(new MapLayer(name, template, layer, show));
   }
 
-  removeLayer(template: string) {
-
-    this.map.removeLayer();
+  updateLayer(template: string, show: boolean) {
+    if (show) {
+      this.map.addLayer(template);
+    } else {
+      this.map.removeLayer(template);
+    }
   }
 
   displayFn(res?: Object): string | undefined {
@@ -306,12 +315,19 @@ export class MapComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(MapDialogComponent, {
       height: '400px',
-  width: '600px',
+      width: '600px',
       data: this.mapLayers
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed ' + result);
+      // console.log(result);
+      if (result !== undefined) {
+        result.forEach(mapL => {
+          this.updateLayer(mapL.layer, mapL.show);
+          console.log(mapL);
+        });
+      }
+
 
     });
   }
