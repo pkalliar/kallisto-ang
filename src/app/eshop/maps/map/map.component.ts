@@ -8,6 +8,10 @@ import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
 import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
 
+// import * as csv from 'fast-csv';
+
+
+
 // import '/assets/svg/drama.svg';
 // import fileContent from '/assets/svg/drama.svg';
 
@@ -34,6 +38,8 @@ export class MapLayer {
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+
+  // csv = require('fast-csv');
 
   locOptions: string[] = [];
   // filteredOptions: string[];
@@ -140,6 +146,8 @@ export class MapComponent implements OnInit {
 
         // Zoom the map to make sure the whole polyline is visible:
         this.map.setViewBounds(polyline.getBounds());
+
+
       }
 
     });

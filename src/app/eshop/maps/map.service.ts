@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { MapLayer } from './map/map.component';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 export interface DialogData {
   animal: string;
@@ -38,7 +39,7 @@ export class MapService {
 
   stations: string[] = ['ANTALYA NAVTEX STATION', 'JRCC LARNACA'];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private afs: AngularFirestore) {
   }
 
   search(keyword: string): Observable<any[]> {
@@ -86,12 +87,28 @@ export class MapService {
 
     console.log(points);
 
+    this.saveNavtex(points);
+
     return observableOf(points);
    }
 
    getCoordinates(locationId) {
     const req = this.locationIdUrl + locationId;
     return this.http.get<any>(req);
+   }
+
+   saveNavtex(points) {
+
+      this.afs.collection('navtex').add(Object.assign({}, points))
+      .then(doc => {
+        console.log('Document successfully written!');
+
+      })
+      .catch(function(error) {
+        console.error('Error writing document: ', error);
+      });
+
+      // localStorage.setItem('test1', JSON.stringify(points));
    }
 
 

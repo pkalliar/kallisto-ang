@@ -36,6 +36,7 @@
     "bootstrap": "^4.1.3",
     "cloudinary-core": "^2.6.3",
     "core-js": "^2.5.4",
+    "fast-csv": "^2.5.0",
     "firebase": "^5.5.7",
     "font-awesome": "latest",
     "hammerjs": "latest",

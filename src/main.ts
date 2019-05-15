@@ -9,6 +9,7 @@ import { environment } from './environments/environment';
 import 'hammerjs';
 // import 'bootstrap';
 
+
 if (environment.production) {
   enableProdMode();
 }
