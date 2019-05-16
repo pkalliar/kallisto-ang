@@ -136,7 +136,7 @@ export class MapDialogComponent {
     this.dialogRef.close();
   }
 
-  onSelection(e, v) {
+  onLayerSelection(e, v) {
     console.log(e.option.value);
     console.log(e.option.selected);
 
