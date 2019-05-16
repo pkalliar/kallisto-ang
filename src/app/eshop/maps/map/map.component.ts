@@ -66,8 +66,8 @@ export class MapComponent implements OnInit {
   // blocksTemplate = 'assets/BLOCKS.kml';
   // greeceTemplate = 'assets/MarineRegions-greece-eez.kml';
 
-  selectedStation: string;
-  stations: string[];
+  // selectedStation: string;
+  // stations: string[];
 
   map: any;
   behavior: any;
@@ -86,8 +86,8 @@ export class MapComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit(): void {
 
-    this.stations = this.mapSrv.stations;
-    this.selectedStation = this.stations[0];
+    // this.stations = this.mapSrv.stations;
+    // this.selectedStation = this.stations[0];
 
     this.platform = new H.service.Platform({
       app_id: 'K0Z4rKzWnBk4eR25vS40',
@@ -119,38 +119,7 @@ export class MapComponent implements OnInit {
       this.locOptions = data['suggestions'];
     });
 
-    this.searchNavtex.valueChanges
-    .pipe(
-      debounceTime(300),
-      tap(() => this.isLoading = true),
-      switchMap(value => this.mapSrv.searchNavtex(value, this.selectedStation)
-      .pipe(
-        finalize(() => this.isLoading = false),
-        )
-      )
-    )
-    .subscribe(data => {
-      console.log(data);
-      if (data.length > 1) {
-        // Initialize a linestring and add all the points to it:
-        const linestring = new H.geo.LineString();
-        data.forEach(function(point) {
-          linestring.pushPoint(point);
-        });
 
-        // Initialize a polyline with the linestring:
-        const polyline = new H.map.Polyline(linestring, { style: { lineWidth: 2 }});
-
-        // Add the polyline to the map:
-        this.map.addObject(polyline);
-
-        // Zoom the map to make sure the whole polyline is visible:
-        this.map.setViewBounds(polyline.getBounds());
-
-
-      }
-
-    });
 
     const targetElement = document.getElementById('mapContainer');
 
@@ -207,6 +176,25 @@ export class MapComponent implements OnInit {
       this.map.addLayer(template);
     } else {
       this.map.removeLayer(template);
+    }
+  }
+
+  drawNavtex(data) {
+    if (data.length > 1) {
+      // Initialize a linestring and add all the points to it:
+      const linestring = new H.geo.LineString();
+      data.forEach(function(point) {
+        linestring.pushPoint(point);
+      });
+
+      // Initialize a polyline with the linestring:
+      const polyline = new H.map.Polyline(linestring, { style: { lineWidth: 2 }});
+
+      // Add the polyline to the map:
+      this.map.addObject(polyline);
+
+      // Zoom the map to make sure the whole polyline is visible:
+      this.map.setViewBounds(polyline.getBounds());
     }
   }
 
@@ -320,11 +308,14 @@ export class MapComponent implements OnInit {
     );
   }
 
-  openDialog(): void {
+  openDialog(type: string): void {
     const dialogRef = this.dialog.open(MapDialogComponent, {
       height: '400px',
       width: '600px',
-      data: this.mapLayers
+      data: {
+        type: type,
+        data: this.mapLayers
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -335,8 +326,6 @@ export class MapComponent implements OnInit {
           console.log(mapL);
         });
       }
-
-
     });
   }
 

@@ -1,0 +1,12 @@
+<div class="search-navtex-form">
+  <mat-radio-group aria-label="Επιλέξτε σταθμό" [(ngModel)]="selectedStation">
+    <mat-radio-button class="example-radio-button" *ngFor="let station of stations" [value]="station">{{station}} </mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Εισάγετε NAVTEX για {{selectedStation}}" aria-label="Number" matInput #searchinp
+        [formControl]="searchNavtex">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Εισάγετε περιγραφή"></textarea>
+  </mat-form-field>
+</div>

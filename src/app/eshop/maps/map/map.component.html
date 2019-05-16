@@ -49,7 +49,11 @@
   <mat-icon aria-label="navtex search">directions_boat</mat-icon>
 </button>
 
-<button mat-icon-button class="right-btns layers-btn" (click)="openDialog()">
+<button mat-icon-button class="right-btns navtex-detail-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL)">
+    <i class="fas fa-lg fa-water"></i>
+  </button>
+
+<button mat-icon-button class="right-btns layers-btn" (click)="openDialog(mapSrv.NAVTEX_LIST)">
   <i class="fas fa-lg fa-object-group"></i>
 </button>
 

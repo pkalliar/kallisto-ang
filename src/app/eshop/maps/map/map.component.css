@@ -67,9 +67,15 @@
     top: 120px;
 }
 
-.layers-btn {
+.navtex-detail-btn {
     top: 160px;
 }
+
+.layers-btn {
+    top: 200px;
+}
+
+
 
 .logo-btn {
     top: 50px;
@@ -81,9 +87,7 @@
     width: 100%;
 }
 
-.example-radio-button {
-    margin: 5px;
-  }
+
 
 .icon {
     display: inline-block;

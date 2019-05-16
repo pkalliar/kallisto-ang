@@ -8,14 +8,18 @@ import { MapLayer } from './map/map.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  type: number;
+  data: any;
 }
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
+
+  NAVTEX_DETAIL = 1;
+  NAVTEX_LIST = 2;
 
   APP_ID = 'K0Z4rKzWnBk4eR25vS40';
   APP_CODE = 'OEBSCrinYftL-OQPodOiOw';
@@ -87,7 +91,7 @@ export class MapService {
 
     console.log(points);
 
-    this.saveNavtex(points);
+    // this.saveNavtex(points);
 
     return observableOf(points);
    }
@@ -121,13 +125,22 @@ export class MapService {
 })
 export class MapDialogComponent {
 
+
   mapLayers: MapLayer[] = [];
   // @ViewChild(MatSelectionList) selectionList: MatSelectionList;
 
   constructor(
+    private srv: MapService,
     public dialogRef: MatDialogRef<MapDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: MapLayer[]) {
-      this.mapLayers = data;
+    @Inject(MAT_DIALOG_DATA) public data: DialogData ) {
+
+// MapLayer[]
+      if (data.type === this.srv.NAVTEX_DETAIL) {
+
+      } else if (data.type === this.srv.NAVTEX_LIST) {
+        this.mapLayers = data.data;
+      }
+
 
       console.log();
     }

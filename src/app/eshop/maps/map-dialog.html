@@ -3,16 +3,13 @@
   <mat-form-field>
     <input matInput [(ngModel)]="data.animal">
   </mat-form-field> -->
-  <mat-selection-list #layerOptions (selectionChange)="onLayerSelection($event, layerOptions.selectedOptions)">
+  <mat-selection-list #layerOptions (selectionChange)="onLayerSelection($event, layerOptions.selectedOptions)" *ngIf="data.type === srv.NAVTEX_LIST">
     <mat-list-option *ngFor="let ml of mapLayers"  [value]='ml' [selected]='ml.show'>
       {{ml.name}}
     </mat-list-option>
   </mat-selection-list>
-  <mat-selection-list #navtexOptions (selectionChange)="onNavtexSelection($event, navtexOptions.selectedOptions)">
-    <mat-list-option *ngFor="let ml of mapLayers"  [value]='ml' [selected]='ml.show'>
-      {{ml.name}}
-    </mat-list-option>
-  </mat-selection-list>
+
+  <pk-navtex-detail *ngIf="data.type === srv.NAVTEX_DETAIL"></pk-navtex-detail>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Ακύρωση</button>
