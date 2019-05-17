@@ -77,6 +77,7 @@ export class MapComponent implements OnInit {
     };
   accuracy = 15;
 
+
   geocoder: any;
 
   constructor( private cultureSrv: SearchCultureService

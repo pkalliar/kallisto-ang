@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { MapService } from '../map.service';
 import { FormControl } from '@angular/forms';
@@ -13,6 +13,9 @@ export class NavtexDetailComponent implements OnInit {
 
   selectedStation: string;
   stations: string[];
+  points = [];
+
+  @Output() positioned = new EventEmitter<Object>();
 
 
   searchNavtex: FormControl = new FormControl();
@@ -34,6 +37,10 @@ export class NavtexDetailComponent implements OnInit {
     )
     .subscribe(data => {
       console.log(data);
+      this.points = data;
+
+
+      this.positioned.emit(this.points);
 
     });
 

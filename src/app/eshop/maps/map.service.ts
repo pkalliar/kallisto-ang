@@ -12,6 +12,8 @@ export interface DialogData {
   data: any;
 }
 
+declare var H: any;
+
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +79,7 @@ export class MapService {
             const long2 = parseFloat(longArr[1]) / 60;
             point['lng'] = long1 + long2;
           }
+          // const point1 = new H.geo.Point(point['lat'], point['lng']);
           points.push(point);
         }
       });
