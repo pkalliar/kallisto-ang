@@ -152,6 +152,17 @@ export class MapDialogComponent {
     this.dialogRef.close();
   }
 
+  onNavDetailClick(): void {
+    this.dialogRef.close();
+  }
+
+  onNavListClick(): void {
+    this.dialogRef.close({
+      type: this.srv.NAVTEX_LIST,
+      data: this.mapLayers
+    });
+  }
+
   onLayerSelection(e, v) {
     console.log(e.option.value);
     console.log(e.option.selected);
@@ -168,7 +179,14 @@ export class MapDialogComponent {
     // v.selected.forEach(function(layer) {
     //   console.log(layer.value);
     // });
+ }
 
+ onPositioned(resp: any) {
+  console.log(resp);
+  this.dialogRef.close({
+    type: this.srv.NAVTEX_LIST,
+    data: resp
+  });
  }
 
 }

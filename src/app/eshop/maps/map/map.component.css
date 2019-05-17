@@ -25,7 +25,7 @@
     transform: translateX(-50%);
     background-color: #fffffff6;
     padding: 5px;
-    height: 180px;
+    height: 120px;
     width: 50%;
     border-radius: 5px;  
 }
@@ -75,7 +75,9 @@
     top: 200px;
 }
 
-
+.example-radio-button {
+    margin: 5px;
+  }
 
 .logo-btn {
     top: 50px;

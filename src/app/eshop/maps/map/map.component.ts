@@ -8,14 +8,6 @@ import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
 import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
 
-// import * as csv from 'fast-csv';
-
-
-
-// import '/assets/svg/drama.svg';
-// import fileContent from '/assets/svg/drama.svg';
-
-// declare let H;
 declare var H: any;
 
 export class MapLayer {
@@ -61,13 +53,8 @@ export class MapComponent implements OnInit {
 
   mapLayers: MapLayer[] = [];
 
-  // mapTemplate = 'assets/oil_fields.kml';
-  // aozTemplate = 'assets/AOZ.kml';
-  // blocksTemplate = 'assets/BLOCKS.kml';
-  // greeceTemplate = 'assets/MarineRegions-greece-eez.kml';
-
-  // selectedStation: string;
-  // stations: string[];
+  selectedStation: string;
+  stations: string[];
 
   map: any;
   behavior: any;
@@ -87,8 +74,8 @@ export class MapComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit(): void {
 
-    // this.stations = this.mapSrv.stations;
-    // this.selectedStation = this.stations[0];
+    this.stations = this.mapSrv.stations;
+    this.selectedStation = this.stations[0];
 
     this.platform = new H.service.Platform({
       app_id: 'K0Z4rKzWnBk4eR25vS40',
@@ -99,11 +86,8 @@ export class MapComponent implements OnInit {
     // this.mapLayers.push(new MapLayer('Οικόπεδα ΚΔ', 'assets/oil_fields.kml'));
     // this.mapLayers.push(new MapLayer('ΑΟΖ ΚΔ', 'assets/AOZ.kml'));
 
-
-
     // this.mapLayers.push(new MapLayer('Οικόπεδα ΚΔ', 'assets/BLOCKS.kml'));
     // this.mapLayers.push(new MapLayer('ΑΟΖ Ελλάδας', 'assets/MarineRegions-greece-eez.kml'));
-
 
     this.searchTerm
     .valueChanges
@@ -120,7 +104,17 @@ export class MapComponent implements OnInit {
       this.locOptions = data['suggestions'];
     });
 
-
+    this.searchNavtex.valueChanges
+    .pipe(
+      debounceTime(300),
+      tap(() => {}),
+      switchMap(value => this.mapSrv.searchNavtex(value, this.selectedStation)
+      .pipe()
+      )
+    )
+    .subscribe(data => {
+      this.drawNavtex(data);
+    });
 
     const targetElement = document.getElementById('mapContainer');
 
@@ -309,23 +303,28 @@ export class MapComponent implements OnInit {
     );
   }
 
-  openDialog(type: string): void {
+  openDialog(type: string, data: any): void {
     const dialogRef = this.dialog.open(MapDialogComponent, {
       height: '400px',
       width: '600px',
       data: {
         type: type,
-        data: this.mapLayers
+        data: data
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log(result);
-      if (result !== undefined) {
-        result.forEach(mapL => {
-          this.updateLayer(mapL.layer, mapL.show);
-          console.log(mapL);
-        });
+      console.log(result);
+
+      if (result.type === this.mapSrv.NAVTEX_DETAIL) {
+
+      } else if (result.type === this.mapSrv.NAVTEX_LIST) {
+        if (result.data !== undefined) {
+          result.data.forEach(mapL => {
+            this.updateLayer(mapL.layer, mapL.show);
+            console.log(mapL);
+          });
+        }
       }
     });
   }

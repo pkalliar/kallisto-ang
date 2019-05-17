@@ -39,7 +39,6 @@ export class NavtexDetailComponent implements OnInit {
       console.log(data);
       this.points = data;
 
-
       this.positioned.emit(this.points);
 
     });
