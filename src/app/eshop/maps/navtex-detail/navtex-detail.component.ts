@@ -23,7 +23,7 @@ export class NavtexDetailComponent implements OnInit {
 
   selectedStation: string;
   stations: string[];
-  points = [];
+  navtexData = {};
 
   @Output() positioned = new EventEmitter<Object>();
 
@@ -48,8 +48,8 @@ export class NavtexDetailComponent implements OnInit {
     )
     .subscribe(data => {
       console.log(data);
-      this.points = data;
-      this.positioned.emit(this.points);
+      // this.points = data;
+      // this.positioned.emit(this.points);
     });
 
     this.searchFullNavtex.valueChanges
@@ -62,8 +62,8 @@ export class NavtexDetailComponent implements OnInit {
     )
     .subscribe(data => {
       console.log(data);
-      // this.points = data;
-      // this.positioned.emit(this.points);
+      this.navtexData = data;
+      this.positioned.emit(this.navtexData);
     });
 
   }

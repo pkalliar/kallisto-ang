@@ -50,8 +50,12 @@
     <i class="fas fa-lg fa-water"></i>
   </button>
 
-<button mat-icon-button class="right-btns layers-btn" (click)="openDialog(mapSrv.NAVTEX_LIST, mapLayers)">
+<button mat-icon-button class="right-btns layers-btn" (click)="openDialog(mapSrv.LAYER_LIST, mapLayers)">
   <i class="fas fa-lg fa-object-group"></i>
+</button>
+
+<button mat-icon-button class="right-btns list-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_LIST, mapLayers)">
+  <mat-icon aria-label="navtex search">layers</mat-icon>
 </button>
 
 <button mat-icon-button class="left-btns logo-btn" (click)="showNavtexSearch = !showNavtexSearch">

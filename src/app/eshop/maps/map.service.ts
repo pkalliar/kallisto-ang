@@ -12,6 +12,16 @@ export interface DialogData {
   data: any;
 }
 
+export class NavtexData {
+  station: string;
+  name: string;
+  points: any[];
+
+  constructor() {
+    this.points = [];
+  }
+}
+
 declare var H: any;
 
 @Injectable({
@@ -21,6 +31,7 @@ export class MapService {
 
   NAVTEX_DETAIL = 1;
   NAVTEX_LIST = 2;
+  LAYER_LIST = 3;
 
   APP_ID = 'K0Z4rKzWnBk4eR25vS40';
   APP_CODE = 'OEBSCrinYftL-OQPodOiOw';
@@ -106,8 +117,9 @@ export class MapService {
 
 
    searchFullNavtex(navtex: string): Observable<any> {
-    let selectedStation = '';
-    let points = [];
+    // let selectedStation = '';
+    // let points = [];
+    const resp: NavtexData = new NavtexData();
 
     console.log(navtex);
 
@@ -115,16 +127,23 @@ export class MapService {
     arrayOfLines.forEach((line) => {
       console.log(line);
       if (line.includes('Antalya')) {
-        selectedStation = this.stations[0];
+        resp.station = this.stations[0];
+      } else if (line.includes('TURNHOS N/W') && line.includes(':')) {
+        resp.name = line.split(':')[1].trim();
+      } else if (line.startsWith('3') && line.includes(' N') && line.includes(' E')) {
+        const point = this.parseCoordLine(line);
+        // const point1 = new H.geo.Point(point['lat'], point['lng']);
+        resp.points.push(point);
       }
     });
+    if (resp.points.length > 0) {
+      resp.points.push(resp.points[0]);
+    }
 
-    points = this.searchNavtex(navtex, selectedStation);
 
-    return observableOf({
-      station: selectedStation,
-      points: points
-    });
+    // points = this.searchNavtex(navtex, selectedStation);
+
+    return observableOf(resp);
    }
 
    getCoordinates(locationId) {
@@ -144,6 +163,11 @@ export class MapService {
       });
 
       // localStorage.setItem('test1', JSON.stringify(points));
+   }
+
+   searchNavtexDB(keyword) {
+    console.log('in searchNavtex..');
+    return this.afs.firestore.collection('navtex').get().then(querySnapshot => querySnapshot.docs);
    }
 
 

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MapLayer } from '../map/map.component';
-import { MapService, DialogData } from '../map.service';
+import { MapService, DialogData, NavtexData } from '../map.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
@@ -13,6 +13,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
     mapLayers: MapLayer[] = [];
     points = [];
+    navtexData: NavtexData;
     // @ViewChild(MatSelectionList) selectionList: MatSelectionList;
 
     constructor(
@@ -23,8 +24,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   // MapLayer[]
         if (data.type === this.srv.NAVTEX_DETAIL) {
 
-        } else if (data.type === this.srv.NAVTEX_LIST) {
+        } else if (data.type === this.srv.LAYER_LIST) {
           this.mapLayers = data.data;
+        } else if (data.type === this.srv.NAVTEX_LIST) {
+          // LAYER LIST SELECTED
         }
 
         console.log();
@@ -35,9 +38,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
     }
 
     onNavDetailClick(): void {
+      this.srv.saveNavtex(this.navtexData);
       this.dialogRef.close({
         type: this.srv.NAVTEX_DETAIL,
-        data: this.points
+        data: this.navtexData.points
       });
     }
 
@@ -67,7 +71,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
    onPositioned(resp: any) {
     console.log(resp);
-    this.points = resp;
+    this.navtexData = resp;
+   }
+
+   onNavtexSelection(resp: any) {
+    console.log(resp);
+    this.navtexData = resp;
+
    }
 
   }
