@@ -1,7 +1,6 @@
 
-NAVTEX-LIST
 <mat-selection-list #navtexOptions (selectionChange)="onNavtexSelection($event, navtexOptions.selectedOptions)">
-  <mat-list-option *ngFor="let ml of mapLayers"  [value]='ml' [selected]='ml.show'>
-    {{ml.name}}
+  <mat-list-option *ngFor="let nv of nvtxs"  [value]='nv'>
+    {{nv.name}}
   </mat-list-option>
 </mat-selection-list>

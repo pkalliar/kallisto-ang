@@ -80,9 +80,9 @@ export class LoginComponent implements OnInit {
             // This gives you a Google Access Token. You can use it to access the Google API.
             // const token = result.credential.accessToken;
             // The signed-in user info.
-            // this.user = result.user;
-            console.log('user ' + JSON.stringify(this.test));
-            // console.log('expirationTime: ' + moment(this.user.expirationTime).format());
+            this.user = result.user;
+            console.log('user ' + JSON.stringify(this.user));
+            console.log('expirationTime: ' + moment(this.user.expirationTime).format());
             this.router.navigate(['/eshop']);
 
         },

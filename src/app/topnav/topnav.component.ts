@@ -16,6 +16,7 @@ export class TopnavComponent implements OnInit {
   title = '--';
   ttposition = 'below';
   user: User;
+  userDetails: firebase.User = null;
   counter: number;
   counterStr: string;
 
@@ -31,9 +32,10 @@ export class TopnavComponent implements OnInit {
       authService.user.subscribe(
         (user) => {
           if (user) {
-            // console.log( 'user.uid ' + user.uid );
+            console.log( 'user.uid ' + user.uid );
+            this.userDetails = user;
 
-            // console.log(JSON.stringify(user));
+            console.log(JSON.stringify(user));
             user.getIdTokenResult().then((res) => {
               console.log(this.authService.isLoggedIn() + ' Write succeeded!' + res.expirationTime);
               console.log(res.issuedAtTime + '..' + res.authTime);

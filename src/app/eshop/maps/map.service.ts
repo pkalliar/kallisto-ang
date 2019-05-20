@@ -151,9 +151,10 @@ export class MapService {
     return this.http.get<any>(req);
    }
 
-   saveNavtex(points) {
+   saveNavtex(navtexData) {
 
-      this.afs.collection('navtex').add(Object.assign({}, points))
+      // this.afs.collection('navtex').doc(navtexData.name).set(Object.assign({}, navtexData));
+      this.afs.collection('navtex').add(Object.assign({}, navtexData))
       .then(doc => {
         console.log('Document successfully written!');
 
@@ -169,6 +170,16 @@ export class MapService {
     console.log('in searchNavtex..');
     return this.afs.firestore.collection('navtex').get().then(querySnapshot => querySnapshot.docs);
    }
+
+   getFromToken(token): NavtexData {
+
+    const nvtx = new NavtexData();
+
+    nvtx.name = token.get('name');
+    nvtx.station = token.get('station');
+    nvtx.points = token.get('points');
+    return nvtx;
+  }
 
 
 
