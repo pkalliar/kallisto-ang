@@ -93,7 +93,7 @@ import { TopnavService } from '../topnav/topnav.service';
 import { MapComponent } from './maps/map/map.component';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { GmapComponent } from './maps/gmap/gmap.component';
-import { MapDialogComponent } from './maps/map.service';
+import { MapDialogComponent } from './maps/map-dialog/map-dialog.component';
 import { NavtexDetailComponent } from './maps/navtex-detail/navtex-detail.component';
 import { NavtexListComponent } from './maps/navtex-list/navtex-list.component';
 

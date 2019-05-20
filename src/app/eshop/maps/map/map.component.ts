@@ -3,10 +3,11 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 import { SearchCultureService } from '../search-culture.service';
-import { MapService, MapDialogComponent } from '../map.service';
+import { MapService } from '../map.service';
 import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
 import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
+import { MapDialogComponent } from '../map-dialog/map-dialog.component';
 
 declare var H: any;
 
@@ -105,14 +106,8 @@ export class MapComponent implements OnInit {
     });
 
     this.searchNavtex.valueChanges
-    .pipe(
-      debounceTime(300),
-      tap(() => {}),
-      switchMap(value => this.mapSrv.searchNavtex(value, this.selectedStation)
-      .pipe()
-      )
-    )
     .subscribe(data => {
+      const points = this.mapSrv.searchNavtex(data, this.selectedStation);
       this.drawNavtex(data);
     });
 
@@ -305,7 +300,7 @@ export class MapComponent implements OnInit {
 
   openDialog(type: string, data: any): void {
     const dialogRef = this.dialog.open(MapDialogComponent, {
-      height: '400px',
+      height: '600px',
       width: '600px',
       data: {
         type: type,
@@ -315,17 +310,21 @@ export class MapComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+      if (result !== undefined) {
+        if (result.type === this.mapSrv.NAVTEX_DETAIL) {
+          this.drawNavtex(result.data);
 
-      if (result.type === this.mapSrv.NAVTEX_DETAIL) {
-
-      } else if (result.type === this.mapSrv.NAVTEX_LIST) {
-        if (result.data !== undefined) {
-          result.data.forEach(mapL => {
-            this.updateLayer(mapL.layer, mapL.show);
-            console.log(mapL);
-          });
+        } else if (result.type === this.mapSrv.NAVTEX_LIST) {
+          if (result.data !== undefined) {
+            result.data.forEach(mapL => {
+              this.updateLayer(mapL.layer, mapL.show);
+              console.log(mapL);
+            });
+          }
         }
       }
+
+
     });
   }
 

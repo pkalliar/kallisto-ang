@@ -14,7 +14,6 @@ export interface DialogData {
 
 declare var H: any;
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -53,7 +52,7 @@ export class MapService {
     return this.http.get<any>(req);
    }
 
-   searchNavtex(keyword: string, selectedStation: string): Observable<any[]> {
+   searchNavtex(keyword: string, selectedStation: string): any[] {
     console.log('searching for navtex ' + keyword);
     const splitted = keyword.split('E');
     const points = [];
@@ -62,23 +61,7 @@ export class MapService {
       splitted.forEach((doc) => {
         console.log(doc);
         if (doc.trim().length > 0) {
-          const coord = doc.trim().split('N');
-          const lat = coord[0].replace('-', '').trim(), long = coord[1].replace('-', '').trim();
-          const point = {};
-          console.log(lat + '____' + long);
-          const latArr = lat.trim().split(' ');
-          if (latArr.length === 2) {
-            const lat1 = parseInt(latArr[0], 10);
-            const lat2 = parseFloat(latArr[1]) / 60;
-            point['lat'] = lat1 + lat2;
-          }
-          const longArr = long.trim().split(' ');
-          console.log(longArr);
-          if (longArr.length === 2) {
-            const long1 = parseInt(longArr[0], 10);
-            const long2 = parseFloat(longArr[1]) / 60;
-            point['lng'] = long1 + long2;
-          }
+          const point = this.parseCoordLine(doc);
           // const point1 = new H.geo.Point(point['lat'], point['lng']);
           points.push(point);
         }
@@ -96,7 +79,52 @@ export class MapService {
 
     // this.saveNavtex(points);
 
-    return observableOf(points);
+    return points;
+   }
+
+   parseCoordLine(line: string) {
+    const coord = line.replace('E', '').trim().split('N');
+    const lat = coord[0].replace('-', '').trim(), long = coord[1].replace('-', '').trim();
+    const point = {};
+    console.log(lat + '____' + long);
+    const latArr = lat.trim().split(' ');
+    if (latArr.length === 2) {
+      const lat1 = parseInt(latArr[0], 10);
+      const lat2 = parseFloat(latArr[1]) / 60;
+      point['lat'] = lat1 + lat2;
+    }
+    const longArr = long.trim().split(' ');
+    console.log(longArr);
+    if (longArr.length === 2) {
+      const long1 = parseInt(longArr[0], 10);
+      const long2 = parseFloat(longArr[1]) / 60;
+      point['lng'] = long1 + long2;
+    }
+
+    return point;
+   }
+
+
+   searchFullNavtex(navtex: string): Observable<any> {
+    let selectedStation = '';
+    let points = [];
+
+    console.log(navtex);
+
+    const arrayOfLines = navtex.match(/[^\r\n]+/g);
+    arrayOfLines.forEach((line) => {
+      console.log(line);
+      if (line.includes('Antalya')) {
+        selectedStation = this.stations[0];
+      }
+    });
+
+    points = this.searchNavtex(navtex, selectedStation);
+
+    return observableOf({
+      station: selectedStation,
+      points: points
+    });
    }
 
    getCoordinates(locationId) {
@@ -122,71 +150,3 @@ export class MapService {
 
 }
 
-@Component({
-  selector: 'app-map-dialog',
-  templateUrl: 'map-dialog.html',
-})
-export class MapDialogComponent {
-
-
-  mapLayers: MapLayer[] = [];
-  // @ViewChild(MatSelectionList) selectionList: MatSelectionList;
-
-  constructor(
-    private srv: MapService,
-    public dialogRef: MatDialogRef<MapDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData ) {
-
-// MapLayer[]
-      if (data.type === this.srv.NAVTEX_DETAIL) {
-
-      } else if (data.type === this.srv.NAVTEX_LIST) {
-        this.mapLayers = data.data;
-      }
-
-
-      console.log();
-    }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  onNavDetailClick(): void {
-    this.dialogRef.close();
-  }
-
-  onNavListClick(): void {
-    this.dialogRef.close({
-      type: this.srv.NAVTEX_LIST,
-      data: this.mapLayers
-    });
-  }
-
-  onLayerSelection(e, v) {
-    console.log(e.option.value);
-    console.log(e.option.selected);
-
-    this.mapLayers.forEach(function(layer) {
-      if (layer.name === e.option.value.name) {
-        layer.show = e.option.selected;
-      }
-      console.log(layer.name);
-    });
-
-
-    console.log(v.selected);
-    // v.selected.forEach(function(layer) {
-    //   console.log(layer.value);
-    // });
- }
-
- onPositioned(resp: any) {
-  console.log(resp);
-  this.dialogRef.close({
-    type: this.srv.NAVTEX_LIST,
-    data: resp
-  });
- }
-
-}
