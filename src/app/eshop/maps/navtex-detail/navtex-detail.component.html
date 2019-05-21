@@ -1,13 +1,14 @@
 <div class="search-navtex-form">
-  <mat-radio-group aria-label="Επιλέξτε σταθμό" [(ngModel)]="selectedStation">
+  <h2 *ngIf="navtexData">{{navtexData.name}}</h2>
+  <mat-radio-group aria-label="Επιλέξτε σταθμό" [(ngModel)]="navtexData.station" *ngIf="navtexData">
     <mat-radio-button class="example-radio-button" *ngFor="let station of stations" [value]="station">{{station}} </mat-radio-button>
   </mat-radio-group>
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="example-full-width" [hidden]="true">
       <input type="text" placeholder="Εισάγετε NAVTEX για {{selectedStation}}" aria-label="Number" matInput #searchinp
         [formControl]="searchNavtex">
   </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Εισάγετε περιγραφή" rows="10" [formControl]="searchFullNavtex"></textarea>
+  <mat-form-field class="example-full-width" [hidden]="navtexData">
+    <textarea matInput placeholder="Εισάγετε περιγραφή" rows="12" [formControl]="searchFullNavtex"></textarea>
   </mat-form-field>
   <mat-list dense>
     <mat-list-item *ngFor="let point of points; last as isLast"> 

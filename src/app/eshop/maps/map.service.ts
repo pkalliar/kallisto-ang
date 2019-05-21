@@ -103,6 +103,11 @@ export class MapService {
       const lat1 = parseInt(latArr[0], 10);
       const lat2 = parseFloat(latArr[1]) / 60;
       point['lat'] = lat1 + lat2;
+    } else if (latArr.length === 3) {
+      const lat1 = parseInt(latArr[0], 10);
+      const lat2 = parseInt(latArr[1], 10) / 100;
+      const lat3 = parseInt(latArr[2], 10) / 10000;
+      point['lat'] = lat1 + lat2 + lat3;
     }
     const longArr = long.trim().split(' ');
     console.log(longArr);
@@ -110,8 +115,12 @@ export class MapService {
       const long1 = parseInt(longArr[0], 10);
       const long2 = parseFloat(longArr[1]) / 60;
       point['lng'] = long1 + long2;
+    } else if (longArr.length === 3) {
+      const long1 = parseInt(longArr[0], 10);
+      const long2 = parseInt(longArr[1], 10) / 100;
+      const long3 = parseInt(longArr[2], 10) / 10000;
+      point['lng'] = long1 + long2 + long3;
     }
-
     return point;
    }
 
@@ -126,20 +135,35 @@ export class MapService {
     const arrayOfLines = navtex.match(/[^\r\n]+/g);
     arrayOfLines.forEach((line) => {
       console.log(line);
-      if (line.includes('Antalya')) {
-        resp.station = this.stations[0];
-      } else if (line.includes('TURNHOS N/W') && line.includes(':')) {
-        resp.name = line.split(':')[1].trim();
-      } else if (line.startsWith('3') && line.includes(' N') && line.includes(' E')) {
-        const point = this.parseCoordLine(line);
-        // const point1 = new H.geo.Point(point['lat'], point['lng']);
-        resp.points.push(point);
+      if (resp.station === undefined) {
+        if (line.includes('Antalya') && line.includes('TURNHOS')) {
+          resp.station = this.stations[0];
+        } else if (line.includes('JRCC LARNACA')) {
+          resp.station = this.stations[1];
+        }
+      } else if (resp.station === this.stations[0]) {
+          if (line.includes('TURNHOS N/W') && line.includes(':')) {
+            resp.name = line.split(':')[1].trim();
+          } else if (line.startsWith('3') && line.includes(' N') && line.includes(' E')) {
+            const point = this.parseCoordLine(line);
+            // const point1 = new H.geo.Point(point['lat'], point['lng']);
+            resp.points.push(point);
+          }
+      } else if (resp.station === this.stations[1]) {
+        if (line.includes('NAV WRNG NR')) {
+          resp.name = line.split('NR')[1].trim();
+        } else if (line.startsWith('3') && line.includes(' N') && line.includes(' E')) {
+          const point = this.parseCoordLine(line);
+          // const point1 = new H.geo.Point(point['lat'], point['lng']);
+          resp.points.push(point);
+        }
       }
+
+
     });
     if (resp.points.length > 0) {
       resp.points.push(resp.points[0]);
     }
-
 
     // points = this.searchNavtex(navtex, selectedStation);
 

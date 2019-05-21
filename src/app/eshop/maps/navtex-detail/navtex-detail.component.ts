@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { MapService } from '../map.service';
+import { MapService, NavtexData } from '../map.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs/operators';
 
@@ -23,7 +23,7 @@ export class NavtexDetailComponent implements OnInit {
 
   selectedStation: string;
   stations: string[];
-  navtexData = {};
+  navtexData: NavtexData = null;
 
   @Output() positioned = new EventEmitter<Object>();
 

@@ -246,13 +246,13 @@ export class MapComponent implements OnInit {
 
 
 
-    const svgMarkup = '<svg  width="54" height="24" xmlns="http://www.w3.org/2000/svg">' +
-    '<rect stroke="black" fill="${FILL}" x="1" y="1" width="52" height="22" />' +
-    '<text x="26" y="18" font-size="12pt" font-family="Arial" font-weight="bold" ' +
-    'text-anchor="middle" fill="${STROKE}" >' + 'lakis' + '</text></svg>';
+    const svgMarkup = '<svg  width="24" height="24" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect stroke="black" fill="${FILL}" x="1" y="1" width="22" height="22" />' +
+    '<text x="11" y="18" font-size="10pt" font-family="Arial" font-weight="bold" ' +
+    'text-anchor="middle" fill="${STROKE}" >' + '13' + '</text></svg>';
 
     const bearsIcon = new H.map.Icon(
-      svgMarkup.replace('${FILL}', 'blue').replace('${STROKE}', 'red')),
+      svgMarkup.replace('${FILL}', 'white').replace('${STROKE}', 'black')),
       bearsMarker = new H.map.Marker(coord, {icon: bearsIcon});
 
     mapContainer.addObject(bearsMarker);
@@ -267,7 +267,7 @@ export class MapComponent implements OnInit {
 
 
       // this.calculateRouteFromAtoB(this.coordinates, coord);
-      // this.addSVGMarker(mapContainer, coord);
+      this.addSVGMarker(mapContainer, coord);
 
       // this.addDraggableMarker(mapContainer, this.behavior, coord);
 
