@@ -15,6 +15,8 @@ export interface DialogData {
 export class NavtexData {
   station: string;
   name: string;
+  description: string;
+  created_on: Date;
   points: any[];
 
   constructor() {
@@ -94,11 +96,12 @@ export class MapService {
    }
 
    parseCoordLine(line: string) {
-    const coord = line.replace('E', '').trim().split('N');
+    const coord = line.replace('E', '').replace('(SHORE)', '').replace('/°/g', '').replace(/'/g, '').trim().split('N');
     const lat = coord[0].replace('-', '').trim(), long = coord[1].replace('-', '').trim();
     const point = {};
     console.log(lat + '____' + long);
     const latArr = lat.trim().split(' ');
+    console.log(latArr);
     if (latArr.length === 2) {
       const lat1 = parseInt(latArr[0], 10);
       const lat2 = parseFloat(latArr[1]) / 60;
@@ -131,6 +134,7 @@ export class MapService {
     const resp: NavtexData = new NavtexData();
 
     console.log(navtex);
+    resp.description = navtex;
 
     const arrayOfLines = navtex.match(/[^\r\n]+/g);
     arrayOfLines.forEach((line) => {
@@ -144,7 +148,7 @@ export class MapService {
       } else if (resp.station === this.stations[0]) {
           if (line.includes('TURNHOS N/W') && line.includes(':')) {
             resp.name = line.split(':')[1].trim();
-          } else if (line.startsWith('3') && line.includes(' N') && line.includes(' E')) {
+          } else if ((line.startsWith('2') || line.startsWith('3')) && line.includes(' N') && line.includes(' E')) {
             const point = this.parseCoordLine(line);
             // const point1 = new H.geo.Point(point['lat'], point['lng']);
             resp.points.push(point);
@@ -152,7 +156,8 @@ export class MapService {
       } else if (resp.station === this.stations[1]) {
         if (line.includes('NAV WRNG NR')) {
           resp.name = line.split('NR')[1].trim();
-        } else if (line.startsWith('3') && line.includes(' N') && line.includes(' E')) {
+        } else if ((line.startsWith('2') || line.startsWith('3')) && line.includes(' N')
+        && (line.includes(' E') || line.includes(' \'E'))) {
           const point = this.parseCoordLine(line);
           // const point1 = new H.geo.Point(point['lat'], point['lng']);
           resp.points.push(point);
@@ -175,9 +180,10 @@ export class MapService {
     return this.http.get<any>(req);
    }
 
-   saveNavtex(navtexData) {
+   saveNavtex(navtexData: NavtexData) {
 
       // this.afs.collection('navtex').doc(navtexData.name).set(Object.assign({}, navtexData));
+      navtexData.created_on = new Date();
       this.afs.collection('navtex').add(Object.assign({}, navtexData))
       .then(doc => {
         console.log('Document successfully written!');
@@ -200,6 +206,8 @@ export class MapService {
     const nvtx = new NavtexData();
 
     nvtx.name = token.get('name');
+    nvtx.description = token.get('description');
+    nvtx.created_on = token.get('created_on');
     nvtx.station = token.get('station');
     nvtx.points = token.get('points');
     return nvtx;

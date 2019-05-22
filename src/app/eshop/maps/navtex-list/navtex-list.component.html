@@ -1,6 +1,6 @@
 
 <mat-selection-list #navtexOptions (selectionChange)="onNavtexSelection($event, navtexOptions.selectedOptions)">
   <mat-list-option *ngFor="let nv of nvtxs"  [value]='nv'>
-    {{nv.name}}
+    {{nv.name}} - {{nv.station}}
   </mat-list-option>
 </mat-selection-list>

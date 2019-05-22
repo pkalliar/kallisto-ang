@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         // this.user = result.user;
         console.log('user ' + JSON.stringify(this.test));
         // console.log('expirationTime: ' + moment(this.user.expirationTime).format());
-        this.router.navigate(['/intro']);
+        this.router.navigate(['/maps']);
 
         },
         error => { // Error
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
     signInWithEmail() {
       this.authService.signInEmail(this.user.email, this.user.password)
           .then(result => { // Success
-            this.router.navigate(['/intro']);
+            this.router.navigate(['/maps']);
           })
           .catch((err) => console.log('error: ' + err));
     }
@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
             this.user = result.user;
             console.log('user ' + JSON.stringify(this.user));
             console.log('expirationTime: ' + moment(this.user.expirationTime).format());
-            this.router.navigate(['/eshop']);
+            this.router.navigate(['/maps']);
 
         },
         error => { // Error
@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
               localStorage.apikey_expires = res.apikey_expires;
               localStorage.username = res.username;
               localStorage.isLoggedIn = true;
-              this.router.navigate(['']);
+              this.router.navigate(['/maps']);
             }
 
           })

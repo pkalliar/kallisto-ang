@@ -101,11 +101,12 @@ export class TopnavComponent implements OnInit {
     // .then(function(resp: any) {
     //   console.log('refreshing : ' + JSON.stringify(resp) );
     // });
-    this.authService.logout().subscribe(
+    this.authService.logout().then(
       (res: Object) => {
         console.log(JSON.stringify(res));
         this.user = null;
-        this.router.navigate(['/login' ]);
+        this.userDetails  = null;
+        // this.router.navigate(['/login' ]);
       }
       );
   };
