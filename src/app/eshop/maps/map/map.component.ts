@@ -131,6 +131,8 @@ export class MapComponent implements OnInit {
       this.loadLayer('ΑΟΖ Ελλάδας', 'assets/MarineRegions-greece-eez.kml', false);
       this.loadLayer('FIR ΚΔ', 'assets/FIR_NEW.kml', false);
 
+      this.drawBlockNumbers(this.map);
+
       const ui = H.ui.UI.createDefault(this.map, defaultLayers);
       const distanceMeasurementTool = new H.ui.DistanceMeasurement();
       ui.addControl('distancemeasurement', distanceMeasurementTool);
@@ -242,17 +244,17 @@ export class MapComponent implements OnInit {
     }, this.options);
   }
 
-  addSVGMarker(mapContainer: any, coord: any): void  {
+  addSVGMarker(label, mapContainer: any, coord: any): void  {
 
 
 
-    const svgMarkup = '<svg  width="24" height="24" xmlns="http://www.w3.org/2000/svg">' +
-    '<rect stroke="black" fill="${FILL}" x="1" y="1" width="22" height="22" />' +
-    '<text x="11" y="18" font-size="10pt" font-family="Arial" font-weight="bold" ' +
-    'text-anchor="middle" fill="${STROKE}" >' + '13' + '</text></svg>';
+    const svgMarkup = '<svg  width="24" height="20" xmlns="http://www.w3.org/2000/svg">' +
+    // '<rect stroke="black" fill="${FILL}" x="1" y="1" width="22" height="18" />' +
+    '<text x="11" y="16" font-size="10pt" font-family="Arial" font-weight="bold" ' +
+    'text-anchor="middle" fill="${STROKE}" >' + label + '</text></svg>';
 
     const bearsIcon = new H.map.Icon(
-      svgMarkup.replace('${FILL}', 'white').replace('${STROKE}', 'black')),
+      svgMarkup.replace('${FILL}', 'none').replace('${STROKE}', 'black')),
       bearsMarker = new H.map.Marker(coord, {icon: bearsIcon});
 
     mapContainer.addObject(bearsMarker);
@@ -267,7 +269,7 @@ export class MapComponent implements OnInit {
 
 
       // this.calculateRouteFromAtoB(this.coordinates, coord);
-      this.addSVGMarker(mapContainer, coord);
+      // this.addSVGMarker(mapContainer, coord);
 
       // this.addDraggableMarker(mapContainer, this.behavior, coord);
 
@@ -276,6 +278,22 @@ export class MapComponent implements OnInit {
           ' ' + Math.abs(coord.lng.toFixed(4)) +
            ((coord.lng > 0) ? 'E' : 'W'));
     });
+  }
+
+  drawBlockNumbers(mapContainer) {
+    this.addSVGMarker(1, mapContainer, {lat: 34.2764, lng: 32.8192});
+    this.addSVGMarker(2, mapContainer, {lat: 34.4137, lng: 33.9234});
+    this.addSVGMarker(3, mapContainer, {lat: 34.5948, lng: 34.6155});
+    this.addSVGMarker(4, mapContainer, {lat: 33.8682, lng: 30.3967});
+    this.addSVGMarker(5, mapContainer, {lat: 33.8682, lng: 30.9241});
+    this.addSVGMarker(6, mapContainer, {lat: 33.8682, lng: 31.6162});
+    this.addSVGMarker(7, mapContainer, {lat: 33.8682, lng: 32.2644});
+    this.addSVGMarker(8, mapContainer, {lat: 33.8682, lng: 32.9456});
+    this.addSVGMarker(9, mapContainer, {lat: 33.8682, lng: 33.5498});
+    this.addSVGMarker(10, mapContainer, {lat: 33.300, lng: 31.7041});
+    this.addSVGMarker(11, mapContainer, {lat: 33.300, lng: 32.2754});
+    this.addSVGMarker(12, mapContainer, {lat: 33.300, lng: 32.9785});
+    this.addSVGMarker(13, mapContainer, {lat: 33.9867, lng: 34.1321});
   }
 
   calculateRouteFromAtoB (from, to) {
