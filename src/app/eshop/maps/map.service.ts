@@ -18,6 +18,7 @@ export class NavtexData {
   description: string;
   created_on: Date;
   points: any[];
+  show: boolean;
 
   constructor() {
     this.points = [];

@@ -246,8 +246,6 @@ export class MapComponent implements OnInit {
 
   addSVGMarker(label, mapContainer: any, coord: any): void  {
 
-
-
     const svgMarkup = '<svg  width="24" height="20" xmlns="http://www.w3.org/2000/svg">' +
     // '<rect stroke="black" fill="${FILL}" x="1" y="1" width="22" height="18" />' +
     '<text x="11" y="16" font-size="10pt" font-family="Arial" font-weight="bold" ' +

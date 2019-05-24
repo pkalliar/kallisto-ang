@@ -1,6 +1,26 @@
 
-<mat-selection-list #navtexOptions (selectionChange)="onNavtexSelection($event, navtexOptions.selectedOptions)">
+<!-- <mat-selection-list #navtexOptions (selectionChange)="onNavtexSelection($event, navtexOptions.selectedOptions)">
   <mat-list-option *ngFor="let nv of nvtxs"  [value]='nv'>
-    {{nv.name}} - {{nv.station}}
+    <h3>{{nv.name}}</h3> {{nv.station}}
+    <button mat-icon-button color="primary">
+      <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+    </button>
   </mat-list-option>
-</mat-selection-list>
+</mat-selection-list> -->
+
+<mat-list role="list">
+  <mat-list-item *ngFor="let nv of nvtxs" role="listitem">
+    <b>{{nv.name}}</b><span>{{nv.station}}</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button color="primary">
+      <mat-icon aria-label="Example icon-button with a heart icon">visibility</mat-icon>
+    </button> 
+    <button mat-icon-button color="primary">
+        <mat-icon aria-label="Example icon-button with a heart icon">visibility_off</mat-icon>
+      </button> 
+    <button mat-icon-button color="primary">
+      <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+    </button>    
+  </mat-list-item>
+</mat-list>
+

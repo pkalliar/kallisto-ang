@@ -98,6 +98,15 @@
         </outerBoundaryIs>
       </Polygon>
     </Placemark>
+    <Placemark> 
+    <name> New point</name> 
+    <description>This is a new point.</description>
+    <Point>
+      <coordinates>
+      32.8192, 34.2764, 0. 
+      </coordinates>
+    </Point> 
+    </Placemark>
     <Placemark>
       <name>BLOCK 2 AREA</name>
       <description><![CDATA[Statistics computed from imported data<br><br>Distance: 189.0 miles]]></description>
