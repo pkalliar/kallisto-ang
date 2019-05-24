@@ -9,7 +9,9 @@ import { strict } from 'assert';
 import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
 import { MapDialogComponent } from '../map-dialog/map-dialog.component';
 
+
 declare var H: any;
+// declare let H;
 
 export class MapLayer {
   name: string;
@@ -160,6 +162,7 @@ export class MapComponent implements OnInit {
       this.map.addLayer(layer);
     }
 
+
     this.mapLayers.push(new MapLayer(name, template, layer, show));
   }
 
@@ -168,6 +171,14 @@ export class MapComponent implements OnInit {
       this.map.addLayer(template);
     } else {
       this.map.removeLayer(template);
+    }
+  }
+
+  updateObject(obj: Object, show: boolean) {
+    if (show) {
+      this.map.addObject(obj);
+    } else {
+      this.map.removeObject(obj);
     }
   }
 
