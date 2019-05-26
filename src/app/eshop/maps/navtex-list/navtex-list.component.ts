@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MapService, NavtexData } from '../map.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { MapService, NavtexData } from '../map.service';
 export class NavtexListComponent implements OnInit {
 
   nvtxs: NavtexData[] = [];
+
+  @Output() navtexSelected = new EventEmitter<Object>();
 
   constructor(private mapSrv: MapService) { }
 
@@ -22,6 +24,18 @@ export class NavtexListComponent implements OnInit {
           console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
         });
     });
+  }
+
+  onVisibilityClick(i: number) {
+    this.nvtxs[i].show = !this.nvtxs[i].show;
+    this.navtexSelected.emit(this.nvtxs);
+    // sessionStorage.setItem('user', this.nvtxs[i]);
+    // this.nvtxs.forEach(function(nvtx) {
+    //   if (nvtx.name === e.option.value.name) {
+    //     nvtx.show = e.option.selected;
+    //   }
+    //   console.log(nvtx.name);
+    // });
   }
 
 }

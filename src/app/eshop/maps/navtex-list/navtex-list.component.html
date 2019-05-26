@@ -8,9 +8,9 @@
   </mat-list-option>
 </mat-selection-list> -->
 
-<mat-list role="list">
+<!-- <mat-list role="list">
   <mat-list-item *ngFor="let nv of nvtxs" role="listitem">
-    <b>{{nv.name}}</b><span>{{nv.station}}</span>
+    <b>{{nv.name}}</b><span></span><span>{{nv.station}}</span>
     <span class="example-spacer"></span>
     <button mat-icon-button color="primary">
       <mat-icon aria-label="Example icon-button with a heart icon">visibility</mat-icon>
@@ -22,5 +22,31 @@
       <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
     </button>    
   </mat-list-item>
-</mat-list>
+</mat-list> -->
+
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let nv of nvtxs; index as i">
+      <mat-expansion-panel-header>
+          <!-- <span class="flag-icon flag-icon-cy"></span> -->
+        <mat-panel-title>
+            <button mat-icon-button>
+              <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[0]"></span>
+              <span class="flag-icon flag-icon-cy" *ngIf="nv.station === mapSrv.stations[1]"></span>
+            </button>
+            {{nv.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{nv.created_on | date:'dd-MM-yyyy':''}}
+            <!-- -->
+            <span class="example-spacer"></span>
+            <button mat-icon-button color="primary" (click)="onVisibilityClick(i)" >
+              <mat-icon *ngIf="nv.show" aria-label="show navtex">visibility</mat-icon>
+              <mat-icon *ngIf="!nv.show" aria-label="navtex now shown">visibility_off</mat-icon>
+            </button> 
+            
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      {{nv.description}}
+    </mat-expansion-panel>
+</mat-accordion>
 

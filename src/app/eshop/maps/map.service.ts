@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { MapLayer } from './map/map.component';
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as moment from 'moment';
 
 export interface DialogData {
   type: number;
@@ -13,6 +14,7 @@ export interface DialogData {
 }
 
 export class NavtexData {
+  id: string;
   station: string;
   name: string;
   description: string;
@@ -146,6 +148,18 @@ export class MapService {
         } else if (line.includes('JRCC LARNACA')) {
           resp.station = this.stations[1];
         }
+        if (line.includes('Published Date')) {
+          const n = line.indexOf('Published Date');
+          const publStr = line.substr(n + 16, 10);
+          const publDate = moment(publStr, 'DD-MM-YYYY').toDate();
+          console.log('publStr ' + publStr + ' ' + publDate);
+        }
+        if (line.includes('UTC')) {
+          // const tokens = line.split(' ');
+          const publDate = moment(line, 'DD HHmm UTC MMM YYYY').toDate();
+          console.log('publStr ' + line + ' ' + publDate);
+
+        }
       } else if (resp.station === this.stations[0]) {
           if (line.includes('TURNHOS N/W') && line.includes(':')) {
             resp.name = line.split(':')[1].trim();
@@ -199,16 +213,18 @@ export class MapService {
 
    searchNavtexDB(keyword) {
     console.log('in searchNavtex..');
-    return this.afs.firestore.collection('navtex').get().then(querySnapshot => querySnapshot.docs);
+    return this.afs.firestore.collection('navtex')
+    .orderBy('created_on', 'desc')
+    .get().then(querySnapshot => querySnapshot.docs);
    }
 
    getFromToken(token): NavtexData {
 
     const nvtx = new NavtexData();
-
+    nvtx.id = token.id;
     nvtx.name = token.get('name');
     nvtx.description = token.get('description');
-    nvtx.created_on = token.get('created_on');
+    nvtx.created_on = new Date((token.get('created_on').seconds * 1000));
     nvtx.station = token.get('station');
     nvtx.points = token.get('points');
     return nvtx;

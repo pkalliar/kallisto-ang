@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 import { SearchCultureService } from '../search-culture.service';
-import { MapService } from '../map.service';
+import { MapService, NavtexData } from '../map.service';
 import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
 import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
@@ -55,6 +55,7 @@ export class MapComponent implements OnInit {
   searchNavtex: FormControl = new FormControl();
 
   mapLayers: MapLayer[] = [];
+  nvtxs: NavtexData[] = [];
 
   selectedStation: string;
   stations: string[];
@@ -71,7 +72,7 @@ export class MapComponent implements OnInit {
   geocoder: any;
 
   constructor( private cultureSrv: SearchCultureService
-    , private mapSrv: MapService, private dialog: MatDialog) { }
+    , public mapSrv: MapService, private dialog: MatDialog) { }
 
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -110,7 +111,7 @@ export class MapComponent implements OnInit {
     this.searchNavtex.valueChanges
     .subscribe(data => {
       const points = this.mapSrv.searchNavtex(data, this.selectedStation);
-      this.drawNavtex(data);
+      this.drawNavtex(data, this.selectedStation);
     });
 
     const targetElement = document.getElementById('mapContainer');
@@ -182,7 +183,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  drawNavtex(data) {
+  drawNavtex(data, station) {
     if (data.length > 1) {
       // Initialize a linestring and add all the points to it:
       const linestring = new H.geo.LineString();
@@ -190,8 +191,17 @@ export class MapComponent implements OnInit {
         linestring.pushPoint(point);
       });
 
+      console.log('station: ' + station);
+
+      let options = {};
+      if (station === this.mapSrv.stations[0]) {
+        options = {style: { lineWidth: 2, strokeColor: 'red' }};
+      } else if (station === this.mapSrv.stations[1]) {
+        options = {style: { lineWidth: 2, strokeColor: 'yellow' }};
+      }
+
       // Initialize a polyline with the linestring:
-      const polyline = new H.map.Polyline(linestring, { style: { lineWidth: 2 }});
+      const polyline = new H.map.Polyline(linestring, options);
 
       // Add the polyline to the map:
       this.map.addObject(polyline);
@@ -325,7 +335,7 @@ export class MapComponent implements OnInit {
     );
   }
 
-  openDialog(type: string, data: any): void {
+  openDialog(type: number, data: any): void {
     const dialogRef = this.dialog.open(MapDialogComponent, {
       height: '600px',
       width: '600px',
@@ -339,13 +349,21 @@ export class MapComponent implements OnInit {
       console.log(result);
       if (result !== undefined) {
         if (result.type === this.mapSrv.NAVTEX_DETAIL) {
-          this.drawNavtex(result.data);
+          this.drawNavtex(result.data.points, result.data.station);
 
-        } else if (result.type === this.mapSrv.NAVTEX_LIST) {
+        } else if (result.type === this.mapSrv.LAYER_LIST) {
           if (result.data !== undefined) {
             result.data.forEach(mapL => {
               this.updateLayer(mapL.layer, mapL.show);
               console.log(mapL);
+            });
+          }
+        } else if (result.type === this.mapSrv.NAVTEX_LIST) {
+          if (result.data !== undefined) {
+            result.data.forEach(nv => {
+              if (nv.show) {
+                this.drawNavtex(nv.points, nv.station);
+              }
             });
           }
         }

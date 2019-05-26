@@ -10,11 +10,11 @@
   </mat-selection-list>
 
   <pk-navtex-detail *ngIf="data.type === srv.NAVTEX_DETAIL" (positioned)="onPositioned($event)"></pk-navtex-detail>
-  <pk-navtex-list *ngIf="data.type === srv.NAVTEX_LIST" (positioned)="onNavtexSelection($event)"></pk-navtex-list>
+  <pk-navtex-list *ngIf="data.type === srv.NAVTEX_LIST" (navtexSelected)="onNavtexSelection($event)"></pk-navtex-list>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Ακύρωση</button>
   <button mat-button *ngIf="data.type === srv.NAVTEX_DETAIL" (click)="onNavDetailClick()" cdkFocusInitial>ΟΚ</button>
-  <button mat-button *ngIf="data.type === srv.LAYER_LIST" (click)="onNavListClick()" cdkFocusInitial>ΟΚ</button>
+  <button mat-button *ngIf="data.type === srv.LAYER_LIST" (click)="onLayerListClick()" cdkFocusInitial>ΟΚ</button>
   <button mat-button *ngIf="data.type === srv.NAVTEX_LIST" (click)="onNavListClick()" cdkFocusInitial>ΟΚ</button>
 </div>
