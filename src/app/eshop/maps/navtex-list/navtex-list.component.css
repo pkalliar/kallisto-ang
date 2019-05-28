@@ -1,3 +1,8 @@
 .example-spacer {
     flex: 1 1 auto;
+    /* width: 200px; */
+}
+
+.mat-card-header-text {
+    width: 100%;
 }

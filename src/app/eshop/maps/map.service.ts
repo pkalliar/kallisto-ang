@@ -18,9 +18,11 @@ export class NavtexData {
   station: string;
   name: string;
   description: string;
+  published: Date;
   created_on: Date;
   points: any[];
   show: boolean;
+  expanded: boolean;
 
   constructor() {
     this.points = [];
@@ -153,11 +155,13 @@ export class MapService {
           const publStr = line.substr(n + 16, 10);
           const publDate = moment(publStr, 'DD-MM-YYYY').toDate();
           console.log('publStr ' + publStr + ' ' + publDate);
+          resp.published = publDate;
         }
         if (line.includes('UTC')) {
           // const tokens = line.split(' ');
           const publDate = moment(line, 'DD HHmm UTC MMM YYYY').toDate();
           console.log('publStr ' + line + ' ' + publDate);
+          resp.published = publDate;
 
         }
       } else if (resp.station === this.stations[0]) {
@@ -214,7 +218,7 @@ export class MapService {
    searchNavtexDB(keyword) {
     console.log('in searchNavtex..');
     return this.afs.firestore.collection('navtex')
-    .orderBy('created_on', 'desc')
+    .orderBy('published', 'desc')
     .get().then(querySnapshot => querySnapshot.docs);
    }
 
@@ -225,6 +229,7 @@ export class MapService {
     nvtx.name = token.get('name');
     nvtx.description = token.get('description');
     nvtx.created_on = new Date((token.get('created_on').seconds * 1000));
+    nvtx.published = new Date((token.get('published').seconds * 1000));
     nvtx.station = token.get('station');
     nvtx.points = token.get('points');
     return nvtx;

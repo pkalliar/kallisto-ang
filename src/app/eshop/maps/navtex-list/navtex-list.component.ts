@@ -20,8 +20,8 @@ export class NavtexListComponent implements OnInit {
         response.forEach((doc) => {
           const nvtx = this.mapSrv.getFromToken(doc);
           this.nvtxs.push(nvtx);
-          console.log(doc.get('name'));
-          console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
+          // console.log(doc.get('name'));
+          // console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
         });
     });
   }
