@@ -111,7 +111,7 @@ export class MapComponent implements OnInit {
     this.searchNavtex.valueChanges
     .subscribe(data => {
       const points = this.mapSrv.searchNavtex(data, this.selectedStation);
-      this.drawNavtex(data, this.selectedStation);
+      this.drawNavtex(data, this.selectedStation, 'navtex');
     });
 
     const targetElement = document.getElementById('mapContainer');
@@ -183,7 +183,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  drawNavtex(data, station) {
+  drawNavtex(data, station, label) {
     if (data.length > 1) {
       // Initialize a linestring and add all the points to it:
       const linestring = new H.geo.LineString();
@@ -205,6 +205,8 @@ export class MapComponent implements OnInit {
 
       // Add the polyline to the map:
       this.map.addObject(polyline);
+
+      this.addSVGMarker(label, this.map, data[0]);
 
       // Zoom the map to make sure the whole polyline is visible:
       this.map.setViewBounds(polyline.getBounds());
@@ -267,14 +269,14 @@ export class MapComponent implements OnInit {
 
   addSVGMarker(label, mapContainer: any, coord: any): void  {
 
-    const svgMarkup = '<svg  width="24" height="20" xmlns="http://www.w3.org/2000/svg">' +
+    const svgMarkup = '<svg  width="74" height="20" xmlns="http://www.w3.org/2000/svg">' +
     // '<rect stroke="black" fill="${FILL}" x="1" y="1" width="22" height="18" />' +
-    '<text x="11" y="16" font-size="10pt" font-family="Arial" font-weight="bold" ' +
+    '<text x="31" y="16" font-size="10pt" font-family="Arial" font-weight="bold" ' +
     'text-anchor="middle" fill="${STROKE}" >' + label + '</text></svg>';
 
     const bearsIcon = new H.map.Icon(
-      svgMarkup.replace('${FILL}', 'none').replace('${STROKE}', 'black')),
-      bearsMarker = new H.map.Marker(coord, {icon: bearsIcon});
+      svgMarkup.replace('${FILL}', 'none').replace('${STROKE}', 'black'));
+    const bearsMarker = new H.map.Marker(coord, {icon: bearsIcon});
 
     mapContainer.addObject(bearsMarker);
   }
@@ -349,7 +351,7 @@ export class MapComponent implements OnInit {
       console.log(result);
       if (result !== undefined) {
         if (result.type === this.mapSrv.NAVTEX_DETAIL) {
-          this.drawNavtex(result.data.points, result.data.station);
+          this.drawNavtex(result.data.points, result.data.station, result.data.name);
 
         } else if (result.type === this.mapSrv.LAYER_LIST) {
           if (result.data !== undefined) {
@@ -362,7 +364,7 @@ export class MapComponent implements OnInit {
           if (result.data !== undefined) {
             result.data.forEach(nv => {
               if (nv.show) {
-                this.drawNavtex(nv.points, nv.station);
+                this.drawNavtex(nv.points, nv.station, nv.name);
               }
             });
           }

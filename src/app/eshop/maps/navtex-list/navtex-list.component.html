@@ -24,44 +24,39 @@
   </mat-list-item>
 </mat-list> -->
 
-<mat-list>
-    <mat-list-item *ngFor="let nv of nvtxs; index as i">
-        <mat-icon mat-list-icon>
-            <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[0]"></span>
-            <span class="flag-icon flag-icon-cy" *ngIf="nv.station === mapSrv.stations[1]"></span>
-        </mat-icon>
-       <h4 matLine>{{nv.name}}</h4>
-       <p matLine class="demo-2"> {{nv.published | date:'dd-MM-yyyy':''}} </p>
-      <span class="example-spacer"></span>
-      <button mat-icon-button color="primary" (click)="onVisibilityClick(i)" >
-        <mat-icon *ngIf="nv.show" aria-label="show navtex">visibility</mat-icon>
-        <mat-icon *ngIf="!nv.show" aria-label="navtex now shown">visibility_off</mat-icon>
-      </button>
-      <button mat-icon-button  (click)="nv.expanded = !nv.expanded" >
-        <mat-icon *ngIf="!nv.expanded" aria-label="expand">keyboard_arrow_down</mat-icon>
-        <mat-icon *ngIf="nv.expanded" aria-label="shrink">keyboard_arrow_up</mat-icon>
-      </button>
-      <!-- <p *ngIf="nv.expanded">
-          {{nv.description}}
-      </p> -->
+<!-- <mat-drawer-container class="example-container" autosize>
+  <mat-drawer-content>
+    <mat-list>
+      <mat-list-item *ngFor="let nv of nvtxs; index as i">
+          <mat-icon mat-list-icon>
+              <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[0]"></span>
+              <span class="flag-icon flag-icon-cy" *ngIf="nv.station === mapSrv.stations[1]"></span>
+          </mat-icon>
+         <h4 matLine>{{nv.name}}</h4>
+         <p matLine class="demo-2"> {{nv.published | date:'dd-MM-yyyy':''}} </p>
+        <span class="example-spacer"></span>
+        <button mat-icon-button color="primary" (click)="onVisibilityClick(i)" >
+          <mat-icon *ngIf="nv.show" aria-label="show navtex">visibility</mat-icon>
+          <mat-icon *ngIf="!nv.show" aria-label="navtex now shown">visibility_off</mat-icon>
+        </button>
+        <button mat-raised-button (click)="drawer.toggle()">
+            <i class="material-icons">more_horiz</i>
+          </button>  
+      </mat-list-item>
+   </mat-list>  
+  </mat-drawer-content>
+  <mat-drawer #drawer [mode]="side" position="end">lala</mat-drawer>
+</mat-drawer-container> -->
 
-    </mat-list-item>
- </mat-list>
- <mat-card  *ngIf="nv.expanded">
-    <mat-card-content>
-        <p>
-            {{nv.description}}
-        </p>
-      </mat-card-content>
-</mat-card>
 
-<mat-card *ngFor="let nv of nvtxs; index as i">
+
+
+<!-- <mat-card *ngFor="let nv of nvtxs; index as i">
   <mat-card-header style="width: 100%">
     <div mat-card-avatar>
         <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[0]"></span>
         <span class="flag-icon flag-icon-cy" *ngIf="nv.station === mapSrv.stations[1]"></span>
     </div>
-    <!-- <mat-card-title>{{nv.name}}</mat-card-title> -->
     <mat-card-subtitle style="width: 500px">
       <b>{{nv.name}}</b>{{nv.published | date:'dd-MM-yyyy':''}}
       <span class="example-spacer"></span>
@@ -80,9 +75,9 @@
         {{nv.description}}
     </p>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
 
-<!-- <mat-accordion>
+<mat-accordion>
     <mat-expansion-panel *ngFor="let nv of nvtxs; index as i">
       <mat-expansion-panel-header>
         <mat-panel-title >
@@ -104,9 +99,6 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       {{nv.description}}
-      <mat-action-row>
-        <button mat-button>Click me</button>
-      </mat-action-row>
     </mat-expansion-panel>
-</mat-accordion> -->
+</mat-accordion>
 

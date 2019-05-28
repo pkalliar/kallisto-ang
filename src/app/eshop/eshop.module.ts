@@ -119,7 +119,7 @@ export const cloudinary = {
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatProgressSpinnerModule,
     MatRadioModule, MatSortModule, MatStepperModule, MatTableModule, MatChipsModule,
-    MatDatepickerModule,
+    MatDatepickerModule, MatSidenavModule,
     AngularFirestoreModule, AngularFireAuthModule,
     NgbModule,
     FileUploadModule,
