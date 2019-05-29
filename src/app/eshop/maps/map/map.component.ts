@@ -87,12 +87,6 @@ export class MapComponent implements OnInit {
       useHTTPS: true
     });
 
-    // this.mapLayers.push(new MapLayer('Οικόπεδα ΚΔ', 'assets/oil_fields.kml'));
-    // this.mapLayers.push(new MapLayer('ΑΟΖ ΚΔ', 'assets/AOZ.kml'));
-
-    // this.mapLayers.push(new MapLayer('Οικόπεδα ΚΔ', 'assets/BLOCKS.kml'));
-    // this.mapLayers.push(new MapLayer('ΑΟΖ Ελλάδας', 'assets/MarineRegions-greece-eez.kml'));
-
     this.searchTerm
     .valueChanges
     .pipe(
@@ -148,6 +142,17 @@ export class MapComponent implements OnInit {
 
       window.addEventListener('resize', e => {
         this.map.getViewPort().resize();
+      });
+
+      this.mapSrv.searchNavtexDB('')
+        .then(response => {
+          response.forEach((doc) => {
+            const nvtx = this.mapSrv.getFromToken(doc);
+            this.nvtxs.push(nvtx);
+            // if (nvtx.show) {
+              this.drawNavtex(nvtx.points, nvtx.station, nvtx.name);
+            // }
+          });
       });
 
   }
@@ -206,7 +211,7 @@ export class MapComponent implements OnInit {
       // Add the polyline to the map:
       this.map.addObject(polyline);
 
-      this.addSVGMarker(label, this.map, data[0]);
+      this.addClickableMarker(label, this.map, data[0]);
 
       // Zoom the map to make sure the whole polyline is visible:
       this.map.setViewBounds(polyline.getBounds());
@@ -277,6 +282,37 @@ export class MapComponent implements OnInit {
     const bearsIcon = new H.map.Icon(
       svgMarkup.replace('${FILL}', 'none').replace('${STROKE}', 'black'));
     const bearsMarker = new H.map.Marker(coord, {icon: bearsIcon});
+    const simpleMarker = new H.map.Marker(coord);
+
+    mapContainer.addObject(bearsMarker);
+  }
+
+  addClickableMarker(label, mapContainer: any, coord: any): void  {
+
+
+    const domElement = document.createElement('div');
+    domElement.style.width = '20px';
+    domElement.style.height = '20px';
+    domElement.style.backgroundColor = 'blue';
+
+    function changeOpacity(evt) {
+      console.log(evt.type);
+      evt.target.style.opacity = 0.8;
+    }
+
+    const domIcon = new H.map.DomIcon(domElement, {
+      onAttach: function(clonedElement, _domIcon, domMarker) {
+      clonedElement.addEventListener('mouseover', changeOpacity);
+      },
+      // tslint:disable-next-line:no-shadowed-variable
+      onDetach: function(clonedElement, domIcon, domMarker) {
+      clonedElement.removeEventListener('mouseover', changeOpacity);
+      }
+    });
+    const simpleMarker = new H.map.Marker(coord);
+    const bearsMarker = new H.map.DomMarker(coord, {
+      icon: domIcon
+    });
 
     mapContainer.addObject(bearsMarker);
   }
