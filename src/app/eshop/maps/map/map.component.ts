@@ -61,6 +61,7 @@ export class MapComponent implements OnInit {
   stations: string[];
 
   map: any;
+  ui: any;
   behavior: any;
   coordinates = {
     lat: 35.04578,
@@ -105,7 +106,7 @@ export class MapComponent implements OnInit {
     this.searchNavtex.valueChanges
     .subscribe(data => {
       const points = this.mapSrv.searchNavtex(data, this.selectedStation);
-      this.drawNavtex(data, this.selectedStation, 'navtex');
+      this.drawNavtex(points, this.selectedStation, 'navtex');
     });
 
     const targetElement = document.getElementById('mapContainer');
@@ -130,9 +131,18 @@ export class MapComponent implements OnInit {
 
       this.drawBlockNumbers(this.map);
 
-      const ui = H.ui.UI.createDefault(this.map, defaultLayers);
+      this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
       const distanceMeasurementTool = new H.ui.DistanceMeasurement();
-      ui.addControl('distancemeasurement', distanceMeasurementTool);
+      this.ui.addControl('distancemeasurement', distanceMeasurementTool);
+      const mapSettings = this.ui.getControl('mapsettings');
+      const zoom = this.ui.getControl('zoom');
+      // const scalebar = this.ui.getControl('scalebar');
+      const measurement = this.ui.getControl('distancemeasurement');
+
+      mapSettings.setAlignment('top-left');
+      zoom.setAlignment('top-left');
+      // scalebar.setAlignment('top-left');
+      measurement.setAlignment('top-left');
 
       // this.map.addLayer(defaultLayers.venues);
 
@@ -200,21 +210,31 @@ export class MapComponent implements OnInit {
 
       let options = {};
       if (station === this.mapSrv.stations[0]) {
-        options = {style: { lineWidth: 2, strokeColor: 'red' }};
+        options = {style: { lineWidth: 2, strokeColor: 'red' }, fillColor: 'rgba(35, 51, 129, 0.3)'};
       } else if (station === this.mapSrv.stations[1]) {
-        options = {style: { lineWidth: 2, strokeColor: 'yellow' }};
+        options = {style: { lineWidth: 2, strokeColor: 'yellow', fillColor: 'rgba(35, 51, 129, 0.3)'}};
       }
 
       // Initialize a polyline with the linestring:
-      const polyline = new H.map.Polyline(linestring, options);
+      const polyline = new H.map.Polygon(linestring, options);
+
+      polyline.addEventListener('tap', evt => {
+        const bubble =  new H.ui.InfoBubble(data[0], {
+          // read custom data
+          content: label
+        });
+        // show info bubble
+        this.ui.addBubble(bubble);
+    });
 
       // Add the polyline to the map:
       this.map.addObject(polyline);
 
       this.addClickableMarker(label, this.map, data[0]);
+      // this.addSVGMarker(label, this.map, data[0]);
 
       // Zoom the map to make sure the whole polyline is visible:
-      this.map.setViewBounds(polyline.getBounds());
+      // this.map.setViewBounds(polyline.getBounds());
     }
   }
 
@@ -279,6 +299,7 @@ export class MapComponent implements OnInit {
     '<text x="31" y="16" font-size="10pt" font-family="Arial" font-weight="bold" ' +
     'text-anchor="middle" fill="${STROKE}" >' + label + '</text></svg>';
 
+
     const bearsIcon = new H.map.Icon(
       svgMarkup.replace('${FILL}', 'none').replace('${STROKE}', 'black'));
     const bearsMarker = new H.map.Marker(coord, {icon: bearsIcon});
@@ -289,32 +310,30 @@ export class MapComponent implements OnInit {
 
   addClickableMarker(label, mapContainer: any, coord: any): void  {
 
-
     const domElement = document.createElement('div');
-    domElement.style.width = '20px';
+    domElement.textContent = label;
+    domElement.style.fontSize = 'small';
+    domElement.style.width = '50px';
     domElement.style.height = '20px';
-    domElement.style.backgroundColor = 'blue';
+    // domElement.style.backgroundColor = 'blue';
 
-    function changeOpacity(evt) {
-      console.log(evt.type);
-      evt.target.style.opacity = 0.8;
-    }
+    const domIcon = new H.map.DomIcon(domElement);
 
-    const domIcon = new H.map.DomIcon(domElement, {
-      onAttach: function(clonedElement, _domIcon, domMarker) {
-      clonedElement.addEventListener('mouseover', changeOpacity);
-      },
-      // tslint:disable-next-line:no-shadowed-variable
-      onDetach: function(clonedElement, domIcon, domMarker) {
-      clonedElement.removeEventListener('mouseover', changeOpacity);
-      }
-    });
     const simpleMarker = new H.map.Marker(coord);
     const bearsMarker = new H.map.DomMarker(coord, {
       icon: domIcon
     });
 
     mapContainer.addObject(bearsMarker);
+  }
+
+  changeOpacity(coord, label1) {
+    const bubble =  new H.ui.InfoBubble(coord, {
+      // read custom data
+      content: label1
+    });
+    // show info bubble
+    this.ui.addBubble(bubble);
   }
 
   setUpClickListener(mapContainer) {
