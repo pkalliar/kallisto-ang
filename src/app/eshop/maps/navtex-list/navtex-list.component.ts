@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MapService, NavtexData } from '../map.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { MapService, NavtexData } from '../map.service';
 })
 export class NavtexListComponent implements OnInit {
 
-  nvtxs: NavtexData[] = [];
+  @Input() nvtxs: NavtexData[] = [];
 
   @Output() navtexSelected = new EventEmitter<Object>();
 
