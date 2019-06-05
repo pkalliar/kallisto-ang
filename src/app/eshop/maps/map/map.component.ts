@@ -160,7 +160,7 @@ export class MapComponent implements OnInit {
             const nvtx = this.mapSrv.getFromToken(doc);
             this.nvtxs.push(nvtx);
             // if (nvtx.show) {
-              this.drawNavtex(nvtx.points, nvtx.station, nvtx.name);
+              this.drawNavtex2(nvtx.geoshapes, nvtx.station, nvtx.name);
             // }
           });
       });
@@ -236,6 +236,16 @@ export class MapComponent implements OnInit {
       // Zoom the map to make sure the whole polyline is visible:
       // this.map.setViewBounds(polyline.getBounds());
     }
+  }
+
+  drawNavtex2(geoshapes, station, label) {
+
+    geoshapes.forEach(shape => {
+      console.log(shape.type + ' ' + this.mapSrv.shapes[0]);
+      if ( shape.type === this.mapSrv.shapes[0]) {
+        this.drawNavtex(shape.points, station, label);
+      }
+    });
   }
 
   displayFn(res?: Object): string | undefined {

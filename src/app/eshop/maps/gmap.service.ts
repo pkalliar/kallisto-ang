@@ -3,23 +3,14 @@ import {Observable, of as observableOf} from 'rxjs';
 import { User } from '../../security/users/user';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from '../../../environments/environment';
-
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { MapLayer } from './map/map.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as moment from 'moment';
 
-declare var google: any;
-
 export interface DialogData {
   type: number;
   data: any;
-}
-
-export class Geoshape {
-  type: string;
-  points: any[];
 }
 
 export class NavtexData {
@@ -30,13 +21,11 @@ export class NavtexData {
   published: Date;
   created_on: Date;
   points: any[];
-  geoshapes: Geoshape[];
   show: boolean;
   expanded: boolean;
 
   constructor() {
     this.points = [];
-    this.geoshapes = [];
   }
 }
 
@@ -53,46 +42,15 @@ export class MapService {
 
   geocoder: any;
 
-  baseUrl = 'https://geocoder.api.here.com/6.2/geocode.json?' +
-  'app_id=' + environment.heremaps.appId +
-  '&app_code=' + environment.heremaps.appCode +
-  '&searchtext=425+W+Randolph+Chicago';
-
-  autocompleteUrl = 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json?' +
-  'app_id=' + environment.heremaps.appId +
-  '&app_code=' + environment.heremaps.appCode +
-  '&query=';
-
-  locationIdUrl = 'https://geocoder.api.here.com/6.2/geocode.json' +
-  '?jsonattributes=1' +
-  '&gen=9' +
-  '&app_id=' + environment.heremaps.appId +
-  '&app_code=' + environment.heremaps.appCode +
-  '&locationid=';
-
   stations: string[] = ['ANTALYA NAVTEX STATION', 'JRCC LARNACA'];
-
-  shapes: string[] = ['polygon', 'circle'];
 
   constructor(private http: HttpClient, private afs: AngularFirestore) {
   }
 
-  search(keyword: string): Observable<any[]> {
-    const req = this.autocompleteUrl + keyword + '&beginHighlight=<b>&endHighlight=</b>';
-    return this.http.get<any>(req);
+  getArea(navtexData: NavtexData) {
+      console.log('get area.. ' + navtexData.points);
    }
 
-   getArea(navtexData: NavtexData) {
-      console.log(navtexData.points);
-
-      const paths = [];
-      navtexData.points.forEach(function(point) {
-        paths.push(new google.maps.LatLng(point.lat, point.lng));
-      });
-
-      const area = google.maps.geometry.spherical.computeArea(paths);
-      console.log('polygon area=' + area.toFixed(2) / 1000000 + ' sq kilometers');
-    }
 
    searchNavtex(keyword: string, selectedStation: string): any[] {
     console.log('searching for navtex ' + keyword);
@@ -165,14 +123,9 @@ export class MapService {
     console.log(navtex);
     resp.description = navtex;
 
-    let points = [];
-    let currentLine = 0;
-    let coordline = 0;
-
     const arrayOfLines = navtex.match(/[^\r\n]+/g);
     arrayOfLines.forEach((line) => {
-      currentLine++;
-      console.log(currentLine + '__' + line);
+      console.log(line);
       if (resp.station === undefined) {
         if (line.includes('Antalya') && line.includes('TURNHOS')) {
           resp.station = this.stations[0];
@@ -198,22 +151,8 @@ export class MapService {
             resp.name = line.split(':')[1].trim();
           } else if ((line.startsWith('2') || line.startsWith('3')) && line.includes(' N') && line.includes(' E')) {
             const point = this.parseCoordLine(line);
-
             // const point1 = new H.geo.Point(point['lat'], point['lng']);
             resp.points.push(point);
-
-            if (currentLine - coordline > 1) {
-              if (points.length > 0) {
-                points.push(points[0]);
-                resp.geoshapes.push({
-                  type: this.shapes[0],
-                  points: points
-                });
-                points = new Array();
-              }
-            }
-            points.push(point);
-            coordline = currentLine;
           }
       } else if (resp.station === this.stations[1]) {
         if (line.includes('NAV WRNG NR')) {
@@ -223,19 +162,6 @@ export class MapService {
           const point = this.parseCoordLine(line);
           // const point1 = new H.geo.Point(point['lat'], point['lng']);
           resp.points.push(point);
-
-          if (currentLine - coordline > 1) {
-            if (points.length > 0) {
-              points.push(points[0]);
-              resp.geoshapes.push({
-                type: this.shapes[0],
-                points: points
-              });
-              points = new Array();
-            }
-          }
-          points.push(point);
-          coordline = currentLine;
         }
       }
 
@@ -244,24 +170,12 @@ export class MapService {
     if (resp.points.length > 0) {
       resp.points.push(resp.points[0]);
     }
-    if (points.length > 0) {
-      points.push(points[0]);
-    }
-    resp.geoshapes.push({
-      type: this.shapes[0],
-      points: points
-    });
 
     this.getArea(resp);
 
     // points = this.searchNavtex(navtex, selectedStation);
 
     return observableOf(resp);
-   }
-
-   getCoordinates(locationId) {
-    const req = this.locationIdUrl + locationId;
-    return this.http.get<any>(req);
    }
 
    saveNavtex(navtexData: NavtexData) {
@@ -297,7 +211,6 @@ export class MapService {
     nvtx.published = new Date((token.get('published').seconds * 1000));
     nvtx.station = token.get('station');
     nvtx.points = token.get('points');
-    nvtx.geoshapes = token.get('geoshapes');
     return nvtx;
   }
 
