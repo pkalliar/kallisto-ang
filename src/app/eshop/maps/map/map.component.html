@@ -54,12 +54,20 @@
   <i class="fas fa-lg fa-object-group"></i>
 </button>
 
-<button mat-icon-button class="right-btns list-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_LIST, nvtxs)">
+<!-- <button mat-icon-button class="right-btns list-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_LIST, nvtxs)">
+  <mat-icon aria-label="navtex search">layers</mat-icon>
+</button> -->
+
+<button mat-icon-button class="right-btns list-navtex-btn" (click)="showNvtxList = !showNvtxList">
   <mat-icon aria-label="navtex search">layers</mat-icon>
 </button>
 
-<button mat-icon-button class="left-btns logo-btn" (click)="showNavtexSearch = !showNavtexSearch">
+<button mat-icon-button class="left-btns logo-btn">
   <img src="assets/gremb_nic.png" alt="" width="90px" onError="" matTooltip="">
 </button>
+
+<pk-navtex-detail *ngIf="false" class="nvtx-detail" (positioned)="onPositioned($event)"></pk-navtex-detail>
+<pk-navtex-list *ngIf="showNvtxList" [nvtxs]="nvtxs" class="nvtx-detail" (navtexSelected)="onNavtexSelection($event)"></pk-navtex-list>
+
 
 <div class="map-full-width" id="mapContainer"></div>

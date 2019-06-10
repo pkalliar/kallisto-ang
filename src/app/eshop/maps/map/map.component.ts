@@ -51,6 +51,7 @@ export class MapComponent implements OnInit {
 
   showsearch: boolean;
   showNavtexSearch: boolean;
+  showNvtxList: boolean;
   searchTerm: FormControl = new FormControl();
   searchNavtex: FormControl = new FormControl();
 
@@ -160,7 +161,7 @@ export class MapComponent implements OnInit {
             const nvtx = this.mapSrv.getFromToken(doc);
             this.nvtxs.push(nvtx);
             // if (nvtx.show) {
-              this.drawNavtex2(nvtx.geoshapes, nvtx.station, nvtx.name);
+              this.drawNavtex2(nvtx);
             // }
           });
       });
@@ -191,11 +192,33 @@ export class MapComponent implements OnInit {
   }
 
   updateObject(obj: Object, show: boolean) {
-    if (show) {
-      this.map.addObject(obj);
-    } else {
-      this.map.removeObject(obj);
+    try {
+      if (show) {
+          this.map.addObject(obj);
+          // if (obj instanceof H.map.Polygon) {
+            const polygon = new H.map.Polygon(obj);
+            this.map.setViewBounds(polygon.getBounds());
+          // }
+      } else {
+          this.map.removeObject(obj);
+      }
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  drawNavtex2(nvtx: NavtexData) {
+
+    const area = this.mapSrv.getArea(nvtx);
+    const label = nvtx.name + ' Ολική επιφάνεια: ' + (area / 1000000).toFixed(0) + ' τ. χλμ.';
+
+    nvtx.geoshapes.forEach(shape => {
+      console.log(shape.type + ' ' + this.mapSrv.shapes[0]);
+      if ( shape.type === this.mapSrv.shapes[0]) {
+        shape.obj = this.drawNavtex(shape.points, nvtx.station, label);
+      }
+    });
+    nvtx.show = true;
   }
 
   drawNavtex(data, station, label) {
@@ -205,6 +228,7 @@ export class MapComponent implements OnInit {
       data.forEach(function(point) {
         linestring.pushPoint(point);
       });
+      linestring.pushPoint(data[0]);
 
       console.log('station: ' + station);
 
@@ -230,23 +254,16 @@ export class MapComponent implements OnInit {
       // Add the polyline to the map:
       this.map.addObject(polyline);
 
-      this.addClickableMarker(label, this.map, data[0]);
+      // this.addClickableMarker(label, this.map, data[0]);
       // this.addSVGMarker(label, this.map, data[0]);
 
       // Zoom the map to make sure the whole polyline is visible:
-      // this.map.setViewBounds(polyline.getBounds());
+      this.map.setViewBounds(polyline.getBounds());
+      return polyline;
     }
   }
 
-  drawNavtex2(geoshapes, station, label) {
 
-    geoshapes.forEach(shape => {
-      console.log(shape.type + ' ' + this.mapSrv.shapes[0]);
-      if ( shape.type === this.mapSrv.shapes[0]) {
-        this.drawNavtex(shape.points, station, label);
-      }
-    });
-  }
 
   displayFn(res?: Object): string | undefined {
     if ((res === null) || (res === '')) {
@@ -283,6 +300,20 @@ export class MapComponent implements OnInit {
     });
 
   }
+
+  onNavtexSelection(resp: any) {
+    console.log(resp);
+    if (resp !== undefined) {
+      resp.forEach(nvtx => {
+        console.log(nvtx);
+        console.log(nvtx.name + ' - ' + nvtx.show);
+        nvtx.geoshapes.forEach(shape => {
+          this.updateObject(shape.obj, nvtx.show);
+        });
+      });
+    }
+
+   }
 
   myLocation() {
     this.watchID = navigator.geolocation.getCurrentPosition(
@@ -335,15 +366,6 @@ export class MapComponent implements OnInit {
     });
 
     mapContainer.addObject(bearsMarker);
-  }
-
-  changeOpacity(coord, label1) {
-    const bubble =  new H.ui.InfoBubble(coord, {
-      // read custom data
-      content: label1
-    });
-    // show info bubble
-    this.ui.addBubble(bubble);
   }
 
   setUpClickListener(mapContainer) {
@@ -416,7 +438,9 @@ export class MapComponent implements OnInit {
       console.log(result);
       if (result !== undefined) {
         if (result.type === this.mapSrv.NAVTEX_DETAIL) {
-          this.drawNavtex(result.data.points, result.data.station, result.data.name);
+          const nvtx = result.data;
+          this.drawNavtex2(nvtx);
+          // this.drawNavtex(result.data.points, result.data.station, result.data.name);
 
         } else if (result.type === this.mapSrv.LAYER_LIST) {
           if (result.data !== undefined) {

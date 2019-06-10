@@ -20,6 +20,12 @@ export interface DialogData {
 export class Geoshape {
   type: string;
   points: any[];
+  obj: any;
+
+  // constructor(type: string, points: any[]) {
+  //   this.type = type;
+  //   this.points = points;
+  // }
 }
 
 export class NavtexData {
@@ -29,13 +35,13 @@ export class NavtexData {
   description: string;
   published: Date;
   created_on: Date;
-  points: any[];
+  area: number;
   geoshapes: Geoshape[];
   show: boolean;
   expanded: boolean;
 
   constructor() {
-    this.points = [];
+    // this.points = [];
     this.geoshapes = [];
   }
 }
@@ -72,7 +78,7 @@ export class MapService {
 
   stations: string[] = ['ANTALYA NAVTEX STATION', 'JRCC LARNACA'];
 
-  shapes: string[] = ['polygon', 'circle'];
+  shapes: string[] = ['polygon', 'circle', 'point'];
 
   constructor(private http: HttpClient, private afs: AngularFirestore) {
   }
@@ -83,15 +89,19 @@ export class MapService {
    }
 
    getArea(navtexData: NavtexData) {
-      console.log(navtexData.points);
-
-      const paths = [];
-      navtexData.points.forEach(function(point) {
-        paths.push(new google.maps.LatLng(point.lat, point.lng));
-      });
-
-      const area = google.maps.geometry.spherical.computeArea(paths);
-      console.log('polygon area=' + area.toFixed(2) / 1000000 + ' sq kilometers');
+     let totalArea = 0;
+      // console.log(navtexData.points);
+      navtexData.geoshapes.forEach( shape => {
+        const paths = [];
+        shape.points.forEach(function(point) {
+          paths.push(new google.maps.LatLng(point.lat, point.lng));
+        });
+        const area = google.maps.geometry.spherical.computeArea(paths);
+        totalArea = totalArea + area;
+        console.log('polygon area=' + area.toFixed(2) / 1000000 + ' sq kilometers');
+      }
+      );
+      return totalArea;
     }
 
    searchNavtex(keyword: string, selectedStation: string): any[] {
@@ -200,14 +210,16 @@ export class MapService {
             const point = this.parseCoordLine(line);
 
             // const point1 = new H.geo.Point(point['lat'], point['lng']);
-            resp.points.push(point);
+            // resp.points.push(point);
 
             if (currentLine - coordline > 1) {
               if (points.length > 0) {
-                points.push(points[0]);
+                // points.push(points[0]);
+                // resp.geoshapes.push( new Geoshape(this.shapes[0], points));
                 resp.geoshapes.push({
                   type: this.shapes[0],
-                  points: points
+                  points: points,
+                  obj: null
                 });
                 points = new Array();
               }
@@ -222,14 +234,16 @@ export class MapService {
         && (line.includes(' E') || line.includes(' \'E'))) {
           const point = this.parseCoordLine(line);
           // const point1 = new H.geo.Point(point['lat'], point['lng']);
-          resp.points.push(point);
+          // resp.points.push(point);
 
           if (currentLine - coordline > 1) {
             if (points.length > 0) {
-              points.push(points[0]);
+              // points.push(points[0]);
+              // resp.geoshapes.push( new Geoshape(this.shapes[0], points));
               resp.geoshapes.push({
                 type: this.shapes[0],
-                points: points
+                points: points,
+                obj: null
               });
               points = new Array();
             }
@@ -241,15 +255,17 @@ export class MapService {
 
 
     });
-    if (resp.points.length > 0) {
-      resp.points.push(resp.points[0]);
-    }
-    if (points.length > 0) {
-      points.push(points[0]);
-    }
+    // if (resp.points.length > 0) {
+    //   resp.points.push(resp.points[0]);
+    // }
+    // if (points.length > 0) {
+    //   points.push(points[0]);
+    // }
+    // resp.geoshapes.push( new Geoshape(this.shapes[0], points));
     resp.geoshapes.push({
       type: this.shapes[0],
-      points: points
+      points: points,
+      obj: null
     });
 
     this.getArea(resp);
@@ -265,9 +281,9 @@ export class MapService {
    }
 
    saveNavtex(navtexData: NavtexData) {
-
       // this.afs.collection('navtex').doc(navtexData.name).set(Object.assign({}, navtexData));
       navtexData.created_on = new Date();
+      console.log(JSON.stringify(navtexData));
       this.afs.collection('navtex').add(Object.assign({}, navtexData))
       .then(doc => {
         console.log('Document successfully written!');
@@ -296,7 +312,7 @@ export class MapService {
     nvtx.created_on = new Date((token.get('created_on').seconds * 1000));
     nvtx.published = new Date((token.get('published').seconds * 1000));
     nvtx.station = token.get('station');
-    nvtx.points = token.get('points');
+    // nvtx.points = token.get('points');
     nvtx.geoshapes = token.get('geoshapes');
     return nvtx;
   }

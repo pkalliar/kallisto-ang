@@ -15,15 +15,18 @@ export class NavtexListComponent implements OnInit {
   constructor(private mapSrv: MapService) { }
 
   ngOnInit() {
-    this.mapSrv.searchNavtexDB('')
-      .then(response => {
-        response.forEach((doc) => {
-          const nvtx = this.mapSrv.getFromToken(doc);
-          this.nvtxs.push(nvtx);
-          // console.log(doc.get('name'));
-          // console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
-        });
-    });
+     if (this.nvtxs.length  === 0) {
+      this.mapSrv.searchNavtexDB('')
+        .then(response => {
+          response.forEach((doc) => {
+            const nvtx = this.mapSrv.getFromToken(doc);
+            this.nvtxs.push(nvtx);
+            // console.log(doc.get('name'));
+            // console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
+          });
+      });
+    }
+
   }
 
   onVisibilityClick(i: number) {

@@ -10,6 +10,16 @@
   <mat-form-field class="example-full-width">
     <textarea matInput placeholder="Εισάγετε περιγραφή" rows="12" [formControl]="searchFullNavtex"></textarea>
   </mat-form-field>
+
+  <div *ngIf="navtexData">
+    <div *ngFor="let shape of navtexData.geoshapes;">
+      Σχήμα: {{shape.type}} - {{shape.points.length}} σημεία.
+
+    </div>
+  </div>
+
+
+
   <mat-list dense *ngIf="navtexData">
     <mat-list-item *ngFor="let point of navtexData.points; last as isLast"> 
       <span *ngIf="!isLast">{{point['lat']}}  - {{point['lng']}}</span>
