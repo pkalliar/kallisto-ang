@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 import { SearchCultureService } from '../search-culture.service';
-import { MapService, NavtexData } from '../map.service';
+import { MapService, NavtexData, Geoshape } from '../map.service';
 import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
 import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
@@ -191,16 +191,19 @@ export class MapComponent implements OnInit {
     }
   }
 
-  updateObject(obj: Object, show: boolean) {
+  updateObject(shp: Geoshape, show: boolean) {
     try {
       if (show) {
-          this.map.addObject(obj);
+        this.map.removeObject(shp.obj);
+        const obj = this.map.addObject(shp.obj);
           // if (obj instanceof H.map.Polygon) {
-            const polygon = new H.map.Polygon(obj);
-            this.map.setViewBounds(polygon.getBounds());
+            // const polygon = new H.map.Polygon(obj);
+            this.map.setViewBounds(obj);
+            // this.map.setCenter(shp.points[0]);
+            // this.map.setZoom(15);
           // }
       } else {
-          this.map.removeObject(obj);
+          this.map.removeObject(shp.obj);
       }
     } catch (error) {
       console.log(error);
@@ -258,7 +261,7 @@ export class MapComponent implements OnInit {
       // this.addSVGMarker(label, this.map, data[0]);
 
       // Zoom the map to make sure the whole polyline is visible:
-      this.map.setViewBounds(polyline.getBounds());
+      // this.map.setViewBounds(polyline.getBounds());
       return polyline;
     }
   }
@@ -308,7 +311,7 @@ export class MapComponent implements OnInit {
         console.log(nvtx);
         console.log(nvtx.name + ' - ' + nvtx.show);
         nvtx.geoshapes.forEach(shape => {
-          this.updateObject(shape.obj, nvtx.show);
+          this.updateObject(shape, nvtx.show);
         });
       });
     }
