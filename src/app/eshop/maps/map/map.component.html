@@ -67,7 +67,11 @@
 </button>
 
 <pk-navtex-detail *ngIf="showNvtxDetail" class="nvtx-detail" (positioned)="onPositioned($event)" (closePressed)="showNvtxDetail=!showNvtxDetail"></pk-navtex-detail>
-<pk-navtex-list *ngIf="showNvtxList" [nvtxs]="nvtxs" class="nvtx-list" (navtexSelected)="onNavtexSelection($event)" (closePressed)="showNvtxList=!showNvtxList"></pk-navtex-list>
+<pk-navtex-list *ngIf="showNvtxList" [nvtxs]="nvtxs" class="nvtx-list" 
+  (navtexSelected)="onNavtexSelection($event)"
+  (focusSelected)="onNavtexFocus($event)" 
+  (closePressed)="showNvtxList=!showNvtxList"
+></pk-navtex-list>
 
 
 <div class="map-full-width" id="mapContainer"></div>

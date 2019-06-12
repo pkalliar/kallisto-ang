@@ -316,8 +316,14 @@ export class MapComponent implements OnInit {
         });
       });
     }
+  }
 
-   }
+  onNavtexFocus(resp: any) {
+    console.log(resp);
+    this.map.setViewBounds(this.nvtxs[resp].geoshapes[0].obj.getBounds());
+    this.nvtxs.forEach(nvtx => {
+    });
+  }
 
   myLocation() {
     this.watchID = navigator.geolocation.getCurrentPosition(

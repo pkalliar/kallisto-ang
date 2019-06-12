@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MapService, NavtexData } from '../map.service';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'pk-navtex-list',
   templateUrl: './navtex-list.component.html',
   styleUrls: ['./navtex-list.component.css']
@@ -12,6 +13,7 @@ export class NavtexListComponent implements OnInit {
 
   @Output() navtexSelected = new EventEmitter<Object>();
   @Output() closePressed = new EventEmitter<Object>();
+  @Output() focusSelected = new EventEmitter<Object>();
 
   constructor(private mapSrv: MapService) { }
 
@@ -40,6 +42,10 @@ export class NavtexListComponent implements OnInit {
     //   }
     //   console.log(nvtx.name);
     // });
+  }
+
+  onFocusClick(i: number) {
+    this.focusSelected.emit(i);
   }
 
 }
