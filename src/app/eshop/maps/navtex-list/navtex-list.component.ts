@@ -11,6 +11,7 @@ export class NavtexListComponent implements OnInit {
   @Input() nvtxs: NavtexData[] = [];
 
   @Output() navtexSelected = new EventEmitter<Object>();
+  @Output() closePressed = new EventEmitter<Object>();
 
   constructor(private mapSrv: MapService) { }
 

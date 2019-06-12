@@ -52,6 +52,7 @@ export class MapComponent implements OnInit {
   showsearch: boolean;
   showNavtexSearch: boolean;
   showNvtxList: boolean;
+  showNvtxDetail: boolean;
   searchTerm: FormControl = new FormControl();
   searchNavtex: FormControl = new FormControl();
 

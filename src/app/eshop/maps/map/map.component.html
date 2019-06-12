@@ -66,8 +66,8 @@
   <img src="assets/gremb_nic.png" alt="" width="90px" onError="" matTooltip="">
 </button>
 
-<pk-navtex-detail *ngIf="false" class="nvtx-detail" (positioned)="onPositioned($event)"></pk-navtex-detail>
-<pk-navtex-list *ngIf="showNvtxList" [nvtxs]="nvtxs" class="nvtx-detail" (navtexSelected)="onNavtexSelection($event)"></pk-navtex-list>
+<pk-navtex-detail *ngIf="showNvtxDetail" class="nvtx-detail" (positioned)="onPositioned($event)" (closePressed)="showNvtxDetail=!showNvtxDetail"></pk-navtex-detail>
+<pk-navtex-list *ngIf="showNvtxList" [nvtxs]="nvtxs" class="nvtx-list" (navtexSelected)="onNavtexSelection($event)" (closePressed)="showNvtxList=!showNvtxList"></pk-navtex-list>
 
 
 <div class="map-full-width" id="mapContainer"></div>

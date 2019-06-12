@@ -7,6 +7,13 @@
       <input type="text" placeholder="Εισάγετε NAVTEX για {{selectedStation}}" aria-label="Number" matInput #searchinp
         [formControl]="searchNavtex">
   </mat-form-field>
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
   <mat-form-field class="example-full-width">
     <textarea matInput placeholder="Εισάγετε περιγραφή" rows="12" [formControl]="searchFullNavtex"></textarea>
   </mat-form-field>
@@ -18,11 +25,10 @@
     </div>
   </div>
 
-
-
   <mat-list dense *ngIf="navtexData">
     <mat-list-item *ngFor="let point of navtexData.points; last as isLast"> 
       <span *ngIf="!isLast">{{point['lat']}}  - {{point['lng']}}</span>
     </mat-list-item>
    </mat-list>
+   <button mat-button  (click)="save()" cdkFocusInitial><mat-icon aria-label="save">save</mat-icon>Αποθήκευση</button>
 </div>

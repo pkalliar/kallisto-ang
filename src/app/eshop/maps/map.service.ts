@@ -35,6 +35,8 @@ export class NavtexData {
   description: string;
   published: Date;
   created_on: Date;
+  valid_from: Date;
+  valid_until: Date;
   area: number;
   geoshapes: Geoshape[];
   show: boolean;

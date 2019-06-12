@@ -79,8 +79,19 @@
     top: 240px;
 }
 
-.nvtx-detail {
+.nvtx-list {
+    position: fixed;
+    z-index: 1;
+    top: 140px;
+    left: 0%;
+    /* transform: translateX(-50%); */
+    background-color: #fffffff6;
+    padding: 5px;
+    width: 400px;
+    border-radius: 5px;  
+}
 
+.nvtx-detail {
     position: fixed;
     z-index: 1;
     top: 140px;
