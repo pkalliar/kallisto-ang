@@ -217,7 +217,7 @@ export class MapComponent implements OnInit {
     const label = nvtx.name + ' Ολική επιφάνεια: ' + (area / 1000000).toFixed(0) + ' τ. χλμ.';
 
     nvtx.geoshapes.forEach(shape => {
-      console.log(shape.type + ' ' + this.mapSrv.shapes[0]);
+      // console.log(shape.type + ' ' + this.mapSrv.shapes[0]);
       if ( shape.type === this.mapSrv.shapes[0]) {
         shape.obj = this.drawNavtex(shape.points, nvtx.station, label);
       }
@@ -234,7 +234,7 @@ export class MapComponent implements OnInit {
       });
       linestring.pushPoint(data[0]);
 
-      console.log('station: ' + station);
+      // console.log('station: ' + station);
 
       let options = {};
       if (station === this.mapSrv.stations[0]) {
@@ -324,6 +324,11 @@ export class MapComponent implements OnInit {
     this.nvtxs.forEach(nvtx => {
     });
   }
+
+  onPositioned(resp: any) {
+    console.log(resp);
+    this.drawNavtex2(resp);
+   }
 
   myLocation() {
     this.watchID = navigator.geolocation.getCurrentPosition(

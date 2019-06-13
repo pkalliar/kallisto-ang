@@ -28,7 +28,7 @@ export class NavtexDetailComponent implements OnInit {
   @Input() nvtx: NavtexData;
 
   @Output() positioned = new EventEmitter<Object>();
-
+  @Output() closePressed = new EventEmitter<Object>();
 
   searchNavtex: FormControl = new FormControl();
   searchFullNavtex: FormControl = new FormControl();

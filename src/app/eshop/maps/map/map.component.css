@@ -94,12 +94,12 @@
 .nvtx-detail {
     position: fixed;
     z-index: 1;
-    top: 140px;
-    left: 0%;
-    /* transform: translateX(-50%); */
+    top: 280px;
+    left: 80%;
+    transform: translateX(-50%);
     background-color: #fffffff6;
     padding: 5px;
-    width: 300px;
+    width: 500px;
     border-radius: 5px;  
 }
 

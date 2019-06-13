@@ -1,3 +1,7 @@
+<button mat-button (click)="closePressed.emit('close')">
+  <mat-icon aria-label="show navtex">close</mat-icon> 
+</button>
+  <b>Στοιχεία Navtex</b>
 <div class="search-navtex-form">
   <h2 *ngIf="navtexData">{{navtexData.name}}</h2>
   <mat-radio-group aria-label="Επιλέξτε σταθμό" [(ngModel)]="navtexData.station" *ngIf="navtexData">
@@ -7,7 +11,7 @@
       <input type="text" placeholder="Εισάγετε NAVTEX για {{selectedStation}}" aria-label="Number" matInput #searchinp
         [formControl]="searchNavtex">
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field *ngIf="navtexData">
       <input matInput [matDatepicker]="picker" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>

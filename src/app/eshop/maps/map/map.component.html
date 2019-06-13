@@ -42,9 +42,13 @@
 
  <!-- (click)="showNavtexSearch = !showNavtexSearch" -->
 
-<button mat-icon-button class="right-btns search-navtex-btn" (click)="showNavtexSearch = !showNavtexSearch">
+<!-- <button mat-icon-button class="right-btns search-navtex-btn" (click)="showNavtexSearch = !showNavtexSearch">
   <mat-icon aria-label="navtex search">directions_boat</mat-icon>
-</button>
+</button> -->
+
+<button mat-icon-button class="right-btns search-navtex-btn" (click)="showNvtxDetail = !showNvtxDetail">
+    <mat-icon aria-label="navtex search">directions_boat</mat-icon>
+  </button>
 
 <button mat-icon-button class="right-btns navtex-detail-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null)">
     <i class="fas fa-lg fa-water"></i>
@@ -66,7 +70,11 @@
   <img src="assets/gremb_nic.png" alt="" width="90px" onError="" matTooltip="">
 </button>
 
-<pk-navtex-detail *ngIf="showNvtxDetail" class="nvtx-detail" (positioned)="onPositioned($event)" (closePressed)="showNvtxDetail=!showNvtxDetail"></pk-navtex-detail>
+<pk-navtex-detail *ngIf="showNvtxDetail" class="nvtx-detail" 
+  (positioned)="onPositioned($event)" 
+  (closePressed)="showNvtxDetail=!showNvtxDetail"
+></pk-navtex-detail>
+
 <pk-navtex-list *ngIf="showNvtxList" [nvtxs]="nvtxs" class="nvtx-list" 
   (navtexSelected)="onNavtexSelection($event)"
   (focusSelected)="onNavtexFocus($event)" 
