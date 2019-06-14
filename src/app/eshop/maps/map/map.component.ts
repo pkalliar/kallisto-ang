@@ -3,11 +3,12 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 import { SearchCultureService } from '../search-culture.service';
-import { MapService, NavtexData, Geoshape } from '../map.service';
+import { MapService } from '../map.service';
 import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
 import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
 import { MapDialogComponent } from '../map-dialog/map-dialog.component';
+import { NavtexData, Geoshape } from '../navtex-data';
 
 
 declare var H: any;

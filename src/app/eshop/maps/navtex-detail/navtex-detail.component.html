@@ -12,7 +12,7 @@
         [formControl]="searchNavtex">
   </mat-form-field>
   <mat-form-field *ngIf="navtexData">
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="navtexData.published">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

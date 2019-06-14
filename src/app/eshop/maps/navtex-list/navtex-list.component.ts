@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { MapService, NavtexData } from '../map.service';
+import { MapService } from '../map.service';
+import { NavtexData } from '../navtex-data';
 
 @Component({
   // tslint:disable-next-line:component-selector

@@ -1,8 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { MapService, NavtexData } from '../map.service';
+import { MapService } from '../map.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs/operators';
+import { NavtexData } from '../navtex-data';
 
 export class NavtexDetails {
   name: string;

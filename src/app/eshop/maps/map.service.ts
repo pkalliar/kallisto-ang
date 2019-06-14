@@ -9,6 +9,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { MapLayer } from './map/map.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as moment from 'moment';
+import { NavtexData } from './navtex-data';
 
 declare var google: any;
 
@@ -17,36 +18,7 @@ export interface DialogData {
   data: any;
 }
 
-export class Geoshape {
-  type: string;
-  points: any[];
-  obj: any;
 
-  // constructor(type: string, points: any[]) {
-  //   this.type = type;
-  //   this.points = points;
-  // }
-}
-
-export class NavtexData {
-  id: string;
-  station: string;
-  name: string;
-  description: string;
-  published: Date;
-  created_on: Date;
-  valid_from: Date;
-  valid_until: Date;
-  area: number;
-  geoshapes: Geoshape[];
-  show: boolean;
-  expanded: boolean;
-
-  constructor() {
-    // this.points = [];
-    this.geoshapes = [];
-  }
-}
 
 declare var H: any;
 
