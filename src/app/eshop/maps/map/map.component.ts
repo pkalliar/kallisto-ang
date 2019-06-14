@@ -41,7 +41,7 @@ export class MapComponent implements OnInit {
   // filteredOptions: string[];
   isLoading = false;
   suggestion: Object;
-  platform: any;
+  // platform: any;
 
    options = {
     enableHighAccuracy: true,
@@ -85,11 +85,7 @@ export class MapComponent implements OnInit {
     this.stations = this.mapSrv.stations;
     this.selectedStation = this.stations[0];
 
-    this.platform = new H.service.Platform({
-      app_id: 'K0Z4rKzWnBk4eR25vS40',
-      app_code: 'OEBSCrinYftL-OQPodOiOw',
-      useHTTPS: true
-    });
+
 
     this.searchTerm
     .valueChanges
@@ -115,7 +111,7 @@ export class MapComponent implements OnInit {
     const targetElement = document.getElementById('mapContainer');
 
     // Obtain the default map types from the platform object
-    const defaultLayers = this.platform.createDefaultLayers();
+    const defaultLayers = this.mapSrv.platform.createDefaultLayers();
 
 
     // Instantiate (and display) a map object:
@@ -157,16 +153,16 @@ export class MapComponent implements OnInit {
         this.map.getViewPort().resize();
       });
 
-      this.mapSrv.searchNavtexDB('')
-        .then(response => {
-          response.forEach((doc) => {
-            const nvtx = this.mapSrv.getFromToken(doc);
-            this.nvtxs.push(nvtx);
-            // if (nvtx.show) {
-              this.drawNavtex2(nvtx);
-            // }
-          });
-      });
+      // this.mapSrv.searchNavtexDB('')
+      //   .then(response => {
+      //     response.forEach((doc) => {
+      //       const nvtx = this.mapSrv.getFromToken(doc);
+      //       this.nvtxs.push(nvtx);
+      //       // if (nvtx.show) {
+      //         this.drawNavtex2(nvtx);
+      //       // }
+      //     });
+      // });
 
   }
 
@@ -224,6 +220,7 @@ export class MapComponent implements OnInit {
       }
     });
     nvtx.show = true;
+    return nvtx;
   }
 
   drawNavtex(data, station, label) {
@@ -307,22 +304,36 @@ export class MapComponent implements OnInit {
   }
 
   onNavtexSelection(resp: any) {
-    console.log(resp);
-    if (resp !== undefined) {
-      resp.forEach(nvtx => {
-        console.log(nvtx);
-        console.log(nvtx.name + ' - ' + nvtx.show);
-        nvtx.geoshapes.forEach(shape => {
-          this.updateObject(shape, nvtx.show);
-        });
-      });
+    let found  = false;
+    for (let i = 0; i < this.nvtxs.length; i++) {
+      if (this.nvtxs[i].id === resp.id) {
+        found = true;
+        if (!resp.show) {
+          this.nvtxs.splice(i, 1);
+          resp.geoshapes.forEach(shape => {
+           this.updateObject(shape, resp.show);
+          });
+        }
+      }
+    }
+    if (!found) {
+      const nvtx2 = this.drawNavtex2(resp);
+      this.nvtxs.push(nvtx2);
     }
   }
 
   onNavtexFocus(resp: any) {
-    console.log(resp);
-    this.map.setViewBounds(this.nvtxs[resp].geoshapes[0].obj.getBounds());
+    // console.log(resp);
+    // for (let i = 0; i < this.nvtxs.length; i++) {
+    //   if (this.nvtxs[i].id === resp.id) {
+    //     this.map.setViewBounds(this.nvtxs[resp].geoshapes[0].obj.getBounds());
+    //   }
+    // }
+
     this.nvtxs.forEach(nvtx => {
+      if (nvtx.id === resp.id) {
+        this.map.setViewBounds(nvtx.geoshapes[0].obj.getBounds());
+      }
     });
   }
 
@@ -420,25 +431,7 @@ export class MapComponent implements OnInit {
     this.addSVGMarker(13, mapContainer, {lat: 33.9867, lng: 34.1321});
   }
 
-  calculateRouteFromAtoB (from, to) {
-    const router = this.platform.getRoutingService(),
-      routeRequestParams = {
-        mode: 'shortest;pedestrian',
-        representation: 'display',
-        waypoint0: from.lat + ',' + from.lng, // St Paul's Cathedral
-        waypoint1: to.lat + ',' + to.lng,  // Tate Modern
-        routeattributes: 'waypoints,summary,shape,legs',
-        maneuverattributes: 'direction,action'
-      };
-    router.calculateRoute(
-      routeRequestParams,
-      result => {
-        const route = result.response.route[0];
-        console.log(route);
-       },
-      error => {}
-    );
-  }
+
 
   openDialog(type: number, data: any): void {
     const dialogRef = this.dialog.open(MapDialogComponent, {

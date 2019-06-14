@@ -32,6 +32,7 @@ export class MapService {
   LAYER_LIST = 3;
 
   geocoder: any;
+  platform: any;
 
   baseUrl = 'https://geocoder.api.here.com/6.2/geocode.json?' +
   'app_id=' + environment.heremaps.appId +
@@ -55,6 +56,11 @@ export class MapService {
   shapes: string[] = ['polygon', 'circle', 'point'];
 
   constructor(private http: HttpClient, private afs: AngularFirestore) {
+    this.platform = new H.service.Platform({
+      app_id: environment.heremaps.appId,
+      app_code: environment.heremaps.appCode,
+      useHTTPS: true
+    });
   }
 
   search(keyword: string): Observable<any[]> {
@@ -289,6 +295,26 @@ export class MapService {
     // nvtx.points = token.get('points');
     nvtx.geoshapes = token.get('geoshapes');
     return nvtx;
+  }
+
+  calculateRouteFromAtoB (from, to) {
+    const router = this.platform.getRoutingService(),
+      routeRequestParams = {
+        mode: 'shortest;pedestrian',
+        representation: 'display',
+        waypoint0: from.lat + ',' + from.lng, // St Paul's Cathedral
+        waypoint1: to.lat + ',' + to.lng,  // Tate Modern
+        routeattributes: 'waypoints,summary,shape,legs',
+        maneuverattributes: 'direction,action'
+      };
+    router.calculateRoute(
+      routeRequestParams,
+      result => {
+        const route = result.response.route[0];
+        console.log(route);
+       },
+      error => {}
+    );
   }
 
 

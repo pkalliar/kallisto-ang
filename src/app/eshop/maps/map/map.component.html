@@ -75,7 +75,7 @@
   (closePressed)="showNvtxDetail=!showNvtxDetail"
 ></pk-navtex-detail>
 
-<pk-navtex-list *ngIf="showNvtxList" [nvtxs]="nvtxs" class="nvtx-list" 
+<pk-navtex-list *ngIf="showNvtxList" class="nvtx-list" 
   (navtexSelected)="onNavtexSelection($event)"
   (focusSelected)="onNavtexFocus($event)" 
   (closePressed)="showNvtxList=!showNvtxList"

@@ -35,7 +35,7 @@ export class NavtexListComponent implements OnInit {
 
   onVisibilityClick(i: number) {
     this.nvtxs[i].show = !this.nvtxs[i].show;
-    this.navtexSelected.emit(this.nvtxs);
+    this.navtexSelected.emit(this.nvtxs[i]);
     // sessionStorage.setItem('user', this.nvtxs[i]);
     // this.nvtxs.forEach(function(nvtx) {
     //   if (nvtx.name === e.option.value.name) {
@@ -46,7 +46,7 @@ export class NavtexListComponent implements OnInit {
   }
 
   onFocusClick(i: number) {
-    this.focusSelected.emit(i);
+    this.focusSelected.emit(this.nvtxs[i]);
   }
 
 }
