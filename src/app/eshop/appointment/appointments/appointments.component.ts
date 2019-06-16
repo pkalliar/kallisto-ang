@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Appointment } from '../appointment';
 import { TableDatabase, TableDataSource } from '../../../utilities';
-import { MatSort } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
 import { AppointmentService } from '../appointment.service';
 import { FormControl } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -40,7 +40,7 @@ export class AppointmentsComponent implements OnInit {
 
   tableDatabase = new TableDatabase();
   dataSource: TableDataSource | null;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
   date1 = new FormControl(new Date());

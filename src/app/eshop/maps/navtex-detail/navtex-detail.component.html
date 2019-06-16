@@ -12,14 +12,25 @@
         [formControl]="searchNavtex">
   </mat-form-field>
   <mat-form-field *ngIf="navtexData">
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="navtexData.published">
+      <input matInput [matDatepicker]="picker" placeholder="Δημοσίευση" [value]="navtexData.published">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-
+    <mat-form-field *ngIf="navtexData">
+        <input matInput [matDatepicker]="picker" placeholder="Ισχύς από" [(ngModel)]="navtexData.valid_from">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field *ngIf="navtexData">
+          <input matInput [matDatepicker]="picker" placeholder="Ισχύς εώς" [(ngModel)]="navtexData.valid_until">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Εισάγετε περιγραφή" rows="12" [formControl]="searchFullNavtex"></textarea>
+    <textarea matInput placeholder="Εισάγετε περιγραφή" rows="12" 
+    [value]="navtexData.description"
+    [formControl]="searchFullNavtex"></textarea>
   </mat-form-field>
 
   <div *ngIf="navtexData">
@@ -34,5 +45,10 @@
       <span *ngIf="!isLast">{{point['lat']}}  - {{point['lng']}}</span>
     </mat-list-item>
    </mat-list>
-   <button mat-button  (click)="save()" cdkFocusInitial><mat-icon aria-label="save">save</mat-icon>Αποθήκευση</button>
+   <button mat-button (click)="save()" cdkFocusInitial>
+     <mat-icon aria-label="save">save</mat-icon>
+    </button>
+    <button mat-button (click)="clear()" cdkFocusInitial>
+      <i class="fas fa-lg fa-eraser"></i>
+    </button>
 </div>

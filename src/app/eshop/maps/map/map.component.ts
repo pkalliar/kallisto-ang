@@ -6,9 +6,11 @@ import { SearchCultureService } from '../search-culture.service';
 import { MapService } from '../map.service';
 import { DomSanitizer, SafeUrl, SafeHtml } from '@angular/platform-browser';
 import { strict } from 'assert';
-import { MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatDialog } from '@angular/material/dialog';
 import { MapDialogComponent } from '../map-dialog/map-dialog.component';
 import { NavtexData, Geoshape } from '../navtex-data';
+import { TopnavService } from '../../../topnav/topnav.service';
 
 
 declare var H: any;
@@ -59,6 +61,7 @@ export class MapComponent implements OnInit {
 
   mapLayers: MapLayer[] = [];
   nvtxs: NavtexData[] = [];
+  selectedNavtex: NavtexData =  new NavtexData();
 
   selectedStation: string;
   stations: string[];
@@ -76,11 +79,14 @@ export class MapComponent implements OnInit {
   geocoder: any;
 
   constructor( private cultureSrv: SearchCultureService
-    , public mapSrv: MapService, private dialog: MatDialog) { }
+    , public mapSrv: MapService, private dialog: MatDialog
+    , private topnav: TopnavService) { }
 
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit(): void {
+
+    this.topnav.setTitle('Οπτικοποίηση Navtex');
 
     this.stations = this.mapSrv.stations;
     this.selectedStation = this.stations[0];
@@ -335,6 +341,13 @@ export class MapComponent implements OnInit {
         this.map.setViewBounds(nvtx.geoshapes[0].obj.getBounds());
       }
     });
+  }
+
+  onNavtexDetail(resp: any) {
+    console.log(resp);
+    this.selectedNavtex = resp;
+    this.showNvtxDetail = true;
+    // this.openDialog(this.mapSrv.NAVTEX_DETAIL, null);
   }
 
   onPositioned(resp: any) {

@@ -7,7 +7,9 @@ import { ContactGroupService } from './contactgroup.service';
 import {FormControl} from '@angular/forms';
 
 import {DataSource} from '@angular/cdk/collections';
-import {MatSort, MatChipInputEvent, MatAutocompleteSelectedEvent} from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatSort } from '@angular/material/sort';
 import { catchError, tap, switchMap, debounceTime, distinctUntilChanged, takeWhile, first, map } from 'rxjs/operators';
 import {ENTER} from '@angular/cdk/keycodes';
 import { Observable, BehaviorSubject, merge } from 'rxjs';
@@ -39,7 +41,7 @@ export class ContactComponent implements OnInit {
 
   contactDatabase = new ContactDatabase();
   dataSource: ContactDataSource | null;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   visible = true;
   selectable = true;

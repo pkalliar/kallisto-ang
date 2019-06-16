@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MapLayer } from '../map/map.component';
 import { MapService, DialogData } from '../map.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NavtexData } from '../navtex-data';
 
 

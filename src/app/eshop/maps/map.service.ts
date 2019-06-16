@@ -5,11 +5,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MapLayer } from './map/map.component';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
 import * as moment from 'moment';
-import { NavtexData } from './navtex-data';
+import { NavtexData, Geoshape } from './navtex-data';
 
 declare var google: any;
 
@@ -153,6 +153,9 @@ export class MapService {
     const resp: NavtexData = new NavtexData();
 
     console.log(navtex);
+    if (navtex === undefined || navtex.length === 0) {
+      return observableOf(resp);
+    }
     resp.description = navtex;
 
     let points = [];
@@ -195,12 +198,7 @@ export class MapService {
             if (currentLine - coordline > 1) {
               if (points.length > 0) {
                 // points.push(points[0]);
-                // resp.geoshapes.push( new Geoshape(this.shapes[0], points));
-                resp.geoshapes.push({
-                  type: this.shapes[0],
-                  points: points,
-                  obj: null
-                });
+                resp.geoshapes.push( new Geoshape(this.shapes[0], points));
                 points = new Array();
               }
             }
@@ -219,12 +217,7 @@ export class MapService {
           if (currentLine - coordline > 1) {
             if (points.length > 0) {
               // points.push(points[0]);
-              // resp.geoshapes.push( new Geoshape(this.shapes[0], points));
-              resp.geoshapes.push({
-                type: this.shapes[0],
-                points: points,
-                obj: null
-              });
+              resp.geoshapes.push( new Geoshape(this.shapes[0], points));
               points = new Array();
             }
           }
@@ -241,12 +234,7 @@ export class MapService {
     // if (points.length > 0) {
     //   points.push(points[0]);
     // }
-    // resp.geoshapes.push( new Geoshape(this.shapes[0], points));
-    resp.geoshapes.push({
-      type: this.shapes[0],
-      points: points,
-      obj: null
-    });
+    resp.geoshapes.push( new Geoshape(this.shapes[0], points));
 
     this.getArea(resp);
 
@@ -260,18 +248,40 @@ export class MapService {
     return this.http.get<any>(req);
    }
 
-   saveNavtex(navtexData: NavtexData) {
+   saveNavtex(navtexData: NavtexData): Promise<DocumentReference> {
       // this.afs.collection('navtex').doc(navtexData.name).set(Object.assign({}, navtexData));
-      navtexData.created_on = new Date();
-      console.log(JSON.stringify(navtexData));
-      this.afs.collection('navtex').add(Object.assign({}, navtexData))
-      .then(doc => {
-        console.log('Document successfully written!');
+      const gshapes = [];
 
-      })
-      .catch(function(error) {
-        console.error('Error writing document: ', error);
+      navtexData.geoshapes.forEach(sh => {
+        gshapes.push(
+          {
+            type: sh.type,
+            points: sh.points
+          }
+        );
       });
+
+      const toSave = {
+        name: navtexData.name,
+        station: navtexData.station,
+        created_on: new Date(),
+        description: navtexData.description,
+        published: navtexData.published,
+        valid_from: navtexData.valid_from,
+        valid_until: navtexData.valid_until,
+        geoshapes: gshapes
+        // geoshapes: navtexData.geoshapes
+      };
+
+      console.log(toSave);
+      return this.afs.collection('navtex').add(Object.assign({}, toSave));
+      // .then(doc => {
+      //   console.log('Document successfully written!');
+
+      // })
+      // .catch(function(error) {
+      //   console.error('Error writing document: ', error);
+      // });
 
       // localStorage.setItem('test1', JSON.stringify(points));
    }
@@ -291,6 +301,8 @@ export class MapService {
     nvtx.description = token.get('description');
     nvtx.created_on = new Date((token.get('created_on').seconds * 1000));
     nvtx.published = new Date((token.get('published').seconds * 1000));
+    nvtx.valid_from = new Date((token.get('valid_from').seconds * 1000));
+    nvtx.valid_until = new Date((token.get('valid_until').seconds * 1000));
     nvtx.station = token.get('station');
     // nvtx.points = token.get('points');
     nvtx.geoshapes = token.get('geoshapes');

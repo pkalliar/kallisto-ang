@@ -1,5 +1,7 @@
 import {DataSource} from '@angular/cdk/collections';
-import {MatSort, MatChipInputEvent, MatAutocompleteSelectedEvent} from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, Observable, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 

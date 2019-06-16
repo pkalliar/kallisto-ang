@@ -19,7 +19,7 @@ export class GmapComponent implements AfterViewInit {
   src = 'https://developers.google.com/maps/documentation/javascript/examples/kml/westcampus.kml';
   marker: Object;
   zoom: number;
-  @ViewChild('map') mapRef: ElementRef;
+  @ViewChild('map', {static: false}) mapRef: ElementRef;
 
   ngAfterViewInit() {
     // used setTimeout google map is delayed in loading, in stackBlitz

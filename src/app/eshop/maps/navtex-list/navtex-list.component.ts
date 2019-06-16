@@ -15,6 +15,7 @@ export class NavtexListComponent implements OnInit {
   @Output() navtexSelected = new EventEmitter<Object>();
   @Output() closePressed = new EventEmitter<Object>();
   @Output() focusSelected = new EventEmitter<Object>();
+  @Output() detailSelected = new EventEmitter<Object>();
 
   constructor(private mapSrv: MapService) { }
 
@@ -47,6 +48,10 @@ export class NavtexListComponent implements OnInit {
 
   onFocusClick(i: number) {
     this.focusSelected.emit(this.nvtxs[i]);
+  }
+
+  onNvtxDetailClick(i: number) {
+    this.detailSelected.emit(this.nvtxs[i]);
   }
 
 }

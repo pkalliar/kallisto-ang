@@ -3,10 +3,10 @@ export class Geoshape {
   points: any[];
   obj: any;
 
-  // constructor(type: string, points: any[]) {
-  //   this.type = type;
-  //   this.points = points;
-  // }
+  constructor(type: string, points: any[]) {
+    this.type = type;
+    this.points = points;
+  }
 }
 
 export class NavtexData {
@@ -16,6 +16,12 @@ export class NavtexData {
   description: string;
   published: Date;
   created_on: Date;
+  // validity_periods: [
+  //   {
+  //     from: Date;
+  //     until: Date;
+  //   }
+  // ];
   valid_from: Date;
   valid_until: Date;
   area: number;

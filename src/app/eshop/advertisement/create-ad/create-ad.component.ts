@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Advertisement, AdvCat, Geometry } from '../advertisement';
 import { AdsService } from '../advertisements.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { throwMatDuplicatedDrawerError } from '@angular/material';
+import { throwMatDuplicatedDrawerError } from '@angular/material/sidenav';
 import { Cloudinary } from '@cloudinary/angular-5.x';
 import { Router } from '@angular/router';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy  } from '@angular/core';
-import { MatCalendar } from '@angular/material';
+import { MatCalendar } from '@angular/material/datepicker';
 
 import {
   CalendarEvent,

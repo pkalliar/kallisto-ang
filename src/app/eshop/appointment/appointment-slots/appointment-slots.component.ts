@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
 import { Appointment, ApptCat, CreationData, DailyData } from '../appointment';
 import { TableDatabase, TableDataSource } from '../../../utilities';
-import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { AppointmentService } from '../appointment.service';
 import { FormControl } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -47,7 +48,7 @@ export class AppointmentSlotsComponent implements OnInit {
 
   tableDatabase = new TableDatabase();
   dataSource: TableDataSource | null;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
   date1 = new FormControl(new Date());

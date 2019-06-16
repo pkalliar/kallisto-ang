@@ -47,7 +47,11 @@
 </button> -->
 
 <button mat-icon-button class="right-btns search-navtex-btn" (click)="showNvtxDetail = !showNvtxDetail">
-    <mat-icon aria-label="navtex search">directions_boat</mat-icon>
+    <!-- <mat-icon aria-label="navtex search">directions_boat</mat-icon> -->
+    <span class="fa-stack" style="vertical-align: top;">
+      <i class="fas fa-circle fa-stack-2x"></i>
+      <i class="fas fa-ship fa-stack-1x fa-inverse"></i>
+    </span>
   </button>
 
 <button mat-icon-button class="right-btns navtex-detail-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null)">
@@ -70,7 +74,8 @@
   <img src="assets/gremb_nic.png" alt="" width="90px" onError="" matTooltip="">
 </button>
 
-<pk-navtex-detail *ngIf="showNvtxDetail" class="nvtx-detail" 
+<pk-navtex-detail *ngIf="showNvtxDetail" class="nvtx-detail" cdkDrag
+  [navtexData]="selectedNavtex"
   (positioned)="onPositioned($event)" 
   (closePressed)="showNvtxDetail=!showNvtxDetail"
 ></pk-navtex-detail>
@@ -79,6 +84,7 @@
   (navtexSelected)="onNavtexSelection($event)"
   (focusSelected)="onNavtexFocus($event)" 
   (closePressed)="showNvtxList=!showNvtxList"
+  (detailSelected)="onNavtexDetail($event)"
 ></pk-navtex-list>
 
 

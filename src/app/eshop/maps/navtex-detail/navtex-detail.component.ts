@@ -5,17 +5,9 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs/operators';
 import { NavtexData } from '../navtex-data';
 
-export class NavtexDetails {
-  name: string;
-  points: number[];
-
-  constructor(name, points) {
-      this.name = name;
-      this.points = points;
-  }
-}
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'pk-navtex-detail',
   templateUrl: './navtex-detail.component.html',
   styleUrls: ['./navtex-detail.component.css']
@@ -24,9 +16,9 @@ export class NavtexDetailComponent implements OnInit {
 
   selectedStation: string;
   stations: string[];
-  navtexData: NavtexData = null;
+  @Input() navtexData: NavtexData =  new NavtexData();
 
-  @Input() nvtx: NavtexData;
+  // @Input() nvtx: NavtexData;
 
   @Output() positioned = new EventEmitter<Object>();
   @Output() closePressed = new EventEmitter<Object>();
@@ -73,8 +65,16 @@ export class NavtexDetailComponent implements OnInit {
 
   save() {
     console.log('saving');
+    this.mapSrv.saveNavtex(this.navtexData).then(doc => {
+        console.log('Document successfully written! ' + doc.id);
+      })
+      .catch(function(error) {
+        console.error('Error writing document: ', error);
+      });
   }
 
-
+  clear() {
+    this.navtexData =  new NavtexData();
+  }
 
 }
