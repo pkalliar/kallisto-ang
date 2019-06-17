@@ -16,6 +16,7 @@ export class NavtexDetailComponent implements OnInit {
 
   selectedStation: string;
   stations: string[];
+  description = '';
   @Input() navtexData: NavtexData =  new NavtexData();
 
   // @Input() nvtx: NavtexData;
@@ -32,6 +33,11 @@ export class NavtexDetailComponent implements OnInit {
   ngOnInit() {
     this.stations = this.mapSrv.stations;
     this.selectedStation = this.stations[0];
+
+    if (this.navtexData !== null) {
+      this.description = this.navtexData.description;
+    }
+
 
     this.searchNavtex.valueChanges
     .pipe(
@@ -58,18 +64,19 @@ export class NavtexDetailComponent implements OnInit {
     .subscribe(data => {
       console.log(data);
       this.navtexData = data;
+      this.description = this.navtexData.description;
       this.positioned.emit(this.navtexData);
     });
 
   }
 
   save() {
-    console.log('saving');
+    console.log('saving ' + JSON.stringify(this.navtexData));
     this.mapSrv.saveNavtex(this.navtexData).then(doc => {
-        console.log('Document successfully written! ' + doc.id);
+        alert('Document successfully written! ' + doc.id);
       })
       .catch(function(error) {
-        console.error('Error writing document: ', error);
+        alert('Error writing document: ' + error);
       });
   }
 

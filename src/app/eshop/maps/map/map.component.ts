@@ -139,12 +139,12 @@ export class MapComponent implements OnInit {
       this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
       const distanceMeasurementTool = new H.ui.DistanceMeasurement();
       this.ui.addControl('distancemeasurement', distanceMeasurementTool);
-      const mapSettings = this.ui.getControl('mapsettings');
+      // const mapSettings = this.ui.getControl('mapsettings');
       const zoom = this.ui.getControl('zoom');
       // const scalebar = this.ui.getControl('scalebar');
       const measurement = this.ui.getControl('distancemeasurement');
 
-      mapSettings.setAlignment('top-left');
+      // mapSettings.setAlignment('top-left');
       zoom.setAlignment('top-left');
       // scalebar.setAlignment('top-left');
       measurement.setAlignment('top-left');
@@ -346,8 +346,8 @@ export class MapComponent implements OnInit {
   onNavtexDetail(resp: any) {
     console.log(resp);
     this.selectedNavtex = resp;
-    this.showNvtxDetail = true;
-    // this.openDialog(this.mapSrv.NAVTEX_DETAIL, null);
+    // this.showNvtxDetail = true;
+    this.openDialog(this.mapSrv.NAVTEX_DETAIL, resp);
   }
 
   onPositioned(resp: any) {

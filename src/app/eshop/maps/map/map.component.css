@@ -52,7 +52,7 @@
 .left-btns {
     position: fixed;
     z-index: 1;
-    left: 1%;
+    
 }
 
 .location-btn {
@@ -64,20 +64,27 @@
 }
 
 .search-navtex-btn {
-    top: 120px;
+    top: 49px;
+    left: 122px;
+}
+
+.list-navtex-btn {
+    top: 49px;
+    left: 160px;
+}
+
+.layers-btn {
+    top: 49px;
+    left: 200px;
 }
 
 .navtex-detail-btn {
     top: 160px;
 }
 
-.layers-btn {
-    top: 200px;
-}
 
-.list-navtex-btn {
-    top: 240px;
-}
+
+
 
 .nvtx-list {
     position: fixed;
@@ -87,7 +94,7 @@
     /* transform: translateX(-50%); */
     background-color: #fffffff6;
     padding: 5px;
-    width: 400px;
+    width: 360px;
     border-radius: 5px;  
 }
 
@@ -110,7 +117,7 @@
   }
 
 .logo-btn {
-    top: 70px;
+    top: 49px;
     width: 80px;
 }
 

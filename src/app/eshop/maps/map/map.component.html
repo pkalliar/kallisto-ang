@@ -33,12 +33,12 @@
 
 <!-- <svg><use xlink:href="assets/svg/drama.svg#icon-images"></use></svg> -->
 
-<button mat-icon-button class="right-btns location-btn" (click)="myLocation()">
+<!-- <button mat-icon-button class="right-btns location-btn" (click)="myLocation()">
     <mat-icon aria-label="my location">location_on</mat-icon>
-</button>
-<button mat-icon-button class="right-btns search-btn" (click)="showsearch = !showsearch">
+</button> -->
+<!-- <button mat-icon-button class="right-btns search-btn" (click)="showsearch = !showsearch">
     <mat-icon aria-label="my location">location_searching</mat-icon>
-</button>
+</button> -->
 
  <!-- (click)="showNavtexSearch = !showNavtexSearch" -->
 
@@ -46,31 +46,43 @@
   <mat-icon aria-label="navtex search">directions_boat</mat-icon>
 </button> -->
 
-<button mat-icon-button class="right-btns search-navtex-btn" (click)="showNvtxDetail = !showNvtxDetail">
-    <!-- <mat-icon aria-label="navtex search">directions_boat</mat-icon> -->
-    <span class="fa-stack" style="vertical-align: top;">
-      <i class="fas fa-circle fa-stack-2x"></i>
-      <i class="fas fa-ship fa-stack-1x fa-inverse"></i>
-    </span>
-  </button>
-
-<button mat-icon-button class="right-btns navtex-detail-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null)">
-    <i class="fas fa-lg fa-water"></i>
-  </button>
-
-<button mat-icon-button class="right-btns layers-btn" (click)="openDialog(mapSrv.LAYER_LIST, mapLayers)">
-  <i class="fas fa-lg fa-object-group"></i>
+<button mat-icon-button class="left-btns search-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null);">
+  <!-- <mat-icon aria-label="navtex search">directions_boat</mat-icon> -->
+  <span class="fa-stack" style="vertical-align: top;">
+    <i class="fas fa-circle fa-stack-2x"></i>
+    <i class="fas fa-ship fa-stack-1x fa-inverse"></i>
+  </span>
 </button>
+
+<button mat-icon-button class="left-btns list-navtex-btn" (click)="showNvtxList = !showNvtxList">
+  <span class="fa-stack" style="vertical-align: top;">
+    <i class="fas fa-circle fa-stack-2x"></i>
+    <i class="fas fa-water fa-stack-1x fa-inverse"></i>
+  </span>
+</button>
+
+<button mat-icon-button class="left-btns layers-btn" (click)="openDialog(mapSrv.LAYER_LIST, mapLayers)">
+  <span class="fa-stack" style="vertical-align: top;">
+    <i class="fas fa-circle fa-stack-2x"></i>
+    <i class="fas fa-layer-group fa-stack-1x fa-inverse"></i>
+  </span>  
+</button>
+
+<!-- <button mat-icon-button class="right-btns navtex-detail-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null)">
+    <i class="fas fa-lg fa-water"></i>
+  </button> -->
+
+
 
 <!-- <button mat-icon-button class="right-btns list-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_LIST, nvtxs)">
   <mat-icon aria-label="navtex search">layers</mat-icon>
 </button> -->
 
-<button mat-icon-button class="right-btns list-navtex-btn" (click)="showNvtxList = !showNvtxList">
+<!-- <button mat-icon-button class="right-btns list-navtex-btn" (click)="showNvtxList = !showNvtxList">
   <mat-icon aria-label="navtex search">layers</mat-icon>
-</button>
+</button> -->
 
-<button mat-icon-button class="left-btns logo-btn">
+<button mat-icon-button class="right-btns logo-btn">
   <img src="assets/gremb_nic.png" alt="" width="90px" onError="" matTooltip="">
 </button>
 

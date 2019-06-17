@@ -25,7 +25,7 @@ import { NavtexData } from '../navtex-data';
 
   // MapLayer[]
         if (data.type === this.srv.NAVTEX_DETAIL) {
-
+          this.navtexData = data.data;
         } else if (data.type === this.srv.LAYER_LIST) {
           this.mapLayers = data.data;
         } else if (data.type === this.srv.NAVTEX_LIST) {
