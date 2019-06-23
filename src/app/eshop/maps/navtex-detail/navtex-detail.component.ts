@@ -39,25 +39,23 @@ export class NavtexDetailComponent implements OnInit {
     }
 
 
-    this.searchNavtex.valueChanges
-    .pipe(
-      debounceTime(300),
-      tap(() => {}),
-      switchMap(value => this.mapSrv.searchFullNavtex(value)
-      .pipe()
-      )
-    )
-    .subscribe(data => {
-      console.log(data);
-      // this.points = data;
-      // this.positioned.emit(this.points);
-    });
+    // this.searchNavtex.valueChanges
+    // .pipe(
+    //   debounceTime(300),
+    //   tap(() => {}),
+    //   switchMap(value => this.mapSrv.searchFullNavtex(value)
+    //   .pipe()
+    //   )
+    // )
+    // .subscribe(data => {
+    //   console.log(data);
+    // });
 
     this.searchFullNavtex.valueChanges
     .pipe(
       debounceTime(300),
       tap(() => {}),
-      switchMap(value => this.mapSrv.searchFullNavtex(value)
+      switchMap(value => this.mapSrv.searchFullNavtex(value, this.navtexData)
       .pipe()
       )
     )
@@ -74,6 +72,7 @@ export class NavtexDetailComponent implements OnInit {
     console.log('saving ' + JSON.stringify(this.navtexData));
     this.mapSrv.saveNavtex(this.navtexData).then(doc => {
         alert('Document successfully written! ' + doc.id);
+        
       })
       .catch(function(error) {
         alert('Error writing document: ' + error);

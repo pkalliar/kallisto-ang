@@ -93,6 +93,7 @@ import { GmapComponent } from './maps/gmap/gmap.component';
 import { MapDialogComponent } from './maps/map-dialog/map-dialog.component';
 import { NavtexDetailComponent } from './maps/navtex-detail/navtex-detail.component';
 import { NavtexListComponent } from './maps/navtex-list/navtex-list.component';
+import { FilterPipe} from './maps/navtex-list/filter.pipe';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -138,7 +139,7 @@ export const cloudinary = {
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent,
     AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent,
-    MapComponent, GmapComponent, MapDialogComponent, NavtexDetailComponent, NavtexListComponent
+    MapComponent, GmapComponent, MapDialogComponent, NavtexDetailComponent, NavtexListComponent, FilterPipe
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,

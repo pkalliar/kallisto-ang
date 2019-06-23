@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MapService } from '../map.service';
 import { NavtexData } from '../navtex-data';
+import { FormControl } from '@angular/forms';
+import { debounceTime, tap, switchMap } from 'rxjs/operators';
+import {Observable, of as observableOf} from 'rxjs';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,6 +19,8 @@ export class NavtexListComponent implements OnInit {
   @Output() closePressed = new EventEmitter<Object>();
   @Output() focusSelected = new EventEmitter<Object>();
   @Output() detailSelected = new EventEmitter<Object>();
+
+  searchText = '';
 
   constructor(private mapSrv: MapService) { }
 
@@ -34,9 +39,15 @@ export class NavtexListComponent implements OnInit {
 
   }
 
-  onVisibilityClick(i: number) {
-    this.nvtxs[i].show = !this.nvtxs[i].show;
-    this.navtexSelected.emit(this.nvtxs[i]);
+  filterNvtx(value): Observable<any> {
+    console.log('filtering value ' + value);
+
+    return observableOf(value);
+  }
+
+  onVisibilityClick(nv: NavtexData) {
+    nv.show = !nv.show;
+    this.navtexSelected.emit(nv);
     // sessionStorage.setItem('user', this.nvtxs[i]);
     // this.nvtxs.forEach(function(nvtx) {
     //   if (nvtx.name === e.option.value.name) {
@@ -46,12 +57,17 @@ export class NavtexListComponent implements OnInit {
     // });
   }
 
-  onFocusClick(i: number) {
-    this.focusSelected.emit(this.nvtxs[i]);
+  onFocusClick(nv: NavtexData) {
+    this.focusSelected.emit(nv);
   }
 
-  onNvtxDetailClick(i: number) {
-    this.detailSelected.emit(this.nvtxs[i]);
+  onNvtxDetailClick(nv: NavtexData) {
+    this.detailSelected.emit(nv);
+  }
+
+  onNvtxDetailDelete(nv: NavtexData) {
+    console.log(nv);
+    this.mapSrv.deleteNavtex(nv.id);
   }
 
 }

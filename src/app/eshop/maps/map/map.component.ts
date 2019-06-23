@@ -241,7 +241,7 @@ export class MapComponent implements OnInit {
       // console.log('station: ' + station);
 
       let options = {};
-      if (station === this.mapSrv.stations[0]) {
+      if (station === this.mapSrv.stations[0] || station === this.mapSrv.stations[2]) {
         options = {style: { lineWidth: 2, strokeColor: 'red' }, fillColor: 'rgba(35, 51, 129, 0.3)'};
       } else if (station === this.mapSrv.stations[1]) {
         options = {style: { lineWidth: 2, strokeColor: 'yellow', fillColor: 'rgba(35, 51, 129, 0.3)'}};

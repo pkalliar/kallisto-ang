@@ -51,7 +51,7 @@ export class MapService {
   '&app_code=' + environment.heremaps.appCode +
   '&locationid=';
 
-  stations: string[] = ['ANTALYA NAVTEX STATION', 'JRCC LARNACA'];
+  stations: string[] = ['ANTALYA STATION', 'JRCC LARNACA', 'IZMIR STATION'];
 
   shapes: string[] = ['polygon', 'circle', 'point'];
 
@@ -147,14 +147,20 @@ export class MapService {
    }
 
 
-   searchFullNavtex(navtex: string): Observable<any> {
+   searchFullNavtex(navtex: string, currNavObj: NavtexData): Observable<NavtexData> {
     // let selectedStation = '';
     // let points = [];
-    const resp: NavtexData = new NavtexData();
+    // const resp: NavtexData = new NavtexData();
+    let resp: NavtexData = currNavObj;
 
     console.log(navtex);
     if (navtex === undefined || navtex.length === 0) {
       return observableOf(resp);
+    }
+    if (currNavObj === null ) {
+      resp = new NavtexData();
+    } else {
+      resp.geoshapes = [];
     }
     resp.description = navtex;
 
@@ -171,6 +177,8 @@ export class MapService {
           resp.station = this.stations[0];
         } else if (line.includes('JRCC LARNACA')) {
           resp.station = this.stations[1];
+        } else if (line.includes('İzmir NAVTEX Station')) {
+          resp.station = this.stations[2];
         }
         if (line.includes('Published Date')) {
           const n = line.indexOf('Published Date');
@@ -186,7 +194,7 @@ export class MapService {
           resp.published = publDate;
 
         }
-      } else if (resp.station === this.stations[0]) {
+      } else if (resp.station === this.stations[0] || resp.station === this.stations[2]) {
           if (line.includes('TURNHOS N/W') && line.includes(':')) {
             resp.name = line.split(':')[1].trim();
           } else if ((line.startsWith('2') || line.startsWith('3')) && line.includes(' N') && line.includes(' E')) {
@@ -291,6 +299,10 @@ export class MapService {
     return this.afs.firestore.collection('navtex')
     .orderBy('published', 'desc')
     .get().then(querySnapshot => querySnapshot.docs);
+   }
+
+   deleteNavtex(id) {
+    return this.afs.collection('navtex').doc(id).delete();
    }
 
    getFromToken(token): NavtexData {

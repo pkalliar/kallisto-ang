@@ -28,29 +28,33 @@
   <mat-icon aria-label="show navtex">close</mat-icon>
 </button>
 <mat-form-field class="example-full-width">
-  <input matInput placeholder="Εισάγετε NAVTEX" value="">
+  <input matInput placeholder="Εισάγετε NAVTEX" [(ngModel)]="searchText">
 </mat-form-field>
 
 
     <mat-list dense class="nav-list">
-      <mat-list-item *ngFor="let nv of nvtxs; index as i">
+      <mat-list-item *ngFor="let nv of nvtxs | filter : searchText; index as i ">
           <mat-icon mat-list-icon>
               <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[0]"></span>
+              <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[2]"></span>
               <span class="flag-icon flag-icon-cy" *ngIf="nv.station === mapSrv.stations[1]"></span>
           </mat-icon>
          <h4 matLine>{{nv.name}}</h4>
          <p matLine class="demo-2"> {{nv.published | date:'dd-MM-yyyy':''}} </p>
         <span class="example-spacer"></span>
-        <button mat-icon-button color="primary" (click)="onFocusClick(i)" >
+        <button mat-icon-button color="primary" (click)="onFocusClick(nv)" >
           <mat-icon aria-label="show navtex">center_focus_strong</mat-icon>
         </button>
-        <button mat-icon-button color="primary" (click)="onVisibilityClick(i)" >
+        <button mat-icon-button color="primary" (click)="onVisibilityClick(nv)" >
           <mat-icon *ngIf="nv.show" aria-label="show navtex">visibility</mat-icon>
           <mat-icon *ngIf="!nv.show" aria-label="navtex now shown">visibility_off</mat-icon>
         </button>
-        <button mat-icon-button color="primary" (click)="onNvtxDetailClick(i)" >
+        <button mat-icon-button color="primary" (click)="onNvtxDetailClick(nv)" >
           <mat-icon aria-label="show navtex">more_vert</mat-icon>
-        </button> 
+        </button>
+        <!-- <button mat-icon-button color="primary" (click)="onNvtxDetailDelete(nv)" >
+          <mat-icon aria-label="show navtex">delete</mat-icon>
+        </button>  -->
       </mat-list-item>
    </mat-list>  
 
