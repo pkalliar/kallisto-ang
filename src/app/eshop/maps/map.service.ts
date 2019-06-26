@@ -51,7 +51,7 @@ export class MapService {
   '&app_code=' + environment.heremaps.appCode +
   '&locationid=';
 
-  stations: string[] = ['ANTALYA STATION', 'JRCC LARNACA', 'IZMIR STATION'];
+  stations: string[] = ['ANTALYA STATION', 'JRCC LARNACA', 'IZMIR STATION', 'SAMSUN STATION'];
 
   shapes: string[] = ['polygon', 'circle', 'point'];
 
@@ -179,6 +179,8 @@ export class MapService {
           resp.station = this.stations[1];
         } else if (line.includes('İzmir NAVTEX Station')) {
           resp.station = this.stations[2];
+        } else if (line.includes('Samsun') && line.includes('TURNHOS')) {
+          resp.station = this.stations[3];
         }
         if (line.includes('Published Date')) {
           const n = line.indexOf('Published Date');
@@ -194,7 +196,7 @@ export class MapService {
           resp.published = publDate;
 
         }
-      } else if (resp.station === this.stations[0] || resp.station === this.stations[2]) {
+      } else if (resp.station === this.stations[0] || resp.station === this.stations[2] || resp.station === this.stations[3]) {
           if (line.includes('TURNHOS N/W') && line.includes(':')) {
             resp.name = line.split(':')[1].trim();
           } else if ((line.startsWith('2') || line.startsWith('3')) && line.includes(' N') && line.includes(' E')) {
