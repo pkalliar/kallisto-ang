@@ -5,6 +5,7 @@ import {
   CalendarEvent,
   CalendarEventTimesChangedEvent
 } from 'angular-calendar';
+import { TopnavService } from '../topnav/topnav.service';
 
 
 
@@ -18,13 +19,12 @@ export class EshopComponent implements OnInit {
 
   images = [1, 2, 3].map(() => `https://picsum.photos/900/500?random&t=${Math.random()}`);
 
-  constructor() {
-
+  constructor(private topnav: TopnavService) {
   }
 
 
   ngOnInit() {
-
+    this.topnav.setTitle('Εφαρμογή αγγελιών - Αρχική');
 
   }
 
