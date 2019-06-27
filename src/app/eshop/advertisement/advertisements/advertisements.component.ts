@@ -54,7 +54,7 @@ export class AdsComponent implements OnInit {
 
     // this.router.navigate(['/eshop/aggelies'], {queryParams: q});
 
-    this.adService.searchCar();
+    // this.adService.searchCar();
 
     this.adService.search_firestore(this.searchTerm.value).then(response => {
       response.forEach((doc) => {
