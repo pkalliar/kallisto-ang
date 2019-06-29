@@ -17,6 +17,7 @@ export class NavtexDetailComponent implements OnInit {
   selectedStation: string;
   stations: string[];
   description = '';
+  selectedTab = 1;
   @Input() navtexData: NavtexData =  new NavtexData();
 
   // @Input() nvtx: NavtexData;
@@ -63,6 +64,7 @@ export class NavtexDetailComponent implements OnInit {
       console.log(data);
       this.navtexData = data;
       this.description = this.navtexData.description;
+      this.selectedTab = 0;
       this.positioned.emit(this.navtexData);
     });
 
@@ -72,7 +74,7 @@ export class NavtexDetailComponent implements OnInit {
     console.log('saving ' + JSON.stringify(this.navtexData));
     this.mapSrv.saveNavtex(this.navtexData).then(doc => {
         alert('Document successfully written! ' + doc.id);
-        
+
       })
       .catch(function(error) {
         alert('Error writing document: ' + error);

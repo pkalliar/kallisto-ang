@@ -127,7 +127,7 @@ export class MapService {
       point['lat'] = lat1 + lat2;
     } else if (latArr.length === 3) {
       const lat1 = parseInt(latArr[0], 10);
-      const lat2 = parseInt(latArr[1], 10) / 100;
+      const lat2 = parseInt(latArr[1], 10) / 60;
       const lat3 = parseInt(latArr[2], 10) / 10000;
       point['lat'] = lat1 + lat2 + lat3;
     }
@@ -139,7 +139,7 @@ export class MapService {
       point['lng'] = long1 + long2;
     } else if (longArr.length === 3) {
       const long1 = parseInt(longArr[0], 10);
-      const long2 = parseInt(longArr[1], 10) / 100;
+      const long2 = parseInt(longArr[1], 10) / 60;
       const long3 = parseInt(longArr[2], 10) / 10000;
       point['lng'] = long1 + long2 + long3;
     }

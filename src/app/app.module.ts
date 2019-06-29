@@ -126,7 +126,7 @@ import { TopnavService } from './topnav/topnav.service';
     MatNativeDateModule, MatDividerModule, MatListModule,
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
     MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule, MatProgressSpinnerModule,
-    MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
+    MatSlideToggleModule, MatTabsModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatChipsModule,
 
     // applications

@@ -1,54 +1,69 @@
 <button mat-button (click)="closePressed.emit('close')">
   <mat-icon aria-label="show navtex">close</mat-icon> 
 </button>
-  <b>Στοιχεία Navtex</b>
+<b>Στοιχεία Navtex</b>
+ 
 <div class="search-navtex-form">
-  <h2 *ngIf="navtexData">{{navtexData.name}}</h2>
-  <mat-radio-group aria-label="Επιλέξτε σταθμό" [(ngModel)]="navtexData.station" *ngIf="navtexData">
-    <mat-radio-button class="example-radio-button" *ngFor="let station of stations" [value]="station">{{station}} </mat-radio-button>
-  </mat-radio-group>
-  <mat-form-field class="example-full-width" [hidden]="true">
-      <input type="text" placeholder="Εισάγετε NAVTEX για {{selectedStation}}" aria-label="Number" matInput #searchinp
-        [formControl]="searchNavtex">
-  </mat-form-field>
-  <mat-form-field *ngIf="navtexData">
-      <input matInput [matDatepicker]="picker" placeholder="Δημοσίευση" [value]="navtexData.published">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field *ngIf="navtexData">
-        <input matInput [matDatepicker]="picker" placeholder="Ισχύς από" [(ngModel)]="navtexData.valid_from">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field *ngIf="navtexData">
-          <input matInput [matDatepicker]="picker" placeholder="Ισχύς εώς" [(ngModel)]="navtexData.valid_until">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+    <mat-tab-group [selectedIndex]="selectedTab">
+        <mat-tab label="Ανάλυση">
+            <h2 *ngIf="navtexData">{{navtexData.name}}</h2>
+            <!-- <mat-radio-group aria-label="Επιλέξτε σταθμό" [(ngModel)]="navtexData.station" *ngIf="navtexData">
+              <mat-radio-button class="example-radio-button" *ngFor="let station of stations" [value]="station">{{station}} </mat-radio-button>
+            </mat-radio-group> -->
+            <mat-form-field *ngIf="navtexData">
+              <mat-label>Επιλέξτε σταθμό</mat-label>
+              <mat-select [(ngModel)]="navtexData.station">
+                <mat-option *ngFor="let station of stations" [value]="station">
+                  {{station}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" [hidden]="true">
+                <input type="text" placeholder="Εισάγετε NAVTEX για {{selectedStation}}" aria-label="Number" matInput #searchinp
+                  [formControl]="searchNavtex">
+            </mat-form-field>
+            <mat-form-field *ngIf="navtexData">
+                <input matInput [matDatepicker]="picker" placeholder="Δημοσίευση" [value]="navtexData.published">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field *ngIf="navtexData">
+                  <input matInput [matDatepicker]="picker" placeholder="Ισχύς από" [(ngModel)]="navtexData.valid_from">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field *ngIf="navtexData">
+                    <input matInput [matDatepicker]="picker" placeholder="Ισχύς εώς" [(ngModel)]="navtexData.valid_until">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+          
+            <div *ngIf="navtexData">
+              <div *ngFor="let shape of navtexData.geoshapes;">
+                Σχήμα: {{shape.type}} - {{shape.points.length}} σημεία.
+                <!-- <mat-list dense>
+                  <mat-list-item *ngFor="let point of shape.points; last as isLast"> 
+                    <span *ngIf="!isLast">{{point['lat']}}  - {{point['lng']}}</span>
+                  </mat-list-item>
+                </mat-list> -->
+              </div>
+            </div>
+            <button mat-button (click)="save()" cdkFocusInitial>
+              <mat-icon aria-label="save">save</mat-icon>
+              </button>
+              <button mat-button (click)="clear()" cdkFocusInitial>
+                <i class="fas fa-lg fa-eraser"></i>
+            </button>
+        </mat-tab>
+        <mat-tab label="Περιγραφή">
+            <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Εισάγετε περιγραφή" rows="16" 
+                [value]="description"
+                [formControl]="searchFullNavtex"></textarea>
+              </mat-form-field>
+        </mat-tab>
+      </mat-tab-group>
 
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Εισάγετε περιγραφή" rows="12" 
-    [value]="description"
-    [formControl]="searchFullNavtex"></textarea>
-  </mat-form-field>
 
-  <div *ngIf="navtexData">
-    <div *ngFor="let shape of navtexData.geoshapes;">
-      Σχήμα: {{shape.type}} - {{shape.points.length}} σημεία.
 
-    </div>
-  </div>
-
-  <mat-list dense *ngIf="navtexData">
-    <mat-list-item *ngFor="let point of navtexData.points; last as isLast"> 
-      <span *ngIf="!isLast">{{point['lat']}}  - {{point['lng']}}</span>
-    </mat-list-item>
-   </mat-list>
-   <button mat-button (click)="save()" cdkFocusInitial>
-     <mat-icon aria-label="save">save</mat-icon>
-    </button>
-    <button mat-button (click)="clear()" cdkFocusInitial>
-      <i class="fas fa-lg fa-eraser"></i>
-    </button>
 </div>
