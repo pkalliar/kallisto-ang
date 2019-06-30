@@ -37,6 +37,7 @@
     "cloudinary-core": "^2.6.3",
     "core-js": "^2.6.9",
     "fast-csv": "^2.5.0",
+    "file-saver": "^2.0.2",
     "firebase": "^5.11.1",
     "flag-icon-css": "^3.3.0",
     "hammerjs": "latest",

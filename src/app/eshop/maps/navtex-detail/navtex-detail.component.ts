@@ -24,6 +24,9 @@ export class NavtexDetailComponent implements OnInit {
 
   @Output() positioned = new EventEmitter<Object>();
   @Output() closePressed = new EventEmitter<Object>();
+  @Output() saved = new EventEmitter<Object>();
+  @Output() previewed = new EventEmitter<Object>();
+  @Output() cleared = new EventEmitter<Object>();
 
   searchNavtex: FormControl = new FormControl();
   searchFullNavtex: FormControl = new FormControl();
@@ -71,7 +74,8 @@ export class NavtexDetailComponent implements OnInit {
   }
 
   save() {
-    console.log('saving ' + JSON.stringify(this.navtexData));
+    console.log('saving ');
+    console.log(this.navtexData);
     this.mapSrv.saveNavtex(this.navtexData).then(doc => {
         alert('Document successfully written! ' + doc.id);
 
@@ -81,8 +85,14 @@ export class NavtexDetailComponent implements OnInit {
       });
   }
 
+  preview() {
+    console.log('previewing ' + JSON.stringify(this.navtexData));
+    this.previewed.emit(this.navtexData);
+  }
+
   clear() {
-    this.navtexData =  new NavtexData();
+    this.navtexData =  null; // new NavtexData();
+    this.cleared.emit(this.navtexData);
   }
 
 }

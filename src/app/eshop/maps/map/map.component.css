@@ -78,6 +78,16 @@
     left: 200px;
 }
 
+.point-btn {
+    top: 49px;
+    left: 240px;
+}
+
+.screenshot-btn {
+    top: 49px;
+    left: 280px;
+}
+
 .navtex-detail-btn {
     top: 160px;
 }

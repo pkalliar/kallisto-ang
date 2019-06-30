@@ -12,6 +12,9 @@
   <pk-navtex-detail *ngIf="data.type === srv.NAVTEX_DETAIL" 
   (positioned)="onPositioned($event)"
   [navtexData]="navtexData"
+  (saved)="onSave($event)"
+  (previewed)="onPreview($event)"
+  (cleared)="onClear($event)"
   (closePressed)="dialogRef.close()"
   >
   </pk-navtex-detail>

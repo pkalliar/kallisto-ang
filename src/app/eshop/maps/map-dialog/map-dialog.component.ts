@@ -83,6 +83,26 @@ import { NavtexData } from '../navtex-data';
     this.navtexData = resp;
    }
 
+   onSave(resp: any) {
+    console.log(resp);
+   }
+
+   onPreview(resp: any) {
+    this.navtexData = resp;
+    console.log(resp);
+    this.dialogRef.close({
+      type: this.srv.NAVTEX_DETAIL,
+      data: this.navtexData
+    });
+   }
+   onClear(resp: any) {
+    this.navtexData = resp;
+    this.dialogRef.close({
+      type: this.srv.NAVTEX_DETAIL,
+      data: this.navtexData
+    });
+   }
+
    onNavtexSelection(resp: any) {
     console.log(resp);
     this.nvtxs = resp;

@@ -199,7 +199,9 @@ export class MapService {
       } else if (resp.station === this.stations[0] || resp.station === this.stations[2] || resp.station === this.stations[3]) {
           if (line.includes('TURNHOS N/W') && line.includes(':')) {
             resp.name = line.split(':')[1].trim();
-          } else if ((line.startsWith('2') || line.startsWith('3')) && line.includes(' N') && line.includes(' E')) {
+          } else if ((line.startsWith('2') || line.startsWith('3'))
+          && line.includes(' N')
+          && line.includes(' E')) {
             const point = this.parseCoordLine(line);
 
             // const point1 = new H.geo.Point(point['lat'], point['lng']);
@@ -218,8 +220,9 @@ export class MapService {
       } else if (resp.station === this.stations[1]) {
         if (line.includes('NAV WRNG NR')) {
           resp.name = line.split('NR')[1].trim();
-        } else if ((line.startsWith('2') || line.startsWith('3')) && line.includes(' N')
-        && (line.includes(' E') || line.includes(' \'E'))) {
+        } else if ((line.startsWith('2') || line.startsWith('3'))
+        && (line.includes(' N') || line.includes(' \'N') || line.includes('N') )
+        && (line.includes(' E') || line.includes(' \'E') || line.includes('E'))) {
           const point = this.parseCoordLine(line);
           // const point1 = new H.geo.Point(point['lat'], point['lng']);
           // resp.points.push(point);
@@ -282,6 +285,13 @@ export class MapService {
         geoshapes: gshapes
         // geoshapes: navtexData.geoshapes
       };
+
+      // if (navtexData.valid_from) {
+      //   toSave['valid_from'] = navtexData.valid_from;
+      // }
+      // if (navtexData.valid_until) {
+      //   toSave['valid_until'] = navtexData.valid_until;
+      // }
 
       console.log(toSave);
       return this.afs.collection('navtex').add(Object.assign({}, toSave));

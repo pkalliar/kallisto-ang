@@ -4,7 +4,7 @@
 
 <!-- {{locOptions | json}} -->
 <!-- ----{{suggestion | json}} -->
-<form class="search-form" *ngIf="showsearch">
+<form class="search-form" *ngIf="false">
     <mat-form-field class="example-full-width">
         <input type="text" placeholder="Αναζήτηση" aria-label="Number" matInput #searchinp
           [formControl]="searchTerm" [matAutocomplete]="auto">
@@ -15,9 +15,19 @@
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
+
 </form>
 
-<div class="search-navtex-form" *ngIf="showNavtexSearch">
+<form class="search-form" *ngIf="showsearch">
+    <mat-form-field class="example-full-width">
+        <input type="text" matInput placeholder="Εισάγετε σημειο"
+         [formControl]="searchPoint">
+      </mat-form-field>
+</form>
+
+
+
+<!-- <div class="search-navtex-form" *ngIf="showNavtexSearch">
   <mat-radio-group aria-label="Επιλέξτε σταθμό" [(ngModel)]="selectedStation">
     <mat-radio-button class="example-radio-button" *ngFor="let station of stations" [value]="station">{{station}} </mat-radio-button>
   </mat-radio-group>
@@ -25,7 +35,7 @@
       <input type="text" placeholder="Εισάγετε NAVTEX για {{selectedStation}}" aria-label="Number" matInput #searchinp
         [formControl]="searchNavtex">
   </mat-form-field>
-</div>
+</div> -->
 
 
 
@@ -46,7 +56,7 @@
   <mat-icon aria-label="navtex search">directions_boat</mat-icon>
 </button> -->
 
-<button mat-icon-button class="left-btns search-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null);">
+<button mat-icon-button class="left-btns search-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, selectedNavtex);">
   <!-- <mat-icon aria-label="navtex search">directions_boat</mat-icon> -->
   <span class="fa-stack" style="vertical-align: top;">
     <i class="fas fa-circle fa-stack-2x"></i>
@@ -67,6 +77,20 @@
     <i class="fas fa-layer-group fa-stack-1x fa-inverse"></i>
   </span>  
 </button>
+
+<button mat-icon-button class="left-btns point-btn" (click)="showsearch = !showsearch">
+    <span class="fa-stack" style="vertical-align: top;">
+      <i class="fas fa-circle fa-stack-2x"></i>
+      <i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
+    </span>  
+  </button>
+
+  <button mat-icon-button class="left-btns screenshot-btn" (click)="capture('test.jpg')">
+    <span class="fa-stack" style="vertical-align: top;">
+      <i class="fas fa-circle fa-stack-2x"></i>
+      <i class="fas fa-camera fa-stack-1x fa-inverse"></i>
+    </span>  
+  </button>
 
 <!-- <button mat-icon-button class="right-btns navtex-detail-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null)">
     <i class="fas fa-lg fa-water"></i>

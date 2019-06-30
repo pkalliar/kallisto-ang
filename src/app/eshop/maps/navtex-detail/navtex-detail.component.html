@@ -1,7 +1,7 @@
-<button mat-button (click)="closePressed.emit('close')">
+<button mat-button (click)="closePressed.emit('close')" >
   <mat-icon aria-label="show navtex">close</mat-icon> 
 </button>
-<b>Στοιχεία Navtex</b>
+<b cdkFocusInitial>Στοιχεία Navtex</b>
  
 <div class="search-navtex-form">
     <mat-tab-group [selectedIndex]="selectedTab">
@@ -43,13 +43,22 @@
                 Σχήμα: {{shape.type}} - {{shape.points.length}} σημεία.
                 <!-- <mat-list dense>
                   <mat-list-item *ngFor="let point of shape.points; last as isLast"> 
-                    <span *ngIf="!isLast">{{point['lat']}}  - {{point['lng']}}</span>
+                    <span>{{point['lat']}}  - {{point['lng']}}</span>
                   </mat-list-item>
-                </mat-list> -->
+                </mat-list>
+                <div>
+                    <button *ngFor="let point of shape.points" mat-button cdkFocusInitial>
+                      <i  class="fas fa-map-marker-alt"></i>
+                    </button>
+                </div> -->
+                
               </div>
             </div>
             <button mat-button (click)="save()" cdkFocusInitial>
               <mat-icon aria-label="save">save</mat-icon>
+              </button>
+              <button mat-button (click)="preview()" cdkFocusInitial>
+                  <i class="fas fa-lg fa-search-location"></i>
               </button>
               <button mat-button (click)="clear()" cdkFocusInitial>
                 <i class="fas fa-lg fa-eraser"></i>
@@ -57,10 +66,10 @@
         </mat-tab>
         <mat-tab label="Περιγραφή">
             <mat-form-field class="example-full-width">
-                <textarea matInput placeholder="Εισάγετε περιγραφή" rows="16" 
-                [value]="description"
-                [formControl]="searchFullNavtex"></textarea>
-              </mat-form-field>
+              <textarea matInput placeholder="Εισάγετε περιγραφή" rows="16" 
+              [value]="description"
+              [formControl]="searchFullNavtex"></textarea>
+            </mat-form-field>
         </mat-tab>
       </mat-tab-group>
 

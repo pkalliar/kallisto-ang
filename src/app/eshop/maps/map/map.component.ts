@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MapDialogComponent } from '../map-dialog/map-dialog.component';
 import { NavtexData, Geoshape } from '../navtex-data';
 import { TopnavService } from '../../../topnav/topnav.service';
+import { saveAs } from 'file-saver';
 
 
 declare var H: any;
@@ -57,11 +58,11 @@ export class MapComponent implements OnInit {
   showNvtxList: boolean;
   showNvtxDetail: boolean;
   searchTerm: FormControl = new FormControl();
-  searchNavtex: FormControl = new FormControl();
+  searchPoint: FormControl = new FormControl();
 
   mapLayers: MapLayer[] = [];
   nvtxs: NavtexData[] = [];
-  selectedNavtex: NavtexData =  new NavtexData();
+  selectedNavtex: NavtexData = null; // new NavtexData();
 
   selectedStation: string;
   stations: string[];
@@ -108,10 +109,14 @@ export class MapComponent implements OnInit {
       this.locOptions = data['suggestions'];
     });
 
-    this.searchNavtex.valueChanges
+    this.searchPoint.valueChanges
     .subscribe(data => {
-      const points = this.mapSrv.searchNavtex(data, this.selectedStation);
-      this.drawNavtex(points, this.selectedStation, 'navtex');
+      const point = this.mapSrv.parseCoordLine(data);
+      console.log(point);
+      this.map.setCenter(point);
+      this.map.setZoom(15);
+      const marker = new H.map.Marker(point);
+      this.map.addObject(marker);
     });
 
     const targetElement = document.getElementById('mapContainer');
@@ -373,6 +378,19 @@ export class MapComponent implements OnInit {
     }, this.options);
   }
 
+  capture(filename) {
+    this.map.capture(function(canvas) {
+      if (canvas) {
+          canvas.toBlob(function(blob) {
+            saveAs(blob, filename);
+        });
+      } else {
+        // For example when map is in Panorama mode
+        console.log('Capturing is not supported');
+      }
+    }, [this.ui]);
+  }
+
   addSVGMarker(label, mapContainer: any, coord: any): void  {
 
     const svgMarkup = '<svg  width="74" height="20" xmlns="http://www.w3.org/2000/svg">' +
@@ -456,14 +474,24 @@ export class MapComponent implements OnInit {
       }
     });
 
+
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if (result !== undefined) {
         if (result.type === this.mapSrv.NAVTEX_DETAIL) {
-          const nvtx = result.data;
-          this.drawNavtex2(nvtx);
+          if (result.data !== null) {
+            this.selectedNavtex = result.data;
+            this.drawNavtex2(this.selectedNavtex);
+            this.map.setViewBounds(this.selectedNavtex.geoshapes[0].obj.getBounds());
+          } else {
+            console.log(this.selectedNavtex);
+            this.selectedNavtex.geoshapes.forEach(shape => {
+              this.updateObject(shape, false);
+             });
+             this.selectedNavtex = null;
+            this.openDialog(this.mapSrv.NAVTEX_DETAIL, this.selectedNavtex);
+          }
           // this.drawNavtex(result.data.points, result.data.station, result.data.name);
-
         } else if (result.type === this.mapSrv.LAYER_LIST) {
           if (result.data !== undefined) {
             result.data.forEach(mapL => {
