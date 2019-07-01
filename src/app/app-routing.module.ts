@@ -12,6 +12,7 @@ import { PersonComponent } from './security/persons/persons.component';
 import { PersonDetailComponent} from './security/persons/person-detail.component';
 
 import { CmsComponent } from './cms/cms.component';
+import { SignUpComponent } from './security/sign-up/sign-up.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'intro',  component: IntroComponent },
   { path: 'login',  component: LoginComponent },
   { path: 'login/:goto',  component: LoginComponent },
+  { path: 'register',  component: SignUpComponent },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'users',     component: UserComponent },
   { path: 'users/:id',     component: UserDetailComponent },

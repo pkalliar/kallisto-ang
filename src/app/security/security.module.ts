@@ -57,6 +57,7 @@ import { UserComponent } from './users/users.component';
 // import { RoutingModule } from './cms-routing.module';
 import { UserDetailComponent } from './users/user-detail.component';
 import { UserService } from './users/user.service';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   imports: [
@@ -82,7 +83,7 @@ import { UserService } from './users/user.service';
   ],
   declarations: [
     UserComponent, LoginComponent, UserDetailComponent,
-    PersonComponent, PersonDetailComponent
+    PersonComponent, PersonDetailComponent, SignUpComponent
     // AffairComponent, AffairDetailComponent,
     // FolderComponent, FolderDetailComponent,
     // ContactComponent, ContactDetailComponent, ContactGroupDetailComponent, ProtocolComponent, ProtocolDetailComponent

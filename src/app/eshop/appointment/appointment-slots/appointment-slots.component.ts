@@ -56,7 +56,6 @@ export class AppointmentSlotsComponent implements OnInit {
 
   hoveredDate: NgbDateStruct;
 
-
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
   model: NgbDateStruct;
@@ -75,10 +74,6 @@ export class AppointmentSlotsComponent implements OnInit {
 
     // this.fromDate = calendar.getToday();
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
-
-
-
-
 
     // this.date1 = new FormControl(calendar.getToday());
     // this.date2 = new FormControl(calendar.getNext(calendar.getToday(), 'd', 10));
