@@ -10,6 +10,7 @@ import { AuthGuard } from './auth-guard.service';
 
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,9 @@ export class AuthService {
   public idTokenResult: Promise<firebase.auth.IdTokenResult>;
 
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private http: Http) {
+  constructor(private _firebaseAuth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private router: Router, private http: Http) {
       this.user = _firebaseAuth.authState;
 
       this.user.subscribe(
@@ -96,8 +99,16 @@ export class AuthService {
     return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  createUserEmail(email, password) {
-    // const credential = firebase.auth.EmailAuthProvider.credential( email, password );
+  createUserEmail(firstname, lastname, email, password) {
+
+    const person = {
+      firstname: firstname,
+      lastname: lastname
+    };
+
+    this.afs.firestore.collection('persons').add(person);
+
+
     return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
