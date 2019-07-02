@@ -3,28 +3,34 @@
         <mat-card class="my-card">
             <mat-card-content>
                 <h3>Εγγραφή νέου χρήστη</h3>
-              <form class="my-form">
-                 <mat-form-field class="full-width">
-                        <mat-label>First Name</mat-label>
-                        <input  matInput  placeholder="First name"  name="fname"  required>
-                     </mat-form-field>
-                     <mat-form-field class="full-width">
-                        <mat-label>Last Name</mat-label>
-                        <input  matInput  placeholder="Last Name" name="lname"  required>
-                     </mat-form-field>
-                     <mat-form-field class="full-width">
-                        <mat-label>Address</mat-label>
-                        <input  matInput  placeholder="Address" name="address"  required>
-                     </mat-form-field>
-                     <mat-form-field class="full-width">
-                        <mat-label>Email</mat-label>
-                        <input  matInput  placeholder="Email" name="email">
-                     </mat-form-field>
-                     <mat-form-field class="full-width">
-                        <mat-label>Password</mat-label>
-                        <input  matInput  placeholder="Password"  name="password">
-                     </mat-form-field>
+              <form class="my-form" [formGroup]="ufg">
+                <mat-form-field class="full-width">
+                  <mat-label>Όνομα</mat-label>
+                  <input  matInput  placeholder="Όνομα" formControlName="fname" required>
+                  <mat-error *ngIf="ufg.get('fname').errors?.required">To όνομα είναι υποχρεωτικό</mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-label>Επώνυμο</mat-label>
+                  <input  matInput  placeholder="Επώνυμο" formControlName="lname"  required>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-label>Email</mat-label>
+                  <input  matInput  placeholder="Email" formControlName="email">
+                  <mat-error *ngIf="ufg.get('email').errors?.required">To Email είναι υποχρεωτικό</mat-error>
+                  <mat-error *ngIf="ufg.get('email').errors?.minlength">Το Email πρέπει να περιέχει τουλάχιστον 4 χαρακτήρες</mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-label>Κωδικός</mat-label>
+                  <input  matInput type="password" placeholder="Password"  formControlName="password" required>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-label>Επανάληψη κωδικού</mat-label>
+                  <input  matInput type="password" placeholder="Password"  formControlName="passwordConfirm" required>
+                </mat-form-field>
               </form>
+              <button mat-raised-button (click)="createUser()" [disabled]="ufg.invalid">
+                  Δημιουργία χρήστη
+                </button>
             </mat-card-content>
           </mat-card>    
     </div>
