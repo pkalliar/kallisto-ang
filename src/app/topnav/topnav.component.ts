@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { User } from '../security/users/user';
 // import * as dayjs from 'dayjs';
 import { DateTime, Duration, Interval } from 'luxon';
+import { PersonService } from '../security/persons/person.service';
 
 @Component({
   selector: 'app-topnav',
@@ -25,7 +26,7 @@ export class TopnavComponent implements OnInit {
   mode = 'determinate';
   spinnerValue = 0;
 
-  constructor(private topnav: TopnavService, private authService: AuthService ,
+  constructor(private topnav: TopnavService, private authService: AuthService , private personService: PersonService,
     private router: Router, private route: ActivatedRoute) {
       this.authService = authService;
 
@@ -34,6 +35,13 @@ export class TopnavComponent implements OnInit {
           if (user) {
             console.log( 'user.uid ' + user.uid );
             this.userDetails = user;
+
+            this.personService.getFB(JSON.stringify(user.uid)).then(
+              persons =>  {
+                for (const ent of persons) {
+                  console.log('contact: ' + JSON.stringify(ent));
+                }
+            });
 
             console.log(JSON.stringify(user));
             user.getIdTokenResult().then((res) => {
@@ -55,7 +63,9 @@ export class TopnavComponent implements OnInit {
     });
 
     this.user = this.topnav.getUserInfo();
-    this.initUserInfo(this.user);
+    if (this.user) {
+      this.initUserInfo(this.user);
+    }
 
 
     this.topnav.changeUser.subscribe(user => {

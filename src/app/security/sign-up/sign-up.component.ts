@@ -40,7 +40,7 @@ export class SignUpComponent implements OnInit {
 
   createUser() {
     console.log('ad is ' + JSON.stringify(this.ufg.value));
-    this.auth.createUserEmail(this.ufg.value.email, this.ufg.value.password);
+    this.auth.createUserEmail(this.ufg.value.fname, this.ufg.value.lname, this.ufg.value.email, this.ufg.value.password);
 
   }
 
