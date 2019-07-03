@@ -49,7 +49,10 @@ export class PersonService {
     }
 
     getFB(filter: any) {
-      return this.afs.firestore.collection('persons').get().then(querySnapshot => {
+      console.log('filtering with ' + filter);
+      return this.afs.firestore.collection('persons')
+      .where('user_id', '==', filter)
+      .get().then(querySnapshot => {
 
         return querySnapshot.docs.map
         ((doc) => {

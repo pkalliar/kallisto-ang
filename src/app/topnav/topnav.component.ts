@@ -18,6 +18,7 @@ export class TopnavComponent implements OnInit {
   ttposition = 'below';
   user: User;
   userDetails: firebase.User = null;
+  displayName = '';
   counter: number;
   counterStr: string;
 
@@ -35,11 +36,13 @@ export class TopnavComponent implements OnInit {
           if (user) {
             console.log( 'user.uid ' + user.uid );
             this.userDetails = user;
+            this.displayName = user.displayName;
 
-            this.personService.getFB(JSON.stringify(user.uid)).then(
+            this.personService.getFB(user.uid).then(
               persons =>  {
                 for (const ent of persons) {
                   console.log('contact: ' + JSON.stringify(ent));
+                  this.displayName = ent.firstname + ' ' + ent.lastname;
                 }
             });
 
