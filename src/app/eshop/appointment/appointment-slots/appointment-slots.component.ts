@@ -284,7 +284,7 @@ export class AppointmentSlotDialogComponent {
 
       const now1 = moment().format('LLLL');
 
-      console.log(now1 + ' here goes the process of vreation data..' + data.appointmentDuration);
+      console.log(now1 + ' here goes the process of creation data..' + data.appointmentDuration);
 
       this.workdays = this. workday_count(data.fromDate, data.toDate);
 
