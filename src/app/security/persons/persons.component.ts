@@ -79,8 +79,6 @@ export class PersonComponent implements OnInit {
         this.tableDatabase.clear();
         this.searchResult = [];
         this.getWithFilter(this.criteria);
-
-
        }
        if (this.criteria.length > 0) { this.isExpanded = true; }
      }
