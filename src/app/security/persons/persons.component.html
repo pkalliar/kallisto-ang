@@ -46,7 +46,7 @@
 
       <!-- Name Column -->
       <ng-container matColumnDef="firstname" flex="20">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> firstname </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Όνομα </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-button routerLink="/persons/{{element.id}}" >{{element.firstname}}</button>
             </mat-cell>
@@ -54,7 +54,7 @@
 
       <!-- Weight Column -->
       <ng-container matColumnDef="lastname" flex="60">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> lastname </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Επώνυμο </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.lastname}} </mat-cell>
       </ng-container>
 

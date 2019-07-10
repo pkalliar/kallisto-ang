@@ -44,22 +44,40 @@ export class PersonComponent implements OnInit {
   selectable = true;
   removable = true;
 
+  // Enter, comma
+  separatorKeysCodes = [ENTER, COMMA];
+
+  criteria = [];
+
+  isExpanded = false;
+
+  searchTerm: FormControl = new FormControl();
+
+  searchResult = [];
+
+  filteredOptions: Observable<any[]>;
+
   constructor(
     private router: Router,
     private service: PersonService) { }
 
-    // Enter, comma
-    separatorKeysCodes = [ENTER, COMMA];
+  ngOnInit(): void {
+    this.getWithFilter([]);
+    this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
 
-     criteria = [];
+    this.searchTerm.valueChanges
+    // .debounceTime(400)
+    .subscribe(data => {
+      if (data.length > 2) {
+        this.service.search_word(data).subscribe(response => {
+            this.searchResult = response;
+        });
+      }
+    });
 
-     isExpanded = false;
+  }
 
-    searchTerm: FormControl = new FormControl();
 
-    searchResult = [];
-
-    filteredOptions: Observable<any[]>;
 
     dataChanged(newObj) {
       console.log('changed ' + newObj + '..' + this.criteria.length );
@@ -146,21 +164,7 @@ export class PersonComponent implements OnInit {
       contact => this.router.navigate(['/persons/' + 'new']));
   }
 
-  ngOnInit(): void {
-    this.getWithFilter([]);
-    this.dataSource = new TableDataSource(this.tableDatabase, this.sort);
 
-    this.searchTerm.valueChanges
-    // .debounceTime(400)
-    .subscribe(data => {
-      if (data.length > 2) {
-        this.service.search_word(data).subscribe(response => {
-            this.searchResult = response;
-        });
-      }
-    });
-
-  }
 
   onSelect(folder: Person): void {
     this.selected = folder;

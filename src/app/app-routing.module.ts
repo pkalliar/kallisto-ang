@@ -16,7 +16,7 @@ import { SignUpComponent } from './security/sign-up/sign-up.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/intro', pathMatch: 'full' },
+  { path: '', redirectTo: '/maps', pathMatch: 'full' },
   // {
   //   path: 'cms',
   //   loadChildren: 'app/cms/cms.module#CmsModule',
