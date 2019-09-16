@@ -1,7 +1,7 @@
 export class Geoshape {
   type: string;
   points: any[];
-  obj: any;
+  obj: any[];
 
   constructor(type: string, points: any[]) {
     this.type = type;

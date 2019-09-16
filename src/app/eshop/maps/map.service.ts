@@ -53,7 +53,7 @@ export class MapService {
 
   stations: string[] = ['ANTALYA STATION', 'JRCC LARNACA', 'IZMIR STATION', 'SAMSUN STATION'];
 
-  shapes: string[] = ['polygon', 'circle', 'point'];
+  shapes: string[] = ['polygon', 'circle', 'points'];
 
   constructor(private http: HttpClient, private afs: AngularFirestore) {
     this.platform = new H.service.Platform({
