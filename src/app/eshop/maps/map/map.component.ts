@@ -200,19 +200,30 @@ export class MapComponent implements OnInit {
     }
   }
 
-  updateObject(shp: Geoshape, show: boolean) {
+  updateObject(shps: Geoshape[], show: boolean) {
     try {
       if (show) {
-        this.map.removeObject(shp.obj);
-        const obj = this.map.addObject(shp.obj);
+        shps.forEach(shp => {
+          shp.obj.forEach(obj => {
+            this.map.removeObject(obj);
+            const obj2 = this.map.addObject(obj);
+            this.map.setViewBounds(obj2);
+          });
+
+        });
+
           // if (obj instanceof H.map.Polygon) {
             // const polygon = new H.map.Polygon(obj);
-            this.map.setViewBounds(obj);
             // this.map.setCenter(shp.points[0]);
             // this.map.setZoom(15);
           // }
       } else {
-          this.map.removeObject(shp.obj);
+        console.log(shps);
+        shps.forEach(shp => {
+          shp.obj.forEach(obj => {
+            this.map.removeObject(obj);
+          });
+        });
       }
     } catch (error) {
       console.log(error);
@@ -225,26 +236,19 @@ export class MapComponent implements OnInit {
     const label = nvtx.name + ' Ολική επιφάνεια: ' + (area / 1000000).toFixed(0) + ' τ. χλμ.';
 
     nvtx.geoshapes.forEach(shape => {
-      // console.log(shape.type + ' ' + this.mapSrv.shapes[0]);
-      if ( shape.type === this.mapSrv.shapes[0]) {
-        shape.obj = this.drawNavtex(shape.points, nvtx.station, label);
-      }
+      console.log(shape.type + ' ' + this.mapSrv.shapes[0]);
+      // if ( shape.type === this.mapSrv.shapes[0]) {
+        shape.obj = this.drawNavtex(shape.points, nvtx.station, label, shape.type);
+      // }
     });
     nvtx.show = true;
     return nvtx;
   }
 
-  drawNavtex(data, station, label) {
+  drawNavtex(data, station, label, type) {
     if (data.length > 1) {
-      // Initialize a linestring and add all the points to it:
-      const linestring = new H.geo.LineString();
-      data.forEach(function(point) {
-        linestring.pushPoint(point);
-      });
-      linestring.pushPoint(data[0]);
 
-      // console.log('station: ' + station);
-
+      const shapes: Geoshape[]  = [];
       let options = {};
       if (station === this.mapSrv.stations[0] || station === this.mapSrv.stations[2] || station === this.mapSrv.stations[3]) {
         options = {style: { lineWidth: 2, strokeColor: 'red' }, fillColor: 'rgba(35, 51, 129, 0.3)'};
@@ -252,27 +256,48 @@ export class MapComponent implements OnInit {
         options = {style: { lineWidth: 2, strokeColor: 'yellow', fillColor: 'rgba(35, 51, 129, 0.3)'}};
       }
 
-      // Initialize a polyline with the linestring:
-      const polyline = new H.map.Polygon(linestring, options);
-
-      polyline.addEventListener('tap', evt => {
-        const bubble =  new H.ui.InfoBubble(data[0], {
-          // read custom data
-          content: label
+      if ( type === this.mapSrv.shapes[0]) {
+        const linestring = new H.geo.LineString();
+        data.forEach(function(point) {
+          linestring.pushPoint(point);
         });
-        // show info bubble
-        this.ui.addBubble(bubble);
-    });
+        linestring.pushPoint(data[0]);
 
-      // Add the polyline to the map:
-      this.map.addObject(polyline);
+              // Initialize a polyline with the linestring:
+        const polyline = new H.map.Polygon(linestring, options);
+
+        polyline.addEventListener('tap', evt => {
+            const bubble =  new H.ui.InfoBubble(data[0], {
+              // read custom data
+              content: label
+            });
+            // show info bubble
+            this.ui.addBubble(bubble);
+        });
+
+        // Add the polyline to the map:
+        this.map.addObject(polyline);
+        shapes.push(polyline);
+      }
+      if ( type === this.mapSrv.shapes[2]) {
+        let marker;
+        data.forEach(point => {
+          marker = new H.map.Marker(point);
+          this.map.addObject(marker);
+          shapes.push(marker);
+          // this.addClickableMarker(label, this.map, point);
+        });
+      }
+
+      return shapes;
+
 
       // this.addClickableMarker(label, this.map, data[0]);
       // this.addSVGMarker(label, this.map, data[0]);
 
       // Zoom the map to make sure the whole polyline is visible:
       // this.map.setViewBounds(polyline.getBounds());
-      return polyline;
+
     }
   }
 
@@ -321,9 +346,10 @@ export class MapComponent implements OnInit {
         found = true;
         if (!resp.show) {
           this.nvtxs.splice(i, 1);
-          resp.geoshapes.forEach(shape => {
-           this.updateObject(shape, resp.show);
-          });
+          this.updateObject(resp.geoshapes, resp.show);
+          // resp.geoshapes.forEach(shape => {
+          //  this.updateObject(shape, resp.show);
+          // });
         }
       }
     }
@@ -343,7 +369,7 @@ export class MapComponent implements OnInit {
 
     this.nvtxs.forEach(nvtx => {
       if (nvtx.id === resp.id) {
-        this.map.setViewBounds(nvtx.geoshapes[0].obj.getBounds());
+        this.map.setViewBounds(nvtx.geoshapes[0].obj[0].getBounds());
       }
     });
   }
@@ -482,12 +508,12 @@ export class MapComponent implements OnInit {
           if (result.data !== null) {
             this.selectedNavtex = result.data;
             this.drawNavtex2(this.selectedNavtex);
-            this.map.setViewBounds(this.selectedNavtex.geoshapes[0].obj.getBounds());
+            this.map.setViewBounds(this.selectedNavtex.geoshapes[0].obj[0].getBounds());
           } else {
             console.log(this.selectedNavtex);
-            this.selectedNavtex.geoshapes.forEach(shape => {
-              this.updateObject(shape, false);
-             });
+            this.updateObject(this.selectedNavtex.geoshapes, false);
+            // this.selectedNavtex.geoshapes.forEach(shape => {
+            //  });
              this.selectedNavtex = null;
             this.openDialog(this.mapSrv.NAVTEX_DETAIL, this.selectedNavtex);
           }
@@ -503,7 +529,7 @@ export class MapComponent implements OnInit {
           if (result.data !== undefined) {
             result.data.forEach(nv => {
               if (nv.show) {
-                this.drawNavtex(nv.points, nv.station, nv.name);
+                this.drawNavtex(nv.points, nv.station, nv.name, nv.type);
               }
             });
           }
