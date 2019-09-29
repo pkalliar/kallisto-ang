@@ -325,8 +325,12 @@ export class MapService {
     nvtx.description = token.get('description');
     nvtx.created_on = new Date((token.get('created_on').seconds * 1000));
     nvtx.published = new Date((token.get('published').seconds * 1000));
-    nvtx.valid_from = new Date((token.get('valid_from').seconds * 1000));
-    nvtx.valid_until = new Date((token.get('valid_until').seconds * 1000));
+    if (token.get('valid_from') !== undefined) {
+      nvtx.valid_from = new Date((token.get('valid_from').seconds * 1000));
+    }
+    if (token.get('valid_until') !== undefined) {
+      nvtx.valid_until = new Date((token.get('valid_until').seconds * 1000));
+    }
     nvtx.station = token.get('station');
     // nvtx.points = token.get('points');
     nvtx.geoshapes = token.get('geoshapes');

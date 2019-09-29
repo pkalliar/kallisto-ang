@@ -1,20 +1,8 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow the user to access documents in the "cities" collection
-    // only if they are authenticated.
     match /{document=**} {
-      allow read, write: if request.auth.uid != null;
-    }
-    match /appointments/{apntmnt} {
-      allow read: if true;
-      allow write: if request.auth.uid != null;
-    }
-    match /navtex/{nvtx} {
-      allow read: if true;
-    }
-    match /navtex/{nvtx} {
-      allow write: if request.auth.uid != null;
+      allow read, write: if true;
     }
   }
 }
