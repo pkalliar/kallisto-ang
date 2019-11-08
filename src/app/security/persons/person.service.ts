@@ -51,7 +51,7 @@ export class PersonService {
     getFB(filter: any) {
       console.log('filtering with ' + filter);
       return this.afs.firestore.collection('persons')
-      // .where('user_id', '==', filter)
+      .where('apikey', '==', filter)
       .get().then(querySnapshot => {
 
         return querySnapshot.docs.map
