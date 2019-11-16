@@ -20,7 +20,7 @@ import * as moment from 'moment';
 export class LoginComponent implements OnInit {
 
   user = null;
-  test = 'gaga';
+  errorMsg = '';
 
   constructor(private authService: AuthService, private router: Router,
     private utils: UtilitiesService, public snackBar: MatSnackBar) { }
@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
         // const token = result.credential.accessToken;
         // The signed-in user info.
         // this.user = result.user;
-        console.log('user ' + JSON.stringify(this.test));
         // console.log('expirationTime: ' + moment(this.user.expirationTime).format());
         this.router.navigate(['/maps']);
 
@@ -71,7 +70,10 @@ export class LoginComponent implements OnInit {
           .then(result => { // Success
             this.router.navigate(['/maps']);
           })
-          .catch((err) => console.log('error: ' + err));
+          .catch((err) => {
+            console.log('error: ' + err);
+            this.errorMsg = err;
+          });
     }
 
     signInWithGoogle() {
