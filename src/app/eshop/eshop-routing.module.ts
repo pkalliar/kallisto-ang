@@ -10,8 +10,9 @@ import { CreateAdComponent } from './advertisement/create-ad/create-ad.component
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
 import { AppointmentSlotsComponent } from './appointment/appointment-slots/appointment-slots.component';
-import { MapComponent } from './maps/map/map.component';
+import { MapComponent } from './maps/heremap/map.component';
 import { GmapComponent } from './maps/gmap/gmap.component';
+import { ContainerComponent } from './maps/container/container.component';
 
 const routes: Routes = [
   { path: 'eshop', component: EshopComponent },
@@ -26,8 +27,9 @@ const routes: Routes = [
   { path: 'eshop/appointments/:id/edit',     component: AppointmentDetailComponent },
   { path: 'eshop/app-slots', component: AppointmentSlotsComponent },
   { path: 'eshop/maps', component: MapComponent },
-  { path: 'maps', component: MapComponent },
-  { path: 'eshop/gmaps', component: GmapComponent }
+  { path: 'maps2', component: MapComponent },
+  { path: 'eshop/gmaps', component: GmapComponent },
+  { path: 'maps', component: ContainerComponent}
 ];
 
 @NgModule({

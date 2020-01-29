@@ -1,0 +1,111 @@
+<div class="example-container">
+    <mat-drawer-container class="example-container" [hasBackdrop]="false">
+        <mat-drawer #drawer [class.example-is-mobile]="mobileQuery.matches">
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i class="fas fa-broadcast-tower fa-2x"></i>
+              </ng-template>
+              <mat-card>
+                <mat-card-title>Σταθμοί Navtex</mat-card-title>
+                <mat-card-subtitle>Προέλευση δεδομένων</mat-card-subtitle>
+                <mat-card-content>
+                    <mat-list dense class="nav-list" [hidden]="!showStations">
+                        <mat-list-item *ngFor="let station of stations" matTooltip="{{station.checked | date:'medium'}}">
+                            <!-- <h4 matLine>{{folder.name}}</h4> -->
+                            <mat-checkbox
+                            [(ngModel)]="station.show"
+                            (change)="stationsChanged()"
+                            >{{station.name}}</mat-checkbox>
+                            <!-- <mat-divider></mat-divider> -->
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+            </mat-tab>
+          
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i class="fas fa-water fa-2x"></i>
+              </ng-template>
+              <pk-navtex-list class="nvtx-list" 
+              [stations]="stations"
+              (navtexSelected)="onNavtexSelection($event)"
+              (focusSelected)="onNavtexFocus($event)" 
+              (detailSelected)="onNavtexDetail($event)"
+              ></pk-navtex-list>
+            </mat-tab>
+          
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i class="fas fa-ship fa-2x" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null);"></i>
+              </ng-template>
+              Ανάλυση δεδομένων Navtex
+              <!-- <pk-navtex-detail  
+              (positioned)="onPositioned($event)"
+              [navtexData]="navtexData"
+              (saved)="onSave($event)"
+              (previewed)="onPreview($event)"
+              (cleared)="onClear($event)"
+              >
+            </pk-navtex-detail> -->
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i class="fas fa-layer-group fa-2x"></i>
+              </ng-template>
+              <mat-card>
+                <!-- <mat-card-title>Επίπεδα δεδομένων</mat-card-title> -->
+                <mat-card-subtitle>Επίπεδα δεδομένων</mat-card-subtitle>
+                <mat-card-content>
+                    <pk-map-layers [mapLayers]="mapLayers"
+                    (layerSelected)="onLayerSelected($event)" ></pk-map-layers>
+                </mat-card-content>
+              </mat-card >
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <i class="fas fa-cog fa-2x"></i>
+              </ng-template>
+              <div>
+                <label id="example-radio-group-label">Επιλέξτε χάρτη:</label>
+                <mat-radio-group (change)="mapChanged()"
+                  aria-labelledby="example-radio-group-label"
+                  class="maps-radio-group"
+                  [(ngModel)]="selectedMap">
+                  <mat-radio-button class="maps-radio-button" *ngFor="let map of maps" [value]="map">
+                    {{map.name}}
+                  </mat-radio-button>
+                </mat-radio-group>
+                <!-- <div>Your selected map is: {{selectedMap}}</div> -->
+            </div>
+            </mat-tab>
+          </mat-tab-group>
+        
+        </mat-drawer>
+        <mat-drawer-content>
+          <button mat-raised-button class="left-btns drawer-btn" 
+          *ngIf="!drawer.opened" (click)="drawer.toggle()" >
+            <i class="fas fa-chevron-right fa-2x"></i>
+          </button>
+          <button mat-raised-button class="left-btns drawer2-btn" *ngIf="drawer.opened" 
+           (click)="drawer.toggle()" [class.button-is-mobile]="mobileQuery.matches">
+                <i class="fas fa-chevron-left fa-2x"></i>
+          </button>
+          <button mat-raised-button class="left-btns camera-btn" 
+          *ngIf="!drawer.opened && !hide2Print" (click)="snapshot()" >
+            <i class="fas fa-camera fa-2x"></i>
+          </button>
+          <!-- <div id="capture" style="padding: 0px; background: #f5da55"> -->
+            <app-pk-map class="map-full-width" *ngIf="maps[0].show"></app-pk-map>
+            <pk-leafmap id="capture" class="map-full-width" *ngIf="maps[1].show"></pk-leafmap>
+            <pk-open-layers-map class="map-full-width" *ngIf="maps[2].show"></pk-open-layers-map>
+          <!-- </div> -->
+
+    
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>
+

@@ -1,47 +1,31 @@
 
-<!-- <mat-selection-list #navtexOptions (selectionChange)="onNavtexSelection($event, navtexOptions.selectedOptions)">
-  <mat-list-option *ngFor="let nv of nvtxs"  [value]='nv'>
-    <h3>{{nv.name}}</h3> {{nv.station}}
-    <button mat-icon-button color="primary">
-      <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-    </button>
-  </mat-list-option>
-</mat-selection-list> -->
 
-<!-- <mat-list role="list">
-  <mat-list-item *ngFor="let nv of nvtxs" role="listitem">
-    <b>{{nv.name}}</b><span></span><span>{{nv.station}}</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button color="primary">
-      <mat-icon aria-label="Example icon-button with a heart icon">visibility</mat-icon>
-    </button> 
-    <button mat-icon-button color="primary">
-        <mat-icon aria-label="Example icon-button with a heart icon">visibility_off</mat-icon>
-      </button> 
-    <button mat-icon-button color="primary">
-      <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-    </button>    
-  </mat-list-item>
-</mat-list> -->
-
-<button mat-button (click)="closePressed.emit('close')">
+<!-- <button mat-button (click)="closePressed.emit('close')">
   <mat-icon aria-label="show navtex">close</mat-icon>
-</button>
+</button> -->
 <mat-form-field class="example-full-width">
   <input matInput placeholder="Εισάγετε NAVTEX" [(ngModel)]="searchText">
 </mat-form-field>
-
+<!-- <button mat-button (click)="showStations=!showStations">
+  <mat-icon aria-label="show stations">settings</mat-icon>
+</button>
+<div [hidden]="!showStations">
+  <mat-checkbox *ngFor="let station of stations"
+  [(ngModel)]="station.show"
+  >{{station.name}}</mat-checkbox>
+</div> -->
 
     <mat-list dense class="nav-list">
       <mat-list-item *ngFor="let nv of nvtxs | filter : searchText; index as i ">
           <mat-icon mat-list-icon>
-              <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[0]"></span>
-              <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[2]"></span>
-              <span class="flag-icon flag-icon-tr" *ngIf="nv.station === mapSrv.stations[3]"></span>
-              <span class="flag-icon flag-icon-cy" *ngIf="nv.station === mapSrv.stations[1]"></span>
+              <span class="flag-icon flag-icon-tr" *ngIf="nv.station_id === mapSrv.stations[0].id"></span>
+              <span class="flag-icon flag-icon-tr" *ngIf="nv.station_id === mapSrv.stations[2].id"></span>
+              <span class="flag-icon flag-icon-tr" *ngIf="nv.station_id === mapSrv.stations[3].id"></span>
+              <span class="flag-icon flag-icon-tr" *ngIf="nv.station_id === mapSrv.stations[4].id"></span> 
+              <span class="flag-icon flag-icon-cy" *ngIf="nv.station_id === mapSrv.stations[1].id"></span>
           </mat-icon>
-         <h4 matLine>{{nv.name}}</h4>
-         <p matLine class="demo-2"> {{nv.published | date:'dd-MM-yyyy':''}} </p>
+         <h4 matLine>{{nv.name}} - {{nv.station_name}}</h4>
+         <p matLine class="demo-2"> {{nv.published | date:'dd-MM-yyyy':''}}</p>
         <span class="example-spacer"></span>
         <button mat-icon-button color="primary" (click)="onFocusClick(nv)" >
           <mat-icon aria-label="show navtex">center_focus_strong</mat-icon>

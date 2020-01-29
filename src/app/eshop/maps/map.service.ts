@@ -6,10 +6,11 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MapLayer } from './map/map.component';
-import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import * as moment from 'moment';
-import { NavtexData, Geoshape } from './navtex-data';
+import { NavtexData, Geoshape, NavtexStation, MapLayer } from './navtex-data';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from '../../services/auth.service';
 
 declare var google: any;
 
@@ -51,15 +52,39 @@ export class MapService {
   '&app_code=' + environment.heremaps.appCode +
   '&locationid=';
 
-  stations: string[] = ['ANTALYA STATION', 'JRCC LARNACA', 'IZMIR STATION', 'SAMSUN STATION'];
+  // stations: string[] = ['ANTALYA STATION', 'JRCC LARNACA', 'IZMIR STATION', 'SAMSUN STATION'];
+  stations: NavtexStation[] = [];
 
   shapes: string[] = ['polygon', 'circle', 'points'];
 
-  constructor(private http: HttpClient, private afs: AngularFirestore) {
+  public user: firebase.User = null;
+
+  constructor(private http: HttpClient, private afs: AngularFirestore, private authService: AuthService) {
     this.platform = new H.service.Platform({
       app_id: environment.heremaps.appId,
       app_code: environment.heremaps.appCode,
       useHTTPS: true
+    });
+
+    // this.platform = new H.service.Platform({ apikey: environment.hereCredentials.apikey });
+
+    authService.user.subscribe(
+      (user) => {
+        if (user) {
+          console.log( 'user.uid ' + user.uid );
+          this.user = user;
+        }
+    });
+
+    // this.firebaseAuth.user.toPromise().then(
+    //   (user) => {
+    //     if (user) {
+    //       this.user = user;
+    //       console.log(user.email);
+    //   }});
+
+    this.getNavtexStations().then(stations => {
+      this.stations = stations;
     });
   }
 
@@ -172,15 +197,19 @@ export class MapService {
     arrayOfLines.forEach((line) => {
       currentLine++;
       console.log(currentLine + '__' + line);
-      if (resp.station === undefined) {
-        if (line.includes('Antalya') && line.includes('TURNHOS')) {
-          resp.station = this.stations[0];
+      if (resp.station_id === undefined) {
+        if (line.includes('Antalya')) {
+          resp.station_id = '69jbegve7sX9gb7qoYGr';
+          resp.station_name = this.getNavtexStationName(resp.station_id);
         } else if (line.includes('JRCC LARNACA')) {
-          resp.station = this.stations[1];
+          resp.station_id = 'aPzcqwfpOHuYn8ebeP68';
+          resp.station_name = this.getNavtexStationName(resp.station_id);
         } else if (line.includes('İzmir NAVTEX Station')) {
-          resp.station = this.stations[2];
+          resp.station_id = 'Ffj2Qqa3XMAQggzn9k09';
+          resp.station_name = this.getNavtexStationName(resp.station_id);
         } else if (line.includes('Samsun') && line.includes('TURNHOS')) {
-          resp.station = this.stations[3];
+          resp.station_id = 'OgNKIAOBJNxKqRawHl3r';
+          resp.station_name = this.getNavtexStationName(resp.station_id);
         }
         if (line.includes('Published Date')) {
           const n = line.indexOf('Published Date');
@@ -196,7 +225,9 @@ export class MapService {
           resp.published = publDate;
 
         }
-      } else if (resp.station === this.stations[0] || resp.station === this.stations[2] || resp.station === this.stations[3]) {
+      } else if (resp.station_id === '69jbegve7sX9gb7qoYGr'
+              || resp.station_id === 'Ffj2Qqa3XMAQggzn9k09'
+              || resp.station_id === 'OgNKIAOBJNxKqRawHl3r') {
           if (line.includes('TURNHOS N/W') && line.includes(':')) {
             resp.name = line.split(':')[1].trim();
           } else if ((line.startsWith('2') || line.startsWith('3'))
@@ -217,7 +248,7 @@ export class MapService {
             points.push(point);
             coordline = currentLine;
           }
-      } else if (resp.station === this.stations[1]) {
+      } else if (resp.station_id === 'aPzcqwfpOHuYn8ebeP68') {
         if (line.includes('NAV WRNG NR')) {
           resp.name = line.split('NR')[1].trim();
         } else if ((line.startsWith('2') || line.startsWith('3'))
@@ -261,6 +292,44 @@ export class MapService {
     return this.http.get<any>(req);
    }
 
+   getNavtexStations(): Promise<NavtexStation[]> {
+    return this.afs.firestore.collection('navtex_stations')
+    .orderBy('name', 'asc')
+    .get()
+    .then(querySnapshot => {
+        return querySnapshot.docs.map((doc) => {
+            // console.log(doc.id + ' ' + doc.get('name'));
+            const nvtx = new NavtexStation(doc.id, doc.get('name'), doc.get('url'), doc.get('checked'),
+                                          doc.get('emails'), doc.get('smsNumbers'));
+            return nvtx;
+        });
+    });
+  }
+
+   getNavtexStationName(id): string {
+
+    let result = '';
+    this.stations.forEach((station) => {
+        if (station.id === id) {
+          // console.log(station.id + ' comparing with ' + id + ' ' + station.name);
+          // result.id = station.id;
+          result = station.name;
+        }
+      });
+    // console.log('returnng ' + result)
+    return result;
+  }
+
+  getNavtexStationId(name): string {
+    let result = '';
+    this.stations.forEach((station) => {
+        if (station.name === name) {
+          result = station.id;
+        }
+    });
+    return result;
+  }
+
    saveNavtex(navtexData: NavtexData): Promise<DocumentReference> {
       // this.afs.collection('navtex').doc(navtexData.name).set(Object.assign({}, navtexData));
       const gshapes = [];
@@ -276,7 +345,8 @@ export class MapService {
 
       const toSave = {
         name: navtexData.name,
-        station: navtexData.station,
+        station_id: navtexData.station_id,
+        station_name: navtexData.station_name,
         created_on: new Date(),
         description: navtexData.description,
         published: navtexData.published,
@@ -294,7 +364,7 @@ export class MapService {
       // }
 
       console.log(toSave);
-      return this.afs.collection('navtex').add(Object.assign({}, toSave));
+      return this.afs.collection('navtex2').add(Object.assign({}, toSave));
       // .then(doc => {
       //   console.log('Document successfully written!');
 
@@ -306,15 +376,83 @@ export class MapService {
       // localStorage.setItem('test1', JSON.stringify(points));
    }
 
-   searchNavtexDB(keyword) {
+   searchNavtexDB(keyword, stations) {
     console.log('in searchNavtex..');
-    return this.afs.firestore.collection('navtex')
+    return this.afs.firestore.collection('navtex2')
+    .where('station_id', 'in', stations)
     .orderBy('published', 'desc')
     .get().then(querySnapshot => querySnapshot.docs);
    }
 
    deleteNavtex(id) {
-    return this.afs.collection('navtex').doc(id).delete();
+    return this.afs.collection('navtex2').doc(id).delete();
+   }
+
+   delay = ms => new Promise(res => setTimeout(res, ms));
+
+   // Promise<string[]>
+   searchStationsForUser(user): Promise<string[]> {
+          return this.afs.firestore.collection('persons')
+          .where('apikey', '==', user.uid)
+          .get()
+          .then(querySnapshot => {
+            return querySnapshot.docs[0].get('maps')['navtex_stations'];
+            // .map((doc) => {
+            //     console.log(doc.id + ' ' + doc.get('name'));
+            //     console.log(doc.get('navtex_stations'));
+            //     return doc.get('navtex_stations');
+            // });
+          });
+   }
+
+   getInitCoordsForUser(user) {
+    return this.afs.firestore.collection('persons')
+    .where('apikey', '==', user.uid).get()
+    .then(querySnapshot => {
+      return querySnapshot.docs[0].get('maps')['initial_coords'];
+    });
+   }
+
+   async getLayersForUser(user): Promise<MapLayer[]> {
+    return this.afs.firestore.collection('persons')
+    .where('apikey', '==', user.uid).get()
+    .then( async (querySnapshot) => {
+      const layerIds: string[] = querySnapshot.docs[0].get('maps')['layers'];
+      const layers: MapLayer[] = [];
+      for (let index = 0; index < layerIds.length; index++) {
+        const doc1 = await this.afs.firestore.collection('layers').doc(layerIds[index]).get();
+        const ml = new MapLayer(doc1.data()['label'], doc1.data()['filename'], null, true, doc1.data()['color']);
+        layers.push(ml);
+      }
+      return layers;
+      // return layerIds.map( id (async) => {
+      //   let doc1 = await this.afs.firestore.collection('layers').doc(id).get();
+
+      //   const layer = this.afs.firestore.collection('layers').doc(id).get()
+      //   .then(doc => {
+      //     const ml = new MapLayer(doc.data()['label'], doc.data()['filename'], null, true, doc.data()['color']);
+      //     return ml;
+      //   });
+      // });
+    });
+   }
+
+   async getVisibleLayersForUser(user): Promise<MapLayer[]> {
+    return this.afs.firestore.collection('persons')
+    .where('apikey', '==', user.uid).get()
+    .then( async (querySnapshot) => {
+      console.log('apikey ==' + user.uid);
+      const layerIds: any[] = querySnapshot.docs[0].get('maps')['map_layers'];
+      const layers: MapLayer[] = [];
+      for (let index = 0; index < layerIds.length; index++) {
+        console.log(layerIds[index]);
+        const doc1 = await this.afs.firestore.collection('layers').doc(layerIds[index]['layer']).get();
+        const ml = new MapLayer(doc1.data()['label'], doc1.data()['filename'], null, 
+                    layerIds[index]['visibility'], doc1.data()['color']);
+        layers.push(ml);
+      }
+      return layers;
+    });
    }
 
    getFromToken(token): NavtexData {
@@ -331,31 +469,14 @@ export class MapService {
     if (token.get('valid_until') !== undefined) {
       nvtx.valid_until = new Date((token.get('valid_until').seconds * 1000));
     }
-    nvtx.station = token.get('station');
+    nvtx.station_id = token.get('station_id');
+    nvtx.station_name = token.get('station_name');
     // nvtx.points = token.get('points');
     nvtx.geoshapes = token.get('geoshapes');
     return nvtx;
   }
 
-  calculateRouteFromAtoB (from, to) {
-    const router = this.platform.getRoutingService(),
-      routeRequestParams = {
-        mode: 'shortest;pedestrian',
-        representation: 'display',
-        waypoint0: from.lat + ',' + from.lng, // St Paul's Cathedral
-        waypoint1: to.lat + ',' + to.lng,  // Tate Modern
-        routeattributes: 'waypoints,summary,shape,legs',
-        maneuverattributes: 'direction,action'
-      };
-    router.calculateRoute(
-      routeRequestParams,
-      result => {
-        const route = result.response.route[0];
-        console.log(route);
-       },
-      error => {}
-    );
-  }
+
 
 
 

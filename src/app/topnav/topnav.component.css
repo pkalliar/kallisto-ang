@@ -1,5 +1,14 @@
 .topnav-toolbar {
-    height: 40px;
+    height: 30px;
+    /* background-color:transparent; */
+    position: relative;
+}
+
+.topnav-transparent {
+    position: absolute;
+    /* position:relative; */
+    z-index:1000;
+    background-color:transparent;
 }
 
 .example-icon {

@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { environment } from '../../../environments/environment';
 
-import { Advertisement } from './advertisement';
+import { Advertisement, AdvCat } from './advertisement';
 import { AuthService } from '../../services/auth.service';
-import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Reference } from '@angular/fire/storage/interfaces';
 // import { Reference } from 'angularfire2/storage/interfaces';
 

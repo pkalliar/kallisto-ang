@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AngularFireStorage } from 'angularfire2/storage';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AuthService } from '../services/auth.service';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
 import { User } from '../security/users/user';

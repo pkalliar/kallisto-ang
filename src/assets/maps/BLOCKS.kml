@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>BLOCKS</name>
+    <Style id="poly-0288D1-1200-76-normal">
+      <LineStyle>
+        <color>ffd18802</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4cd18802</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="poly-0288D1-1200-76-highlight">
+      <LineStyle>
+        <color>ffd18802</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4cd18802</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+    </Style>
+    <StyleMap id="poly-0288D1-1200-76">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-0288D1-1200-76-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-0288D1-1200-76-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-0288D1-1200-76-nodesc-normal">
+      <LineStyle>
+        <color>ffd18802</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4cd18802</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-0288D1-1200-76-nodesc-highlight">
+      <LineStyle>
+        <color>ffd18802</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4cd18802</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-0288D1-1200-76-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-0288D1-1200-76-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-0288D1-1200-76-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Placemark>
+      <name>1</name>
+      <description>Some Descriptive text.</description>
+      <LookAt>
+        <longitude>32.79630383601299</longitude>
+        <latitude>34.30979847669974</latitude>
+        <range>440.8</range>
+        <tilt>8.3</tilt>
+        <heading>2.7</heading>
+      </LookAt>
+      <Point>
+        <coordinates>32.79630383601299, 34.30979847669974,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 1 AREA</name>
+      <styleUrl>#poly-0288D1-1200-76-nodesc</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              32.083333,34.75,0
+              32.083333,34.166667,0
+              33.583333,34.166667,0
+              33.583333,34.583333,0
+              33.166667,34.583333,0
+              33.166667,34.416667,0
+              32.833333,34.416667,0
+              32.833333,34.5,0
+              32.416667,34.5,0
+              32.416667,34.583333,0
+              32.25,34.583333,0
+              32.25,34.75,0
+              32.083333,34.75,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <!-- <Placemark> 
+    <name> New point</name> 
+    <description>This is a new point.</description>
+    <Point>
+      <coordinates>
+      32.8192, 34.2764, 0. 
+      </coordinates>
+    </Point> 
+    </Placemark> -->
+    <Placemark>
+      <name>BLOCK 2 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 189.0 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              33.583333,34.666667,0
+              33.583333,34.166667,0
+              34.333333,34.166667,0
+              34.333333,34.916667,0
+              34.25,34.916667,0
+              34.25,34.833333,0
+              33.833333,34.833333,0
+              33.833333,34.666667,0
+              33.583333,34.666667,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 3 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 154.4 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              34.333333,34.916667,0
+              34.333333,34.166667,0
+              34.488889,34.166667,0
+              34.733333,34.388889,0
+              34.897222,34.658333,0
+              34.933333,34.75,0
+              34.933333,34.916667,0
+              34.333333,34.916667,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 4 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 134.6 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              30.083333,34.166667,0
+              30.083333,33.75,0
+              30.475,33.566667,0
+              30.583333,33.522222,0
+              30.583333,34.166667,0
+              30.083333,34.166667,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 5 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 167.3 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              30.583333,34.166667,0
+              30.583333,33.522222,0
+              30.611111,33.511111,0
+              30.650556,33.5,0
+              31.25,33.5,0
+              31.25,34.166667,0
+              30.583333,34.166667,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 6 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 168.5 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              31.25,34.166667,0
+              31.25,33.5,0
+              31.916667,33.5,0
+              31.916667,34.166667,0
+              31.25,34.166667,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 7 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 168.5 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              31.916667,34.166667,0
+              31.916667,33.5,0
+              32.583333,33.5,0
+              32.583333,34.166667,0
+              31.916667,34.166667,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 8 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 168.5 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              32.583333,34.166667,0
+              32.583333,33.5,0
+              33.25,33.5,0
+              33.25,34.166667,0
+              32.583333,34.166667,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 9 AREA</name>
+      <description><![CDATA[BLOCK 9 AREA<br><br>Distance: 160.1 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              33.25,33.5,0
+              33.718056,33.5,0
+              33.778333,33.549722,0
+              33.868333,33.623333,0
+              33.894444,33.644444,0
+              33.894444,34.166667,0
+              33.25,34.166667,0
+              33.25,33.5,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 10 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 175.1 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              30.650556,33.5,0
+              31.116667,33.355556,0
+              31.25,33.311111,0
+              31.608333,33.191667,0
+              31.916667,33.14,0
+              31.916667,33.5,0
+              30.650556,33.5,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 11 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 138.1 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              31.916667,33.14,0
+              32.516667,33.011111,0
+              32.583333,32.993056,0
+              32.583333,33.5,0
+              31.916667,33.5,0
+              31.916667,33.14,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 12 AREA</name>
+      <description><![CDATA[Statistics computed from imported data<br><br>Distance: 184.3 miles]]></description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              32.583333,32.993056,0
+              32.972222,32.888889,0
+              33.718056,33.5,0
+              32.583333,33.5,0
+              32.583333,32.993056,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>BLOCK 13 AREA</name>
+      <description>BLOCK 13 AREA</description>
+      <styleUrl>#poly-0288D1-1200-76</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              33.894444,33.644444,0
+              34.047222,33.858333,0
+              34.3,33.994444,0
+              34.488889,34.166667,0
+              33.894444,34.166667,0
+              33.894444,33.644444,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

@@ -1,0 +1,6 @@
+<mat-selection-list dense #layerOptions (selectionChange)="onLayerSelection($event, layerOptions.selectedOptions)">
+    <mat-list-option *ngFor="let ml of mapLayers"  [value]='ml' [selected]='ml.show'>
+            <mat-icon matListIcon style="color: brown;">label</mat-icon> {{ml.name}}
+    </mat-list-option>
+</mat-selection-list>
+

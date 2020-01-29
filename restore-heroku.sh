@@ -1,1 +1,0 @@
-/Applications/Postgres.app/Contents/Versions/10/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -p 5442 -U postgres -d pankal ./edcd034a-2344-4ac5-a888-ed71799e6760

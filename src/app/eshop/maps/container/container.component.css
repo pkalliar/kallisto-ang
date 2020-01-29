@@ -1,0 +1,88 @@
+.example-container {
+    width: 100%;
+    height: 100vh;
+    margin: 0px;
+    border: 0px;
+  }
+
+  .map-full-width {
+    width: 100%;
+    height: 100%;
+
+}
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+  min-width: 0!important;
+  padding: 5px!important;
+  margin: 5px!important;
+ }
+
+  .example-spacer {
+    flex: 1 1 auto;
+}
+
+.mat-drawer {
+    width: 320px;
+    padding-top: 20px;
+    /* position: absolute;
+    z-index: 1010; */
+}
+
+.example-is-mobile {
+  width: 70%;
+}
+
+.left-btns {
+    position: absolute;
+    z-index: 1000;
+    
+}
+
+  
+mat-drawer-content {
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.drawer-btn {
+    top: 21px;
+    left: 1px;
+    min-width: 20px;
+    width: 30px;
+    padding: 2px;
+    height: 50px;
+}
+
+.camera-btn {
+  top: 75px;
+  left: 1px;
+  min-width: 20px;
+  width: 40px;
+  padding: 2px;
+  height: 40px;  
+}
+
+.drawer2-btn {
+    top: 21px;
+    left: 320px;
+    min-width: 20px;
+    width: 30px;
+    padding: 2px;
+    height: 50px;
+}
+
+.button-is-mobile {
+  left: 70%;
+}
+
+.maps-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+  
+  .maps-radio-button {
+    margin: 5px;
+  }

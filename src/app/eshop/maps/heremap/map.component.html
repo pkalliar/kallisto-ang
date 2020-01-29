@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="/assets/svg/icomoon/style.css">
+
+<!-- <span class="icon-pencil2 right-btns"></span> -->
+
+
+<form class="search-form" *ngIf="showsearch">
+    <mat-form-field class="example-full-width">
+        <input type="text" matInput placeholder="Εισάγετε σημειο"
+         [formControl]="searchPoint">
+      </mat-form-field>
+</form>
+
+<!-- <mat-drawer-container class="example-container" [hasBackdrop]="false">
+  <mat-drawer #drawer>
+    <div>
+        <span class="example-spacer"></span>
+        <button mat-icon-button (click)="drawer.toggle()" position="end">
+            <i class="far fa-caret-square-left fa-2x"></i>
+        </button> 
+    </div>
+    <div>
+      <pk-control-panel></pk-control-panel>
+    </div>
+  
+  </mat-drawer>
+  <mat-drawer-content> -->
+    <!-- <button mat-icon-button class="left-btns drawer-btn" (click)="drawer.toggle()">
+      <i class="far fa-caret-square-right fa-2x"></i>
+    </button> -->
+
+    <!-- <button mat-icon-button class="left-btns search-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, selectedNavtex);">
+      <span class="fa-stack" style="vertical-align: top;">
+        <i class="far fa-circle fa-stack-2x"></i>
+        <i class="fas fa-ship fa-stack-1x"></i>
+      </span>
+    </button> -->
+    
+    <!-- <button mat-icon-button class="left-btns list-navtex-btn" (click)="showNvtxList = !showNvtxList">
+      <span class="fa-stack" style="vertical-align: top;">
+        <i class="far fa-circle fa-stack-2x"></i>
+        <i class="fas fa-water fa-stack-1x"></i>
+      </span>
+    </button> -->
+    
+    <!-- (click)="openDialog(mapSrv.LAYER_LIST, mapLayers)" -->
+    <!-- <button mat-icon-button class="left-btns layers-btn" (click)="showLayerList = !showLayerList">
+      <span class="fa-stack" style="vertical-align: top;">
+        <i class="far fa-circle fa-stack-2x"></i>
+        <i class="fas fa-layer-group fa-stack-1x"></i>
+      </span>  
+    </button> -->
+    
+    <!-- <button mat-icon-button class="left-btns point-btn" (click)="showsearch = !showsearch">
+        <span class="fa-stack" style="vertical-align: top;">
+          <i class="far fa-circle fa-stack-2x"></i>
+          <i class="fas fa-map-marker-alt fa-stack-1x"></i>
+        </span>  
+      </button> -->
+    
+      <!-- <button mat-icon-button class="left-btns screenshot-btn" (click)="capture('navtex-map.jpg')">
+        <span class="fa-stack" style="vertical-align: top;">
+          <i class="far fa-circle fa-stack-2x"></i>
+          <i class="fas fa-camera fa-stack-1x"></i>
+        </span>  
+      </button> -->
+    
+    <!-- <button mat-icon-button class="right-btns navtex-detail-btn" (click)="openDialog(mapSrv.NAVTEX_DETAIL, null)">
+        <i class="fas fa-lg fa-water"></i>
+      </button> -->
+    
+    
+    
+    <!-- <button mat-icon-button class="right-btns list-navtex-btn" (click)="openDialog(mapSrv.NAVTEX_LIST, nvtxs)">
+      <mat-icon aria-label="navtex search">layers</mat-icon>
+    </button> -->
+    
+    <!-- <button mat-icon-button class="right-btns list-navtex-btn" (click)="showNvtxList = !showNvtxList">
+      <mat-icon aria-label="navtex search">layers</mat-icon>
+    </button> -->
+    
+    <button mat-icon-button class="right-btns logo-btn" *ngIf="true">
+      <img src="assets/gremb_nic.png" alt="" width="2px" onError="" matTooltip="">
+    </button>
+    
+    <pk-navtex-detail *ngIf="showNvtxDetail" class="nvtx-detail" cdkDrag
+      [navtexData]="selectedNavtex"
+      (positioned)="onPositioned($event)" 
+      (closePressed)="showNvtxDetail=!showNvtxDetail"
+    ></pk-navtex-detail>
+    
+    <pk-navtex-list *ngIf="showNvtxList" class="nvtx-list" 
+      (navtexSelected)="onNavtexSelection($event)"
+      (focusSelected)="onNavtexFocus($event)" 
+      (closePressed)="showNvtxList=!showNvtxList"
+      (detailSelected)="onNavtexDetail($event)"
+    ></pk-navtex-list>
+    
+    <pk-map-layers *ngIf="showLayerList" class="nvtx-layers" 
+      [mapLayers]="mapLayers"
+      (layerSelected)="onLayerSelected($event)" 
+    ></pk-map-layers>
+    
+    
+    <div class="map-full-width" id="mapContainer"></div>
+
+  <!-- </mat-drawer-content>
+</mat-drawer-container> -->
+
+

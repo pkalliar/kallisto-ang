@@ -1,8 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { MapLayer } from '../map/map.component';
 import { MapService, DialogData } from '../map.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NavtexData } from '../navtex-data';
+import { NavtexData, MapLayer } from '../navtex-data';
 
 
 @Component({
@@ -30,7 +29,6 @@ import { NavtexData } from '../navtex-data';
           this.mapLayers = data.data;
         } else if (data.type === this.srv.NAVTEX_LIST) {
           this.nvtxs = data.data;
-          // LAYER LIST SELECTED
         }
 
         console.log();

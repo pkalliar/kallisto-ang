@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Advertisement, AdvCat, Geometry } from '../advertisement';
 import { AdsService } from '../advertisements.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

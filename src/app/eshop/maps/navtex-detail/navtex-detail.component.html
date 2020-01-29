@@ -12,9 +12,9 @@
             </mat-radio-group> -->
             <mat-form-field *ngIf="navtexData">
               <mat-label>Επιλέξτε σταθμό</mat-label>
-              <mat-select [(ngModel)]="navtexData.station">
-                <mat-option *ngFor="let station of stations" [value]="station">
-                  {{station}}
+              <mat-select [(ngModel)]="navtexData.station_name">
+                <mat-option *ngFor="let station of stations" [value]="station.name">
+                  {{station.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

@@ -1,18 +1,22 @@
-<mat-toolbar color="basic" class="topnav-toolbar">
-    <a mat-button  routerLink="/maps"><i class="material-icons ">home</i></a>
-    <span>{{title}}</span>
+<mat-toolbar color="basic" class="topnav-toolbar" [class.topnav-transparent]="pathname == '/maps'">
+    <a mat-button  routerLink="/maps" [hidden]="pathname == '/maps'"><i class="material-icons ">home</i></a>
+    <span [hidden]="pathname == '/maps'">{{title}}</span>
     <span class="example-spacer"></span>
     <!-- <mat-icon class="example-icon">favorite</mat-icon>
     <mat-icon class="example-icon">delete</mat-icon> -->
     
-    <span *ngIf="userDetails">{{displayName}}</span>
+    <!-- <span *ngIf="userDetails">{{displayName}}</span> -->
     <div *ngIf="userDetails">
         <!-- <span>{{ user.authDomain }}</span> -->
         <div mat-card-avatar class="example-header-image">
-            <img src="{{ userDetails.photoURL }}" alt="" onError="this.src='assets/baseline_person_outline_white_24dp.png';" 
+            <img src="{{ userDetails.photoURL }}" alt="" 
             width="35" height="35" matTooltip="{{ userDetails.email }}" [matTooltipPosition]="ttposition">
         </div>
       </div>
+    <button mat-icon-button (click)="logout()" *ngIf="userDetails && !userDetails.photoURL" 
+    matTooltip="{{displayName}} - {{ userDetails.email }}" [matTooltipPosition]="ttposition">   
+        <i class="fas fa-user" aria-hidden="true"></i>         
+    </button>
     <mat-progress-spinner *ngIf="user" matTooltip="{{counterStr}}"
         class="example-margin"
         [color]="color"

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Appointment, ApptCat, CreationData } from './appointment';
 import * as moment from 'moment';
 

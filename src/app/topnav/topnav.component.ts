@@ -16,6 +16,7 @@ export class TopnavComponent implements OnInit {
 
   title = '--';
   ttposition = 'below';
+  pathname = '';
   user: User;
   userDetails: firebase.User = null;
   displayName = '';
@@ -46,7 +47,7 @@ export class TopnavComponent implements OnInit {
                 }
             });
 
-            console.log(JSON.stringify(user));
+            // console.log(JSON.stringify(user));
             user.getIdTokenResult().then((res) => {
               console.log(this.authService.isLoggedIn() + ' Write succeeded!' + res.expirationTime);
               console.log(res.issuedAtTime + '..' + res.authTime);
@@ -60,6 +61,8 @@ export class TopnavComponent implements OnInit {
     }
 
   ngOnInit() {
+
+    this.pathname = location.pathname;
 
     this.topnav.changeTitle.subscribe(title => {
       this.title = title;

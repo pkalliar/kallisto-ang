@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MapService } from '../map.service';
-import { NavtexData } from '../navtex-data';
+import { NavtexData, NavtexStation } from '../navtex-data';
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap, switchMap } from 'rxjs/operators';
 import {Observable, of as observableOf} from 'rxjs';
@@ -14,19 +14,41 @@ import {Observable, of as observableOf} from 'rxjs';
 export class NavtexListComponent implements OnInit {
 
   @Input() nvtxs: NavtexData[] = [];
+  @Input() stations: NavtexStation[];
+
+
+
 
   @Output() navtexSelected = new EventEmitter<Object>();
   @Output() closePressed = new EventEmitter<Object>();
   @Output() focusSelected = new EventEmitter<Object>();
   @Output() detailSelected = new EventEmitter<Object>();
 
+  showStations = false;
+
   searchText = '';
 
   constructor(private mapSrv: MapService) { }
 
+  @Input() testFunction(stations) {
+    console.log(stations);
+    this.updateNvtxList(stations);
+  }
+
   ngOnInit() {
-     if (this.nvtxs.length  === 0) {
-      this.mapSrv.searchNavtexDB('')
+
+    // this.stations = this.mapSrv.stations;
+
+    // this.stations.map(station => {
+    //   if (station.name === 'Antalya NAVTEX Station') {
+    //     station.show = true;
+    //   }
+    //   return station;
+    // }
+    // );
+
+    if (this.nvtxs.length  === 0) {
+      this.mapSrv.searchNavtexDB('', ['69jbegve7sX9gb7qoYGr', 'aPzcqwfpOHuYn8ebeP68'])
         .then(response => {
           response.forEach((doc) => {
             const nvtx = this.mapSrv.getFromToken(doc);
@@ -35,6 +57,26 @@ export class NavtexListComponent implements OnInit {
             // console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
           });
       });
+    }
+
+    // console.log(this.stations);
+
+  }
+
+  updateNvtxList(stations: string[]) {
+    if (stations.length > 0) {
+      this.mapSrv.searchNavtexDB('', stations)
+      .then(response => {
+        this.nvtxs = [];
+        response.forEach((doc) => {
+          const nvtx = this.mapSrv.getFromToken(doc);
+          this.nvtxs.push(nvtx);
+          // console.log(doc.get('name'));
+          // console.log(`${doc.id} => ${JSON.stringify(doc.data)} `);
+        });
+      });
+    } else {
+      this.nvtxs = [];
     }
 
   }

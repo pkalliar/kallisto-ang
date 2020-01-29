@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { MapService } from '../map.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs/operators';
-import { NavtexData } from '../navtex-data';
+import { NavtexData, NavtexStation } from '../navtex-data';
 
 
 @Component({
@@ -14,8 +14,8 @@ import { NavtexData } from '../navtex-data';
 })
 export class NavtexDetailComponent implements OnInit {
 
-  selectedStation: string;
-  stations: string[];
+  selectedStation: NavtexStation;
+  stations: NavtexStation[];
   description = '';
   selectedTab = 1;
   @Input() navtexData: NavtexData =  new NavtexData();
@@ -75,6 +75,7 @@ export class NavtexDetailComponent implements OnInit {
 
   save() {
     console.log('saving ');
+    this.navtexData.station_id = this.mapSrv.getNavtexStationId(this.navtexData.station_name);
     console.log(this.navtexData);
     this.mapSrv.saveNavtex(this.navtexData).then(doc => {
         alert('Document successfully written! ' + doc.id);

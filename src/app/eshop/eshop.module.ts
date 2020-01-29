@@ -17,8 +17,8 @@ import { HttpModule } from '@angular/http';
 import {HttpClientModule, HttpUrlEncodingCodec} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -53,6 +53,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {CdkTableModule} from '@angular/cdk/table';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import {FileUploadModule} from 'ng2-file-upload';
 
@@ -87,13 +88,17 @@ import { PhotoListComponent } from './advertisement/photo-list/photo-list.compon
 import {PhotoAlbum} from './advertisement/photo-album.service';
 import {MapLocatorComponent} from './advertisement/map-locator/map-locator.component';
 import { TopnavService } from '../topnav/topnav.service';
-import { MapComponent } from './maps/map/map.component';
+import { MapComponent } from './maps/heremap/map.component';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { GmapComponent } from './maps/gmap/gmap.component';
 import { MapDialogComponent } from './maps/map-dialog/map-dialog.component';
 import { NavtexDetailComponent } from './maps/navtex-detail/navtex-detail.component';
 import { NavtexListComponent } from './maps/navtex-list/navtex-list.component';
 import { FilterPipe} from './maps/navtex-list/filter.pipe';
+import { MapLayersComponent } from './maps/map-layers/map-layers.component';
+import { ContainerComponent } from './maps/container/container.component';
+import { LeafmapComponent } from './maps/leafmap/leafmap.component';
+import { OpenLayersMapComponent } from './maps/open-layers-map/open-layers-map.component';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -113,11 +118,11 @@ export const cloudinary = {
     HttpModule, HttpClientModule,
     MatNativeDateModule, MatDialogModule, MatDividerModule, MatListModule, MatSelectModule,
     ReactiveFormsModule, MatAutocompleteModule, MatExpansionModule,
-    MatButtonModule, MatCheckboxModule, MatSliderModule, MatCardModule,
+    MatButtonModule, MatButtonToggleModule, MatCheckboxModule, MatSliderModule, MatCardModule,
     MatSlideToggleModule, MatToolbarModule, MatTooltipModule, CdkTableModule,
     MatIconModule, MatInputModule, MatProgressSpinnerModule,
     MatRadioModule, MatSortModule, MatStepperModule, MatTableModule, MatTabsModule, MatChipsModule,
-    MatDatepickerModule, MatSidenavModule,
+    MatDatepickerModule, MatSidenavModule, DragDropModule,
     AngularFirestoreModule, AngularFireAuthModule,
     NgbModule,
     FileUploadModule,
@@ -139,7 +144,8 @@ export const cloudinary = {
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent,
     AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent,
-    MapComponent, GmapComponent, MapDialogComponent, NavtexDetailComponent, NavtexListComponent, FilterPipe
+    MapComponent, GmapComponent, MapDialogComponent, NavtexDetailComponent,
+    NavtexListComponent, FilterPipe, MapLayersComponent, ContainerComponent, LeafmapComponent, OpenLayersMapComponent
     // CrisisCenterComponent,
     // CrisisListComponent,
     // CrisisCenterHomeComponent,

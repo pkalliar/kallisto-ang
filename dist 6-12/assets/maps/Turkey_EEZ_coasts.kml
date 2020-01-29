@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>TURKISH CLAIMS EASTERN MEDITERRANEAN</name>
+    <Style id="line-EDBA0F-3000-nodesc-normal">
+      <LineStyle>
+        <color>ff1400DC</color>
+        <width>3</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-EDBA0F-3000-nodesc-highlight">
+      <LineStyle>
+        <color>ff1400DC</color>
+        <width>4.5</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-EDBA0F-3000-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-EDBA0F-3000-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-EDBA0F-3000-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Placemark>
+      <name/>
+      <styleUrl>#line-EDBA0F-3000-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          27.374409,36.680635
+          27.405378,36.662769
+          27.477467,36.647341
+          27.678464,36.657955
+          27.978924,36.553580
+          28.035286,36.554628
+          28.088434,36.582236
+          28.128559,36.595513
+          28.225080,36.688961
+          28.290415,36.720111
+          28.627408,36.698550
+          28.761629,36.626571
+          28.824940,36.567220
+          29.022852,36.537981
+          29.101165,36.387798
+          29.166133,36.340891
+          29.207676,36.323506
+          29.314079,36.246852
+        </coordinates>
+      </LineString>
+    </Placemark>
+  </Document>
+</kml>
