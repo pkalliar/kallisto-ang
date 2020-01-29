@@ -2,6 +2,8 @@
 
 # compiled output
 /dist
+/dist_23-1-2020
+/dist_6_12
 /tmp
 /out-tsc
 
