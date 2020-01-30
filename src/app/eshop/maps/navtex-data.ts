@@ -66,6 +66,7 @@ export class MapLayer {
   layer: any;
   show: boolean;
   color: string;
+  point: firebase.firestore.GeoPoint;
 
   constructor(name, file, layer, show, color) {
       this.name = name;

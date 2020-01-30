@@ -72,7 +72,7 @@
         <styleUrl>#poly-0288D1-1200-76-nodesc-highlight</styleUrl>
       </Pair>
     </StyleMap>
-    <Placemark>
+    <!-- <Placemark>
       <name>1</name>
       <description>Some Descriptive text.</description>
       <LookAt>
@@ -85,7 +85,7 @@
       <Point>
         <coordinates>32.79630383601299, 34.30979847669974,0</coordinates>
       </Point>
-    </Placemark>
+    </Placemark> -->
     <Placemark>
       <name>BLOCK 1 AREA</name>
       <styleUrl>#poly-0288D1-1200-76-nodesc</styleUrl>

@@ -6,7 +6,7 @@ import XYZSource from 'ol/source/XYZ';
 import OSMSource from 'ol/source/OSM';
 import {fromLonLat} from 'ol/proj';
 import Graticule from 'ol/layer/Graticule';
-import {Circle as CircleStyle, Fill, Stroke, Style, Text} from 'ol/style';
+import {Circle as CircleStyle, Fill, Stroke, Style, Text, RegularShape} from 'ol/style';
 import Feature from 'ol/Feature';
 import Polygon from 'ol/geom/Polygon';
 import LinearRing from 'ol/geom/LinearRing';
@@ -39,6 +39,7 @@ export class OpenLayersMapComponent implements OnInit {
   mapLayers: MapLayer[] = [];
 
   layers = [];
+  blockMarkers: any[] = [];
 
   exportOptions = {
     filter: function(element) {
@@ -153,12 +154,23 @@ export class OpenLayersMapComponent implements OnInit {
           format: new KML()
         })
       });
+
+      const feats = new KML().readFeatures({
+        source: new VectorSource({
+          url: 'assets/maps/' + layer.kmlFile,
+          format: new KML()
+        }),
+        options: {}
+      });
+
+      console.log(JSON.stringify(feats));
+
       this.mapLayers.push(layer);
       this.mymap.addLayer(layer.layer);
 
-      // if (layer.kmlFile === 'BLOCKS.kml') {
-      //   this.drawBlockNumbers();
-      // }
+      if (layer.kmlFile === 'BLOCKS.kml') {
+        this.drawBlockNumbers();
+      }
     }
 
   }
@@ -334,6 +346,101 @@ export class OpenLayersMapComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  drawBlockNumbers() {
+    this.drawBlockNum(1, 34.2764, 32.8192);
+    this.drawBlockNum(2, 34.4137, 33.9234);
+    this.drawBlockNum(3, 34.5948, 34.6155);
+    this.drawBlockNum(4, 33.8682, 30.3967);
+    this.drawBlockNum(5, 33.8682, 30.9241);
+    this.drawBlockNum(6, 33.8682, 31.6162);
+    this.drawBlockNum(7, 33.8682, 32.2644);
+    this.drawBlockNum(8, 33.8682, 32.9456);
+    this.drawBlockNum(9, 33.8682, 33.5498);
+    this.drawBlockNum(10, 33.300, 31.7041);
+    this.drawBlockNum(11, 33.300, 32.2754);
+    this.drawBlockNum(12, 33.300, 32.9785);
+    this.drawBlockNum(13, 33.9867, 34.1321);
+
+    var source = new VectorSource({
+      features: this.blockMarkers
+    });
+    
+    var vectorLayer = new VectorLayer({
+      source: source
+    });
+    this.mymap.addLayer(vectorLayer);
+  }
+
+  removeBlockNumbers() {
+    this.blockMarkers.forEach(blockMarker => {
+      blockMarker.remove();
+    });
+
+    this.blockMarkers.length = 0;
+  }
+
+  drawBlockNum(label, lat, lng) {
+
+    var stroke = new Stroke({color: 'black', width: 2});
+    var fill = new Fill({color: 'red'});
+
+    const cross = new Style({
+      image: new RegularShape({
+        fill: fill,
+        stroke: stroke,
+        points: 4,
+        radius: 10,
+        radius2: 0,
+        angle: 0
+      }),
+      // image: new Text({
+      //   font: '12px Calibri,sans-serif',
+      //   overflow: true,
+      //   fill: new Fill({
+      //     color: '#000'
+      //   }),
+      //   stroke: new Stroke({
+      //     color: '#fff',
+      //     width: 3
+      //   }),
+      //   text: label
+      // })
+    });
+
+    var labelStyle = new Style({
+      stroke: new Stroke({
+        color: 'blue',
+        width: 2
+      }),
+      fill: new Fill({
+        color: 'rgba(0, 0, 255, 0.1)'
+      }),
+      text:  new Text({
+        font: '12px Calibri,sans-serif',
+        overflow: true,
+        fill: new Fill({
+          color: '#000'
+        }),
+        stroke: new Stroke({
+          color: '#fff',
+          width: 3
+        })
+      })
+    });
+
+
+    // labelStyle.getText().setText(label);
+
+    const blockMarker =new Feature({
+      'geometry': new Point(olProj.transform([lng, lat], 'EPSG:4326', 'EPSG:3857')),
+      'i': label
+    });
+
+    blockMarker.setStyle(cross);
+
+    this.blockMarkers.push(blockMarker);
   }
 
 }
