@@ -60,13 +60,25 @@ export class NavtexStation {
 
 }
 
+export class GeoLayer {
+  type: string;
+  points: firebase.firestore.GeoPoint[];
+  obj: any[];
+
+  constructor(type: string, points: firebase.firestore.GeoPoint[]) {
+    this.type = type;
+    this.points = points;
+  }
+}
+
 export class MapLayer {
   name: string;
   kmlFile: string;
   layer: any;
   show: boolean;
   color: string;
-  point: firebase.firestore.GeoPoint;
+  // point: firebase.firestore.GeoPoint;
+  geolayers: GeoLayer[];
 
   constructor(name, file, layer, show, color) {
       this.name = name;

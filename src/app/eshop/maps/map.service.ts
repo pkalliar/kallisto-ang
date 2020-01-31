@@ -1,4 +1,4 @@
-import { Injectable, Component, Inject } from '@angular/core';
+import { Injectable, Component, Inject, ɵɵclassMapInterpolate1 } from '@angular/core';
 import {Observable, of as observableOf} from 'rxjs';
 import { User } from '../../security/users/user';
 import { HttpClient } from '@angular/common/http';
@@ -449,6 +449,8 @@ export class MapService {
         const doc1 = await this.afs.firestore.collection('layers').doc(layerIds[index]['layer']).get();
         const ml = new MapLayer(doc1.data()['label'], doc1.data()['filename'], null, 
                     layerIds[index]['visibility'], doc1.data()['color']);
+        // ml.point = doc1.data()['1'];
+        // console.log(ml.point);
         layers.push(ml);
       }
       return layers;
