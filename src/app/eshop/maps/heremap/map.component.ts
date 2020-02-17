@@ -132,6 +132,9 @@ export class MapComponent implements OnInit {
       // this.drawBlockNumbers();
 
       this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
+
+      // this.ui.setUnitSystem(H.ui.UnitSystem.IMPERIAL);
+
       const distanceMeasurementTool = new H.ui.DistanceMeasurement();
       this.ui.addControl('distancemeasurement', distanceMeasurementTool);
       // const mapSettings = this.ui.getControl('mapsettings');

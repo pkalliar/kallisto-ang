@@ -99,6 +99,7 @@ import { MapLayersComponent } from './maps/map-layers/map-layers.component';
 import { ContainerComponent } from './maps/container/container.component';
 import { LeafmapComponent } from './maps/leafmap/leafmap.component';
 import { OpenLayersMapComponent } from './maps/open-layers-map/open-layers-map.component';
+import { MongoService } from './maps/mongo.service';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -154,7 +155,7 @@ export const cloudinary = {
   bootstrap: [AppointmentSlotsComponent],
   providers: [
     { provide: LOCALE_ID, useValue: 'el' },
-    AdsService, SkroutzService, PhotoAlbum, TopnavService
+    AdsService, SkroutzService, PhotoAlbum, TopnavService, MongoService
   ]
 })
 export class EshopModule {

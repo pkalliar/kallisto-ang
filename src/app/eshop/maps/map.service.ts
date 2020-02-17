@@ -450,7 +450,7 @@ export class MapService {
         const ml = new MapLayer(doc1.data()['label'], doc1.data()['filename'], null, 
                     layerIds[index]['visibility'], doc1.data()['color']);
         // ml.point = doc1.data()['1'];
-        // console.log(ml.point);
+        // console.log(ml.point); 
         layers.push(ml);
       }
       return layers;

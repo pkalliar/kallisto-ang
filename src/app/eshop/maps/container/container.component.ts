@@ -35,10 +35,10 @@ export class ContainerComponent implements OnInit {
   navtexData: NavtexData;
 
   maps: any[] = [
-    {name: 'HERE Maps', show: false},
+    {name: 'HERE Maps', show: true},
     {name: 'Leaflet-Mapbox', show: false},
-    {name: 'OpenLayers', show: true}];
-  selectedMap = this.maps[2];
+    {name: 'OpenLayers', show: false}];
+  selectedMap = this.maps[0];
   initial_coords = null;
   mapLayers: MapLayer[] = [];
   hide2Print = false;
