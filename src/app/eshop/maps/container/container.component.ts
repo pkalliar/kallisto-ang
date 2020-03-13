@@ -91,10 +91,10 @@ export class ContainerComponent implements OnInit {
             this.mapSrv.getVisibleLayersForUser(user)
             .then( layers => {
               console.log(layers);
-              console.log(layers.length);
+              // console.log(layers.length);
               this.mapLayers = layers;
               for (let index = 0; index < layers.length; index++) {
-                console.log(layers[index]);
+                // console.log(layers[index]);
                 if(layers[index].show) {
                   if (this.maps[0].show) {
                     this.heremap.drawLayer(layers[index]);

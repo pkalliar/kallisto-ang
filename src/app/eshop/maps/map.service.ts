@@ -356,6 +356,10 @@ export class MapService {
         // geoshapes: navtexData.geoshapes
       };
 
+      if (navtexData.name === undefined) {
+        toSave['name'] = 'UNKNOWN';
+      }
+
       // if (navtexData.valid_from) {
       //   toSave['valid_from'] = navtexData.valid_from;
       // }
