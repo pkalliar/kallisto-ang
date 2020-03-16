@@ -10,7 +10,7 @@ import { CreateAdComponent } from './advertisement/create-ad/create-ad.component
 import { AppointmentsComponent } from './appointment/appointments/appointments.component';
 import { AppointmentDetailComponent } from './appointment/appointment-detail/appointment-detail.component';
 import { AppointmentSlotsComponent } from './appointment/appointment-slots/appointment-slots.component';
-import { MapComponent } from './maps/heremap/map.component';
+import { HeremapComponent } from './maps/heremap/heremap.component';
 import { GmapComponent } from './maps/gmap/gmap.component';
 import { ContainerComponent } from './maps/container/container.component';
 
@@ -26,8 +26,8 @@ const routes: Routes = [
   { path: 'eshop/appointments/:id',     component: AppointmentDetailComponent },
   { path: 'eshop/appointments/:id/edit',     component: AppointmentDetailComponent },
   { path: 'eshop/app-slots', component: AppointmentSlotsComponent },
-  { path: 'eshop/maps', component: MapComponent },
-  { path: 'maps2', component: MapComponent },
+  { path: 'eshop/maps', component: HeremapComponent },
+  { path: 'maps2', component: HeremapComponent },
   { path: 'eshop/gmaps', component: GmapComponent },
   { path: 'maps', component: ContainerComponent}
 ];

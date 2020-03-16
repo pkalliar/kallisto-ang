@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MapService } from '../map.service';
 import { NavtexStation, NavtexData, MapLayer } from '../navtex-data';
 import { NavtexListComponent } from '../navtex-list/navtex-list.component';
-import { MapComponent } from '../heremap/map.component';
+import { HeremapComponent } from '../heremap/heremap.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../../../services/auth.service';
 import { TopnavService } from '../../../topnav/topnav.service';
@@ -28,7 +28,7 @@ export class ContainerComponent implements OnInit {
   showStations = true;
   // private navList: NavtexListComponent;
   @ViewChild(NavtexListComponent, {static: false} ) navList: NavtexListComponent;
-  @ViewChild(MapComponent, {static: false} ) heremap: MapComponent;
+  @ViewChild(HeremapComponent, {static: false} ) heremap: HeremapComponent;
   @ViewChild(LeafmapComponent, {static: false} ) leafletmap: LeafmapComponent;
   @ViewChild(OpenLayersMapComponent, {static: false} ) olmap: OpenLayersMapComponent;
 

@@ -41,7 +41,7 @@
             <div *ngIf="navtexData">
               <div *ngFor="let shape of navtexData.geoshapes;">
                 Σχήμα: {{shape.type}} - {{shape.points.length}} σημεία.
-                <!-- <mat-list dense>
+                <mat-list dense>
                   <mat-list-item *ngFor="let point of shape.points; last as isLast"> 
                     <span>{{point['lat']}}  - {{point['lng']}}</span>
                   </mat-list-item>
@@ -50,7 +50,7 @@
                     <button *ngFor="let point of shape.points" mat-button cdkFocusInitial>
                       <i  class="fas fa-map-marker-alt"></i>
                     </button>
-                </div> -->
+                </div>
                 
               </div>
             </div>

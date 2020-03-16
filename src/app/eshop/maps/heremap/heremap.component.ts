@@ -13,6 +13,8 @@ import { NavtexData, Geoshape, NavtexStation, MapLayer } from '../navtex-data';
 import { TopnavService } from '../../../topnav/topnav.service';
 import { saveAs } from 'file-saver';
 import domtoimage from 'dom-to-image';
+import { HereService } from '../here.service';
+import { environment } from '../../../../environments/environment';
 
 
 declare var H: any;
@@ -22,10 +24,10 @@ declare var H: any;
 
 @Component({
   selector: 'app-pk-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  templateUrl: './heremap.component.html',
+  styleUrls: ['./heremap.component.css']
 })
-export class MapComponent implements OnInit {
+export class HeremapComponent implements OnInit {
 
   // csv = require('fast-csv');
 
@@ -33,7 +35,7 @@ export class MapComponent implements OnInit {
   // filteredOptions: string[];
   isLoading = false;
   suggestion: Object;
-  // platform: any;
+  platform: any;
 
    options = {
     enableHighAccuracy: true,
@@ -70,7 +72,13 @@ export class MapComponent implements OnInit {
 
   geocoder: any;
 
-  constructor( public mapSrv: MapService, private dialog: MatDialog) { }
+  constructor( public mapSrv: MapService, private hereSrv: HereService, private dialog: MatDialog) { 
+    this.platform = new H.service.Platform({
+      app_id: environment.heremaps.appId,
+      app_code: environment.heremaps.appCode,
+      useHTTPS: true
+    });
+  }
 
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -84,7 +92,7 @@ export class MapComponent implements OnInit {
     .pipe(
       debounceTime(300),
       tap(() => this.isLoading = true),
-      switchMap(value => this.mapSrv.search(value)
+      switchMap(value => this.hereSrv.search(value)
       .pipe(
         finalize(() => this.isLoading = false),
         )
@@ -96,7 +104,7 @@ export class MapComponent implements OnInit {
 
     this.searchPoint.valueChanges
     .subscribe(data => {
-      const point = this.mapSrv.parseCoordLine(data);
+      const point = this.mapSrv.parseCoordLine(data, false);
       console.log(point);
       this.map.setCenter(point);
       this.map.setZoom(15);
@@ -107,7 +115,7 @@ export class MapComponent implements OnInit {
     const targetElement = document.getElementById('mapContainer');
 
     // Obtain the default map types from the platform object
-    const defaultLayers = this.mapSrv.platform.createDefaultLayers();
+    const defaultLayers = this.platform.createDefaultLayers();
 
 
     // Instantiate (and display) a map object:
@@ -348,7 +356,7 @@ export class MapComponent implements OnInit {
   }
 
   private centerMap2(locationId: string) {
-    this.mapSrv.getCoordinates(locationId)
+    this.hereSrv.getCoordinates(locationId)
     .subscribe(data => {
       console.log(data.response.view[0].result[0].location.mapView);
 

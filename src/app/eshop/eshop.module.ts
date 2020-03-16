@@ -88,7 +88,7 @@ import { PhotoListComponent } from './advertisement/photo-list/photo-list.compon
 import {PhotoAlbum} from './advertisement/photo-album.service';
 import {MapLocatorComponent} from './advertisement/map-locator/map-locator.component';
 import { TopnavService } from '../topnav/topnav.service';
-import { MapComponent } from './maps/heremap/map.component';
+import { HeremapComponent } from './maps/heremap/heremap.component';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { GmapComponent } from './maps/gmap/gmap.component';
 import { MapDialogComponent } from './maps/map-dialog/map-dialog.component';
@@ -145,7 +145,7 @@ export const cloudinary = {
     ItemsComponent,
     AdsComponent, AdDetailComponent, CreateAdComponent,
     AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent,
-    MapComponent, GmapComponent, MapDialogComponent, NavtexDetailComponent,
+    HeremapComponent, GmapComponent, MapDialogComponent, NavtexDetailComponent,
     NavtexListComponent, FilterPipe, MapLayersComponent, ContainerComponent, LeafmapComponent, OpenLayersMapComponent
     // CrisisCenterComponent,
     // CrisisListComponent,

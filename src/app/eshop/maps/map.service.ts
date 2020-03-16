@@ -33,24 +33,7 @@ export class MapService {
   LAYER_LIST = 3;
 
   geocoder: any;
-  platform: any;
 
-  baseUrl = 'https://geocoder.api.here.com/6.2/geocode.json?' +
-  'app_id=' + environment.heremaps.appId +
-  '&app_code=' + environment.heremaps.appCode +
-  '&searchtext=425+W+Randolph+Chicago';
-
-  autocompleteUrl = 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json?' +
-  'app_id=' + environment.heremaps.appId +
-  '&app_code=' + environment.heremaps.appCode +
-  '&query=';
-
-  locationIdUrl = 'https://geocoder.api.here.com/6.2/geocode.json' +
-  '?jsonattributes=1' +
-  '&gen=9' +
-  '&app_id=' + environment.heremaps.appId +
-  '&app_code=' + environment.heremaps.appCode +
-  '&locationid=';
 
   // stations: string[] = ['ANTALYA STATION', 'JRCC LARNACA', 'IZMIR STATION', 'SAMSUN STATION'];
   stations: NavtexStation[] = [];
@@ -60,11 +43,7 @@ export class MapService {
   public user: firebase.User = null;
 
   constructor(private http: HttpClient, private afs: AngularFirestore, private authService: AuthService) {
-    this.platform = new H.service.Platform({
-      app_id: environment.heremaps.appId,
-      app_code: environment.heremaps.appCode,
-      useHTTPS: true
-    });
+
 
     // this.platform = new H.service.Platform({ apikey: environment.hereCredentials.apikey });
 
@@ -88,10 +67,7 @@ export class MapService {
     });
   }
 
-  search(keyword: string): Observable<any[]> {
-    const req = this.autocompleteUrl + keyword + '&beginHighlight=<b>&endHighlight=</b>';
-    return this.http.get<any>(req);
-   }
+
 
    getArea(navtexData: NavtexData) {
      let totalArea = 0;
@@ -118,7 +94,7 @@ export class MapService {
       splitted.forEach((doc) => {
         console.log(doc);
         if (doc.trim().length > 0) {
-          const point = this.parseCoordLine(doc);
+          const point = this.parseCoordLine(doc, false);
           // const point1 = new H.geo.Point(point['lat'], point['lng']);
           points.push(point);
         }
@@ -139,10 +115,17 @@ export class MapService {
     return points;
    }
 
-   parseCoordLine(line: string) {
+   parseCoordLine(line: string, useCyParse: boolean) {
     const coord = line.replace('E', '').replace('(SHORE)', '').replace('/°/g', '').replace(/'/g, '').trim().split('N');
-    const lat = coord[0].replace('-', '').trim(), long = coord[1].replace('-', '').trim();
+    let lat = '', long = '';
     const point = {};
+    if (useCyParse) {
+      lat = coord[0].replace('-', ' ').trim();
+      long = coord[1].replace('-', ' ').trim();
+    } else {
+      lat = coord[0].replace('-', '').trim();
+      long = coord[1].replace('-', '').trim();
+    }
     console.log(lat + '____' + long);
     const latArr = lat.trim().split(' ');
     console.log(latArr);
@@ -233,7 +216,7 @@ export class MapService {
           } else if ((line.startsWith('2') || line.startsWith('3'))
           && line.includes(' N')
           && line.includes(' E')) {
-            const point = this.parseCoordLine(line);
+            const point = this.parseCoordLine(line, false);
 
             // const point1 = new H.geo.Point(point['lat'], point['lng']);
             // resp.points.push(point);
@@ -251,10 +234,12 @@ export class MapService {
       } else if (resp.station_id === 'aPzcqwfpOHuYn8ebeP68') {
         if (line.includes('NAV WRNG NR')) {
           resp.name = line.split('NR')[1].trim();
+        } else if (line.includes('UNTIL') || line.includes('BETWEEN')) {
+
         } else if ((line.startsWith('2') || line.startsWith('3'))
-        && (line.includes(' N') || line.includes(' \'N') || line.includes('N') )
+        && (line.includes(' N') || line.includes(' \'N') || line.includes('N ') )
         && (line.includes(' E') || line.includes(' \'E') || line.includes('E'))) {
-          const point = this.parseCoordLine(line);
+          const point = this.parseCoordLine(line, true);
           // const point1 = new H.geo.Point(point['lat'], point['lng']);
           // resp.points.push(point);
 
@@ -287,10 +272,7 @@ export class MapService {
     return observableOf(resp);
    }
 
-   getCoordinates(locationId) {
-    const req = this.locationIdUrl + locationId;
-    return this.http.get<any>(req);
-   }
+
 
    getNavtexStations(): Promise<NavtexStation[]> {
     return this.afs.firestore.collection('navtex_stations')
@@ -451,10 +433,10 @@ export class MapService {
       for (let index = 0; index < layerIds.length; index++) {
         console.log(layerIds[index]);
         const doc1 = await this.afs.firestore.collection('layers').doc(layerIds[index]['layer']).get();
-        const ml = new MapLayer(doc1.data()['label'], doc1.data()['filename'], null, 
+        const ml = new MapLayer(doc1.data()['label'], doc1.data()['filename'], null,
                     layerIds[index]['visibility'], doc1.data()['color']);
         // ml.point = doc1.data()['1'];
-        // console.log(ml.point); 
+        // console.log(ml.point);
         layers.push(ml);
       }
       return layers;
