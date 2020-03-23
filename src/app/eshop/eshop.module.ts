@@ -100,6 +100,8 @@ import { ContainerComponent } from './maps/container/container.component';
 import { LeafmapComponent } from './maps/leafmap/leafmap.component';
 import { OpenLayersMapComponent } from './maps/open-layers-map/open-layers-map.component';
 import { MongoService } from './maps/mongo.service';
+import { CalendarComponent } from './appointment/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 export const cloudinary = {
   Cloudinary: CloudinaryCore
@@ -128,7 +130,7 @@ export const cloudinary = {
     NgbModule,
     FileUploadModule,
     CommonModule,
-    FormsModule,
+    FormsModule, FullCalendarModule,
     EshopRoutingModule,
     // CloudinaryModule.forRoot(cloudinary, cloudinaryConfiguration),
     CloudinaryModule.forRoot(cloudinary, {
@@ -143,7 +145,7 @@ export const cloudinary = {
     EshopComponent,
     SkroutzComponent, PhotoUploadComponent, PhotoListComponent, MapLocatorComponent,
     ItemsComponent,
-    AdsComponent, AdDetailComponent, CreateAdComponent,
+    AdsComponent, AdDetailComponent, CreateAdComponent, CalendarComponent,
     AppointmentsComponent, AppointmentDetailComponent, AppointmentSlotsComponent, AppointmentSlotDialogComponent,
     HeremapComponent, GmapComponent, MapDialogComponent, NavtexDetailComponent,
     NavtexListComponent, FilterPipe, MapLayersComponent, ContainerComponent, LeafmapComponent, OpenLayersMapComponent

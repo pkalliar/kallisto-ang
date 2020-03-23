@@ -13,6 +13,7 @@ import { AppointmentSlotsComponent } from './appointment/appointment-slots/appoi
 import { HeremapComponent } from './maps/heremap/heremap.component';
 import { GmapComponent } from './maps/gmap/gmap.component';
 import { ContainerComponent } from './maps/container/container.component';
+import { CalendarComponent } from './appointment/calendar/calendar.component';
 
 const routes: Routes = [
   { path: 'eshop', component: EshopComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'eshop/appointments', component: AppointmentsComponent },
   { path: 'eshop/appointments/:id',     component: AppointmentDetailComponent },
   { path: 'eshop/appointments/:id/edit',     component: AppointmentDetailComponent },
+  { path: 'eshop/calendar', component: CalendarComponent },
   { path: 'eshop/app-slots', component: AppointmentSlotsComponent },
   { path: 'eshop/maps', component: HeremapComponent },
   { path: 'maps2', component: HeremapComponent },

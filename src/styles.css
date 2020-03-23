@@ -11,4 +11,8 @@
 
 @import "~@fortawesome/fontawesome-free/css/fontawesome.css"; 
 @import "~@fortawesome/fontawesome-free/css/all.css"; 
-@import "~flag-icon-css/css/flag-icon.css"
+@import "~flag-icon-css/css/flag-icon.css";
+
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
