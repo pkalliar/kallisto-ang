@@ -27,10 +27,10 @@ export class ContainerComponent implements OnInit {
   stations: NavtexStation[];
   showStations = true;
   // private navList: NavtexListComponent;
-  @ViewChild(NavtexListComponent, {static: false} ) navList: NavtexListComponent;
-  @ViewChild(HeremapComponent, {static: false} ) heremap: HeremapComponent;
-  @ViewChild(LeafmapComponent, {static: false} ) leafletmap: LeafmapComponent;
-  @ViewChild(OpenLayersMapComponent, {static: false} ) olmap: OpenLayersMapComponent;
+  @ViewChild(NavtexListComponent) navList: NavtexListComponent;
+  @ViewChild(HeremapComponent) heremap: HeremapComponent;
+  @ViewChild(LeafmapComponent) leafletmap: LeafmapComponent;
+  @ViewChild(OpenLayersMapComponent) olmap: OpenLayersMapComponent;
 
   navtexData: NavtexData;
 
