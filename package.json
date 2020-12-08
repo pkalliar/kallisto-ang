@@ -39,7 +39,7 @@
     "cloudinary-core": "^2.8.0",
     "core-js": "^3.6.4",
     "dom-to-image": "^2.6.0",
-    "fast-csv": "^3.7.0",
+    "fast-csv": "^4.3.6",
     "file-saver": "^2.0.2",
     "firebase": "^7.7.0",
     "flag-icon-css": "^3.4.5",
