@@ -51,7 +51,7 @@
     "leaflet": "1.6.0",
     "leaflet-easyprint": "^2.1.9",
     "lodash": "^4.17.15",
-    "luxon": "^1.21.3",
+    "luxon": "^2.5.2",
     "material-design-icons": "latest",
     "moment": "^2.24.0",
     "ng2-file-upload": "^1.4.0",
